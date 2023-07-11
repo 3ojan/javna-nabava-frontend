@@ -1,0 +1,78 @@
+{
+  "name": "javna-nabava-frontend",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "./src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/javna-nabava-frontend"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "javna-nabava-frontend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "javna-nabava-frontend:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "javna-nabava-frontend:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "javna-nabava-frontend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "javna-nabava-frontend:build:development"
+        },
+        "production": {
+          "buildTarget": "javna-nabava-frontend:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["coverage/javna-nabava-frontend"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "coverage/javna-nabava-frontend"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["./src/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "javna-nabava-frontend:build"
+      }
+    }
+  },
+  "tags": []
+}
