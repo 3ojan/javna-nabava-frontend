@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import { ColumnsType, TableProps } from 'antd/es/table';
-import ExportButtons from './ExportButtons';
+import ExportButtons from './Buttons/ExportButtons';
 
 /** Mora biti isto kao i json atributi */
 interface DataType {

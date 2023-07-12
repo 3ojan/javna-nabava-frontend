@@ -1,12 +1,13 @@
 import { Button } from "antd";
 import React from "react";
+import { GreenButton } from "./styled";
 
 export default function ExportButtons() {
   return (
     <div>
-      <Button>Preuzmi XML</Button>
+      <GreenButton disabled={false}>Preuzmi XML</GreenButton>
       <Button>Preuzmi CSV</Button>
-      <Button>Preuzmi JSON</Button>
+      <Button danger type="primary" >Preuzmi JSON</Button>
     </div>
   );
 }
