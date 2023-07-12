@@ -12,19 +12,19 @@ import {
   Routes,
   // Link
 } from 'react-router-dom';
-import TransparencyHome from './components/pages/TransparencyHome';
+import TransparencyHome from './pages/TransparencyHome';
 
 export function App() {
   return (
     <div style={{ display: 'flex', height: '100%' }}>
       <Provider store={store}>
         {/* <PersistGate loading={null}> */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<TransparencyHome title="" />} />
-          <Route path="/home" element={<NxWelcome title="" />} />
-        </Routes>
-      </Router>
+        <Router>
+          <Routes>
+            <Route path="/" element={<TransparencyHome title="" />} />
+            <Route path="/home" element={<NxWelcome title="" />} />
+          </Routes>
+        </Router>
         {/* </PersistGate> */}
 
       </Provider>
