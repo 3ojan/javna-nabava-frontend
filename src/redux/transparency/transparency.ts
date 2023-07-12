@@ -20,7 +20,7 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: searchResultsData,
+    data: [],
     loading: false,
     value: "",
   } as TransparencyState,
@@ -39,16 +39,28 @@ export default slice.reducer;
 // Actions
 const { loadSuccess, onChangeSearchBarValue } = slice.actions;
 
-export const getData = ({ pagination }: { pagination: any }) => async (
+export const getData = () => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
-  try {
-    const res = await axios.post(`....someUrlTo/Load`, { pagination });
-    dispatch(loadSuccess(res.data));
-  } catch (e: any) {
-    // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
-  }
+  dispatch(loadSuccess(searchResultsData));
+  // try {
+  //   const res = await axios.post(`....someUrlTo/Load`, { pagination });
+  //   dispatch(loadSuccess(res.data));
+  // } catch (e: any) {
+  //   // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
+  // }
 };
+
+// export const getData = ({ pagination }: { pagination: any }) => async (
+//   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
+// ) => {
+// try {
+//   const res = await axios.post(`....someUrlTo/Load`, { pagination });
+//   dispatch(loadSuccess(res.data));
+// } catch (e: any) {
+//   // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
+// }
+// };
 
 export const changeSearchBarValue = (value: string) => (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>

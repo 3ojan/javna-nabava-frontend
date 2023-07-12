@@ -2,17 +2,22 @@ import { Col, Row } from 'antd';
 import TransparentnostSearch from '../components/TransparentnostSearch';
 import ResultTable from '../components/ResultTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { TransparencyState, changeSearchBarValue } from 'src/redux/transparency/transparency';
+import { TransparencyState, changeSearchBarValue, getData } from 'src/redux/transparency/transparency';
+import { useEffect } from 'react';
 
 function TransparencyHome() {
   const transparencyState = useSelector((state: TransparencyState) => {
     return state.transparency;
   });
 
+
   const dispatch = useDispatch();
 
   const onChange = (e) => {
     dispatch(changeSearchBarValue(e.target.value));
+  }
+  const onSearch = (e) => {
+    dispatch(getData());
   }
 
   const { data, buttonEnabled, value } = transparencyState;
@@ -20,7 +25,7 @@ function TransparencyHome() {
     <>
       <Col>
         <Row>
-          <TransparentnostSearch buttonEnabled={value !== ""} searchValue={value} onChangeInput={onChange} />
+          <TransparentnostSearch buttonEnabled={value !== ""} searchValue={value} onChangeInput={onChange} onSearchClick={onSearch} />
         </Row>
         <Row>
           <ResultTable data={data} />

@@ -4,7 +4,7 @@ import { GreenButton } from "./Buttons/styled";
 
 export default function TransparentnostSearch(props: any) {
   const { Search } = Input
-  const { buttonEnabled, onChangeInput, searchValue } = props;
+  const { onChangeInput, searchValueonSearchClick, searchValue, onSearchClick } = props;
 
   return (
     <Layout>
@@ -12,10 +12,11 @@ export default function TransparentnostSearch(props: any) {
         <h1 id="Title">Transparentnost</h1>
         <Search
           placeholder="Upišite ključnu riječ..."
-          enterButton={<GreenButton disabled={searchValue === ""} >Pretraži</GreenButton>}
+          enterButton={<GreenButton disabled={searchValue === ""} onClick={onSearchClick}>Pretraži</GreenButton>}
           size="large"
           onChange={onChangeInput}
           value={searchValue}
+
         />
         <Button type="text">Detaljnija pretraga</Button>
       </Content>

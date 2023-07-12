@@ -29,14 +29,17 @@ const columns: ColumnsType<DataType> = [
   {
     title: 'Oznaka',
     dataIndex: 'id',
+    key: 'id',
   },
   {
     title: 'OIB',
     dataIndex: 'oib',
+    key: 'oib',
   },
   {
     title: 'Ime / Naziv',
     dataIndex: 'name',
+    key: 'name',
     // filters: [
     //   {
     //     text: "Joe",
@@ -68,10 +71,12 @@ const columns: ColumnsType<DataType> = [
     sortDirections: ['descend'],
   },
   {
+    key: 'city',
     title: 'Grad / Opcina',
     dataIndex: 'city',
   },
   {
+    key: 'postcode',
     title: 'Postanski broj',
     dataIndex: 'postcode',
     defaultSortOrder: 'descend',
@@ -83,14 +88,17 @@ const columns: ColumnsType<DataType> = [
     },
   },
   {
+    key: 'date',
     title: 'Datum isplate',
     dataIndex: 'date',
   },
   {
+    key: 'amount',
     title: 'Iznos isplate',
     dataIndex: 'amount',
   },
   {
+    key: 'description',
     title: 'Opis isplate',
     dataIndex: 'description',
   },
