@@ -1,22 +1,24 @@
-import { Col, Row } from "antd";
-import TransparentnostSearch from "../TransparentnostSearch";
-import ResultTable from "../ResultTable";
-import { useSelector } from "react-redux";
-import { TransparencyState } from "src/redux/transparency/transparency";
+import { Col, Row } from 'antd';
+import TransparentnostSearch from '../TransparentnostSearch';
+import ResultTable from '../ResultTable';
+import { useSelector } from 'react-redux';
+import { TransparencyState } from 'src/redux/transparency/transparency';
 
 function TransparencyHome() {
-    const trans = useSelector((state: TransparencyState) => {
-    return state.transparency
+  const trans = useSelector((state: TransparencyState) => {
+    console.log(state.transparency);
+
+    return state.transparency;
   });
   const { data } = trans;
   return (
     <>
       <Col>
         <Row>
-          <TransparentnostSearch/>
+          <TransparentnostSearch />
         </Row>
         <Row>
-          <ResultTable  data ={data}/>
+          <ResultTable data={data} />
         </Row>
       </Col>
     </>

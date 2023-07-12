@@ -1,6 +1,7 @@
-import React from "react";
-import { Table } from "antd";
-import { ColumnsType, TableProps } from "antd/es/table";
+import React from 'react';
+import { Table } from 'antd';
+import { ColumnsType, TableProps } from 'antd/es/table';
+import ExportButtons from './ExportButtons';
 
 /** Mora biti isto kao i json atributi */
 interface DataType {
@@ -26,16 +27,16 @@ interface DataType {
 
 const columns: ColumnsType<DataType> = [
   {
-    title: "Oznaka",
-    dataIndex: "id",
+    title: 'Oznaka',
+    dataIndex: 'id',
   },
   {
-    title: "OIB",
-    dataIndex: "oib",
+    title: 'OIB',
+    dataIndex: 'oib',
   },
   {
-    title: "Ime / Naziv",
-    dataIndex: "name",
+    title: 'Ime / Naziv',
+    dataIndex: 'name',
     // filters: [
     //   {
     //     text: "Joe",
@@ -64,16 +65,16 @@ const columns: ColumnsType<DataType> = [
     // here is that finding the name started with `value`
     // onFilter: (value: string, record) => record.name.indexOf(value) === 0,
     sorter: (a, b) => a.name.length - b.name.length,
-    sortDirections: ["descend"],
+    sortDirections: ['descend'],
   },
   {
-    title: "Grad / Opcina",
-    dataIndex: "city",
+    title: 'Grad / Opcina',
+    dataIndex: 'city',
   },
   {
-    title: "Postanski broj",
-    dataIndex: "postcode",
-    defaultSortOrder: "descend",
+    title: 'Postanski broj',
+    dataIndex: 'postcode',
+    defaultSortOrder: 'descend',
     sorter: (a, b) => {
       const firstPostcode = parseInt(a.postcode);
       const secondPostcode = parseInt(b.postcode);
@@ -82,16 +83,16 @@ const columns: ColumnsType<DataType> = [
     },
   },
   {
-    title: "Datum isplate",
-    dataIndex: "date",
+    title: 'Datum isplate',
+    dataIndex: 'date',
   },
   {
-    title: "Iznos isplate",
-    dataIndex: "amount",
+    title: 'Iznos isplate',
+    dataIndex: 'amount',
   },
   {
-    title: "Opis isplate",
-    dataIndex: "description",
+    title: 'Opis isplate',
+    dataIndex: 'description',
   },
   //   {
   //     title: "Address",
@@ -110,19 +111,20 @@ const columns: ColumnsType<DataType> = [
   //   },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<DataType>['onChange'] = (
   pagination,
   filters,
   sorter,
   extra
 ) => {
-  console.log("params", pagination, filters, sorter, extra);
+  console.log('params', pagination, filters, sorter, extra);
 };
 
-export default function ResultTable(props:any) {
+export default function ResultTable(props: any) {
   return (
     <div>
-      <Table columns={columns} dataSource={props.data} onChange={onChange}  />
+      <ExportButtons />
+      <Table columns={columns} dataSource={props.data} onChange={onChange} />
     </div>
   );
 }
