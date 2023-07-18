@@ -3,7 +3,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import axios from 'axios';
 import { base_url } from '../constants';
-import searchResultsData from "../../mockData/searchResult.json";
+import searchResultsMockData from "../../mockData/searchResult.json";
 
 export interface TransparencyState {
   data: any | null;
@@ -20,14 +20,21 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: [],
+    data: searchResultsMockData,
     loading: false,
     value: "",
   } as TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
-      state.data = action.payload;
-      state.error = null; // Reset error on login success
+      return {
+        ...state,
+        data: action.payload,
+        error: null,
+      };
+    
+    // state.data = action.payload;
+    //   state.error = null; 
+      // Reset error on login success
     },
     onChangeSearchBarValue: (state, action: PayloadAction<Transparency>) => {
       state.value = action.payload;
@@ -42,7 +49,8 @@ const { loadSuccess, onChangeSearchBarValue } = slice.actions;
 export const getData = () => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
-  dispatch(loadSuccess(searchResultsData));
+    
+  // dispatch(loadSuccess(searchResultsMockData));
   // try {
   //   const res = await axios.post(`....someUrlTo/Load`, { pagination });
   //   dispatch(loadSuccess(res.data));

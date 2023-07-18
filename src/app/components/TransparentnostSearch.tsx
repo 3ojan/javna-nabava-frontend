@@ -1,25 +1,36 @@
-import { Button, Input, Layout } from "antd";
-import { Content } from "antd/es/layout/layout";
-import { GreenButton } from "./Buttons/styled";
+import { Button, Input, Layout } from 'antd';
+import { Content } from 'antd/es/layout/layout';
+import { ColoredButton } from './buttons/styled';
+import { MainTitleH1 } from './styledComponents/MainTitleH1';
+import { TransparencyContent } from './styledComponents/TransparencyContent';
+import { FullWidthDiv } from './styledComponents/FullWidthDiv';
 
 export default function TransparentnostSearch(props: any) {
-  const { Search } = Input
-  const { onChangeInput, searchValueonSearchClick, searchValue, onSearchClick } = props;
+  const { Search } = Input;
+  const {
+    onChangeInput,
+    searchValueonSearchClick,
+    searchValue,
+    onSearchClick,
+  } = props;
 
   return (
-    <Layout>
-      <Content id="MainContent">
-        <h1 id="Title">Transparentnost</h1>
-        <Search
-          placeholder="Upišite ključnu riječ..."
-          enterButton={<GreenButton disabled={searchValue === ""} onClick={onSearchClick}>Pretraži</GreenButton>}
-          size="large"
-          onChange={onChangeInput}
-          value={searchValue}
-
-        />
+    <TransparencyContent>
+      <MainTitleH1 $center>Transparentnost</MainTitleH1>
+      <Search
+        placeholder="Upišite ključnu riječ..."
+        enterButton={
+          <ColoredButton disabled={searchValue === ''} onClick={onSearchClick}>
+            Pretraži
+          </ColoredButton>
+        }
+        size="large"
+        onChange={onChangeInput}
+        value={searchValue}
+      />
+      <FullWidthDiv>
         <Button type="text">Detaljnija pretraga</Button>
-      </Content>
-    </Layout>
+      </FullWidthDiv>
+    </TransparencyContent>
   );
 }

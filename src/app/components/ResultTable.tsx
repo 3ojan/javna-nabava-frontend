@@ -1,7 +1,12 @@
 import React from 'react';
 import { Table } from 'antd';
 import { ColumnsType, TableProps } from 'antd/es/table';
-import ExportButtons from './Buttons/ExportButtons';
+import ExportButtons from './buttons/ExportButtons';
+import { FullWidthDiv } from './styledComponents/FullWidthDiv';
+
+interface TableData {
+  data: [];
+}
 
 /** Mora biti isto kao i json atributi */
 interface DataType {
@@ -128,11 +133,10 @@ const onChange: TableProps<DataType>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra);
 };
 
-export default function ResultTable(props: any) {
+export default function ResultTable(props: TableData) {
   return (
-    <div>
-      <ExportButtons />
+    <>
       <Table columns={columns} dataSource={props.data} onChange={onChange} />
-    </div>
+    </>
   );
 }

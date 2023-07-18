@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import transparencyReducer from '../redux/transparency/transparency';
+import transparencyReducer from './transparency/transparency';
 // Import other reducers as needed
 
 const store = configureStore({
