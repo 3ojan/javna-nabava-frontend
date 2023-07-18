@@ -3,6 +3,10 @@ import { Content } from "antd/es/layout/layout";
 import { styled } from "styled-components";
 
 export const TransparencyContent = styled(Content)`
-    padding: 0 20%;
+    padding: 10px 20%;
     text-align: center;
+
+    .detailedSearchButton{
+    margin-top: 50px;
+    }
 `

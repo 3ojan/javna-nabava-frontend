@@ -28,9 +28,9 @@ export default function TransparentnostSearch(props: any) {
         onChange={onChangeInput}
         value={searchValue}
       />
-      <FullWidthDiv>
-        <Button type="text">Detaljnija pretraga</Button>
-      </FullWidthDiv>
+      <Button className="detailedSearchButton" type="text">
+        Detaljnija pretraga
+      </Button>
     </TransparencyContent>
   );
 }

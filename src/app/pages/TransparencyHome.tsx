@@ -41,7 +41,12 @@ function TransparencyHome() {
             />
           </Row>
           <Row>
-            <ExportButtons />
+            <Col span={18}></Col>
+            <Col span={6}>
+              <FullWidthDiv $center>
+                <ExportButtons />
+              </FullWidthDiv>
+            </Col>
           </Row>
           <Row>
             <ResultTable data={data} />

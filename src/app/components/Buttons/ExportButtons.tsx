@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 import React from 'react';
 import { ColoredButton } from './styled';
 
@@ -11,7 +11,7 @@ export type exportButtonProps = {
 export default function ExportButtons(exportButtonProps: exportButtonProps) {
   const { xmlVisible, csvVisible, jsonVisible } = exportButtonProps;
   return (
-    <div>
+    <Space wrap>
       {xmlVisible && (
         <ColoredButton disabled={false} $color="green">
           Preuzmi XML
@@ -23,7 +23,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
           Preuzmi JSON
         </Button>
       )}
-    </div>
+    </Space>
   );
 }
 
