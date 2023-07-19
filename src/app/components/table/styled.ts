@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
 
 export const ResultsTableDiv = styled.div`
-    padding: 10px 20%;
+    margin-top:50px;
 `

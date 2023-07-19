@@ -31,7 +31,6 @@ function TransparencyHome() {
   return (
     <>
       <FullWidthDiv $padding>
-        {/* <HorizontalMarginDiv> */}
         <Col>
           <Row>
             <TransparentnostSearch
@@ -50,7 +49,6 @@ function TransparencyHome() {
             <ResultTable data={data} />
           </Row>
         </Col>
-        {/* </HorizontalMarginDiv> */}
       </FullWidthDiv>
     </>
   );
