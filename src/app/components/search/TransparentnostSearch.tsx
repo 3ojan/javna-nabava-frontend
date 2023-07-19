@@ -1,9 +1,9 @@
 import { Button, Input, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import { ColoredButton } from './buttons/styled';
-import { MainTitleH1 } from './styledComponents/MainTitleH1';
-import { TransparencyContent } from './styledComponents/TransparencyContent';
-import { FullWidthDiv } from './styledComponents/FullWidthDiv';
+import { ColoredButton } from '../buttons/styled';
+import { MainTitleH1 } from '../general/styled.ts';
+import { TransparencyContent } from '../search/styled.ts';
+import { FullWidthDiv } from '../general/styled';
 
 export default function TransparentnostSearch(props: any) {
   const { Search } = Input;

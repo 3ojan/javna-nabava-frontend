@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table } from 'antd';
 import { ColumnsType, TableProps } from 'antd/es/table';
-import ExportButtons from './buttons/ExportButtons';
-import { FullWidthDiv } from './styledComponents/FullWidthDiv';
+import ExportButtons from '../buttons/ExportButtons';
+import { FullWidthDiv } from '../general/styled';
+import { ResultsTableDiv } from './styled';
 
 interface TableData {
   data: [];
@@ -135,8 +136,8 @@ const onChange: TableProps<DataType>['onChange'] = (
 
 export default function ResultTable(props: TableData) {
   return (
-    <>
+    <ResultsTableDiv>
       <Table columns={columns} dataSource={props.data} onChange={onChange} />
-    </>
+    </ResultsTableDiv>
   );
 }

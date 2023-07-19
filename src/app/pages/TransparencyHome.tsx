@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
-import TransparentnostSearch from '../components/TransparentnostSearch';
-import ResultTable from '../components/ResultTable';
+import TransparentnostSearch from '../components/search/TransparentnostSearch';
+import ResultTable from '../components/table/ResultTable';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   TransparencyState,
@@ -9,8 +9,9 @@ import {
 } from 'src/redux/transparency/transparency';
 import { useEffect } from 'react';
 import { debug } from 'console';
-import { FullWidthDiv } from '../components/styledComponents/FullWidthDiv';
+import { FullWidthDiv } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
+import { ExportButtonsDiv } from '../components/buttons/styled';
 
 function TransparencyHome() {
   const transparencyState = useSelector((state: TransparencyState) => {
@@ -41,12 +42,9 @@ function TransparencyHome() {
             />
           </Row>
           <Row>
-            <Col span={18}></Col>
-            <Col span={6}>
-              <FullWidthDiv $center>
-                <ExportButtons />
-              </FullWidthDiv>
-            </Col>
+            <ExportButtonsDiv>
+              <ExportButtons />
+            </ExportButtonsDiv>
           </Row>
           <Row>
             <ResultTable data={data} />

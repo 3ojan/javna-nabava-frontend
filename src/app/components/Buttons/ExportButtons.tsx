@@ -10,20 +10,23 @@ export type exportButtonProps = {
 
 export default function ExportButtons(exportButtonProps: exportButtonProps) {
   const { xmlVisible, csvVisible, jsonVisible } = exportButtonProps;
+
   return (
-    <Space wrap>
-      {xmlVisible && (
-        <ColoredButton disabled={false} $color="green">
-          Preuzmi XML
-        </ColoredButton>
-      )}
-      {csvVisible && <Button>Preuzmi CSV</Button>}
-      {jsonVisible && (
-        <Button danger type="primary">
-          Preuzmi JSON
-        </Button>
-      )}
-    </Space>
+    <div>
+      <Space wrap>
+        {xmlVisible && (
+          <ColoredButton disabled={false} $color="green">
+            Preuzmi XML
+          </ColoredButton>
+        )}
+        {csvVisible && <Button>Preuzmi CSV</Button>}
+        {jsonVisible && (
+          <Button danger type="primary">
+            Preuzmi JSON
+          </Button>
+        )}
+      </Space>
+    </div>
   );
 }
 

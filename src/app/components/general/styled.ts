@@ -1,6 +1,5 @@
 import { css, styled } from "styled-components";
 
-
 export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean}>`
     width: 100%;
     padding: ${props => props.$padding ? '0 4rem' : '0'};
@@ -11,4 +10,8 @@ export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean}>`
     `};
 `
 
+export const MainTitleH1 = styled.h1<{$center?: boolean}>`
+    font-size: 3rem;
+    text-align: ${props => props.$center ? 'center' : 'default'};
+`
 
