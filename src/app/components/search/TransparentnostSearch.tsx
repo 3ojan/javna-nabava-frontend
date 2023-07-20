@@ -12,27 +12,33 @@ export default function TransparentnostSearch(props: any) {
     searchValueonSearchClick,
     searchValue,
     onSearchClick,
+    className,
   } = props;
 
   return (
     <TransparencyContent>
-      <MainTitleH1 $center>
-        {/* <a href=""> */}Transparentnost{/* </a> */}
-      </MainTitleH1>
-      <Search
-        placeholder="Upišite ključnu riječ..."
-        enterButton={
-          <ColoredButton disabled={searchValue === ''} onClick={onSearchClick}>
-            Pretraži
-          </ColoredButton>
-        }
-        size="large"
-        onChange={onChangeInput}
-        value={searchValue}
-      />
-      <Button className="detailedSearchButton" type="text">
-        Detaljnija pretraga
-      </Button>
+      <div className={className}>
+        <MainTitleH1 $center>
+          {/* <a href=""> */}Transparentnost{/* </a> */}
+        </MainTitleH1>
+        <Search
+          placeholder="Upišite ključnu riječ..."
+          enterButton={
+            <ColoredButton
+              disabled={searchValue === ''}
+              onClick={onSearchClick}
+            >
+              Pretraži
+            </ColoredButton>
+          }
+          size="large"
+          onChange={onChangeInput}
+          value={searchValue}
+        />
+        <Button className="detailedSearchButton" type="text">
+          Detaljnija pretraga
+        </Button>
+      </div>
     </TransparencyContent>
   );
 }

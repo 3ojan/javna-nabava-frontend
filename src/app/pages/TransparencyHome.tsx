@@ -11,25 +11,31 @@ import { useEffect, useState } from 'react';
 import { CenterDivWrapper, FullWidthDiv } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { ExportButtonsDiv } from '../components/buttons/styled';
-import { FullWidthCol, ResultsDiv } from './styled';
+import { FullWidthCol, ResultsDiv, SearchRow } from './styled';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
-  const [riseSearchAnim, setRiseSearchAnimation] = useState(false);
-  const [fadeInAninm, setfadeInAninm] = useState(false);
+  const [isRiseSearchAnim, setIsRiseSearchAnim] = useState(false);
+  const [isFallSearchAnim, setIsFallSearchAnim] = useState(false);
+  const [isFadeInAninm, setisFadeInAninm] = useState(false);
 
   const showResults = () => {
-    setIsVisible(true);
+    setIsRiseSearchAnim(true);
+    // setIsFallSearchAnim(true);
 
     // Button begins to shake
-    setRiseSearchAnimation(true);
 
     // Buttons stops to shake after 2 seconds
-    setTimeout(() => setRiseSearchAnimation(false), 2000);
+    setTimeout(() => {
+      setIsVisible(true);
+      // setIsRiseSearchAnim(false);
+    }, 2000);
   };
 
   const hideResults = () => {
     setIsVisible(false);
+    setIsRiseSearchAnim(false);
+    setIsFallSearchAnim(true);
   };
 
   const transparencyState = useSelector((state: TransparencyState) => {
@@ -49,34 +55,39 @@ function TransparencyHome() {
     showResults();
   };
 
+  const searchClassName = `${isRiseSearchAnim ? 'riseAnimation' : ''}${
+    isFallSearchAnim ? 'fallAnimation' : ''
+  }`;
+
   const { data, buttonEnabled, value } = transparencyState;
   return (
     <>
       <FullWidthDiv $padding>
-        <CenterDivWrapper>
-          <FullWidthCol>
+        {/* <CenterDivWrapper> */}
+        <FullWidthCol>
+          <SearchRow>
+            {/* <CenterDivWrapper> */}
+            <TransparentnostSearch
+              buttonEnabled={value !== ''}
+              searchValue={value}
+              onChangeInput={onChange}
+              onSearchClick={onSearch}
+              className={searchClassName}
+            />
+            {/* </CenterDivWrapper> */}
+          </SearchRow>
+          <ResultsDiv $visible={isVisible}>
             <Row>
-              {/* <div> */}
-              <TransparentnostSearch
-                buttonEnabled={value !== ''}
-                searchValue={value}
-                onChangeInput={onChange}
-                onSearchClick={onSearch}
-              />
-              {/* </div> */}
+              <ExportButtonsDiv>
+                <ExportButtons />
+              </ExportButtonsDiv>
             </Row>
-            <ResultsDiv $visible={isVisible}>
-              <Row>
-                <ExportButtonsDiv>
-                  <ExportButtons />
-                </ExportButtonsDiv>
-              </Row>
-              <Row>
-                <ResultTable data={data} />
-              </Row>
-            </ResultsDiv>
-          </FullWidthCol>
-        </CenterDivWrapper>
+            <Row>
+              <ResultTable data={data} />
+            </Row>
+          </ResultsDiv>
+        </FullWidthCol>
+        {/* </CenterDivWrapper> */}
       </FullWidthDiv>
     </>
   );
