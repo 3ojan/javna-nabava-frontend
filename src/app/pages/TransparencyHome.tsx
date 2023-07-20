@@ -20,16 +20,18 @@ function TransparencyHome() {
   const [isFadeInAninm, setisFadeInAninm] = useState(false);
 
   const showResults = () => {
+    setIsFallSearchAnim(false);
     setIsRiseSearchAnim(true);
+    // setisFadeInAninm(true);
     // setIsFallSearchAnim(true);
 
     // Button begins to shake
 
     // Buttons stops to shake after 2 seconds
-    setTimeout(() => {
-      setIsVisible(true);
-      // setIsRiseSearchAnim(false);
-    }, 2000);
+    // setTimeout(() => {
+    //   setIsVisible(true);
+    // setIsRiseSearchAnim(false);
+    // }, 2000);
   };
 
   const hideResults = () => {
