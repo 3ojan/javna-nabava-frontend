@@ -12,7 +12,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
   const { xmlVisible, csvVisible, jsonVisible } = exportButtonProps;
 
   return (
-    <div>
+    <div className="buttonWrapper">
       <Space wrap>
         {xmlVisible && (
           <ColoredButton disabled={false} $color="green">

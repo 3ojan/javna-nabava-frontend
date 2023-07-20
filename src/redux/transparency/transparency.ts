@@ -20,7 +20,7 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: searchResultsMockData,
+    data: [],
     loading: false,
     value: "",
   } as TransparencyState,

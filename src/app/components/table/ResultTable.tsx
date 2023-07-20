@@ -137,7 +137,12 @@ const onChange: TableProps<DataType>['onChange'] = (
 export default function ResultTable(props: TableData) {
   return (
     <ResultsTableDiv>
-      <Table columns={columns} dataSource={props.data} onChange={onChange} />
+      <Table
+        className="resutlsTable"
+        columns={columns}
+        dataSource={props.data}
+        onChange={onChange}
+      />
     </ResultsTableDiv>
   );
 }

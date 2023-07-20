@@ -4,8 +4,8 @@ import { styled } from "styled-components";
 
 export const TransparencyContent = styled(Content)`
     text-align: center;
-
+    margin-bottom: 50px;
     .detailedSearchButton{
-    margin-top: 50px;
+     margin-top: 50px;
     }
 `

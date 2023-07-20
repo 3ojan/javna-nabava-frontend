@@ -16,7 +16,9 @@ export default function TransparentnostSearch(props: any) {
 
   return (
     <TransparencyContent>
-      <MainTitleH1 $center>Transparentnost</MainTitleH1>
+      <MainTitleH1 $center>
+        {/* <a href=""> */}Transparentnost{/* </a> */}
+      </MainTitleH1>
       <Search
         placeholder="Upišite ključnu riječ..."
         enterButton={
