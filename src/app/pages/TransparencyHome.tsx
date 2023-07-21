@@ -77,7 +77,8 @@ function TransparencyHome() {
   return (
     <>
       <FullWidthDiv $padding>
-        {/* <CenterDivWrapper> */}
+        {/* <Row>
+          <Col span={3}></Col> */}
         <FullWidthCol>
           <SearchRow $shorten={isShortened}>
             {/* <CenterDivWrapper> */}
@@ -101,7 +102,8 @@ function TransparencyHome() {
             </Row>
           </ResultsDiv>
         </FullWidthCol>
-        {/* </CenterDivWrapper> */}
+        {/* <Col span={3}></Col>
+        </Row> */}
       </FullWidthDiv>
     </>
   );

@@ -41,7 +41,7 @@ const fadeOut = keyframes`
 `
 
 export const FullWidthCol = styled(Col)`
-    width: 100%;    
+    
 
     .riseAnimation{
         animation: ${rise} 2s forwards;
@@ -58,10 +58,10 @@ export const ResultsDiv = styled.div<{$visible?: boolean, $showAnimation?: boole
     animation: ${props => props.$showAnimation ? fadeIn : fadeOut} 2s forwards;
     display: ${props => props.$visible ? 'block' : 'none'};
     animation-fill-mode: forwards;
-    overflow: hidden;
+    // overflow: hidden;
 
 `
 
 export const SearchRow = styled(Row)<{$shorten?: boolean}>`
-    // padding-top: ${props => props.$shorten ? '0' : '40%'};
+
 `
