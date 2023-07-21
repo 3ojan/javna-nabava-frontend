@@ -3,20 +3,41 @@ import { css, keyframes, styled } from "styled-components";
 
 const rise = keyframes`
     from {
-        transform: translateY(0);
+        transform: translateY(150%);
     }
     to{
-        transform: translateY(-130%);
+        transform: translateY(0);
     }
 `
 
 const fall = keyframes`
-from {
-    transform: translateY(-130%);
-}
-to{
-    transform: translateY(0);
-}
+    from {
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(150%);
+    }
+`
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(40%);
+    }
+    to{
+         opacity: 1;
+    }
+`
+
+const fadeOut = keyframes`
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to{
+        opacity: 0;
+        transform: translateY(40%);
+    }
 `
 
 export const FullWidthCol = styled(Col)`
@@ -33,11 +54,14 @@ export const FullWidthCol = styled(Col)`
     }
 `
 
-export const ResultsDiv = styled.div<{$visible?: boolean}>`
-// margin-top: -30%;
+export const ResultsDiv = styled.div<{$visible?: boolean, $showAnimation?: boolean}>`
+    animation: ${props => props.$showAnimation ? fadeIn : fadeOut} 2s forwards;
     display: ${props => props.$visible ? 'block' : 'none'};
-    `
+    animation-fill-mode: forwards;
+    overflow: hidden;
 
-export const SearchRow = styled(Row)`
-    height: fit-content;
+`
+
+export const SearchRow = styled(Row)<{$shorten?: boolean}>`
+    // padding-top: ${props => props.$shorten ? '0' : '40%'};
 `

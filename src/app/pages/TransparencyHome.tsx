@@ -17,27 +17,31 @@ function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
   const [isRiseSearchAnim, setIsRiseSearchAnim] = useState(false);
   const [isFallSearchAnim, setIsFallSearchAnim] = useState(false);
-  const [isFadeInAninm, setisFadeInAninm] = useState(false);
+  const [isShowAninm, setIsShowAninm] = useState(false);
+  const [isShortened, setIsShortened] = useState(false);
 
   const showResults = () => {
-    setIsFallSearchAnim(false);
     setIsRiseSearchAnim(true);
-    // setisFadeInAninm(true);
-    // setIsFallSearchAnim(true);
+    setIsFallSearchAnim(false);
+    setIsShowAninm(true);
 
-    // Button begins to shake
+    setIsVisible(true);
 
-    // Buttons stops to shake after 2 seconds
-    // setTimeout(() => {
-    //   setIsVisible(true);
-    // setIsRiseSearchAnim(false);
-    // }, 2000);
+    setTimeout(() => {
+      // setIsVisible(true);
+      setIsShortened(true);
+    }, 2000);
   };
 
   const hideResults = () => {
-    setIsVisible(false);
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 2000);
     setIsRiseSearchAnim(false);
     setIsFallSearchAnim(true);
+    setIsShowAninm(false);
+    setIsShortened(false);
+    // setIsFadeOutAninm(true);
   };
 
   const transparencyState = useSelector((state: TransparencyState) => {
@@ -61,13 +65,21 @@ function TransparencyHome() {
     isFallSearchAnim ? 'fallAnimation' : ''
   }`;
 
+  // const resultsClassName = `${isFadeInAninm ? 'fadeInAnimation' : ''}${
+  //   isFadeOutAninm ? 'fadeOutAnimation' : ''
+  // }`;
+
+  useEffect(() => {
+    hideResults();
+  }, []);
+
   const { data, buttonEnabled, value } = transparencyState;
   return (
     <>
       <FullWidthDiv $padding>
         {/* <CenterDivWrapper> */}
         <FullWidthCol>
-          <SearchRow>
+          <SearchRow $shorten={isShortened}>
             {/* <CenterDivWrapper> */}
             <TransparentnostSearch
               buttonEnabled={value !== ''}
@@ -78,7 +90,7 @@ function TransparencyHome() {
             />
             {/* </CenterDivWrapper> */}
           </SearchRow>
-          <ResultsDiv $visible={isVisible}>
+          <ResultsDiv $visible={isVisible} $showAnimation={isShowAninm}>
             <Row>
               <ExportButtonsDiv>
                 <ExportButtons />
