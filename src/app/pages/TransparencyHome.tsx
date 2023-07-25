@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { CenterDivWrapper, FullWidthDiv } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { ExportButtonsDiv } from '../components/buttons/styled';
-import { FullWidthCol, ResultsDiv, SearchRow } from './styled';
+import { MainCol, MainRow, ResultsDiv, SearchRow } from './styled';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
@@ -77,10 +77,10 @@ function TransparencyHome() {
   return (
     <>
       <FullWidthDiv $padding>
-        {/* <Row>
-          <Col span={3}></Col> */}
-        <FullWidthCol>
-          <SearchRow $shorten={isShortened}>
+        {/* <MainRow> */}
+        {/* <Col span={2}></Col> */}
+        <MainCol>
+          <Row>
             {/* <CenterDivWrapper> */}
             <TransparentnostSearch
               buttonEnabled={value !== ''}
@@ -90,7 +90,7 @@ function TransparencyHome() {
               className={searchClassName}
             />
             {/* </CenterDivWrapper> */}
-          </SearchRow>
+          </Row>
           <ResultsDiv $visible={isVisible} $showAnimation={isShowAninm}>
             <Row>
               <ExportButtonsDiv>
@@ -101,9 +101,9 @@ function TransparencyHome() {
               <ResultTable data={data} />
             </Row>
           </ResultsDiv>
-        </FullWidthCol>
-        {/* <Col span={3}></Col>
-        </Row> */}
+        </MainCol>
+        {/* <Col span={2}></Col> */}
+        {/* </MainRow> */}
       </FullWidthDiv>
     </>
   );

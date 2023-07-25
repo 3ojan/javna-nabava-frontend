@@ -1,8 +1,15 @@
 import { css, styled } from "styled-components";
 
-export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean}>`
+export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
     width: 100%;
-    padding: ${props => props.$padding ? '0 20%' : '0'};
+    ${props => props.$padding && css`
+        padding: 0 20%;
+
+        @media only screen and (max-width: 1900px) {
+            padding: 0 10%;
+        }
+    `}
+    
     ${props => props.$center && css`
         display: flex;
         justify-content: center;

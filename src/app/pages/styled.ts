@@ -19,6 +19,25 @@ const fall = keyframes`
     }
 `
 
+
+const riseMini = keyframes`
+    from {
+        transform: translateY(100%);
+    }
+    to{
+        transform: translateY(0);
+    }
+`
+
+const fallMini = keyframes`
+    from {
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(100%);
+    }
+`
+
 const fadeIn = keyframes`
     from {
         opacity: 0;
@@ -40,9 +59,7 @@ const fadeOut = keyframes`
     }
 `
 
-export const FullWidthCol = styled(Col)`
-    
-
+export const MainCol = styled(Col)`
     .riseAnimation{
         animation: ${rise} 2s forwards;
         animation-fill-mode: forwards;
@@ -52,6 +69,23 @@ export const FullWidthCol = styled(Col)`
         animation: ${fall} 2s forwards;
         animation-fill-mode: forwards;
     }
+
+    @media only screen and (max-width: 2000px) and (max-height: 1100px) {
+        .riseAnimation{
+            animation: ${riseMini} 2s forwards;
+            animation-fill-mode: forwards;
+        }
+    
+        .fallAnimation{
+            animation: ${fallMini} 2s forwards;
+            animation-fill-mode: forwards;
+        }
+    }
+`
+
+export const MainRow = styled(Row)`
+    width: 100%;
+    height: fit-content;
 `
 
 export const ResultsDiv = styled.div<{$visible?: boolean, $showAnimation?: boolean}>`
@@ -59,9 +93,5 @@ export const ResultsDiv = styled.div<{$visible?: boolean, $showAnimation?: boole
     display: ${props => props.$visible ? 'block' : 'none'};
     animation-fill-mode: forwards;
     // overflow: hidden;
-
-`
-
-export const SearchRow = styled(Row)<{$shorten?: boolean}>`
 
 `
