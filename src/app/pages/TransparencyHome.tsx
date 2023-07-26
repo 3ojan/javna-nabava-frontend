@@ -76,7 +76,7 @@ function TransparencyHome() {
   const { data, buttonEnabled, value } = transparencyState;
   return (
     <>
-      <FullWidthDiv $padding>
+      <FullWidthDiv $padding $background>
         {/* <MainRow> */}
         {/* <Col span={2}></Col> */}
         <MainCol>

@@ -13,30 +13,37 @@ import {
   // Link
 } from 'react-router-dom';
 import TransparencyHome from './pages/TransparencyHome';
-import { GlobalStyle } from './global/styled';
-import { FullWidthCol } from './pages/styled';
+import { BackgroundDiv, GlobalStyle } from './global/styled';
 import { FullWidthDiv } from './components/general/styled';
+import { ConfigProvider } from 'antd';
+import hrHR from 'antd/locale/hr_HR';
 
 export function App() {
   return (
     <>
-      <GlobalStyle />
-      {/* <div style={{ display: 'flex', height: '100%' }}> */}
+      <ConfigProvider
+        locale={hrHR}
+        theme={{ token: { fontFamily: 'Abhaya Libre' } }} //changes the global font
+      >
+        <GlobalStyle />
+        {/* <div style={{ display: 'flex', height: '100%' }}> */}
 
-      <FullWidthDiv $center>
-        <Provider store={store}>
-          {/* <PersistGate loading={null}> */}
-          <Router>
-            <Routes>
-              <Route path="/" element={<TransparencyHome title="" />} />
-              <Route path="/home" element={<NxWelcome title="" />} />
-            </Routes>
-          </Router>
-          {/* </PersistGate> */}
-        </Provider>
-      </FullWidthDiv>
+        <BackgroundDiv></BackgroundDiv>
 
-      {/* </div> */}
+        <FullWidthDiv $center>
+          <Provider store={store}>
+            {/* <PersistGate loading={null}> */}
+            <Router>
+              <Routes>
+                <Route path="/" element={<TransparencyHome title="" />} />
+                <Route path="/home" element={<NxWelcome title="" />} />
+              </Routes>
+            </Router>
+            {/* </PersistGate> */}
+          </Provider>
+        </FullWidthDiv>
+        {/* </div> */}
+      </ConfigProvider>
     </>
   );
 }

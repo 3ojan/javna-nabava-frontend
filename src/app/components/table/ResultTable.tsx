@@ -138,6 +138,7 @@ export default function ResultTable(props: TableData) {
   return (
     <ResultsTableDiv>
       <Table
+        style={{ border: '1px solid red', borderRadius: '10px' }}
         className="resutlsTable"
         columns={columns}
         dataSource={props.data}

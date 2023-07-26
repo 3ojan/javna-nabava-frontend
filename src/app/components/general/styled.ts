@@ -2,6 +2,10 @@ import { css, styled } from "styled-components";
 
 export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
     width: 100%;
+    // ${props => props.$padding && css`
+    //     background: linear-gradient(0deg, rgba(34,193,195,0) 0%, rgba(45,119,253,1) 100%);
+    // `}
+
     ${props => props.$padding && css`
         padding: 0 20%;
 
