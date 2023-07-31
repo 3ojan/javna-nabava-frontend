@@ -19,6 +19,7 @@ export default function TransparentnostSearch(props: any) {
     <TransparencyContent>
       <div className={className}>
         <MainTitleH1 $center>
+          <img src="../../../../img/grb.png" alt="" />
           {/* <a href=""> */}Transparentnost{/* </a> */}
         </MainTitleH1>
         <Search

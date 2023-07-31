@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Col, Image, Row } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import { CenterDivWrapper, FullWidthDiv } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { ExportButtonsDiv } from '../components/buttons/styled';
 import { MainCol, MainRow, ResultsDiv, SearchRow } from './styled';
+import BottomImages from '../components/background/BottomImages';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);

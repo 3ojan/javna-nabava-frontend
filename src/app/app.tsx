@@ -17,18 +17,25 @@ import { BackgroundDiv, GlobalStyle } from './global/styled';
 import { FullWidthDiv } from './components/general/styled';
 import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
+import BottomImages from './components/background/BottomImages';
 
 export function App() {
   return (
     <>
       <ConfigProvider
         locale={hrHR}
-        theme={{ token: { fontFamily: 'Abhaya Libre' } }} //changes the global font
+        theme={
+          {
+            // token: { fontFamily: 'Abhaya Libre' },
+          }
+        } //changes the global font
       >
         <GlobalStyle />
         {/* <div style={{ display: 'flex', height: '100%' }}> */}
 
-        <BackgroundDiv></BackgroundDiv>
+        <BackgroundDiv>
+          <BottomImages />
+        </BackgroundDiv>
 
         <FullWidthDiv $center>
           <Provider store={store}>

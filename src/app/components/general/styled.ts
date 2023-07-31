@@ -26,10 +26,14 @@ export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $
 export const MainTitleH1 = styled.h1<{$center?: boolean}>`
     font-size: 3rem;
     text-align: ${props => props.$center ? 'center' : 'default'};
-
+    font-family: 'Abhaya Libre', serif;
     a {
         link-style: none;
         color: black;
+    }
+    img{
+        width: 100px;
+        margin-right: 10px;
     }
 `
 

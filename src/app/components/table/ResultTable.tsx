@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import { ColumnsType, TableProps } from 'antd/es/table';
 import ExportButtons from '../buttons/ExportButtons';
 import { FullWidthDiv } from '../general/styled';
-import { ResultsTableDiv } from './styled';
+import { ResultsTableDiv, StyledTable } from './styled';
 
 interface TableData {
   data: [];
@@ -86,6 +86,7 @@ const columns: ColumnsType<DataType> = [
     title: 'Postanski broj',
     dataIndex: 'postcode',
     defaultSortOrder: 'descend',
+    className: 'custom-column-background',
     sorter: (a, b) => {
       const firstPostcode = parseInt(a.postcode);
       const secondPostcode = parseInt(b.postcode);
@@ -137,8 +138,7 @@ const onChange: TableProps<DataType>['onChange'] = (
 export default function ResultTable(props: TableData) {
   return (
     <ResultsTableDiv>
-      <Table
-        style={{ border: '1px solid red', borderRadius: '10px' }}
+      <StyledTable
         className="resutlsTable"
         columns={columns}
         dataSource={props.data}
