@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { ColumnsType, TableProps } from 'antd/es/table';
 import ExportButtons from '../buttons/ExportButtons';
@@ -29,6 +29,10 @@ interface DataType {
   function_level_4: string[];
   comment: string | null;
   update_date: string | null;
+}
+interface MobileDataType {
+  titles: string;
+  data: DataType;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -80,6 +84,7 @@ const columns: ColumnsType<DataType> = [
     key: 'city',
     title: 'Grad / Opcina',
     dataIndex: 'city',
+    responsive: ['md'],
   },
   {
     key: 'postcode',
@@ -108,6 +113,7 @@ const columns: ColumnsType<DataType> = [
     key: 'description',
     title: 'Opis isplate',
     dataIndex: 'description',
+    // responsive: ['md'],
   },
   //   {
   //     title: "Address",
@@ -126,6 +132,19 @@ const columns: ColumnsType<DataType> = [
   //   },
 ];
 
+const mobileColumns: ColumnsType<MobileDataType> = [
+  {
+    title: 'titles',
+    dataIndex: 'titles',
+    key: 'titles',
+  },
+  {
+    title: 'data',
+    dataIndex: 'data',
+    key: 'data',
+  },
+];
+
 const onChange: TableProps<DataType>['onChange'] = (
   pagination,
   filters,
@@ -136,11 +155,32 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 export default function ResultTable(props: TableData) {
+  const [columnType, setColumnType] = useState(
+    window.innerWidth <= 768 ? mobileColumns : columns
+  );
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    console.log(window.innerWidth);
+    setColumnType(window.innerWidth <= 768 ? mobileColumns : columns);
+  };
+
+  useEffect(() => {
+    // Add event listener when the component mounts
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // setDataSource(windowWidth <= 768 ? mobileColumns : columns);
   return (
     <ResultsTableDiv>
       <StyledTable
         className="resutlsTable"
-        columns={columns}
+        columns={columnType}
         dataSource={props.data}
         onChange={onChange}
       />

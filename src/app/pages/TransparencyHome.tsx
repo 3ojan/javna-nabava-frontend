@@ -13,6 +13,7 @@ import ExportButtons from '../components/buttons/ExportButtons';
 import { ExportButtonsDiv } from '../components/buttons/styled';
 import { MainCol, MainRow, ResultsDiv, SearchRow } from './styled';
 import BottomImages from '../components/background/BottomImages';
+import { BackgroundDiv } from '../global/styled';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);

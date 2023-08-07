@@ -33,10 +33,6 @@ export function App() {
         <GlobalStyle />
         {/* <div style={{ display: 'flex', height: '100%' }}> */}
 
-        <BackgroundDiv>
-          <BottomImages />
-        </BackgroundDiv>
-
         <FullWidthDiv $center>
           <Provider store={store}>
             {/* <PersistGate loading={null}> */}
