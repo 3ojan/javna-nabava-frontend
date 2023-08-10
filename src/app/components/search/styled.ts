@@ -1,6 +1,7 @@
 import { Layout } from "antd";
 import Search from "antd/es/input/Search";
 import { Content } from "antd/es/layout/layout";
+import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 
@@ -10,10 +11,15 @@ export const TransparencyLayout = styled(Layout)`
 export const TransparencyContent = styled(Content)`
     background-color: transparent;
     text-align: center;
-    margin-bottom: 50px;
     animation-fill-mode: forwards;
-
-    .detailedSearchButton{
-     margin-top: 50px;
+    
+    @media only screen and (min-width: ${mobileWidth}px) {
+        margin-bottom: 50px;
+        padding: 0 30%;
+        .detailedSearchButton{
+            margin-top: 50px;
+        }
     }
+
+    
 `

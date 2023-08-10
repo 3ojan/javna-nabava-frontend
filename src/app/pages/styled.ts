@@ -60,27 +60,7 @@ const fadeOut = keyframes`
 `
 
 export const MainCol = styled(Col)`
-    .riseAnimation{
-        animation: ${rise} 2s forwards;
-        animation-fill-mode: forwards;
-    }
 
-    .fallAnimation{
-        animation: ${fall} 2s forwards;
-        animation-fill-mode: forwards;
-    }
-
-    @media only screen and (max-width: 2000px) and (max-height: 1100px) {
-        .riseAnimation{
-            animation: ${riseMini} 2s forwards;
-            animation-fill-mode: forwards;
-        }
-    
-        .fallAnimation{
-            animation: ${fallMini} 2s forwards;
-            animation-fill-mode: forwards;
-        }
-    }
 `
 
 export const MainRow = styled(Row)`
@@ -88,10 +68,6 @@ export const MainRow = styled(Row)`
     height: fit-content;
 `
 
-export const ResultsDiv = styled.div<{$visible?: boolean, $showAnimation?: boolean}>`
-    animation: ${props => props.$showAnimation ? fadeIn : fadeOut} 2s forwards;
-    display: ${props => props.$visible ? 'block' : 'none'};
+export const ResultsDiv = styled.div`
     animation-fill-mode: forwards;
-    // overflow: hidden;
-
 `

@@ -4,12 +4,26 @@ import { ColumnsType, TableProps } from 'antd/es/table';
 import ExportButtons from '../buttons/ExportButtons';
 import { FullWidthDiv } from '../general/styled';
 import { ResultsTableDiv, StyledTable } from './styled';
+import { mobileWidth } from 'src/app/global/constants';
 
 interface TableData {
-  data: [];
+  data: DataType[];
 }
 
-/** Mora biti isto kao i json atributi */
+/** MobileTableData is an 2D array of an array of MobileTableData and DataType*/
+interface MobileTableData {
+  titles: MobileTitles[];
+  data: DataType[];
+}
+
+interface MobileTitles {
+  oznaka: string;
+  oib: string;
+  naziv: string;
+  mjesto: string;
+}
+
+/** names need to be same as the names in json object */
 interface DataType {
   id: string;
   oib: string;
@@ -30,9 +44,9 @@ interface DataType {
   comment: string | null;
   update_date: string | null;
 }
+/** typified data array to an array of MobileTableData*/
 interface MobileDataType {
-  titles: string;
-  data: DataType;
+  data: MobileTableData[];
 }
 
 const columns: ColumnsType<DataType> = [
@@ -50,33 +64,6 @@ const columns: ColumnsType<DataType> = [
     title: 'Ime / Naziv',
     dataIndex: 'name',
     key: 'name',
-    // filters: [
-    //   {
-    //     text: "Joe",
-    //     value: "Joe",
-    //   },
-    //   {
-    //     text: "Jim",
-    //     value: "Jim",
-    //   },
-    //   {
-    //     text: "Submenu",
-    //     value: "Submenu",
-    //     children: [
-    //       {
-    //         text: "Green",
-    //         value: "Green",
-    //       },
-    //       {
-    //         text: "Black",
-    //         value: "Black",
-    //       },
-    //     ],
-    //   },
-    // ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    // onFilter: (value: string, record) => record.name.indexOf(value) === 0,
     sorter: (a, b) => a.name.length - b.name.length,
     sortDirections: ['descend'],
   },
@@ -113,23 +100,7 @@ const columns: ColumnsType<DataType> = [
     key: 'description',
     title: 'Opis isplate',
     dataIndex: 'description',
-    // responsive: ['md'],
   },
-  //   {
-  //     title: "Address",
-  //     dataIndex: "address",
-  //     filters: [
-  //       {
-  //         text: "London",
-  //         value: "London",
-  //       },
-  //       {
-  //         text: "New York",
-  //         value: "New York",
-  //       },
-  //     ],
-  //     onFilter: (value: string, record) => record.oib.indexOf(value) === 0,
-  //   },
 ];
 
 const mobileColumns: ColumnsType<MobileDataType> = [
@@ -155,14 +126,24 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 export default function ResultTable(props: TableData) {
+  const [isMobileDataSet, setIsMobileDataSet] = useState(false);
   const [columnType, setColumnType] = useState(
-    window.innerWidth <= 768 ? mobileColumns : columns
+    window.innerWidth <= mobileWidth ? mobileColumns : columns
   );
-  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleResize = () => {
-    console.log(window.innerWidth);
+    console.log(mobileColumns);
+    console.log(props);
+
     setColumnType(window.innerWidth <= 768 ? mobileColumns : columns);
+    if (window.innerWidth <= 768 && !isMobileDataSet) {
+      console.log('mobile');
+      debugger;
+      const mobileProps: MobileDataType = {
+        data: [],
+      };
+      // need to map current data to mobile data!!!
+    }
   };
 
   useEffect(() => {

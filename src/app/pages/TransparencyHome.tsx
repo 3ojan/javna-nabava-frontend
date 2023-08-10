@@ -14,6 +14,7 @@ import { ExportButtonsDiv } from '../components/buttons/styled';
 import { MainCol, MainRow, ResultsDiv, SearchRow } from './styled';
 import BottomImages from '../components/background/BottomImages';
 import { BackgroundDiv } from '../global/styled';
+import { mobileWidth } from '../global/constants';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
@@ -71,15 +72,12 @@ function TransparencyHome() {
   //   isFadeOutAninm ? 'fadeOutAnimation' : ''
   // }`;
 
-  useEffect(() => {
-    hideResults();
-  }, []);
-
   const { data, buttonEnabled, value } = transparencyState;
   return (
     <>
       <FullWidthDiv $padding $background>
         {/* <MainRow> */}
+
         {/* <Col span={2}></Col> */}
         <MainCol>
           <Row>
@@ -93,7 +91,8 @@ function TransparencyHome() {
             />
             {/* </CenterDivWrapper> */}
           </Row>
-          <ResultsDiv $visible={isVisible} $showAnimation={isShowAninm}>
+          <ResultsDiv>
+            {/* $showAnimation={isShowAninm} */}
             <Row>
               <ExportButtonsDiv>
                 <ExportButtons />

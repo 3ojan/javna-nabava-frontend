@@ -1,3 +1,4 @@
+import { mobileWidth } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
@@ -11,6 +12,10 @@ export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $
 
         @media only screen and (max-width: 1900px) {
             padding: 0 10%;
+        }
+        @media only screen and (max-width: ${mobileWidth}px) {
+            // font-size: 0.5rem;
+            padding: 0 50;
         }
     `}
     
@@ -34,6 +39,16 @@ export const MainTitleH1 = styled.h1<{$center?: boolean}>`
     img{
         width: 100px;
         margin-right: 10px;
+    }
+    // @media only screen and (min-width: ${mobileWidth}px) {
+    //     margin-top: 50%;
+    // }
+    @media only screen and (max-width: ${mobileWidth}px) {
+        font-size: 2rem;
+        img{
+            width: 70px;
+            margin-right: 10px;
+        }
     }
 `
 

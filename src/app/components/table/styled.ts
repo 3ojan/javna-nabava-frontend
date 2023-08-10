@@ -8,7 +8,7 @@ export const ResultsTableDiv = styled.div`
 export const StyledTable = styled(Table)`
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 0;
 
     .ant-table{
         background: rgba(255, 255, 255, 0);
