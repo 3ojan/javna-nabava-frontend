@@ -8,10 +8,12 @@ import {
   getData,
 } from 'src/redux/transparency/transparency';
 import { useEffect, useState } from 'react';
-import { CenterDivWrapper, FullWidthDiv } from '../components/general/styled';
+import {
+  StyledCenterDivWrapper,
+  StyledFullWidthDiv,
+} from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
-import { ExportButtonsDiv } from '../components/buttons/styled';
-import { MainCol, MainRow, ResultsDiv, SearchRow } from './styled';
+import { StyledExportButtonsDiv } from '../components/buttons/styled';
 import BottomImages from '../components/background/BottomImages';
 import { BackgroundDiv } from '../global/styled';
 import { mobileWidth } from '../global/constants';
@@ -75,13 +77,9 @@ function TransparencyHome() {
   const { data, buttonEnabled, value } = transparencyState;
   return (
     <>
-      <FullWidthDiv $padding $background>
-        {/* <MainRow> */}
-
-        {/* <Col span={2}></Col> */}
-        <MainCol>
+      <StyledFullWidthDiv $padding $background>
+        <Col>
           <Row>
-            {/* <CenterDivWrapper> */}
             <TransparentnostSearch
               buttonEnabled={value !== ''}
               searchValue={value}
@@ -89,23 +87,17 @@ function TransparencyHome() {
               onSearchClick={onSearch}
               className={searchClassName}
             />
-            {/* </CenterDivWrapper> */}
           </Row>
-          <ResultsDiv>
-            {/* $showAnimation={isShowAninm} */}
-            <Row>
-              <ExportButtonsDiv>
-                <ExportButtons />
-              </ExportButtonsDiv>
-            </Row>
-            <Row>
-              <ResultTable data={data} />
-            </Row>
-          </ResultsDiv>
-        </MainCol>
-        {/* <Col span={2}></Col> */}
-        {/* </MainRow> */}
-      </FullWidthDiv>
+          <Row>
+            <StyledExportButtonsDiv>
+              <ExportButtons />
+            </StyledExportButtonsDiv>
+          </Row>
+          <Row>
+            <ResultTable data={data} />
+          </Row>
+        </Col>
+      </StyledFullWidthDiv>
     </>
   );
 }

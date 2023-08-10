@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
 import { ColumnsType, TableProps } from 'antd/es/table';
-import ExportButtons from '../buttons/ExportButtons';
-import { FullWidthDiv } from '../general/styled';
-import { ResultsTableDiv, StyledTable } from './styled';
+import { StyledResultsTableDiv, StyledTable } from './styled';
 import { mobileWidth } from 'src/app/global/constants';
 
 interface TableData {
@@ -158,13 +155,13 @@ export default function ResultTable(props: TableData) {
 
   // setDataSource(windowWidth <= 768 ? mobileColumns : columns);
   return (
-    <ResultsTableDiv>
+    <StyledResultsTableDiv>
       <StyledTable
         className="resutlsTable"
         columns={columnType}
         dataSource={props.data}
         onChange={onChange}
       />
-    </ResultsTableDiv>
+    </StyledResultsTableDiv>
   );
 }

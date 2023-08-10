@@ -5,10 +5,10 @@ import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 
-export const TransparencyLayout = styled(Layout)`
+export const StyledTransparencyLayout = styled(Layout)`
     background-color: transparent;
 `
-export const TransparencyContent = styled(Content)`
+export const StyledTransparencyContent = styled(Content)`
     background-color: transparent;
     text-align: center;
     animation-fill-mode: forwards;

@@ -1,10 +1,10 @@
 import React from 'react';
-import { BottomBackgroundImageDiv } from './styled';
+import { StyledBottomBackgroundImageDiv } from './styled';
 
 export default function BottomImages() {
   return (
-    <BottomBackgroundImageDiv>
+    <StyledBottomBackgroundImageDiv>
       <img src="../../../../img/Crkva.svg" />
-    </BottomBackgroundImageDiv>
+    </StyledBottomBackgroundImageDiv>
   );
 }

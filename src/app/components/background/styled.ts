@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const BottomBackgroundImageDiv = styled.div`
+export const StyledBottomBackgroundImageDiv = styled.div`
     position: absolute;
     bottom: 0;
     z-index: -1;

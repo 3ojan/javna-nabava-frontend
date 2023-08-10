@@ -1,7 +1,7 @@
 import { mobileWidth } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
-export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
+export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
     width: 100%;
     // ${props => props.$padding && css`
     //     background: linear-gradient(0deg, rgba(34,193,195,0) 0%, rgba(45,119,253,1) 100%);
@@ -28,7 +28,7 @@ export const FullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $
     
 `
 
-export const MainTitleH1 = styled.h1<{$center?: boolean}>`
+export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
     font-size: 3rem;
     text-align: ${props => props.$center ? 'center' : 'default'};
     font-family: 'Abhaya Libre', serif;
@@ -52,7 +52,7 @@ export const MainTitleH1 = styled.h1<{$center?: boolean}>`
     }
 `
 
-export const CenterDivWrapper = styled.div`
+export const StyledCenterDivWrapper = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;

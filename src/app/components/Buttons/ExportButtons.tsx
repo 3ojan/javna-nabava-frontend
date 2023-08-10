@@ -1,6 +1,6 @@
 import { Button, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { ColoredButton, StyledSpace } from './styled';
+import { StyledColoredButton, StyledSpace } from './styled';
 import { mobileWidth } from 'src/app/global/constants';
 
 export type exportButtonProps = {
@@ -42,9 +42,9 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
       </p>
       <div className="buttonWrapper">
         {xmlVisible && (
-          <ColoredButton disabled={false} $color="green">
+          <StyledColoredButton disabled={false} $color="green">
             {window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML'}
-          </ColoredButton>
+          </StyledColoredButton>
         )}
         {csvVisible && (
           <Button>

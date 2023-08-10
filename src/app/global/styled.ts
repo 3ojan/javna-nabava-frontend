@@ -1,5 +1,6 @@
 import { createGlobalStyle, styled } from 'styled-components';
  
+// maybe change to StyledGlobal
 export const GlobalStyle = createGlobalStyle`
   /* import for global font */
   // @font-face {
@@ -16,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
  
-export const BackgroundDiv = styled.div`
+export const StyledBackgroundDiv = styled.div`
   // background: linear-gradient(0deg, rgba(45,119,253, 0.3) 0%, rgba(45,119,253,0) 100%);
   background-image: url("../../../../img/main-bg-gradient.svg");
   background-size: contain;
