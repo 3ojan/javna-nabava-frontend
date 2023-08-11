@@ -14,7 +14,7 @@ import {
 } from 'react-router-dom';
 import TransparencyHome from './pages/TransparencyHome';
 import { BackgroundDiv, GlobalStyle } from './global/styled';
-import { FullWidthDiv } from './components/general/styled';
+import { StyledFullWidthDiv } from './components/general/styled';
 import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
 import BottomImages from './components/background/BottomImages';
@@ -33,7 +33,7 @@ export function App() {
         <GlobalStyle />
         {/* <div style={{ display: 'flex', height: '100%' }}> */}
 
-        <FullWidthDiv $center>
+        <StyledFullWidthDiv $center>
           <Provider store={store}>
             {/* <PersistGate loading={null}> */}
             <Router>
@@ -44,7 +44,7 @@ export function App() {
             </Router>
             {/* </PersistGate> */}
           </Provider>
-        </FullWidthDiv>
+        </StyledFullWidthDiv>
         {/* </div> */}
       </ConfigProvider>
     </>

@@ -26,26 +26,32 @@ export const StyledTable = styled(Table)`
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   .ant-table {
-    // display: block; /* Change the display mode to stack cells vertically */
+    margin-top: 20px;
 
-    .ant-table-thead {
-        display: none; /* Hide the table header on mobile */
-      }
-  
-      .ant-table-tbody {
-        display: block;
-  
-        .ant-table-row {
-          display: flex; /* Display rows as flex containers */
-  
-          .ant-table-cell {
-            flex: 1; /* Distribute cell width equally */
-            border: none; /* Remove cell borders for a cleaner look */
-            padding: 8px; /* Add some padding for spacing */
-          }
+  .ant-table-thead {
+      display: none; /* Hide the table header on mobile */
+    }
+    .ant-table-tbody > tr:nth-child(odd) {
+      background-color: white; 
+    }
+    .ant-table-tbody > tr:nth-child(even) {
+      background-color: #e2e2e2; /* light silver */
+    }
+    .ant-table-tbody {
+      display: block;
+
+      .ant-table-row {
+        display: flex; /* Display rows as flex containers */
+
+        .ant-table-cell {
+          flex: 1; /* Distribute cell width equally */
+          // border: none; /* Remove cell borders for a cleaner look */
+          // padding: 8px; /* Add some padding for spacing */
+          // background-color: rgba(255, 255, 55, 0.2);
         }
       }
     }
+  }
 }
 
 `

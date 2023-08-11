@@ -1,6 +1,6 @@
 import { Button, Input, Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-import { ColoredButton } from '../buttons/styled';
+import { StyledColoredButton } from '../buttons/styled';
 import { StyledMainTitleH1 } from '../general/styled.ts';
 import {
   StyledTransparencyContent,
@@ -33,12 +33,12 @@ export default function TransparentnostSearch(props: any) {
           <Search
             placeholder="Upišite ključnu riječ..."
             enterButton={
-              <ColoredButton
+              <StyledColoredButton
                 disabled={searchValue === ''}
                 onClick={onSearchClick}
               >
                 Pretraži
-              </ColoredButton>
+              </StyledColoredButton>
             }
             size="large"
             onChange={onChangeInput}

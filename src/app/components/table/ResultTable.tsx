@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ColumnsType, TableProps } from 'antd/es/table';
 import { StyledResultsTableDiv, StyledTable } from './styled';
 import { mobileWidth } from 'src/app/global/constants';
@@ -7,18 +7,32 @@ interface TableData {
   data: DataType[];
 }
 
+enum Titles {
+  oznaka = 'Oznaka',
+  oib = 'OIB',
+  naziv = 'Ime / Naziv',
+  mjesto = 'Grad / Općina',
+  postanskiBroj = 'Poštanski broj',
+  datumIsplate = 'Datum isplate',
+  iznosIsplate = 'Iznos isplate',
+  opisIsplate = 'Opis isplate',
+}
 /** MobileTableData is an 2D array of an array of MobileTableData and DataType*/
-interface MobileTableData {
-  titles: MobileTitles[];
-  data: DataType[];
-}
+// interface MobileTableData {
+//   titles: MobileTitles[];
+//   data: DataType[];
+// }
 
-interface MobileTitles {
-  oznaka: string;
-  oib: string;
-  naziv: string;
-  mjesto: string;
-}
+// interface MobileTitles {
+//   oznaka: string;
+//   oib: string;
+//   naziv: string;
+//   mjesto: string;
+//   postanskiBroj: string;
+//   datumIsplate: string;
+//   iznosIsplate: string;
+//   opisIsplate: string;
+// }
 
 /** names need to be same as the names in json object */
 interface DataType {
@@ -42,39 +56,102 @@ interface DataType {
   update_date: string | null;
 }
 /** typified data array to an array of MobileTableData*/
-interface MobileDataType {
-  data: MobileTableData[];
-}
+// interface MobileDataType {
+//   data: MobileTableData[];
+// }
 
 const columns: ColumnsType<DataType> = [
   {
-    title: 'Oznaka',
+    title: 'mobile',
+    render: (record) => (
+      <>
+        {Titles.oznaka}
+        <br />
+        <br />
+        {Titles.oib}
+        <br />
+        <br />
+        {Titles.naziv}
+        <br />
+        <br />
+        {Titles.mjesto}
+        <br />
+        <br />
+        {Titles.postanskiBroj}
+        <br />
+        <br />
+        {Titles.datumIsplate}
+        <br />
+        <br />
+        {Titles.iznosIsplate}
+        <br />
+        <br /> {Titles.opisIsplate}
+      </>
+    ),
+    responsive: ['xs'],
+  },
+  {
+    title: 'mobile',
+    render: (record) => (
+      <>
+        {record.id}
+        <br />
+        <br />
+        {record.oib}
+        <br />
+        <br />
+        {record.name}
+        <br />
+        <br />
+        {record.city}
+        <br />
+        <br />
+        {record.postcode}
+        <br />
+        <br />
+        {record.date}
+        <br />
+        <br />
+        {record.amount}
+        <br />
+        <br />
+        {record.description}
+      </>
+    ),
+    responsive: ['xs'],
+  },
+  {
+    title: Titles.oznaka,
     dataIndex: 'id',
     key: 'id',
+    responsive: ['sm'],
   },
   {
-    title: 'OIB',
+    title: Titles.oib,
     dataIndex: 'oib',
     key: 'oib',
+    responsive: ['sm'],
   },
   {
-    title: 'Ime / Naziv',
+    title: Titles.naziv,
     dataIndex: 'name',
     key: 'name',
     sorter: (a, b) => a.name.length - b.name.length,
     sortDirections: ['descend'],
+    responsive: ['sm'],
   },
   {
+    title: Titles.mjesto,
     key: 'city',
-    title: 'Grad / Opcina',
     dataIndex: 'city',
-    responsive: ['md'],
+    responsive: ['sm'],
   },
   {
+    title: Titles.postanskiBroj,
     key: 'postcode',
-    title: 'Postanski broj',
     dataIndex: 'postcode',
     defaultSortOrder: 'descend',
+    responsive: ['sm'],
     className: 'custom-column-background',
     sorter: (a, b) => {
       const firstPostcode = parseInt(a.postcode);
@@ -84,34 +161,37 @@ const columns: ColumnsType<DataType> = [
     },
   },
   {
+    title: Titles.datumIsplate,
     key: 'date',
-    title: 'Datum isplate',
     dataIndex: 'date',
+    responsive: ['sm'],
   },
   {
+    title: Titles.iznosIsplate,
     key: 'amount',
-    title: 'Iznos isplate',
     dataIndex: 'amount',
+    responsive: ['sm'],
   },
   {
+    title: Titles.opisIsplate,
     key: 'description',
-    title: 'Opis isplate',
     dataIndex: 'description',
+    responsive: ['sm'],
   },
 ];
 
-const mobileColumns: ColumnsType<MobileDataType> = [
-  {
-    title: 'titles',
-    dataIndex: 'titles',
-    key: 'titles',
-  },
-  {
-    title: 'data',
-    dataIndex: 'data',
-    key: 'data',
-  },
-];
+// const mobileColumns: ColumnsType<MobileDataType> = [
+//   {
+//     title: 'titles',
+//     dataIndex: 'titles',
+//     key: 'titles',
+//   },
+//   {
+//     title: 'data',
+//     dataIndex: 'data',
+//     key: 'data',
+//   },
+// ];
 
 const onChange: TableProps<DataType>['onChange'] = (
   pagination,
@@ -123,24 +203,44 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 export default function ResultTable(props: TableData) {
-  const [isMobileDataSet, setIsMobileDataSet] = useState(false);
+  //CODE FOR MOBILE
+  /*const isMobileDataSet = useRef(false);
   const [columnType, setColumnType] = useState(
     window.innerWidth <= mobileWidth ? mobileColumns : columns
   );
 
-  const handleResize = () => {
-    console.log(mobileColumns);
-    console.log(props);
+  const getTitlesForMobile = () => {
+    return {
+      oznaka: 'Oznaka',
+      oib: 'OIB',
+      naziv: 'Naziv',
+      mjesto: 'Mjesto',
+      postanskiBroj: 'Postanski broj',
+      datumIsplate: 'Datum isplate',
+      iznosIsplate: 'Iznos isplate',
+      opisIsplate: 'Opis isplate',
+    };
+  };
 
+  const handleResize = () => {
     setColumnType(window.innerWidth <= 768 ? mobileColumns : columns);
-    if (window.innerWidth <= 768 && !isMobileDataSet) {
-      console.log('mobile');
+
+    if (window.innerWidth <= 768 && !isMobileDataSet.current) {
+      console.log('setting mobile data');
       debugger;
-      const mobileProps: MobileDataType = {
-        data: [],
-      };
-      // need to map current data to mobile data!!!
+      // const mobileProps: MobileDataType = {
+      //   data: [],
+      // };
+
+      const mobileProps = props.data.map((item) => {
+        ...item;
+        title: 'Oznaka';
+        value: item.id;
+      });
+
+      isMobileDataSet.current = true;
     }
+    // need to map current data to mobile data!!!
   };
 
   useEffect(() => {
@@ -151,14 +251,13 @@ export default function ResultTable(props: TableData) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, []); */
 
-  // setDataSource(windowWidth <= 768 ? mobileColumns : columns);
   return (
     <StyledResultsTableDiv>
       <StyledTable
         className="resutlsTable"
-        columns={columnType}
+        columns={columns} //columnType
         dataSource={props.data}
         onChange={onChange}
       />
