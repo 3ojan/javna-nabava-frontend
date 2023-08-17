@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ColumnsType, TableProps } from 'antd/es/table';
-import { StyledResultsTableDiv, StyledTable } from './styled';
+import {
+  StyledMobileRow,
+  StyledMobileRowDividerLine,
+  StyledResultsTableDiv,
+  StyledTable,
+} from './styled';
 import { mobileWidth } from 'src/app/global/constants';
+import { Divider } from 'antd';
 
 interface TableData {
   data: DataType[];
@@ -65,61 +71,108 @@ const columns: ColumnsType<DataType> = [
     title: 'mobile',
     render: (record) => (
       <>
-        {Titles.oznaka}
-        <br />
-        <br />
-        {Titles.oib}
-        <br />
-        <br />
-        {Titles.naziv}
-        <br />
-        <br />
-        {Titles.mjesto}
-        <br />
-        <br />
-        {Titles.postanskiBroj}
-        <br />
-        <br />
-        {Titles.datumIsplate}
-        <br />
-        <br />
-        {Titles.iznosIsplate}
-        <br />
-        <br /> {Titles.opisIsplate}
+        <StyledMobileRow>
+          <td>{Titles.oznaka}</td>
+          <td>{record.id}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>{Titles.oib}</td>
+          <td>{record.oib}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>{Titles.naziv}</td>
+          <td>{record.name}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>{Titles.mjesto}</td>
+          <td>{record.city}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>{Titles.postanskiBroj}</td>
+          <td>{record.postcode}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>{Titles.datumIsplate}</td>
+          <td>{record.date}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>{Titles.iznosIsplate}</td>
+          <td>{record.amount}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>{Titles.opisIsplate}</td>
+          <td>{record.description}</td>
+        </StyledMobileRow>
       </>
     ),
     responsive: ['xs'],
   },
-  {
-    title: 'mobile',
-    render: (record) => (
-      <>
-        {record.id}
-        <br />
-        <br />
-        {record.oib}
-        <br />
-        <br />
-        {record.name}
-        <br />
-        <br />
-        {record.city}
-        <br />
-        <br />
-        {record.postcode}
-        <br />
-        <br />
-        {record.date}
-        <br />
-        <br />
-        {record.amount}
-        <br />
-        <br />
-        {record.description}
-      </>
-    ),
-    responsive: ['xs'],
-  },
+  // {
+  //   title: 'mobileTitles',
+  //   render: (record) => (
+  //     <>
+  //       {Titles.oznaka}
+  //       <hr />
+  //       <br />
+  //       {Titles.oib}
+  //       <hr />
+  //       <br />
+  //       {Titles.naziv}
+  //       <hr />
+  //       <br />
+  //       {Titles.mjesto}
+  //       <hr />
+  //       <br />
+  //       {Titles.postanskiBroj}
+  //       <hr />
+  //       <br />
+  //       {Titles.datumIsplate}
+  //       <hr />
+  //       <br />
+  //       {Titles.iznosIsplate}
+  //       <hr />
+  //       <br /> {Titles.opisIsplate}
+  //     </>
+  //   ),
+  //   responsive: ['xs'],
+  // },
+  // {
+  //   title: 'mobile',
+  //   render: (record) => (
+  //     <>
+  //       {record.id}
+  //       <hr />
+  //       <br />
+  //       {record.oib}
+  //       <hr />
+  //       <br />
+  //       {record.name}
+  //       <hr />
+  //       <br />
+  //       {record.city}
+  //       <hr />
+  //       <br />
+  //       {record.postcode}
+  //       <hr />
+  //       <br />
+  //       {record.date}
+  //       <hr />
+  //       <br />
+  //       {record.amount}
+  //       <hr />
+  //       <br />
+  //       {record.description}
+  //     </>
+  //   ),
+  //   responsive: ['xs'],
+  // },
   {
     title: Titles.oznaka,
     dataIndex: 'id',
