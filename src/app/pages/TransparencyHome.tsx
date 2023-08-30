@@ -15,7 +15,6 @@ import {
 import ExportButtons from '../components/buttons/ExportButtons';
 import { StyledExportButtonsDiv } from '../components/buttons/styled';
 import BottomImages from '../components/background/BottomImages';
-import { BackgroundDiv } from '../global/styled';
 import { mobileWidth } from '../global/constants';
 
 function TransparencyHome() {
@@ -90,7 +89,7 @@ function TransparencyHome() {
           </Row>
           <Row>
             <StyledExportButtonsDiv>
-              <ExportButtons />
+              <ExportButtons csvVisible={false} xmlVisible={false} />
             </StyledExportButtonsDiv>
           </Row>
           <Row>

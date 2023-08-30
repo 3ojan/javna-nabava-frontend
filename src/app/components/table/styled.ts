@@ -1,5 +1,8 @@
-import { Table } from "antd";
+import { Select, Table } from "antd";
 import { styled } from "styled-components";
+
+const searchBarHeight = "40px";
+const searchBorderRadius = "6px";
 
 export const StyledResultsTableDiv = styled.div`
     width: 100%;
@@ -30,14 +33,49 @@ export const StyledMobileRow = styled.tr`
   }
 `
 
+export const StyledSearchBar = styled.div`
+display: flex;
+align-items: center;
+
+.search-input {
+  flex: 1;
+  height: ${searchBarHeight};
+  border-radius: ${searchBorderRadius} 0 0 ${searchBorderRadius};
+}
+
+:where(.css-dev-only-do-not-override-1m62vyb).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+  height: ${searchBarHeight};
+}
+
+.ant-select-selector{
+  border-radius: 0;
+}
+
+.dropdown {
+  width: 120px;
+}
+
+.search-button {
+  height: ${searchBarHeight};
+  margin-right: 0;
+  border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
+}
+
+`
+
 export const StyledTable = styled(Table)`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 10px 0;
 
-  .ant-table{
-      background: rgba(255, 255, 255, 0);
+  .ant-table-thead > tr > th {
+    background-color: #4d4d4d; 
+    color: white;
   }
+
+  .ant-table-tbody > tr:nth-child(3n) {
+    background-color: #e6faff; 
+  }//todo limit only for bigger than mobile
 
   td.ant-table-column-sort {
       background-color: rgba(255, 255, 255, 0);
@@ -46,6 +84,9 @@ export const StyledTable = styled(Table)`
   /* Normal styles for larger screens */
   .ant-table {
     /* Your regular table styles */
+
+    // border-left: 1px solid #282828;
+    // border-left: 1px solid #282828;
   }
 
   /* Mobile-specific styles */
@@ -56,11 +97,11 @@ export const StyledTable = styled(Table)`
     .ant-table-thead {
         display: none; /* Hide the table header on mobile */
       }
-      .ant-table-tbody > tr:nth-child(odd) {
-        background-color: white; 
-      }
+      // .ant-table-tbody > tr:nth-child(odd) {
+      //   background-color: white; 
+      // }
       .ant-table-tbody > tr:nth-child(even) {
-        background-color: #e2e2e2; /* light silver */
+        background-color: #e6faff; /* light silver */
       }
       .ant-table-tbody > tr > td {
         border: none
