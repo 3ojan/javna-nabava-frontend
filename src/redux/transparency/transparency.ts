@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import axios from 'axios';
 import { base_url } from '../constants';
-import searchResultsMockData from "../../mockData/searchResult.json";
+import axiosClient from '../../axios-client.js';
+// import searchResultsMockData from "../../mockData/searchResult.json";
+import { debug } from 'console';
 
 export interface TransparencyState {
   data: any | null;
   loading: boolean;
-  value: string,
+  searchValue: string,
+  selectedYear: string,
 }
 interface Transparency {
   data: any;
@@ -20,12 +22,15 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: searchResultsMockData,
+    data: getInitialData(),  //here goes the data from the api
     loading: false,
-    value: "",
+    searchValue: "",
+    selectedYear: "",
   } as TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
+      console.log("action payload",action.payload);
+      console.log("state",state);
       return {
         ...state,
         data: action.payload,
@@ -37,26 +42,30 @@ const slice = createSlice({
       // Reset error on login success
     },
     onChangeSearchBarValue: (state, action: PayloadAction<Transparency>) => {
-      state.value = action.payload;
+      state.searchValue = action.payload;
+    },
+    onChangeSelectYear: (state, action: PayloadAction<Transparency>) => {
+      console.log("select year",action.payload);
+      state.selectedYear = action.payload;
     },
   },
 });
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, onChangeSearchBarValue } = slice.actions;
+const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.actions;
 
 export const getData = () => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
     
-  // dispatch(loadSuccess(searchResultsMockData));
-  // try {
-  //   const res = await axios.post(`....someUrlTo/Load`, { pagination });
-  //   dispatch(loadSuccess(res.data));
-  // } catch (e: any) {
-  //   // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
-  // }
+  dispatch(loadSuccess(searchResultsMockData));
+  try {
+    const res = await axios.post(`....someUrlTo/Load`, { pagination });
+    dispatch(loadSuccess(res.data));
+  } catch (e: any) {
+    dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
+  }
 };
 
 // export const getData = ({ pagination }: { pagination: any }) => async (
@@ -73,6 +82,26 @@ export const getData = () => async (
 export const changeSearchBarValue = (value: string) => (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
+  debugger;
   dispatch(onChangeSearchBarValue(value));
 };
+
+export const changeSelectedYearValue = (value: string) => (
+  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
+) => {
+  dispatch(onChangeSelectYear(value));
+};
+
+import axiosClient from '../../axios-client.js';
+
+function getInitialData() {
+  debugger;
+  axiosClient.get(`/opcina-podcrkavlje/transparentnost`) // TODO - change this to variable {name} instead of hardcoded "opcina-podcrkavlje"
+            .then(({ data }: { data: any }) => { // update fetchedData to data and add type any to data parameter
+                console.log(data);
+            })
+            .catch((err: any) => { // add type any to err parameter
+              console.log(err);
+            });
+}
 

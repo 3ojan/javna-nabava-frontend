@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   TransparencyState,
   changeSearchBarValue,
+  changeSelectedYearValue,
   getData,
 } from 'src/redux/transparency/transparency';
 import { useEffect, useState } from 'react';
@@ -19,34 +20,8 @@ import { mobileWidth } from '../global/constants';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isRiseSearchAnim, setIsRiseSearchAnim] = useState(false);
-  const [isFallSearchAnim, setIsFallSearchAnim] = useState(false);
   const [isShowAninm, setIsShowAninm] = useState(false);
   const [isShortened, setIsShortened] = useState(false);
-
-  const showResults = () => {
-    setIsRiseSearchAnim(true);
-    setIsFallSearchAnim(false);
-    setIsShowAninm(true);
-
-    setIsVisible(true);
-
-    setTimeout(() => {
-      // setIsVisible(true);
-      setIsShortened(true);
-    }, 2000);
-  };
-
-  const hideResults = () => {
-    setTimeout(() => {
-      setIsVisible(false);
-    }, 2000);
-    setIsRiseSearchAnim(false);
-    setIsFallSearchAnim(true);
-    setIsShowAninm(false);
-    setIsShortened(false);
-    // setIsFadeOutAninm(true);
-  };
 
   const transparencyState = useSelector((state: TransparencyState) => {
     return state.transparency;
@@ -55,36 +30,31 @@ function TransparencyHome() {
   const dispatch = useDispatch();
 
   const onChange = (e) => {
+    debugger;
     dispatch(changeSearchBarValue(e.target.value));
-    if (e.target.value === '') {
-      hideResults();
-    }
   };
   const onSearch = (e) => {
+    debugger;
     dispatch(getData());
-    showResults();
+  };
+  const onYearChange = (e) => {
+    debugger;
+    dispatch(changeSelectedYearValue(e.target.value));
   };
 
-  const searchClassName = `${isRiseSearchAnim ? 'riseAnimation' : ''}${
-    isFallSearchAnim ? 'fallAnimation' : ''
-  }`;
-
-  // const resultsClassName = `${isFadeInAninm ? 'fadeInAnimation' : ''}${
-  //   isFadeOutAninm ? 'fadeOutAnimation' : ''
-  // }`;
-
-  const { data, buttonEnabled, value } = transparencyState;
+  const { data, buttonEnabled, searchValue, selectedYear } = transparencyState;
   return (
     <>
       <StyledFullWidthDiv $padding $background>
         <Col>
           <Row>
             <TransparentnostSearch
-              buttonEnabled={value !== ''}
-              searchValue={value}
+              buttonEnabled={searchValue !== ''}
+              searchValue={searchValue}
               onChangeInput={onChange}
               onSearchClick={onSearch}
-              className={searchClassName}
+              onYearSelect={onYearChange}
+              selectedYear={selectedYear}
             />
           </Row>
           <Row>
