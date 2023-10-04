@@ -19,6 +19,7 @@ export default function TransparentnostSearch(props: any) {
     onYearSelect,
     onSearchClick,
     className,
+    buttonEnabled,
   } = props;
   const selectYear = (
     <Select
@@ -78,10 +79,7 @@ export default function TransparentnostSearch(props: any) {
             <Input
               placeholder="Upišite ključnu riječ..."
               // onSearch={handleSearch}
-              onChange={() => {
-                debugger;
-                onChangeInput;
-              }}
+              onChange={onChangeInput}
               className="search-input"
             />
             <Select
@@ -91,10 +89,7 @@ export default function TransparentnostSearch(props: any) {
               className="dropdown"
               showSearch
               defaultValue={'odaberite godinu'}
-              onChange={() => {
-                debugger;
-                onYearSelect;
-              }}
+              onChange={onYearSelect}
               options={[
                 {
                   value: '2023',
@@ -115,7 +110,7 @@ export default function TransparentnostSearch(props: any) {
               ]}
             ></Select>
             <StyledColoredButton
-              disabled={searchValue === '' && selectedYear === ''}
+              disabled={!buttonEnabled}
               onClick={onSearchClick}
               type="primary"
               className="search-button"

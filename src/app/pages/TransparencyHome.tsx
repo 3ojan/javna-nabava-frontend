@@ -39,8 +39,11 @@ function TransparencyHome() {
   };
   const onYearChange = (e) => {
     debugger;
-    dispatch(changeSelectedYearValue(e.target.value));
+    dispatch(changeSelectedYearValue(e));
   };
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
 
   const { data, buttonEnabled, searchValue, selectedYear } = transparencyState;
   return (
@@ -49,12 +52,12 @@ function TransparencyHome() {
         <Col>
           <Row>
             <TransparentnostSearch
-              buttonEnabled={searchValue !== ''}
-              searchValue={searchValue}
+              buttonEnabled={searchValue !== '' && selectedYear !== ''}
+              // searchValue={searchValue}
               onChangeInput={onChange}
               onSearchClick={onSearch}
               onYearSelect={onYearChange}
-              selectedYear={selectedYear}
+              // selectedYear={selectedYear}
             />
           </Row>
           <Row>

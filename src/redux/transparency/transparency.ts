@@ -22,13 +22,14 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: getInitialData(),  //here goes the data from the api
+    data: null,  //here goes the data from the api
     loading: false,
     searchValue: "",
     selectedYear: "",
   } as TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
+      // debugger;
       console.log("action payload",action.payload);
       console.log("state",state);
       return {
@@ -58,13 +59,13 @@ const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.action
 export const getData = () => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
-    
-  dispatch(loadSuccess(searchResultsMockData));
+  // debugger; 
   try {
-    const res = await axios.post(`....someUrlTo/Load`, { pagination });
+    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost`);
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
-    dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
+    // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
+    console.log(e);
   }
 };
 
@@ -89,19 +90,23 @@ export const changeSearchBarValue = (value: string) => (
 export const changeSelectedYearValue = (value: string) => (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
+  debugger;
   dispatch(onChangeSelectYear(value));
 };
 
-import axiosClient from '../../axios-client.js';
-
-function getInitialData() {
-  debugger;
-  axiosClient.get(`/opcina-podcrkavlje/transparentnost`) // TODO - change this to variable {name} instead of hardcoded "opcina-podcrkavlje"
-            .then(({ data }: { data: any }) => { // update fetchedData to data and add type any to data parameter
+//mozda nepotrebno
+async function getInitialData() {
+   var resp: any;
+   axiosClient.get(`/opcina-podcrkavlje/transparentnost`) // TODO - change this to variable {name} instead of hardcoded "opcina-podcrkavlje"
+            .then(({ data }: { data: any }) => {
                 console.log(data);
+                debugger;
+                resp = data;
+                // dispatch(loadSuccess(data));
             })
-            .catch((err: any) => { // add type any to err parameter
+            .catch((err: any) => { 
               console.log(err);
             });
+            return resp;
 }
 
