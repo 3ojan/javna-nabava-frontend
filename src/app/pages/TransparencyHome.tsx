@@ -30,10 +30,6 @@ function TransparencyHome() {
 
   const dispatch = useDispatch();
 
-  const metoda = (e) => {
-    dispatch(test());
-  };
-
   const onChange = (e) => {
     debugger;
     dispatch(changeSearchBarValue(e.target.value));
@@ -66,8 +62,6 @@ function TransparencyHome() {
               onYearSelect={onYearChange}
             />
           </Row>
-          <button onClick={metoda}>Button</button>
-          <div>{testValue}</div>
           <Row>
             <StyledExportButtonsDiv>
               <ExportButtons csvVisible={false} xmlVisible={false} />

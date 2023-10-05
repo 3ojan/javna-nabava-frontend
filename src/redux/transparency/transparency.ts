@@ -27,7 +27,6 @@ const slice = createSlice({
     errorMessage: null,
     searchValue: "",
     selectedYear: "",
-    testValue: 0,
   } as TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
@@ -50,9 +49,6 @@ const slice = createSlice({
     onChangeSelectYear: (state, action: PayloadAction<Transparency>) => {
       console.log("select year",action.payload);
       state.selectedYear = action.payload;
-    },
-    testCallback: (state, action: PayloadAction<Transparency>) => {
-      state.testValue = Math.random();
     },
   },
 });
@@ -85,12 +81,6 @@ export const getData = () => async (
 // }
 // };
 
-export const test = (value: string) => (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  dispatch(testCallback(value));
-};
-
 export const changeSearchBarValue = (value: string) => (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
@@ -104,20 +94,3 @@ export const changeSelectedYearValue = (value: string) => (
   debugger;
   dispatch(onChangeSelectYear(value));
 };
-
-//mozda nepotrebno
-async function getInitialData() {
-   var resp: any;
-   axiosClient.get(`/123/transparentnost`) // TODO - change this to variable {name} instead of hardcoded "opcina-podcrkavlje"
-            .then(({ data }: { data: any }) => {
-                console.log(data);
-                debugger;
-                resp = data;
-                // dispatch(loadSuccess(data));
-            })
-            .catch((err: any) => { 
-              console.log(err);
-            });
-            return resp;
-}
-
