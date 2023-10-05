@@ -7,6 +7,7 @@ import {
   changeSearchBarValue,
   changeSelectedYearValue,
   getData,
+  test,
 } from 'src/redux/transparency/transparency';
 import { useEffect, useState } from 'react';
 import {
@@ -29,6 +30,10 @@ function TransparencyHome() {
 
   const dispatch = useDispatch();
 
+  const metoda = (e) => {
+    dispatch(test());
+  };
+
   const onChange = (e) => {
     debugger;
     dispatch(changeSearchBarValue(e.target.value));
@@ -41,11 +46,13 @@ function TransparencyHome() {
     debugger;
     dispatch(changeSelectedYearValue(e));
   };
+
   useEffect(() => {
     dispatch(getData());
-  }, [dispatch]);
+  }, []);
 
-  const { data, buttonEnabled, searchValue, selectedYear } = transparencyState;
+  const { data, buttonEnabled, searchValue, selectedYear, testValue } =
+    transparencyState;
   return (
     <>
       <StyledFullWidthDiv $padding $background>
@@ -57,9 +64,10 @@ function TransparencyHome() {
               onChangeInput={onChange}
               onSearchClick={onSearch}
               onYearSelect={onYearChange}
-              // selectedYear={selectedYear}
             />
           </Row>
+          <button onClick={metoda}>Button</button>
+          <div>{testValue}</div>
           <Row>
             <StyledExportButtonsDiv>
               <ExportButtons csvVisible={false} xmlVisible={false} />

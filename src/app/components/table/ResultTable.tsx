@@ -43,23 +43,24 @@ enum Titles {
 /** names need to be same as the names in json object */
 interface DataType {
   id: string;
+  rkpid: string;
   oib: string;
-  name: string;
-  postcode: string;
-  city: string | null;
-  date: string;
-  amount: string;
+  naziv: string;
+  // postcode: string;
+  mjesto: string | null;
+  adresa: string;
+  // amount: string;
   description: string;
-  level_1: string[];
-  level_2: string[];
-  level_3: string[];
-  level_4: string[];
-  function_level_1: string[];
-  function_level_2: string[];
-  function_level_3: string[];
-  function_level_4: string[];
-  comment: string | null;
-  update_date: string | null;
+  // level_1: string[];
+  // level_2: string[];
+  // level_3: string[];
+  // level_4: string[];
+  // function_level_1: string[];
+  // function_level_2: string[];
+  // function_level_3: string[];
+  // function_level_4: string[];
+  // comment: string | null;
+  // update_date: string | null;
 }
 /** typified data array to an array of MobileTableData*/
 // interface MobileDataType {
@@ -175,8 +176,8 @@ const columns: ColumnsType<DataType> = [
   // },
   {
     title: Titles.oznaka,
-    dataIndex: 'id',
-    key: 'id',
+    dataIndex: 'rkpid',
+    key: 'rkpid',
     responsive: ['sm'],
   },
   {
@@ -187,32 +188,31 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: Titles.naziv,
-    dataIndex: 'name',
+    dataIndex: 'naziv',
     key: 'name',
-    sorter: (a, b) => a.name.length - b.name.length,
+    // sorter: (a, b) => a.name.length - b.name.length,
     sortDirections: ['descend'],
     responsive: ['sm'],
   },
   {
     title: Titles.mjesto,
+    dataIndex: 'mjesto',
     key: 'city',
-    dataIndex: 'city',
     responsive: ['sm'],
   },
-  {
-    title: Titles.postanskiBroj,
-    key: 'postcode',
-    dataIndex: 'postcode',
-    defaultSortOrder: 'descend',
-    responsive: ['sm'],
-    className: 'custom-column-background',
-    sorter: (a, b) => {
-      const firstPostcode = parseInt(a.postcode);
-      const secondPostcode = parseInt(b.postcode);
-
-      return firstPostcode - secondPostcode;
-    },
-  },
+  // {
+  // title: Titles.postanskiBroj,
+  // key: 'postcode',
+  // dataIndex: 'postcode',
+  // defaultSortOrder: 'descend',
+  // responsive: ['sm'],
+  // className: 'custom-column-background',
+  // sorter: (a, b) => {
+  //   const firstPostcode = parseInt(a.postcode);
+  //   const secondPostcode = parseInt(b.postcode);
+  //   return firstPostcode - secondPostcode;
+  // },
+  // },
   {
     title: Titles.datumIsplate,
     key: 'date',
