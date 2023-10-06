@@ -1,4 +1,4 @@
-import { Select, Table } from "antd";
+import { Table } from "antd";
 import { styled } from "styled-components";
 
 const searchBarHeight = "40px";
@@ -60,10 +60,9 @@ align-items: center;
   margin-right: 0;
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
 }
-
 `
 
-export const StyledTable = styled(Table)`
+export const StyledTableDivWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 10px 0;

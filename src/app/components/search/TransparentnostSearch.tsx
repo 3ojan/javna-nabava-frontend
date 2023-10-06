@@ -1,5 +1,4 @@
-import { Button, Input, Layout, Select } from 'antd';
-import { Content } from 'antd/es/layout/layout';
+import { Input, Select } from 'antd';
 import { StyledColoredButton } from '../buttons/styled';
 import { StyledMainTitleH1 } from '../general/styled.ts';
 import {
@@ -49,10 +48,10 @@ export default function TransparentnostSearch(props: any) {
   return (
     <StyledTransparencyLayout>
       <StyledTransparencyContent
-        breakpoint="lg"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
+      // breakpoint="lg"
+      // onBreakpoint={(broken) => {
+      //   console.log(broken);
+      // }}
       >
         <div className={className}>
           <StyledMainTitleH1 $center>

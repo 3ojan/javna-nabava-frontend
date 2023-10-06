@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { base_url } from '../constants';
@@ -9,8 +10,9 @@ import { debug } from 'console';
 export interface TransparencyState {
   data: any | null;
   loading: boolean;
-  searchValue: string,
-  selectedYear: string,
+  searchValue: string;
+  selectedYear: string;
+  errorMessage: string | null;
 }
 interface Transparency {
   data: any;
@@ -22,17 +24,16 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: null,  //here goes the data from the api
+    data: null, 
     loading: false,
     errorMessage: null,
     searchValue: "",
     selectedYear: "",
-  } as TransparencyState,
+  } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
       // debugger;
       console.log("action payload",action.payload);
-      console.log("state",state);
       return {
         ...state,
         data: action.payload,
@@ -43,10 +44,10 @@ const slice = createSlice({
     //   state.error = null; 
       // Reset error on login success
     },
-    onChangeSearchBarValue: (state, action: PayloadAction<Transparency>) => {
+    onChangeSearchBarValue: (state, action: PayloadAction<string>) => { //PayloadAction<Transparency>
       state.searchValue = action.payload;
-    },
-    onChangeSelectYear: (state, action: PayloadAction<Transparency>) => {
+    }, 
+    onChangeSelectYear: (state, action: PayloadAction<string>) => {
       console.log("select year",action.payload);
       state.selectedYear = action.payload;
     },
@@ -55,7 +56,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear, testCallback } = slice.actions;
+const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.actions;
 
 export const getData = () => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
@@ -91,6 +92,5 @@ export const changeSearchBarValue = (value: string) => (
 export const changeSelectedYearValue = (value: string) => (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
-  debugger;
   dispatch(onChangeSelectYear(value));
 };
