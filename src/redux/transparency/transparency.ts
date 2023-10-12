@@ -4,7 +4,6 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { base_url } from '../constants';
 import axiosClient from '../../axios-client.js';
-// import searchResultsMockData from "../../mockData/searchResult.json";
 import { debug } from 'console';
 
 export interface TransparencyState {
@@ -19,6 +18,7 @@ interface Transparency {
   error: null,
   value: string,
 }
+
 
 // Slice
 const slice = createSlice({
@@ -63,10 +63,24 @@ export const getData = () => async (
 ) => {
   // debugger; 
   try {
-    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost`);
+    const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost`);
+    
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
     // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
+    console.log(e);
+  }
+};
+
+
+export const getSearchData = (value: string) => async (
+  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
+) => {
+  try {
+    const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost/` + value);
+    
+    dispatch(loadSuccess(res.data));
+  } catch (e: any) {
     console.log(e);
   }
 };
@@ -85,7 +99,6 @@ export const getData = () => async (
 export const changeSearchBarValue = (value: string) => (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
-  debugger;
   dispatch(onChangeSearchBarValue(value));
 };
 

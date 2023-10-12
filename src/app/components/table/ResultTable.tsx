@@ -281,7 +281,6 @@ export default function ResultTable(props: TableData) {
 
     if (window.innerWidth <= 768 && !isMobileDataSet.current) {
       console.log('setting mobile data');
-      debugger;
       // const mobileProps: MobileDataType = {
       //   data: [],
       // };

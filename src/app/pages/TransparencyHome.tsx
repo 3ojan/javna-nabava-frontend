@@ -8,6 +8,7 @@ import {
   changeSearchBarValue,
   changeSelectedYearValue,
   getData,
+  getSearchData,
 } from 'src/redux/transparency/transparency';
 import { useEffect, useState } from 'react';
 import { StyledFullWidthDiv } from '../components/general/styled';
@@ -30,7 +31,8 @@ function TransparencyHome() {
     dispatch(changeSearchBarValue(e.target.value) as any);
   };
   const onSearch = (e: any) => {
-    dispatch(getData() as any);
+    console.log(e);
+    // dispatch(getSearchData() as any);
   };
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);
