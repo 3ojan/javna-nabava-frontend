@@ -20,30 +20,8 @@ export default function TransparentnostSearch(props: any) {
     className,
     buttonEnabled,
   } = props;
-  const selectYear = (
-    <Select
-      placeholder="odaberite godinu"
-      showSearch
-      options={[
-        {
-          value: '2023',
-          label: '2023',
-        },
-        {
-          value: '2022',
-          label: '2022',
-        },
-        {
-          value: '2021',
-          label: '2021',
-        },
-        {
-          value: '2020',
-          label: '2020',
-        },
-      ]}
-    ></Select>
-  );
+
+  const currentYear = new Date().getFullYear();
 
   return (
     <StyledTransparencyLayout>
@@ -81,30 +59,34 @@ export default function TransparentnostSearch(props: any) {
               onChange={onChangeInput}
               className="search-input"
             />
+            {/* this vanilla select is if the antd one doesnt style properly*/}
+            {/* <select>
+              <option value="2023">2023</option>
+              <option value="2023">2022</option>
+              <option value="2023">2021</option>
+              <option value="2023">2020</option>
+            </select> */}
             <Select
               rootClassName="dropdown"
-              // defaultValue={selectedOption}
-              // onChange={handleOptionChange}
+              defaultValue={currentYear}
               className="dropdown"
-              showSearch
-              defaultValue={'odaberite godinu'}
               onChange={onYearSelect}
               options={[
                 {
-                  value: '2023',
-                  label: '2023',
+                  value: currentYear,
+                  label: currentYear,
                 },
                 {
-                  value: '2022',
-                  label: '2022',
+                  value: currentYear - 1,
+                  label: currentYear - 1,
                 },
                 {
-                  value: '2021',
-                  label: '2021',
+                  value: currentYear - 2,
+                  label: currentYear - 2,
                 },
                 {
-                  value: '2020',
-                  label: '2020',
+                  value: currentYear - 3,
+                  label: currentYear - 3,
                 },
               ]}
             ></Select>
@@ -117,9 +99,6 @@ export default function TransparentnostSearch(props: any) {
               Pretraži
             </StyledColoredButton>
           </StyledSearchBar>
-          {/* <Button className="detailedSearchButton" type="text">
-          Detaljnija pretraga
-        </Button> */}
         </div>
       </StyledTransparencyContent>
     </StyledTransparencyLayout>
