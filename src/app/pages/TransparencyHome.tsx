@@ -31,8 +31,7 @@ function TransparencyHome() {
     dispatch(changeSearchBarValue(e.target.value) as any);
   };
   const onSearch = (e: any) => {
-    console.log(e);
-    // dispatch(getSearchData() as any);
+    dispatch(getSearchData(searchValue) as any);
   };
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);

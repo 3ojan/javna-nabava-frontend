@@ -32,8 +32,7 @@ const slice = createSlice({
   } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
-      // debugger;
-      console.log("action payload",action.payload);
+      // console.log("action payload",action.payload);
       return {
         ...state,
         data: action.payload,
@@ -48,7 +47,6 @@ const slice = createSlice({
       state.searchValue = action.payload;
     }, 
     onChangeSelectYear: (state, action: PayloadAction<string>) => {
-      console.log("select year",action.payload);
       state.selectedYear = action.payload;
     },
   },
@@ -72,13 +70,12 @@ export const getData = () => async (
   }
 };
 
-
 export const getSearchData = (value: string) => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
   try {
+    console.log("getSearchData: ", value)
     const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost/` + value);
-    
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
     console.log(e);
