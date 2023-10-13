@@ -12,7 +12,7 @@ const store = configureStore({
 });
 
 // Extend Dispatch to understand thunks
-export type AppDispatch = ThunkDispatch<RootState, undefined, AnyAction>;
+// export type AppDispatch = ThunkDispatch<RootState, undefined, AnyAction>;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

@@ -16,8 +16,7 @@ import BottomImages from '../components/background/BottomImages';
 import { mobileWidth } from '../global/constants';
 import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledExportButtonsDiv } from '../components/Buttons/styled';
-
+import { StyledExportButtonsDiv } from '../components/buttons/styled';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,6 +29,9 @@ function TransparencyHome() {
     return state.transparency as TransparencyState;
   });
 
+  const { data, searchValue, selectedYear } =
+    transparencyState as TransparencyState;
+
   const onChange = (e: any) => {
     dispatch(changeSearchBarValue(e.target.value) as any);
   };
@@ -40,9 +42,6 @@ function TransparencyHome() {
     dispatch(changeSelectedYearValue(e) as any);
   };
 
-  const { data, searchValue, selectedYear } =
-    transparencyState as TransparencyState;
-
   const currentYear = useMemo(() => {
     return parseInt(selectedYear);
   }, []);
@@ -51,9 +50,6 @@ function TransparencyHome() {
     dispatch(getData() as any);
   }, []);
 
-  const { data, searchValue, selectedYear } =
-    transparencyState;
-    
   return (
     <>
       <StyledFullWidthDiv $padding $background>

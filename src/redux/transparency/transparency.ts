@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-//mageUpload
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AnyAction } from 'redux';
@@ -11,10 +10,9 @@ import { AppDispatch } from '../store';
 export interface TransparencyState {
   data: any | null;
   loading: boolean;
-// ImageUpload
   errorMessage: string | null;
-  searchValue: string | null;
-  selectedYear: string | null;
+  searchValue: string;
+  selectedYear: string;
 }
 
 export interface RootState {
@@ -22,8 +20,8 @@ export interface RootState {
   searchValue: string;
   selectedYear: string;
   errorMessage: string | null;
-// main
 }
+
 interface Transparency {
   data: any;
   error: null;
