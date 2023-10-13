@@ -9,14 +9,14 @@ import {
   getData,
 } from 'src/redux/transparency/transparency';
 import { useEffect, useMemo, useState } from 'react';
-import { StyledFullWidthDiv } from '../components/general/styled';
+import { StyledFullWidthDiv } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 
 import BottomImages from '../components/background/BottomImages';
 import { mobileWidth } from '../global/constants';
 import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledExportButtonsDiv } from '../components/buttons/styled';
+import { StyledExportButtonsDiv } from '../components/buttons/styled.ts';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
