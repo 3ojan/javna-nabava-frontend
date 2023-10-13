@@ -1,22 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
-import { ThunkDispatch } from 'redux-thunk';
+//mageUpload
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+
 import { AnyAction } from 'redux';
 import { base_url } from '../constants';
 import axiosClient from '../../axios-client.js';
 import { debug } from 'console';
+import { AppDispatch } from '../store';
 
 export interface TransparencyState {
   data: any | null;
   loading: boolean;
+// ImageUpload
+  errorMessage: string | null;
+  searchValue: string | null;
+  selectedYear: string | null;
+}
+
+export interface RootState {
+  trasparency: TransparencyState
   searchValue: string;
   selectedYear: string;
   errorMessage: string | null;
+// main
 }
 interface Transparency {
   data: any;
-  error: null,
-  value: string,
+  error: null;
+  value: string;
 }
 
 
@@ -32,15 +43,14 @@ const slice = createSlice({
   } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
-      // console.log("action payload",action.payload);
       return {
         ...state,
         data: action.payload,
         error: null,
       };
-    
-    // state.data = action.payload;
-    //   state.error = null; 
+
+      // state.data = action.payload;
+      //   state.error = null; 
       // Reset error on login success
     },
     onChangeSearchBarValue: (state, action: PayloadAction<string>) => { //PayloadAction<Transparency>
@@ -56,16 +66,12 @@ export default slice.reducer;
 // Actions
 const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.actions;
 
-export const getData = () => async (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  // debugger; 
+export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
-    const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost`);
-    
+    const res = await axiosClient.get(`https://api.test200.plavilink.hr/opcina-podcrkavlje/transparentnost`);
+
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
-    // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
     console.log(e);
   }
 };
@@ -92,6 +98,7 @@ export const getSearchData = (value: string) => async (
 //   // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
 // }
 // };
+
 
 export const changeSearchBarValue = (value: string) => (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>

@@ -1,31 +1,34 @@
 import { Col, Row } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
-// import { useDispatch, useSelector } from 'react-redux';
-
 import {
   TransparencyState,
   changeSearchBarValue,
   changeSelectedYearValue,
-  getData,
   getSearchData,
+  getData,
 } from 'src/redux/transparency/transparency';
 import { useEffect, useMemo, useState } from 'react';
 import { StyledFullWidthDiv } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
-import { StyledExportButtonsDiv } from '../components/buttons/styled';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+
+import BottomImages from '../components/background/BottomImages';
+import { mobileWidth } from '../global/constants';
+import { AppDispatch } from 'src/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyledExportButtonsDiv } from '../components/Buttons/styled';
+
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
   const [isShowAninm, setIsShowAninm] = useState(false);
   const [isShortened, setIsShortened] = useState(false);
 
-  const transparencyState = useAppSelector((state) => {
-    return state.transparency;
-  });
+  const dispatch: AppDispatch = useDispatch();
 
-  const dispatch = useAppDispatch();
+  const transparencyState = useSelector((state: any) => {
+    return state.transparency as TransparencyState;
+  });
 
   const onChange = (e: any) => {
     dispatch(changeSearchBarValue(e.target.value) as any);
@@ -48,6 +51,9 @@ function TransparencyHome() {
     dispatch(getData() as any);
   }, []);
 
+  const { data, searchValue, selectedYear } =
+    transparencyState;
+    
   return (
     <>
       <StyledFullWidthDiv $padding $background>
