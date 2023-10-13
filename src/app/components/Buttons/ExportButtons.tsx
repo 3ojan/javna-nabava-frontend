@@ -12,7 +12,6 @@ export type exportButtonProps = {
 
 export default function ExportButtons(exportButtonProps: exportButtonProps) {
   const { xmlVisible, csvVisible, jsonVisible } = exportButtonProps;
-  //nakon dodavanja jednog useStatea, rade svi stateovi
   const [xmlText, setXmlText] = useState(
     window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML'
   );
