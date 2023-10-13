@@ -1,5 +1,7 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, ThunkDispatch } from '@reduxjs/toolkit';
 import transparencyReducer from './transparency/transparency';
+import { AnyAction } from 'redux';
+
 // Import other reducers as needed
 
 const store = configureStore({
@@ -8,6 +10,9 @@ const store = configureStore({
     // Add other reducers here
   },
 });
+
+// Extend Dispatch to understand thunks
+export type AppDispatch = ThunkDispatch<RootState, undefined, AnyAction>;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

@@ -1,21 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ThunkDispatch } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { base_url } from '../constants';
 import axiosClient from '../../axios-client.js';
 // import searchResultsMockData from "../../mockData/searchResult.json";
 import { debug } from 'console';
+import { AppDispatch } from '../store';
 
 export interface TransparencyState {
   data: any | null;
   loading: boolean;
-  searchValue: string,
-  selectedYear: string,
+  errorMessage: string | null;
+  searchValue: string | null;
+  selectedYear: string | null;
+}
+export interface RootState {
+  trasparency: TransparencyState
 }
 interface Transparency {
   data: any;
-  error: null,
-  value: string,
+  error: null;
+  value: string;
 }
 
 // Slice
@@ -25,29 +30,29 @@ const slice = createSlice({
     data: null,  //here goes the data from the api
     loading: false,
     errorMessage: null,
-    searchValue: "",
-    selectedYear: "",
+    searchValue: null,
+    selectedYear: null,
   } as TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
       // debugger;
-      console.log("action payload",action.payload);
-      console.log("state",state);
+      console.log("action payload", action.payload);
+      console.log("state", state);
       return {
         ...state,
         data: action.payload,
         error: null,
       };
-    
-    // state.data = action.payload;
-    //   state.error = null; 
+
+      // state.data = action.payload;
+      //   state.error = null; 
       // Reset error on login success
     },
-    onChangeSearchBarValue: (state, action: PayloadAction<Transparency>) => {
+    onChangeSearchBarValue: (state, action: PayloadAction<any>) => {
       state.searchValue = action.payload;
     },
-    onChangeSelectYear: (state, action: PayloadAction<Transparency>) => {
-      console.log("select year",action.payload);
+    onChangeSelectYear: (state, action: PayloadAction<any>) => {
+      console.log("select year", action.payload);
       state.selectedYear = action.payload;
     },
   },
@@ -55,20 +60,17 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear, testCallback } = slice.actions;
+const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.actions;
 
-export const getData = () => async (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  // debugger; 
+export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
-    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost`);
+    const res = await axiosClient.get(`https://api.test200.plavilink.hr/opcina-podcrkavlje/transparentnost`);
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
-    // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
     console.log(e);
   }
 };
+
 
 // export const getData = ({ pagination }: { pagination: any }) => async (
 //   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
@@ -81,16 +83,10 @@ export const getData = () => async (
 // }
 // };
 
-export const changeSearchBarValue = (value: string) => (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  debugger;
+export const changeSearchBarValue = (value: any) => (dispatch: AppDispatch) => {
   dispatch(onChangeSearchBarValue(value));
 };
 
-export const changeSelectedYearValue = (value: string) => (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  debugger;
+export const changeSelectedYearValue = (value: any) => (dispatch: AppDispatch) => {
   dispatch(onChangeSelectYear(value));
 };

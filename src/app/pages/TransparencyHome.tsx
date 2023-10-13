@@ -1,13 +1,11 @@
 import { Col, Image, Row } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   TransparencyState,
   changeSearchBarValue,
   changeSelectedYearValue,
   getData,
-  test,
 } from 'src/redux/transparency/transparency';
 import { useEffect, useState } from 'react';
 import {
@@ -15,31 +13,30 @@ import {
   StyledFullWidthDiv,
 } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
-import { StyledExportButtonsDiv } from '../components/buttons/styled';
 import BottomImages from '../components/background/BottomImages';
 import { mobileWidth } from '../global/constants';
+import { AppDispatch } from 'src/redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyledExportButtonsDiv } from '../components/Buttons/styled';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
   const [isShowAninm, setIsShowAninm] = useState(false);
   const [isShortened, setIsShortened] = useState(false);
 
-  const transparencyState = useSelector((state: TransparencyState) => {
-    return state.transparency;
+  const dispatch: AppDispatch = useDispatch();
+
+  const transparencyState = useSelector((state: any) => {
+    return state.transparency as TransparencyState;
   });
 
-  const dispatch = useDispatch();
-
   const onChange = (e) => {
-    debugger;
     dispatch(changeSearchBarValue(e.target.value));
   };
   const onSearch = (e) => {
-    debugger;
     dispatch(getData());
   };
   const onYearChange = (e) => {
-    debugger;
     dispatch(changeSelectedYearValue(e));
   };
 
@@ -47,7 +44,7 @@ function TransparencyHome() {
     dispatch(getData());
   }, []);
 
-  const { data, buttonEnabled, searchValue, selectedYear, testValue } =
+  const { data, searchValue, selectedYear } =
     transparencyState;
   return (
     <>
