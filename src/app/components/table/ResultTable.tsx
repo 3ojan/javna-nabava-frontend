@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ColumnsType, TableProps } from 'antd/es/table';
+import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledMobileRow,
   StyledMobileRowDividerLine,
   StyledResultsTableDiv,
-  StyledTable,
+  StyledTableDivWrapper,
 } from './styled';
 import { mobileWidth } from 'src/app/global/constants';
-import { Divider } from 'antd';
+import { ConfigProvider, Divider } from 'antd';
+import ThemeProvider from './ThemeProvider';
 
 interface TableData {
   data: DataType[];
@@ -280,7 +281,6 @@ export default function ResultTable(props: TableData) {
 
     if (window.innerWidth <= 768 && !isMobileDataSet.current) {
       console.log('setting mobile data');
-      debugger;
       // const mobileProps: MobileDataType = {
       //   data: [],
       // };
@@ -308,12 +308,23 @@ export default function ResultTable(props: TableData) {
 
   return (
     <StyledResultsTableDiv>
-      <StyledTable
-        className="resutlsTable"
-        columns={columns} //columnType
-        dataSource={props.data}
-        onChange={onChange}
-      />
+      {/* <ConfigProvider
+        theme={{
+          token: {
+            colorBgBase: 'red',
+          },
+        }}
+      > */}
+      {/* <ThemeProvider> */}
+      <StyledTableDivWrapper>
+        <Table
+          columns={columns} //columnType
+          dataSource={props.data}
+          onChange={onChange}
+        />
+      </StyledTableDivWrapper>
+      {/* </ThemeProvider> */}
+      {/* </ConfigProvider> */}
     </StyledResultsTableDiv>
   );
 }

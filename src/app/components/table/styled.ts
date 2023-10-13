@@ -1,4 +1,4 @@
-import { Select, Table } from "antd";
+import { Table } from "antd";
 import { styled } from "styled-components";
 
 const searchBarHeight = "40px";
@@ -43,9 +43,22 @@ align-items: center;
   border-radius: ${searchBorderRadius} 0 0 ${searchBorderRadius};
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
-  height: ${searchBarHeight};
+// :where(.css-dev-only-do-not-override-1m62vyb).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+//   height: ${searchBarHeight};
+// }
+
+:where(.css-dev-only-do-not-override-1m62vyb).ant-select-single .ant-select-selector{
+   height: ${searchBarHeight};
 }
+ select{
+  background-color: transparent; 
+  border-top: 1px silver solid;
+  border-bottom: 1px silver solid; 
+  border-left: none;
+  border-right: none;
+  padding: 0 10px;
+  height: ${searchBarHeight};
+ }
 
 .ant-select-selector{
   border-radius: 0;
@@ -60,10 +73,9 @@ align-items: center;
   margin-right: 0;
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
 }
-
 `
 
-export const StyledTable = styled(Table)`
+export const StyledTableDivWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 10px 0;

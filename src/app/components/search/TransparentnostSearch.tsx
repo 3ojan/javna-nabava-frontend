@@ -1,5 +1,4 @@
-import { Button, Input, Layout, Select } from 'antd';
-import { Content } from 'antd/es/layout/layout';
+import { Input, Select } from 'antd';
 import { StyledColoredButton } from '../buttons/styled';
 import { StyledMainTitleH1 } from '../general/styled.ts';
 import {
@@ -15,45 +14,16 @@ export default function TransparentnostSearch(props: any) {
     onChangeInput,
     searchValueonSearchClick,
     searchValue,
-    selectedYear,
+    currentYear,
     onYearSelect,
     onSearchClick,
     className,
     buttonEnabled,
   } = props;
-  const selectYear = (
-    <Select
-      placeholder="odaberite godinu"
-      showSearch
-      options={[
-        {
-          value: '2023',
-          label: '2023',
-        },
-        {
-          value: '2022',
-          label: '2022',
-        },
-        {
-          value: '2021',
-          label: '2021',
-        },
-        {
-          value: '2020',
-          label: '2020',
-        },
-      ]}
-    ></Select>
-  );
 
   return (
     <StyledTransparencyLayout>
-      <StyledTransparencyContent
-        breakpoint="lg"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-      >
+      <StyledTransparencyContent>
         <div className={className}>
           <StyledMainTitleH1 $center>
             <img src="../../../../img/grb.png" alt="" />
@@ -82,30 +52,34 @@ export default function TransparentnostSearch(props: any) {
               onChange={onChangeInput}
               className="search-input"
             />
+            {/* this vanilla select is if the antd one doesnt style properly*/}
+            {/* <select>
+              <option value="2023">2023</option>
+              <option value="2023">2022</option>
+              <option value="2023">2021</option>
+              <option value="2023">2020</option>
+            </select> */}
             <Select
               rootClassName="dropdown"
-              // defaultValue={selectedOption}
-              // onChange={handleOptionChange}
+              defaultValue={currentYear}
               className="dropdown"
-              showSearch
-              defaultValue={'odaberite godinu'}
               onChange={onYearSelect}
               options={[
                 {
-                  value: '2023',
-                  label: '2023',
+                  value: currentYear,
+                  label: currentYear,
                 },
                 {
-                  value: '2022',
-                  label: '2022',
+                  value: currentYear - 1,
+                  label: currentYear - 1,
                 },
                 {
-                  value: '2021',
-                  label: '2021',
+                  value: currentYear - 2,
+                  label: currentYear - 2,
                 },
                 {
-                  value: '2020',
-                  label: '2020',
+                  value: currentYear - 3,
+                  label: currentYear - 3,
                 },
               ]}
             ></Select>
@@ -118,9 +92,6 @@ export default function TransparentnostSearch(props: any) {
               Pretraži
             </StyledColoredButton>
           </StyledSearchBar>
-          {/* <Button className="detailedSearchButton" type="text">
-          Detaljnija pretraga
-        </Button> */}
         </div>
       </StyledTransparencyContent>
     </StyledTransparencyLayout>

@@ -4,7 +4,6 @@ import React, { memo, ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import NxWelcome from './nx-welcome';
 import store from '../redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
 import {
   BrowserRouter as Router,
   // Switch,
@@ -13,7 +12,7 @@ import {
   // Link
 } from 'react-router-dom';
 import TransparencyHome from './pages/TransparencyHome';
-import { BackgroundDiv, GlobalStyle } from './global/styled';
+import { GlobalStyle } from './global/styled';
 import { StyledFullWidthDiv } from './components/general/styled';
 import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
@@ -38,7 +37,7 @@ export function App() {
             {/* <PersistGate loading={null}> */}
             <Router>
               <Routes>
-                <Route path="/" element={<TransparencyHome title="" />} />
+                <Route path="/" element={<TransparencyHome />} />
                 <Route path="/home" element={<NxWelcome title="" />} />
               </Routes>
             </Router>

@@ -1,23 +1,23 @@
-import { Col, Image, Row } from 'antd';
+import { Col, Row } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import {
   TransparencyState,
   changeSearchBarValue,
   changeSelectedYearValue,
+  getSearchData,
   getData,
 } from 'src/redux/transparency/transparency';
-import { useEffect, useState } from 'react';
-import {
-  StyledCenterDivWrapper,
-  StyledFullWidthDiv,
-} from '../components/general/styled';
+import { useEffect, useMemo, useState } from 'react';
+import { StyledFullWidthDiv } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
+
 import BottomImages from '../components/background/BottomImages';
 import { mobileWidth } from '../global/constants';
 import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from '../components/Buttons/styled';
+
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,22 +30,30 @@ function TransparencyHome() {
     return state.transparency as TransparencyState;
   });
 
-  const onChange = (e) => {
-    dispatch(changeSearchBarValue(e.target.value));
+  const onChange = (e: any) => {
+    dispatch(changeSearchBarValue(e.target.value) as any);
   };
-  const onSearch = (e) => {
-    dispatch(getData());
+  const onSearch = (e: any) => {
+    dispatch(getSearchData(searchValue) as any);
   };
-  const onYearChange = (e) => {
-    dispatch(changeSelectedYearValue(e));
+  const onYearChange = (e: any) => {
+    dispatch(changeSelectedYearValue(e) as any);
   };
 
+  const { data, searchValue, selectedYear } =
+    transparencyState as TransparencyState;
+
+  const currentYear = useMemo(() => {
+    return parseInt(selectedYear);
+  }, []);
+
   useEffect(() => {
-    dispatch(getData());
+    dispatch(getData() as any);
   }, []);
 
   const { data, searchValue, selectedYear } =
     transparencyState;
+    
   return (
     <>
       <StyledFullWidthDiv $padding $background>
@@ -54,6 +62,7 @@ function TransparencyHome() {
             <TransparentnostSearch
               buttonEnabled={searchValue !== '' && selectedYear !== ''}
               // searchValue={searchValue}
+              currentYear={currentYear}
               onChangeInput={onChange}
               onSearchClick={onSearch}
               onYearSelect={onYearChange}

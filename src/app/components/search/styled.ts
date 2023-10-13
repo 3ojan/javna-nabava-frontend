@@ -1,5 +1,4 @@
 import { Layout } from "antd";
-import Search from "antd/es/input/Search";
 import { Content } from "antd/es/layout/layout";
 import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
@@ -20,6 +19,4 @@ export const StyledTransparencyContent = styled(Content)`
             margin-top: 50px;
         }
     }
-
-    
 `
