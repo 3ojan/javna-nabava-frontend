@@ -10,7 +10,7 @@ import {
   getData,
   getSearchData,
 } from 'src/redux/transparency/transparency';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { StyledFullWidthDiv } from '../components/general/styled';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { StyledExportButtonsDiv } from '../components/buttons/styled';
@@ -37,11 +37,17 @@ function TransparencyHome() {
     dispatch(changeSelectedYearValue(e) as any);
   };
 
+  const { data, searchValue, selectedYear } =
+    transparencyState as TransparencyState;
+
+  const currentYear = useMemo(() => {
+    return parseInt(selectedYear);
+  }, []);
+
   useEffect(() => {
     dispatch(getData() as any);
   }, []);
 
-  const { data, searchValue, selectedYear } = transparencyState;
   return (
     <>
       <StyledFullWidthDiv $padding $background>
@@ -50,6 +56,7 @@ function TransparencyHome() {
             <TransparentnostSearch
               buttonEnabled={searchValue !== '' && selectedYear !== ''}
               // searchValue={searchValue}
+              currentYear={currentYear}
               onChangeInput={onChange}
               onSearchClick={onSearch}
               onYearSelect={onYearChange}

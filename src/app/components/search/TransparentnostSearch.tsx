@@ -14,23 +14,16 @@ export default function TransparentnostSearch(props: any) {
     onChangeInput,
     searchValueonSearchClick,
     searchValue,
-    selectedYear,
+    currentYear,
     onYearSelect,
     onSearchClick,
     className,
     buttonEnabled,
   } = props;
 
-  const currentYear = new Date().getFullYear();
-
   return (
     <StyledTransparencyLayout>
-      <StyledTransparencyContent
-      // breakpoint="lg"
-      // onBreakpoint={(broken) => {
-      //   console.log(broken);
-      // }}
-      >
+      <StyledTransparencyContent>
         <div className={className}>
           <StyledMainTitleH1 $center>
             <img src="../../../../img/grb.png" alt="" />

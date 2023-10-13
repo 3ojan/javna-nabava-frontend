@@ -28,7 +28,7 @@ const slice = createSlice({
     loading: false,
     errorMessage: null,
     searchValue: "",
-    selectedYear: "",
+    selectedYear: new Date().getFullYear().toString(),
   } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
