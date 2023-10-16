@@ -44,7 +44,6 @@ export function App() {
             {/* </PersistGate> */}
           </Provider>
         </StyledFullWidthDiv>
-        {/* </div> */}
       </ConfigProvider>
     </>
   );
