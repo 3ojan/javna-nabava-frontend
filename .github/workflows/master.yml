@@ -24,6 +24,9 @@ jobs:
         env:
           CI: false
 
+      - name: Echo home
+        run: echo $HOME
+
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
