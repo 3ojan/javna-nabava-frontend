@@ -36,5 +36,5 @@ jobs:
           server: ftp.plavilink.hr
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: public_html/test200.plavilink.hr/test/
+          server-dir: public_html/test200.plavilink.hr/
           local-dir: dist/javna-nabava-frontend/
