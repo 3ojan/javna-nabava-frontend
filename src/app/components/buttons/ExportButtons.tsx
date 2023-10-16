@@ -31,7 +31,6 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
   return (
     <>
       <p
-        className="throwaway"
         style={{
           textAlign: 'center',
           width: '100%',
