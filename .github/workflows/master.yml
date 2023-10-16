@@ -19,8 +19,8 @@ jobs:
       # - name: Upgrade npm
       #   run: npm install -g npm@10.2.0
 
-      - name: Clear npm cache
-        run: npm cache clean -f
+      # - name: Clear npm cache
+      #   run: npm cache clean -f
 
       - name: install dependencies
         run: npm install

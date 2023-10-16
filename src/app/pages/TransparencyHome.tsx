@@ -13,7 +13,7 @@ import { StyledFullWidthDiv } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledExportButtonsDiv } from '../components/buttons/styled.ts';
+import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 
 function TransparencyHome() {
   const [isVisible, setIsVisible] = useState(false);
