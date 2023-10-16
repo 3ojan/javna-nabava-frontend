@@ -47,7 +47,7 @@ export default function TransparentnostSearch(props: any) {
           /> */}
           <StyledSearchBar>
             <Input
-              placeholder="Upišite ključnu riječ..."
+              placeholder="MOlim lijepo"
               // onSearch={handleSearch}
               onChange={onChangeInput}
               className="search-input"
