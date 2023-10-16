@@ -1,11 +1,11 @@
 import { Input, Select } from 'antd';
-import { StyledColoredButton } from '../buttons/styled';
+import { StyledColoredButton } from '../buttons/styled.ts';
 import { StyledMainTitleH1 } from '../general/styled.ts';
 import {
   StyledTransparencyContent,
   StyledTransparencyLayout,
 } from '../search/styled.ts';
-import { StyledSearchBar } from '../table/styled';
+import { StyledSearchBar } from '../table/styled.ts';
 
 export default function TransparentnostSearch(props: any) {
   const { Option } = Select;
