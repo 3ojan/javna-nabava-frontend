@@ -24,10 +24,6 @@ jobs:
         env:
           CI: false
 
-      - name: Log Environment Variables
-        run: |
-          echo "API_KEY: $VITE_API_BASE_URL"
-
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

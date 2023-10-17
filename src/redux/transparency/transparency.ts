@@ -66,7 +66,7 @@ const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.action
 
 export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
-    const res = await axiosClient.get(`https://api.test200.plavilink.hr/opcina-podcrkavlje/transparentnost`);
+    const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost/`);
 
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
