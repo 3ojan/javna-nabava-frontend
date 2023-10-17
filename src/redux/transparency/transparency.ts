@@ -66,7 +66,7 @@ const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.action
 
 export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
-    const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost/`);
+    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost/`);
 
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
@@ -79,7 +79,7 @@ export const getSearchData = (value: string) => async (
 ) => {
   try {
     console.log("getSearchData: ", value)
-    const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost/` + value);
+    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost/` + value);
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
     console.log(e);
