@@ -54,7 +54,6 @@ function TransparencyHome() {
           <Row>
             <TransparentnostSearch
               buttonEnabled={searchValue !== '' && selectedYear !== ''}
-              // searchValue={searchValue}
               currentYear={currentYear}
               onChangeInput={onChange}
               onSearchClick={onSearch}
