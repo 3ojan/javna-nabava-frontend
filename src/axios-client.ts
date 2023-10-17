@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  headers: {
-    AccessControlAllowOrigin: "*"
-  },
+  
   baseURL: `${import.meta.env.VITE_API_BASE_URL}`,
 });
 
