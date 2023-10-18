@@ -33,7 +33,7 @@ function TransparencyHome() {
     dispatch(changeSearchBarValue(e.target.value) as any);
   };
   const onSearch = (e: any) => {
-    dispatch(getSearchData(searchValue) as any);
+    dispatch(getSearchData(selectedYear, searchValue) as any);
   };
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);
@@ -44,7 +44,23 @@ function TransparencyHome() {
   }, []);
 
   useEffect(() => {
-    dispatch(getData() as any);
+    // This effect runs after the initial render
+
+    if (
+      searchValue === '' ||
+      searchValue === undefined ||
+      searchValue === null
+    ) {
+      console.log('searchValue is empty', searchValue);
+      console.log('selectedYear is', selectedYear);
+
+      dispatch(getData(selectedYear) as any);
+    }
+    // Clean up effect on unmount
+  }, [selectedYear]);
+
+  useEffect(() => {
+    dispatch(getData(selectedYear) as any);
   }, []);
 
   return (

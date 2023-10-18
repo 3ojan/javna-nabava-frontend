@@ -28,7 +28,6 @@ interface Transparency {
   value: string;
 }
 
-
 // Slice
 const slice = createSlice({
   name: 'transparency',
@@ -64,9 +63,9 @@ export default slice.reducer;
 // Actions
 const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.actions;
 
-export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
+export const getData = (year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
-    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost`);
+    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost?year=` + year);
 
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
@@ -74,12 +73,12 @@ export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction
   }
 };
 
-export const getSearchData = (value: string) => async (
+export const getSearchData = (year: string, value: string) => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
   try {
-    console.log("getSearchData: ", value)
-    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost/` + value);
+    // console.log("getSearchData: ", value)
+    const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost?year=` + year + '&keyword=' + value);
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
     console.log(e);
