@@ -13,10 +13,6 @@ import hrHR from 'antd/locale/hr_HR';
 import BottomImages from './components/background/BottomImages';
 
 export default function App() {
-  // useEffect(() => {
-  //   console.log('location: ', window.location);
-  // }, []);
-
   return (
     <>
       <ConfigProvider

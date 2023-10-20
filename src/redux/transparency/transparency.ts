@@ -66,6 +66,14 @@ const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.action
 export const getData = (year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
     console.log("getdata window location: ", window.location.hostname)
+    //test200.plavilink.hr
+    let domain = window.location.hostname;
+    let firstWordLength = domain.substring(0, domain.indexOf('.')).length + 1; // +1 to include the dot
+    let placeName = domain.substring(firstWordLength, domain.indexOf('.hr'));
+    
+    console.log("firstWordLength: ", firstWordLength)
+    console.log("extracted name: ", placeName)
+
     const res = await axiosClient.get(`/opcina-podcrkavlje/transparentnost?year=` + year);
 
     dispatch(loadSuccess(res.data));
