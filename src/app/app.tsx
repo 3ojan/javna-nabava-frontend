@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
-import React, { memo, ReactElement } from 'react';
+import React, { memo, ReactElement, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import NxWelcome from './nx-welcome';
 import store from '../redux/store';
@@ -12,7 +12,11 @@ import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
 import BottomImages from './components/background/BottomImages';
 
-export function App() {
+export default function App() {
+  // useEffect(() => {
+  //   console.log('location: ', window.location);
+  // }, []);
+
   return (
     <>
       <ConfigProvider
@@ -39,5 +43,3 @@ export function App() {
     </>
   );
 }
-
-export default App;

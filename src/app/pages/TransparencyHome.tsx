@@ -38,6 +38,10 @@ function TransparencyHome() {
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);
   };
+  const onLoseFocus = (e: any) => {
+    //gets default data
+    dispatch(getData(selectedYear) as any);
+  };
 
   const currentYear = useMemo(() => {
     return parseInt(selectedYear);
@@ -45,18 +49,14 @@ function TransparencyHome() {
 
   useEffect(() => {
     // This effect runs after the initial render
-
     if (
       searchValue === '' ||
       searchValue === undefined ||
       searchValue === null
     ) {
-      console.log('searchValue is empty', searchValue);
-      console.log('selectedYear is', selectedYear);
-
+      //gets default data
       dispatch(getData(selectedYear) as any);
     }
-    // Clean up effect on unmount
   }, [selectedYear]);
 
   useEffect(() => {
@@ -69,6 +69,7 @@ function TransparencyHome() {
         <Col>
           <Row>
             <TransparentnostSearch
+              onLoseFocus={onLoseFocus}
               buttonEnabled={searchValue !== '' && selectedYear !== ''}
               currentYear={currentYear}
               onChangeInput={onChange}
