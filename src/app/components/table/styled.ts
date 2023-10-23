@@ -16,7 +16,6 @@ export const StyledMobileRowDividerLine = styled.div`
 `
 export const StyledMobileRow = styled.tr`
   display: flex;
-  // background-color: rgba(255, 0, 255, 0.2);
 
   td{
     flex: 2;
@@ -24,7 +23,6 @@ export const StyledMobileRow = styled.tr`
   }
 
   td:first-child{  
-    // background-color: rgba(255, 0, 255, 0.2);
     flex: 1;
     padding: 0 10px;
     display: flex;
@@ -93,14 +91,6 @@ export const StyledTableDivWrapper = styled.div`
       background-color: rgba(255, 255, 255, 0);
   }
 
-  /* Normal styles for larger screens */
-  .ant-table {
-    /* Your regular table styles */
-
-    // border-left: 1px solid #282828;
-    // border-left: 1px solid #282828;
-  }
-
   /* Mobile-specific styles */
   @media (max-width: 768px) {
     .ant-table {
@@ -108,12 +98,6 @@ export const StyledTableDivWrapper = styled.div`
 
     .ant-table-thead {
         display: none; /* Hide the table header on mobile */
-      }
-      // .ant-table-tbody > tr:nth-child(odd) {
-      //   background-color: white; 
-      // }
-      .ant-table-tbody > tr:nth-child(even) {
-        background-color: #e6faff; /* light silver */
       }
       .ant-table-tbody > tr > td {
         border: none
@@ -127,10 +111,6 @@ export const StyledTableDivWrapper = styled.div`
 
           .ant-table-cell {
             flex: 1; /* Distribute cell width equally */
-            // border: none; /* Remove cell borders for a cleaner look */
-            // padding: 8px; /* Add some padding for spacing */
-            // background-color: rgba(255, 255, 55, 0.2);
-
             padding: 0;
           }
         }

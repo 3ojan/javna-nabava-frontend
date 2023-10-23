@@ -74,6 +74,12 @@ export const getData = (year: string): ThunkAction<Promise<void>, RootState, voi
     console.log("firstWordLength: ", firstWordLength)
     console.log("extracted name: ", placeName)
 
+    //Only for local testing 
+    // {
+    if (placeName === "127."){
+      placeName="podcrkavlje"
+    }
+    //}
     //this is temporary, needs to work for strings that do not have "opcina-" in front
     const res = await axiosClient.get(`/opcina-${placeName}/transparentnost?year=` + year);
 
