@@ -67,8 +67,8 @@ export const getData = (year: string): ThunkAction<Promise<void>, RootState, voi
   try {
     //code below needs to be in a method and called only once on page load!
     console.log("getdata window location: ", window.location.hostname)
-    let domain = window.location.hostname;
-    let firstWordLength = domain.substring(0, domain.indexOf('.')).length + 1; // +1 to include the dot
+    const domain = window.location.hostname;
+    const firstWordLength = domain.substring(0, domain.indexOf('.')).length + 1; // +1 to include the dot
     let placeName = domain.substring(firstWordLength, domain.indexOf('.hr'));
     
     console.log("firstWordLength: ", firstWordLength)
