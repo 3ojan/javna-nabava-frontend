@@ -78,21 +78,22 @@ function TransparencyHome() {
               onYearSelect={onYearChange}
             />
           </Row>
-          <Row>
-            <StyledExportButtonsDiv>
-              <ExportButtons csvVisible={false} xmlVisible={false} />
-            </StyledExportButtonsDiv>
-          </Row>
-          <Row>
-            {isDataLoaded ? (
-              <ResultTable data={data} />
-            ) : (
-              <StyledFullWidthDiv $center>
-                <Spin tip="Učitavanje" size="large" indicator={antIcon} />
-              </StyledFullWidthDiv>
-            )}
-            {/* <ResultTable data={data} /> */}
-          </Row>
+          {isDataLoaded ? (
+            <>
+              <Row>
+                <StyledExportButtonsDiv>
+                  <ExportButtons csvVisible={false} xmlVisible={false} />
+                </StyledExportButtonsDiv>
+              </Row>
+              <Row>
+                <ResultTable data={data} />
+              </Row>
+            </>
+          ) : (
+            <StyledFullWidthDiv $center>
+              <Spin tip="Učitavanje" size="large" indicator={antIcon} />
+            </StyledFullWidthDiv>
+          )}
         </Col>
       </StyledFullWidthDiv>
     </>
