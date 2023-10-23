@@ -8,12 +8,18 @@ export const StyledResultsTableDiv = styled.div`
     width: 100%;
 `
 
-export const StyledMobileRowDividerLine = styled.div`
+export const StyledMobileTdDividerLine = styled.div`
   width: 100%;
   margin: 0 auto;
   height: 1px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 `
+// export const StyledMobileRowDividerLine = styled.div`
+//   width: 100%;
+//   margin: 0 auto;
+//   height: 1px;
+//   background-color: rgba(0, 0, 0, 0.3);
+// `
 export const StyledMobileRow = styled.tr`
   display: flex;
 

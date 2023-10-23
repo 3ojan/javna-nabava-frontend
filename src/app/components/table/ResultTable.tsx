@@ -3,6 +3,7 @@ import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledMobileRow,
   StyledMobileRowDividerLine,
+  StyledMobileTdDividerLine,
   StyledResultsTableDiv,
   StyledTableDivWrapper,
 } from './styled';
@@ -71,66 +72,67 @@ const columns: ColumnsType<DataType> = [
           <td>ID</td>
           <td>{record.id}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>RKPID</td>
           <td>{record.rkpid}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Datum</td>
           <td>{record.datum}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Isplatitelj RKPID</td>
           <td>{record.isplatiteljrkp}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Isplatitelj</td>
           <td>{record.isplatitelj}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Kategorija</td>
           <td>{record.kategorija}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Vrsta Rashoda</td>
           <td>{record.vrstarashoda}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Opis</td>
           <td>{record.opis}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Adresa</td>
           <td>{record.adresa}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Primatelj</td>
           <td>{record.primatelj}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>OIB</td>
           <td>{record.oib}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Mjesto</td>
           <td>{record.mjesto}</td>
         </StyledMobileRow>
-        <StyledMobileRowDividerLine />
+        <StyledMobileTdDividerLine />
         <StyledMobileRow>
           <td>Iznos</td>
           <td>{record.iznos}</td>
         </StyledMobileRow>
+        {/* <StyledMobileRowDividerLine /> */}
       </>
     ),
     responsive: ['xs'],
