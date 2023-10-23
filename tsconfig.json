@@ -3,7 +3,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -25,7 +25,7 @@
     "types": ["vite/client", "vitest"]
   },
   "files": [],
-  "include": ["src/**/*.ts"],
+  "include": [],
   "references": [
     {
       "path": "./tsconfig.app.json"

@@ -45,23 +45,17 @@ enum Titles {
 interface DataType {
   id: string;
   rkpid: string;
-  oib: string;
-  naziv: string;
-  // postcode: string;
+  datum: string | null;
+  isplatiteljrkp: string;
+  isplatitelj: string | null;
+  kategorija: string | null;
+  vrstarashoda: string | null;
+  opis: string | null;
+  adresa: string | null;
+  primatelj: string | null;
+  oib: string | null;
   mjesto: string | null;
-  adresa: string;
-  // amount: string;
-  description: string;
-  // level_1: string[];
-  // level_2: string[];
-  // level_3: string[];
-  // level_4: string[];
-  // function_level_1: string[];
-  // function_level_2: string[];
-  // function_level_3: string[];
-  // function_level_4: string[];
-  // comment: string | null;
-  // update_date: string | null;
+  iznos: string | null;
 }
 /** typified data array to an array of MobileTableData*/
 // interface MobileDataType {
@@ -74,162 +68,137 @@ const columns: ColumnsType<DataType> = [
     render: (record) => (
       <>
         <StyledMobileRow>
-          <td>{Titles.oznaka}</td>
+          <td>ID</td>
           <td>{record.id}</td>
         </StyledMobileRow>
         <StyledMobileRowDividerLine />
         <StyledMobileRow>
-          <td>{Titles.oib}</td>
+          <td>RKPID</td>
+          <td>{record.rkpid}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Datum</td>
+          <td>{record.datum}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Isplatitelj RKPID</td>
+          <td>{record.isplatiteljrkp}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Isplatitelj</td>
+          <td>{record.isplatitelj}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Kategorija</td>
+          <td>{record.kategorija}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Vrsta Rashoda</td>
+          <td>{record.vrstarashoda}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Opis</td>
+          <td>{record.opis}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Adresa</td>
+          <td>{record.adresa}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>Primatelj</td>
+          <td>{record.primatelj}</td>
+        </StyledMobileRow>
+        <StyledMobileRowDividerLine />
+        <StyledMobileRow>
+          <td>OIB</td>
           <td>{record.oib}</td>
         </StyledMobileRow>
         <StyledMobileRowDividerLine />
         <StyledMobileRow>
-          <td>{Titles.naziv}</td>
-          <td>{record.name}</td>
+          <td>Mjesto</td>
+          <td>{record.mjesto}</td>
         </StyledMobileRow>
         <StyledMobileRowDividerLine />
         <StyledMobileRow>
-          <td>{Titles.mjesto}</td>
-          <td>{record.city}</td>
-        </StyledMobileRow>
-        <StyledMobileRowDividerLine />
-        <StyledMobileRow>
-          <td>{Titles.postanskiBroj}</td>
-          <td>{record.postcode}</td>
-        </StyledMobileRow>
-        <StyledMobileRowDividerLine />
-        <StyledMobileRow>
-          <td>{Titles.datumIsplate}</td>
-          <td>{record.date}</td>
-        </StyledMobileRow>
-        <StyledMobileRowDividerLine />
-        <StyledMobileRow>
-          <td>{Titles.iznosIsplate}</td>
-          <td>{record.amount}</td>
-        </StyledMobileRow>
-        <StyledMobileRowDividerLine />
-        <StyledMobileRow>
-          <td>{Titles.opisIsplate}</td>
-          <td>{record.description}</td>
+          <td>Iznos</td>
+          <td>{record.iznos}</td>
         </StyledMobileRow>
       </>
     ),
     responsive: ['xs'],
   },
-  // {
-  //   title: 'mobileTitles',
-  //   render: (record) => (
-  //     <>
-  //       {Titles.oznaka}
-  //       <hr />
-  //       <br />
-  //       {Titles.oib}
-  //       <hr />
-  //       <br />
-  //       {Titles.naziv}
-  //       <hr />
-  //       <br />
-  //       {Titles.mjesto}
-  //       <hr />
-  //       <br />
-  //       {Titles.postanskiBroj}
-  //       <hr />
-  //       <br />
-  //       {Titles.datumIsplate}
-  //       <hr />
-  //       <br />
-  //       {Titles.iznosIsplate}
-  //       <hr />
-  //       <br /> {Titles.opisIsplate}
-  //     </>
-  //   ),
-  //   responsive: ['xs'],
-  // },
-  // {
-  //   title: 'mobile',
-  //   render: (record) => (
-  //     <>
-  //       {record.id}
-  //       <hr />
-  //       <br />
-  //       {record.oib}
-  //       <hr />
-  //       <br />
-  //       {record.name}
-  //       <hr />
-  //       <br />
-  //       {record.city}
-  //       <hr />
-  //       <br />
-  //       {record.postcode}
-  //       <hr />
-  //       <br />
-  //       {record.date}
-  //       <hr />
-  //       <br />
-  //       {record.amount}
-  //       <hr />
-  //       <br />
-  //       {record.description}
-  //     </>
-  //   ),
-  //   responsive: ['xs'],
-  // },
   {
-    title: Titles.oznaka,
+    title: 'RKPID',
     dataIndex: 'rkpid',
     key: 'rkpid',
     responsive: ['sm'],
   },
   {
-    title: Titles.oib,
+    title: 'Datum',
+    dataIndex: 'datum',
+    key: 'datum',
+    responsive: ['sm'],
+  },
+  {
+    title: 'Isplatitelj RKPID',
+    dataIndex: 'isplatiteljrkp',
+    key: 'isplatiteljrkp',
+    responsive: ['sm'],
+  },
+  {
+    title: 'Isplatitelj',
+    dataIndex: 'isplatitelj',
+    key: 'isplatitelj',
+    responsive: ['sm'],
+  },
+  {
+    title: 'Kategorija',
+    dataIndex: 'kategorija',
+    key: 'kategorija',
+    responsive: ['sm'],
+  },
+  {
+    title: 'Vrsta Rashoda',
+    dataIndex: 'vrstarashoda',
+    key: 'vrstarashoda',
+    responsive: ['sm'],
+  },
+  {
+    title: 'Opis',
+    dataIndex: 'opis',
+    key: 'opis',
+    responsive: ['sm'],
+  },
+  {
+    title: 'Primatelj',
+    dataIndex: 'primatelj',
+    key: 'primatelj',
+    responsive: ['sm'],
+  },
+  {
+    title: 'OIB',
     dataIndex: 'oib',
     key: 'oib',
     responsive: ['sm'],
   },
   {
-    title: Titles.naziv,
-    dataIndex: 'naziv',
-    key: 'name',
-    // sorter: (a, b) => a.name.length - b.name.length,
-    sortDirections: ['descend'],
-    responsive: ['sm'],
-  },
-  {
-    title: Titles.mjesto,
+    title: 'Mjesto',
     dataIndex: 'mjesto',
-    key: 'city',
-    responsive: ['sm'],
-  },
-  // {
-  // title: Titles.postanskiBroj,
-  // key: 'postcode',
-  // dataIndex: 'postcode',
-  // defaultSortOrder: 'descend',
-  // responsive: ['sm'],
-  // className: 'custom-column-background',
-  // sorter: (a, b) => {
-  //   const firstPostcode = parseInt(a.postcode);
-  //   const secondPostcode = parseInt(b.postcode);
-  //   return firstPostcode - secondPostcode;
-  // },
-  // },
-  {
-    title: Titles.datumIsplate,
-    key: 'date',
-    dataIndex: 'date',
+    key: 'mjesto',
     responsive: ['sm'],
   },
   {
-    title: Titles.iznosIsplate,
-    key: 'amount',
-    dataIndex: 'amount',
-    responsive: ['sm'],
-  },
-  {
-    title: Titles.opisIsplate,
-    key: 'description',
-    dataIndex: 'description',
+    title: 'Iznos',
+    dataIndex: 'iznos',
+    key: 'iznos',
     responsive: ['sm'],
   },
 ];

@@ -28,7 +28,6 @@ interface Transparency {
   value: string;
 }
 
-
 // Slice
 const slice = createSlice({
   name: 'transparency',
@@ -64,9 +63,8 @@ export default slice.reducer;
 // Actions
 const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.actions;
 
-export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
+export const getData = (year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
-
     //code below needs to be in a method and called only once on page load!
     console.log("getdata window location: ", window.location.hostname)
     let domain = window.location.hostname;
@@ -75,6 +73,7 @@ export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction
     
     console.log("firstWordLength: ", firstWordLength)
     console.log("extracted name: ", placeName)
+
     //Only for local testing 
     // {
     if (placeName === "127."){
@@ -84,19 +83,26 @@ export const getData = (): ThunkAction<Promise<void>, RootState, void, AnyAction
     //this is temporary, needs to work for strings that do not have "opcina-" in front
     const res = await axiosClient.get(`/opcina-${placeName}/transparentnost?year=` + year);
 
-
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
     console.log(e);
   }
 };
 
-export const getSearchData = (value: string) => async (
+export const getSearchData = (year: string, value: string) => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
   try {
-    console.log("getSearchData: ", value)
-    const res = await axiosClient.get(`/api/opcina-podcrkavlje/transparentnost/` + value);
+    //code below is duplicated and needs to be in a method and called only once on page load!
+    console.log("getdata window location: ", window.location.hostname)
+    let domain = window.location.hostname;
+    let firstWordLength = domain.substring(0, domain.indexOf('.')).length + 1; // +1 to include the dot
+    let placeName = domain.substring(firstWordLength, domain.indexOf('.hr'));
+    
+    console.log("firstWordLength: ", firstWordLength)
+    console.log("extracted name: ", placeName)
+
+    const res = await axiosClient.get(`/opcina-${placeName}/transparentnost?year=` + year + '&keyword=' + value);
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
     console.log(e);
