@@ -11,6 +11,7 @@ export default function TransparentnostSearch(props: any) {
   const { Option } = Select;
   const { Search } = Input;
   const {
+    onLoseFocus,
     onChangeInput,
     searchValueonSearchClick,
     searchValue,
@@ -47,6 +48,7 @@ export default function TransparentnostSearch(props: any) {
           /> */}
           <StyledSearchBar>
             <Input
+              onBlur={onLoseFocus}
               placeholder="Upišite ključnu riječ..."
               // onSearch={handleSearch}
               onChange={onChangeInput}
