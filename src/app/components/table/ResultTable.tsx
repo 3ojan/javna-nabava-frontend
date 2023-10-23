@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledMobileRow,
-  StyledMobileRowDividerLine,
+  // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
   StyledResultsTableDiv,
   StyledTableDivWrapper,

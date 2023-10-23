@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import {
@@ -8,17 +8,18 @@ import {
   getSearchData,
   getData,
 } from 'src/redux/transparency/transparency';
+import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import { StyledFullWidthDiv } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
+import { LOADIPHLPAPI } from 'dns';
 
 function TransparencyHome() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isShowAninm, setIsShowAninm] = useState(false);
-  const [isShortened, setIsShortened] = useState(false);
+  // const [isDataLoaded, setDataLoaded] = useState(false);
+  const antIcon = <LoadingOutlined style={{ fontSize: 64 }} spin />;
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -26,7 +27,7 @@ function TransparencyHome() {
     return state.transparency as TransparencyState;
   });
 
-  const { data, searchValue, selectedYear } =
+  const { data, searchValue, selectedYear, isDataLoaded } =
     transparencyState as TransparencyState;
 
   const onChange = (e: any) => {
@@ -83,7 +84,14 @@ function TransparencyHome() {
             </StyledExportButtonsDiv>
           </Row>
           <Row>
-            <ResultTable data={data} />
+            {isDataLoaded ? (
+              <ResultTable data={data} />
+            ) : (
+              <StyledFullWidthDiv $center>
+                <Spin tip="Učitavanje" size="large" indicator={antIcon} />
+              </StyledFullWidthDiv>
+            )}
+            {/* <ResultTable data={data} /> */}
           </Row>
         </Col>
       </StyledFullWidthDiv>

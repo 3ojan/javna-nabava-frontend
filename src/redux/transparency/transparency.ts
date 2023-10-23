@@ -13,6 +13,7 @@ export interface TransparencyState {
   errorMessage: string | null;
   searchValue: string;
   selectedYear: string;
+  isDataLoaded: boolean;
 }
 
 export interface RootState {
@@ -36,12 +37,14 @@ const slice = createSlice({
     loading: false,
     errorMessage: null,
     searchValue: "",
+    isDataLoaded: false,
     selectedYear: new Date().getFullYear().toString(),
   } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
       return {
         ...state,
+        isDataLoaded: true,
         data: action.payload,
         error: null,
       };

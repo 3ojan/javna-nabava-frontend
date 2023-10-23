@@ -89,16 +89,22 @@ export const StyledTableDivWrapper = styled.div`
     color: white;
   }
 
-  .ant-table-tbody > tr:nth-child(3n) {
-    background-color: #e6faff; 
-  }//todo limit only for bigger than mobile
+  @media (min-width: 768px) {
+      .ant-table-tbody > tr:nth-child(3n) {
+        background-color: #e6faff; 
+      }
+  }
 
   td.ant-table-column-sort {
       background-color: rgba(255, 255, 255, 0);
   }
 
   /* Mobile-specific styles */
-  @media (max-width: 768px) {
+  @media (max-width: 580px) {
+    .ant-table-tbody > tr:nth-child(2n) {
+      background-color: #e6faff; 
+    }
+
     .ant-table {
       margin-top: 20px;
 
