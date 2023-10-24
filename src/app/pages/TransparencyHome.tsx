@@ -91,7 +91,7 @@ function TransparencyHome() {
             </>
           ) : (
             <StyledFullWidthDiv $center>
-              <Spin tip="Učitavanje" size="large" indicator={antIcon} />
+              <Spin size="large" indicator={antIcon} />
             </StyledFullWidthDiv>
           )}
         </Col>
