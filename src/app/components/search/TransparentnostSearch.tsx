@@ -62,6 +62,7 @@ export default function TransparentnostSearch(props: any) {
               <option value="2023">2020</option>
             </select> */}
             <Select
+              onSelect={onLoseFocus}
               rootClassName="dropdown"
               defaultValue={currentYear}
               className="dropdown"
