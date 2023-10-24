@@ -25,22 +25,6 @@ enum Titles {
   iznosIsplate = 'Iznos isplate',
   opisIsplate = 'Opis isplate',
 }
-/** MobileTableData is an 2D array of an array of MobileTableData and DataType*/
-// interface MobileTableData {
-//   titles: MobileTitles[];
-//   data: DataType[];
-// }
-
-// interface MobileTitles {
-//   oznaka: string;
-//   oib: string;
-//   naziv: string;
-//   mjesto: string;
-//   postanskiBroj: string;
-//   datumIsplate: string;
-//   iznosIsplate: string;
-//   opisIsplate: string;
-// }
 
 /** names need to be same as the names in json object */
 interface DataType {
@@ -58,10 +42,6 @@ interface DataType {
   mjesto: string | null;
   iznos: string | null;
 }
-/** typified data array to an array of MobileTableData*/
-// interface MobileDataType {
-//   data: MobileTableData[];
-// }
 
 const columns: ColumnsType<DataType> = [
   {
@@ -205,19 +185,6 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-// const mobileColumns: ColumnsType<MobileDataType> = [
-//   {
-//     title: 'titles',
-//     dataIndex: 'titles',
-//     key: 'titles',
-//   },
-//   {
-//     title: 'data',
-//     dataIndex: 'data',
-//     key: 'data',
-//   },
-// ];
-
 const onChange: TableProps<DataType>['onChange'] = (
   pagination,
   filters,
@@ -228,55 +195,6 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 export default function ResultTable(props: TableData) {
-  //CODE FOR MOBILE
-  /*const isMobileDataSet = useRef(false);
-  const [columnType, setColumnType] = useState(
-    window.innerWidth <= mobileWidth ? mobileColumns : columns
-  );
-
-  const getTitlesForMobile = () => {
-    return {
-      oznaka: 'Oznaka',
-      oib: 'OIB',
-      naziv: 'Naziv',
-      mjesto: 'Mjesto',
-      postanskiBroj: 'Postanski broj',
-      datumIsplate: 'Datum isplate',
-      iznosIsplate: 'Iznos isplate',
-      opisIsplate: 'Opis isplate',
-    };
-  };
-
-  const handleResize = () => {
-    setColumnType(window.innerWidth <= 768 ? mobileColumns : columns);
-
-    if (window.innerWidth <= 768 && !isMobileDataSet.current) {
-      console.log('setting mobile data');
-      // const mobileProps: MobileDataType = {
-      //   data: [],
-      // };
-
-      const mobileProps = props.data.map((item) => {
-        ...item;
-        title: 'Oznaka';
-        value: item.id;
-      });
-
-      isMobileDataSet.current = true;
-    }
-    // need to map current data to mobile data!!!
-  };
-
-  useEffect(() => {
-    // Add event listener when the component mounts
-    window.addEventListener('resize', handleResize);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); */
-
   return (
     <StyledResultsTableDiv>
       {/* <ConfigProvider
@@ -292,6 +210,7 @@ export default function ResultTable(props: TableData) {
           columns={columns} //columnType
           dataSource={props.data}
           onChange={onChange}
+          size="small"
         />
       </StyledTableDivWrapper>
       {/* </ThemeProvider> */}

@@ -39,7 +39,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
     // Create a temporary anchor element for downloading
     const a = document.createElement('a');
     a.href = blobURL;
-    a.download = '.json'; // Name of the downloaded file
+    a.download = '.json'; // Kako da se zove file??
 
     // Trigger a click event to initiate the download
     a.click();
