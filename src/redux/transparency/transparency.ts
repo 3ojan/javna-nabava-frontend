@@ -6,6 +6,8 @@ import { base_url } from '../constants';
 import axiosClient from '../../axios-client.js';
 import { debug } from 'console';
 import { AppDispatch } from '../store';
+import { useSelector } from 'react-redux';
+import { getPlaceName } from 'src/helper/domainHelper.js';
 
 export interface TransparencyState {
   data: any | null;
@@ -14,6 +16,7 @@ export interface TransparencyState {
   searchValue: string;
   selectedYear: string;
   isDataLoaded: boolean;
+  placeName: string;
 }
 
 export interface RootState {
@@ -39,6 +42,7 @@ const slice = createSlice({
     searchValue: "",
     isDataLoaded: false,
     selectedYear: new Date().getFullYear().toString(),
+    placeName: "",
   } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
@@ -59,31 +63,20 @@ const slice = createSlice({
     onChangeSelectYear: (state, action: PayloadAction<string>) => {
       state.selectedYear = action.payload;
     },
+    changePlaceName: (state, action: PayloadAction<string>) => {
+      state.placeName = action.payload;
+    },
   },
 });
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear } = slice.actions;
+const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear, changePlaceName } = slice.actions;
 
 export const getData = (year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
-    //code below needs to be in a method and called only once on page load!
-    console.log("getdata window location: ", window.location.hostname)
-    const domain = window.location.hostname;
-    const firstWordLength = domain.substring(0, domain.indexOf('.')).length + 1; // +1 to include the dot
-    let placeName = domain.substring(firstWordLength, domain.indexOf('.hr'));
-    
-    console.log("firstWordLength: ", firstWordLength)
-    console.log("extracted name: ", placeName)
-
-    //Only for local testing 
-    // {
-    if (placeName === "127."){
-      placeName="podcrkavlje"
-    }
-    //}
     //this is temporary, needs to work for strings that do not have "opcina-" in front
+    const placeName = getPlaceName();
     const res = await axiosClient.get(`/opcina-${placeName}/transparentnost?year=` + year);
 
     dispatch(loadSuccess(res.data));
@@ -96,14 +89,7 @@ export const getSearchData = (year: string, value: string) => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
   try {
-    //code below is duplicated and needs to be in a method and called only once on page load!
-    console.log("getdata window location: ", window.location.hostname)
-    let domain = window.location.hostname;
-    let firstWordLength = domain.substring(0, domain.indexOf('.')).length + 1; // +1 to include the dot
-    let placeName = domain.substring(firstWordLength, domain.indexOf('.hr'));
-    
-    console.log("firstWordLength: ", firstWordLength)
-    console.log("extracted name: ", placeName)
+    const placeName = getPlaceName();
 
     const res = await axiosClient.get(`/opcina-${placeName}/transparentnost?year=` + year + '&keyword=' + value);
     dispatch(loadSuccess(res.data));

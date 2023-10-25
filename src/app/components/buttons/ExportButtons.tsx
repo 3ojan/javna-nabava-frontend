@@ -2,6 +2,8 @@ import { Button, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { StyledColoredButton, StyledSpace } from './styled';
 import { mobileWidth } from 'src/app/global/constants';
+import { useSelector } from 'react-redux';
+import { TransparencyState } from 'src/redux/transparency/transparency';
 
 export type exportButtonProps = {
   xmlVisible: boolean;
@@ -16,8 +18,34 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
     window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML'
   );
 
+  const transparencyState = useSelector(
+    (state: any) => state.transparency as TransparencyState
+  );
+
   const handleResize = () => {
     setXmlText(window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML');
+  };
+
+  const handleDownloadJSON = () => {
+    // Convert the JSON object to a string with pretty formatting (2 spaces for indentation)
+    const jsonData = JSON.stringify(transparencyState.data, null, 2);
+
+    // Create a Blob object containing the JSON data
+    const blob = new Blob([jsonData], { type: 'application/json' });
+
+    // Create a URL for the Blob
+    const blobURL = URL.createObjectURL(blob);
+
+    // Create a temporary anchor element for downloading
+    const a = document.createElement('a');
+    a.href = blobURL;
+    a.download = '.json'; // Kako da se zove file??
+
+    // Trigger a click event to initiate the download
+    a.click();
+
+    // Revoke the URL to release resources
+    URL.revokeObjectURL(blobURL);
   };
 
   useEffect(() => {
@@ -51,7 +79,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
           </Button>
         )}
         {jsonVisible && (
-          <Button danger type="primary">
+          <Button danger type="primary" onClick={handleDownloadJSON}>
             {window.innerWidth <= mobileWidth ? 'JSON' : 'Preuzmi JSON'}
           </Button>
         )}

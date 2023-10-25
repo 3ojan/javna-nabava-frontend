@@ -1,4 +1,5 @@
 import { Table } from "antd";
+import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 const searchBarHeight = "40px";
@@ -89,7 +90,7 @@ export const StyledTableDivWrapper = styled.div`
     color: white;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: ${mobileWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
         background-color: #e6faff; 
       }
@@ -100,7 +101,7 @@ export const StyledTableDivWrapper = styled.div`
   }
 
   /* Mobile-specific styles */
-  @media (max-width: 580px) {
+  @media (max-width: ${mobileWidth}px) {
     .ant-table-tbody > tr:nth-child(2n) {
       background-color: #e6faff; 
     }

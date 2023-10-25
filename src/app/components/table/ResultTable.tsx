@@ -25,28 +25,13 @@ enum Titles {
   iznosIsplate = 'Iznos isplate',
   opisIsplate = 'Opis isplate',
 }
-/** MobileTableData is an 2D array of an array of MobileTableData and DataType*/
-// interface MobileTableData {
-//   titles: MobileTitles[];
-//   data: DataType[];
-// }
-
-// interface MobileTitles {
-//   oznaka: string;
-//   oib: string;
-//   naziv: string;
-//   mjesto: string;
-//   postanskiBroj: string;
-//   datumIsplate: string;
-//   iznosIsplate: string;
-//   opisIsplate: string;
-// }
 
 /** names need to be same as the names in json object */
 interface DataType {
   id: string;
   rkpid: string;
   datum: string | null;
+  foramtedDate: string | null;
   isplatiteljrkp: string;
   isplatitelj: string | null;
   kategorija: string | null;
@@ -58,10 +43,16 @@ interface DataType {
   mjesto: string | null;
   iznos: string | null;
 }
-/** typified data array to an array of MobileTableData*/
-// interface MobileDataType {
-//   data: MobileTableData[];
-// }
+
+const formatNumber = (number: string) => {
+  const lastIndex = number.lastIndexOf('.');
+  const modifiedString =
+    lastIndex !== -1
+      ? number.slice(0, lastIndex) + ',' + number.slice(lastIndex + 1)
+      : number;
+
+  return modifiedString;
+};
 
 const columns: ColumnsType<DataType> = [
   {
@@ -138,33 +129,15 @@ const columns: ColumnsType<DataType> = [
     responsive: ['xs'],
   },
   {
-    title: 'RKPID',
-    dataIndex: 'rkpid',
-    key: 'rkpid',
-    responsive: ['sm'],
-  },
-  {
     title: 'Datum',
-    dataIndex: 'datum',
-    key: 'datum',
-    responsive: ['sm'],
-  },
-  {
-    title: 'Isplatitelj RKPID',
-    dataIndex: 'isplatiteljrkp',
-    key: 'isplatiteljrkp',
+    dataIndex: 'foramtedDate',
+    key: 'foramtedDate',
     responsive: ['sm'],
   },
   {
     title: 'Isplatitelj',
     dataIndex: 'isplatitelj',
     key: 'isplatitelj',
-    responsive: ['sm'],
-  },
-  {
-    title: 'Kategorija',
-    dataIndex: 'kategorija',
-    key: 'kategorija',
     responsive: ['sm'],
   },
   {
@@ -201,22 +174,11 @@ const columns: ColumnsType<DataType> = [
     title: 'Iznos',
     dataIndex: 'iznos',
     key: 'iznos',
+    align: 'right',
     responsive: ['sm'],
+    render: (number) => formatNumber(number),
   },
 ];
-
-// const mobileColumns: ColumnsType<MobileDataType> = [
-//   {
-//     title: 'titles',
-//     dataIndex: 'titles',
-//     key: 'titles',
-//   },
-//   {
-//     title: 'data',
-//     dataIndex: 'data',
-//     key: 'data',
-//   },
-// ];
 
 const onChange: TableProps<DataType>['onChange'] = (
   pagination,
@@ -228,55 +190,6 @@ const onChange: TableProps<DataType>['onChange'] = (
 };
 
 export default function ResultTable(props: TableData) {
-  //CODE FOR MOBILE
-  /*const isMobileDataSet = useRef(false);
-  const [columnType, setColumnType] = useState(
-    window.innerWidth <= mobileWidth ? mobileColumns : columns
-  );
-
-  const getTitlesForMobile = () => {
-    return {
-      oznaka: 'Oznaka',
-      oib: 'OIB',
-      naziv: 'Naziv',
-      mjesto: 'Mjesto',
-      postanskiBroj: 'Postanski broj',
-      datumIsplate: 'Datum isplate',
-      iznosIsplate: 'Iznos isplate',
-      opisIsplate: 'Opis isplate',
-    };
-  };
-
-  const handleResize = () => {
-    setColumnType(window.innerWidth <= 768 ? mobileColumns : columns);
-
-    if (window.innerWidth <= 768 && !isMobileDataSet.current) {
-      console.log('setting mobile data');
-      // const mobileProps: MobileDataType = {
-      //   data: [],
-      // };
-
-      const mobileProps = props.data.map((item) => {
-        ...item;
-        title: 'Oznaka';
-        value: item.id;
-      });
-
-      isMobileDataSet.current = true;
-    }
-    // need to map current data to mobile data!!!
-  };
-
-  useEffect(() => {
-    // Add event listener when the component mounts
-    window.addEventListener('resize', handleResize);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); */
-
   return (
     <StyledResultsTableDiv>
       {/* <ConfigProvider
@@ -292,6 +205,7 @@ export default function ResultTable(props: TableData) {
           columns={columns} //columnType
           dataSource={props.data}
           onChange={onChange}
+          size="small"
         />
       </StyledTableDivWrapper>
       {/* </ThemeProvider> */}
