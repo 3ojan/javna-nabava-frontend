@@ -42,7 +42,6 @@ const slice = createSlice({
     searchValue: "",
     isDataLoaded: false,
     selectedYear: new Date().getFullYear().toString(),
-    placeName: "",
   } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
@@ -63,15 +62,12 @@ const slice = createSlice({
     onChangeSelectYear: (state, action: PayloadAction<string>) => {
       state.selectedYear = action.payload;
     },
-    changePlaceName: (state, action: PayloadAction<string>) => {
-      state.placeName = action.payload;
-    },
   },
 });
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear, changePlaceName } = slice.actions;
+const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear} = slice.actions;
 
 export const getData = (year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {

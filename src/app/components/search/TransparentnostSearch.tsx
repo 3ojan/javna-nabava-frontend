@@ -11,8 +11,9 @@ export default function TransparentnostSearch(props: any) {
   const { Option } = Select;
   const { Search } = Input;
   const {
-    onLoseFocus,
+    onSelectYear,
     onChangeInput,
+    isplatiteljs,
     searchValueonSearchClick,
     searchValue,
     currentYear,
@@ -48,7 +49,7 @@ export default function TransparentnostSearch(props: any) {
           /> */}
           <StyledSearchBar>
             <Input
-              onBlur={onLoseFocus}
+              // onBlur={onLoseFocus}
               placeholder="Upišite ključnu riječ..."
               // onSearch={handleSearch}
               onChange={onChangeInput}
@@ -62,7 +63,7 @@ export default function TransparentnostSearch(props: any) {
               <option value="2023">2020</option>
             </select> */}
             <Select
-              onSelect={onLoseFocus}
+              onSelect={onSelectYear}
               rootClassName="dropdown"
               defaultValue={currentYear}
               className="dropdown"
@@ -86,14 +87,15 @@ export default function TransparentnostSearch(props: any) {
                 },
               ]}
             ></Select>
-            <StyledColoredButton
+            {/* removed because search was changed to on change value  */}
+            {/* <StyledColoredButton
               disabled={!buttonEnabled}
               onClick={onSearchClick}
               type="primary"
               className="search-button"
             >
               Pretraži
-            </StyledColoredButton>
+            </StyledColoredButton> */}
           </StyledSearchBar>
         </div>
       </StyledTransparencyContent>
