@@ -31,6 +31,7 @@ interface DataType {
   id: string;
   rkpid: string;
   datum: string | null;
+  foramtedDate: string | null;
   isplatiteljrkp: string;
   isplatitelj: string | null;
   kategorija: string | null;
@@ -42,6 +43,16 @@ interface DataType {
   mjesto: string | null;
   iznos: string | null;
 }
+
+const formatNumber = (number: string) => {
+  const lastIndex = number.lastIndexOf('.');
+  const modifiedString =
+    lastIndex !== -1
+      ? number.slice(0, lastIndex) + ',' + number.slice(lastIndex + 1)
+      : number;
+
+  return modifiedString;
+};
 
 const columns: ColumnsType<DataType> = [
   {
@@ -118,33 +129,15 @@ const columns: ColumnsType<DataType> = [
     responsive: ['xs'],
   },
   {
-    title: 'RKPID',
-    dataIndex: 'rkpid',
-    key: 'rkpid',
-    responsive: ['sm'],
-  },
-  {
     title: 'Datum',
-    dataIndex: 'datum',
-    key: 'datum',
-    responsive: ['sm'],
-  },
-  {
-    title: 'Isplatitelj RKPID',
-    dataIndex: 'isplatiteljrkp',
-    key: 'isplatiteljrkp',
+    dataIndex: 'foramtedDate',
+    key: 'foramtedDate',
     responsive: ['sm'],
   },
   {
     title: 'Isplatitelj',
     dataIndex: 'isplatitelj',
     key: 'isplatitelj',
-    responsive: ['sm'],
-  },
-  {
-    title: 'Kategorija',
-    dataIndex: 'kategorija',
-    key: 'kategorija',
     responsive: ['sm'],
   },
   {
@@ -181,7 +174,9 @@ const columns: ColumnsType<DataType> = [
     title: 'Iznos',
     dataIndex: 'iznos',
     key: 'iznos',
+    align: 'right',
     responsive: ['sm'],
+    render: (number) => formatNumber(number),
   },
 ];
 
