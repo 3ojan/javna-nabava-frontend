@@ -27,9 +27,11 @@ function TransparencyHome() {
   const dispatch: AppDispatch = useDispatch();
 
   const [tempData, setTempData] = useState([]);
-  const [isplatiteljItems, setIsplatiteljItems] = useState<ColumnFilterItem[]>(
-    []
-  );
+  const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
+    useState<ColumnFilterItem[]>([]);
+  const [monthColumnFilterItems, setMonthColumnFilterItems] = useState<
+    ColumnFilterItem[]
+  >([]);
 
   const transparencyState = useSelector((state: any) => {
     return state.transparency as TransparencyState;
@@ -60,29 +62,27 @@ function TransparencyHome() {
     );
   };
 
-  const getIsplatiteljs = (data: any) => {
-    const uniqueIsplatiteljFilters = new Set<ColumnFilterItem>();
+  const getFilters = (data: any, variable: string) => {
+    const uniqueFilters = new Set<ColumnFilterItem>();
 
     data.forEach((item: any) => {
       if (
-        !Array.from(uniqueIsplatiteljFilters).some((itemFromSet) => {
+        !Array.from(uniqueFilters).some((itemFromSet) => {
           return (
-            itemFromSet.text === item.isplatitelj &&
-            itemFromSet.value === item.isplatitelj
+            itemFromSet.text === item[variable] &&
+            itemFromSet.value === item[variable]
           );
         })
       ) {
-        uniqueIsplatiteljFilters.add({
-          text: item.isplatitelj,
-          value: item.isplatitelj,
+        uniqueFilters.add({
+          text: item[variable],
+          value: item[variable],
         });
       }
     });
-    const isplatiteljFilters: ColumnFilterItem[] = Array.from(
-      uniqueIsplatiteljFilters
-    );
+    const columnFilterItems: ColumnFilterItem[] = Array.from(uniqueFilters);
     debugger;
-    return isplatiteljFilters;
+    return columnFilterItems;
   };
 
   const onYearChange = (e: any) => {
@@ -113,7 +113,8 @@ function TransparencyHome() {
   useEffect(() => {
     if (data) {
       setTempData(data);
-      setIsplatiteljItems(getIsplatiteljs(data));
+      setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
+      setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
     }
     debugger;
   }, [isDataLoaded]);
@@ -146,7 +147,8 @@ function TransparencyHome() {
               </Row>
               <Row>
                 <ResultTable
-                  isplatiteljsFilter={isplatiteljItems}
+                  isplatiteljsFilter={isplatiteljColumnFilterItems}
+                  monthFilter={monthColumnFilterItems}
                   data={tempData}
                 />
               </Row>

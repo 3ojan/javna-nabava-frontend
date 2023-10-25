@@ -16,6 +16,7 @@ import { ColumnFilterItem } from 'antd/es/table/interface';
 interface TableData {
   data: DataType[];
   isplatiteljsFilter: ColumnFilterItem[];
+  monthFilter: ColumnFilterItem[];
 }
 
 enum Titles {
@@ -148,6 +149,7 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'foramtedDate',
       key: 'foramtedDate',
       responsive: ['sm'],
+      filters: props.monthFilter,
     },
     {
       title: 'Isplatitelj',
