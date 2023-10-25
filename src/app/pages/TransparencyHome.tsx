@@ -34,12 +34,23 @@ function TransparencyHome() {
 
   const onChange = (e: any) => {
     dispatch(changeSearchBarValue(e.target.value) as any);
-    searchData();
+    searchData(e.target.value);
   };
 
-  const searchData = () => {
+  const searchData = (value: string) => {
     // this uses endpoint for search
     // dispatch(getSearchData(selectedYear, searchValue) as any);
+
+    setTempData(
+      data.filter(
+        (item: any) =>
+          item.opis.toLowerCase().includes(value) ||
+          item.primatelj.toLowerCase().includes(value) ||
+          item.vrstarashoda.toLowerCase().includes(value) ||
+          item.oib.toLowerCase().includes(value) ||
+          item.mjesto.toLowerCase().includes(value)
+      )
+    );
   };
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);
@@ -67,9 +78,11 @@ function TransparencyHome() {
 
   useEffect(() => {
     dispatch(getData(selectedYear) as any);
-    debugger;
-    setTempData(data);
   }, []);
+
+  useEffect(() => {
+    setTempData(data);
+  }, [isDataLoaded]);
 
   return (
     <>

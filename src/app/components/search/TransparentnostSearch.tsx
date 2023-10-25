@@ -86,14 +86,15 @@ export default function TransparentnostSearch(props: any) {
                 },
               ]}
             ></Select>
-            <StyledColoredButton
+            {/* removed because search was changed to on change value  */}
+            {/* <StyledColoredButton
               disabled={!buttonEnabled}
               onClick={onSearchClick}
               type="primary"
               className="search-button"
             >
               Pretraži
-            </StyledColoredButton>
+            </StyledColoredButton> */}
           </StyledSearchBar>
         </div>
       </StyledTransparencyContent>
