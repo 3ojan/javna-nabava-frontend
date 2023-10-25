@@ -23,6 +23,8 @@ function TransparencyHome() {
 
   const dispatch: AppDispatch = useDispatch();
 
+  const [tempData, setTempData] = useState([]);
+
   const transparencyState = useSelector((state: any) => {
     return state.transparency as TransparencyState;
   });
@@ -32,9 +34,12 @@ function TransparencyHome() {
 
   const onChange = (e: any) => {
     dispatch(changeSearchBarValue(e.target.value) as any);
+    searchData();
   };
-  const onSearch = (e: any) => {
-    dispatch(getSearchData(selectedYear, searchValue) as any);
+
+  const searchData = () => {
+    // this uses endpoint for search
+    // dispatch(getSearchData(selectedYear, searchValue) as any);
   };
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);
@@ -62,6 +67,8 @@ function TransparencyHome() {
 
   useEffect(() => {
     dispatch(getData(selectedYear) as any);
+    debugger;
+    setTempData(data);
   }, []);
 
   return (
@@ -74,7 +81,7 @@ function TransparencyHome() {
               buttonEnabled={searchValue !== '' && selectedYear !== ''}
               currentYear={currentYear}
               onChangeInput={onChange}
-              onSearchClick={onSearch}
+              // onSearchClick={onSearch}
               onYearSelect={onYearChange}
             />
           </Row>
@@ -86,7 +93,7 @@ function TransparencyHome() {
                 </StyledExportButtonsDiv>
               </Row>
               <Row>
-                <ResultTable data={data} />
+                <ResultTable data={tempData} />
               </Row>
             </>
           ) : (
