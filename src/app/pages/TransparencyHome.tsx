@@ -51,6 +51,7 @@ function TransparencyHome() {
     // dispatch(getSearchData(selectedYear, searchValue) as any);
 
     //this searches loaded data by endpoint
+    debugger;
     setTempData(
       data.filter(
         (item: any) =>
