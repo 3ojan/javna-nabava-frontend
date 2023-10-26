@@ -9,11 +9,14 @@ export type exportButtonProps = {
   xmlVisible: boolean;
   csvVisible: boolean;
   jsonVisible: boolean;
+  selectedYear: string;
+  placeName: string;
   onChangeWidth?: () => void;
 };
 
 export default function ExportButtons(exportButtonProps: exportButtonProps) {
-  const { xmlVisible, csvVisible, jsonVisible } = exportButtonProps;
+  const { xmlVisible, csvVisible, jsonVisible, selectedYear, placeName } =
+    exportButtonProps;
   const [xmlText, setXmlText] = useState(
     window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML'
   );
@@ -39,7 +42,9 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
     // Create a temporary anchor element for downloading
     const a = document.createElement('a');
     a.href = blobURL;
-    a.download = '.json'; // Kako da se zove file??
+    //"'ispalte iz proracuna-opcina' x godina seta podat, datum exporta"
+    a.download = `${placeName}_isplate_iz_proracuna_${selectedYear}_godine_
+    ${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}.json`;
 
     // Trigger a click event to initiate the download
     a.click();
