@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios'; // Assuming you're using axios
+import axiosClient from 'src/axios-client';
 
 interface ImageUploadProps {
   onImageUpload?: (data: any) => void;
@@ -26,7 +27,7 @@ export default function ImageUpload(props: ImageUploadProps) {
 
     const data = new FormData();
     data.append('image', selectedImage);
-    axios
+    axiosClient
       .post('/store-image', data)
       .then((response) => {
         // Handle response if necessary
@@ -40,7 +41,7 @@ export default function ImageUpload(props: ImageUploadProps) {
     event.preventDefault();
     const data = new FormData();
     data.append('image', file);
-    axios
+    axiosClient
       .post('/store-image', data)
       .then((response) => {
         console.log(response.data);

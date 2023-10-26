@@ -11,6 +11,7 @@ import { StyledFullWidthDiv } from './components/general/styled';
 import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
 import BottomImages from './components/background/BottomImages';
+import { ImageUploadTestPage } from './pages/ImageUploadTestPage';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<TransparencyHome />} />
                 <Route path="/home" element={<NxWelcome title="" />} />
+                <Route path="/image-upload" element={<ImageUploadTestPage title="" />} />
               </Routes>
             </Router>
           </Provider>
