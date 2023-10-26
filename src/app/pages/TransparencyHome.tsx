@@ -1,4 +1,4 @@
-import { Col, Row, Spin } from 'antd';
+import { Col, Row, Spin, TableProps } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import {
@@ -15,15 +15,23 @@ import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
-import { LOADIPHLPAPI } from 'dns';
+import { ColumnFilterItem } from 'antd/es/table/interface';
 
+export interface StringFilters {
+  text: string;
+  value: string;
+}
 function TransparencyHome() {
-  // const [isDataLoaded, setDataLoaded] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 64 }} spin />;
 
   const dispatch: AppDispatch = useDispatch();
 
   const [tempData, setTempData] = useState([]);
+  const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
+    useState<ColumnFilterItem[]>([]);
+  const [monthColumnFilterItems, setMonthColumnFilterItems] = useState<
+    ColumnFilterItem[]
+  >([]);
 
   const transparencyState = useSelector((state: any) => {
     return state.transparency as TransparencyState;
@@ -41,6 +49,7 @@ function TransparencyHome() {
     // this uses endpoint for search
     // dispatch(getSearchData(selectedYear, searchValue) as any);
 
+    //this searches loaded data by endpoint
     setTempData(
       data.filter(
         (item: any) =>
@@ -52,12 +61,37 @@ function TransparencyHome() {
       )
     );
   };
+
+  const getFilters = (data: any, variable: string) => {
+    const uniqueFilters = new Set<ColumnFilterItem>();
+
+    data.forEach((item: any) => {
+      if (
+        !Array.from(uniqueFilters).some((itemFromSet) => {
+          return (
+            itemFromSet.text === item[variable] &&
+            itemFromSet.value === item[variable]
+          );
+        })
+      ) {
+        uniqueFilters.add({
+          text: item[variable],
+          value: item[variable],
+        });
+      }
+    });
+    const columnFilterItems: ColumnFilterItem[] = Array.from(uniqueFilters);
+    debugger;
+    return columnFilterItems;
+  };
+
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);
   };
-  const onLoseFocus = (e: any) => {
+  const onSelectYear = (e: any) => {
     //gets default data
     dispatch(getData(selectedYear) as any);
+    setTempData(data);
   };
 
   const currentYear = useMemo(() => {
@@ -77,12 +111,17 @@ function TransparencyHome() {
   }, [selectedYear]);
 
   useEffect(() => {
-    dispatch(getData(selectedYear) as any);
-  }, []);
+    if (data) {
+      setTempData(data);
+      setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
+      setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
+    }
+    debugger;
+  }, [isDataLoaded]);
 
   useEffect(() => {
-    setTempData(data);
-  }, [isDataLoaded]);
+    dispatch(getData(selectedYear) as any);
+  }, []);
 
   return (
     <>
@@ -90,12 +129,13 @@ function TransparencyHome() {
         <Col>
           <Row>
             <TransparentnostSearch
-              onLoseFocus={onLoseFocus}
-              buttonEnabled={searchValue !== '' && selectedYear !== ''}
+              // onLoseFocus={onLoseFocus}
+              onSelectYear={onSelectYear}
               currentYear={currentYear}
               onChangeInput={onChange}
-              // onSearchClick={onSearch}
               onYearSelect={onYearChange}
+              // buttonEnabled={searchValue !== '' && selectedYear !== ''}
+              // onSearchClick={onSearch}
             />
           </Row>
           {isDataLoaded ? (
@@ -106,7 +146,11 @@ function TransparencyHome() {
                 </StyledExportButtonsDiv>
               </Row>
               <Row>
-                <ResultTable data={tempData} />
+                <ResultTable
+                  isplatiteljsFilter={isplatiteljColumnFilterItems}
+                  monthFilter={monthColumnFilterItems}
+                  data={tempData}
+                />
               </Row>
             </>
           ) : (
