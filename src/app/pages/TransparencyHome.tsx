@@ -51,7 +51,6 @@ function TransparencyHome() {
     // dispatch(getSearchData(selectedYear, searchValue) as any);
 
     //this searches loaded data by endpoint
-    debugger;
     setTempData(
       data.filter(
         (item: any) =>
@@ -83,7 +82,6 @@ function TransparencyHome() {
       }
     });
     const columnFilterItems: ColumnFilterItem[] = Array.from(uniqueFilters);
-    debugger;
     return columnFilterItems;
   };
 
@@ -118,7 +116,6 @@ function TransparencyHome() {
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
     }
-    debugger;
   }, [isDataLoaded]);
 
   useEffect(() => {
@@ -149,6 +146,7 @@ function TransparencyHome() {
                     xmlVisible={false}
                     placeName={getPlaceName()}
                     selectedYear={selectedYear}
+                    dataForExport={tempData}
                   />
                 </StyledExportButtonsDiv>
               </Row>
