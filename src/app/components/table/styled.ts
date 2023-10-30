@@ -80,16 +80,39 @@ align-items: center;
 }
 `
 
+export const StyledCellHeightSpan = styled.span`
+    // height: 47px; /* Adjust the maximum height as needed */
+    // text-overflow: ellipsis;
+    // display: block;
+    // white-space: nowrap;
+    // word-wrap: break-word;
+
+    overflow: hidden; /* Hide overflowing content */
+
+    // ONLY FOR NEW BROWSERS
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+`
+
 export const StyledTableDivWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   padding: 10px 0;
 
+  /* FIXES COLUMN WIDTH */
+  .table-wrapper table {
+    // width: 100%;
+    table-layout: fixed !important; /* rewrite inline styles */
+  }
+
   .ant-table-thead > tr > th {
     background-color: #4d4d4d; 
     color: white;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 12px;
   }
-
   @media (min-width: ${mobileWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
         background-color: #e6faff; 
@@ -110,11 +133,13 @@ export const StyledTableDivWrapper = styled.div`
       margin-top: 20px;
 
     .ant-table-thead {
-        display: none; /* Hide the table header on mobile */
-      }
+      display: none; /* Hide the table header on mobile */
+    }
+
       .ant-table-tbody > tr > td {
-        border: none
+          border: none
       }
+
       .ant-table-tbody {
         display: block;
 
@@ -130,5 +155,4 @@ export const StyledTableDivWrapper = styled.div`
       }
     }
   }
-
 `

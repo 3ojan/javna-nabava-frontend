@@ -1,16 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
+  StyledCellHeightSpan,
   StyledMobileRow,
   // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
   StyledResultsTableDiv,
   StyledTableDivWrapper,
 } from './styled';
-import { mobileWidth } from 'src/app/global/constants';
-import { ConfigProvider, Divider } from 'antd';
-import ThemeProvider from './ThemeProvider';
-import { StringFilters } from 'src/app/pages/TransparencyHome';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 
 interface TableData {
@@ -67,6 +63,10 @@ const onChange: TableProps<DataType>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra);
 };
 
+const renderLimitedCellHeight = (text: string) => (
+  <StyledCellHeightSpan>{text}</StyledCellHeightSpan>
+);
+
 export default function ResultTable(props: TableData) {
   console.log('props', props);
 
@@ -86,8 +86,8 @@ export default function ResultTable(props: TableData) {
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Datum</td>
-            <td>{record.datum}</td>
+            <td>Mjesec</td>
+            <td>{record.foramtedDate}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
@@ -145,10 +145,11 @@ export default function ResultTable(props: TableData) {
       responsive: ['xs'],
     },
     {
-      title: 'Datum',
+      title: 'Mjesec',
       dataIndex: 'foramtedDate',
       key: 'foramtedDate',
       responsive: ['sm'],
+      width: '7%',
       filters: props.monthFilter,
     },
     {
@@ -156,6 +157,7 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'isplatitelj',
       key: 'isplatitelj',
       responsive: ['sm'],
+      // widthth: '7%',
       filters: props.isplatiteljsFilter,
       onFilter: (value, record) =>
         record.isplatitelj!.includes(value.toString()),
@@ -165,30 +167,37 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'vrstarashoda',
       key: 'vrstarashoda',
       responsive: ['sm'],
-    },
-    {
-      title: 'Opis',
-      dataIndex: 'opis',
-      key: 'opis',
-      responsive: ['sm'],
+      // widthth: '7%',
+      render: renderLimitedCellHeight,
     },
     {
       title: 'Primatelj',
       dataIndex: 'primatelj',
       key: 'primatelj',
       responsive: ['sm'],
+      // widthth: '7%',
+      render: renderLimitedCellHeight,
     },
     {
       title: 'OIB',
       dataIndex: 'oib',
       key: 'oib',
       responsive: ['sm'],
+      width: '10%',
     },
     {
       title: 'Mjesto',
       dataIndex: 'mjesto',
       key: 'mjesto',
       responsive: ['sm'],
+      // widthth: '7%',
+    },
+    {
+      title: 'Opis',
+      dataIndex: 'opis',
+      key: 'opis',
+      responsive: ['sm'],
+      // widthth: '7%',
     },
     {
       title: 'Iznos',
@@ -196,30 +205,22 @@ export default function ResultTable(props: TableData) {
       key: 'iznos',
       align: 'right',
       responsive: ['sm'],
+      // width: '30%',
       render: (number) => formatNumber(number),
     },
   ];
 
   return (
     <StyledResultsTableDiv>
-      {/* <ConfigProvider
-        theme={{
-          token: {
-            colorBgBase: 'red',
-          },
-        }}
-      > */}
-      {/* <ThemeProvider> */}
       <StyledTableDivWrapper>
         <Table
+          className="table-wrapper"
           columns={columns} //columnType
           dataSource={props.data}
           onChange={onChange}
-          size="small"
+          size="middle"
         />
       </StyledTableDivWrapper>
-      {/* </ThemeProvider> */}
-      {/* </ConfigProvider> */}
     </StyledResultsTableDiv>
   );
 }

@@ -40,3 +40,5 @@ Thumbs.db
 
 # env
 env.kristian.local
+env,.local
+.env.local

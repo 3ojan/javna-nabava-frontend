@@ -5,7 +5,6 @@ import {
   TransparencyState,
   changeSearchBarValue,
   changeSelectedYearValue,
-  getSearchData,
   getData,
 } from 'src/redux/transparency/transparency';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -16,6 +15,7 @@ import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
+import { getPlaceName } from 'src/helper/domainHelper.ts';
 
 export interface StringFilters {
   text: string;
@@ -127,7 +127,6 @@ function TransparencyHome() {
         <Col>
           <Row>
             <TransparentnostSearch
-              // onLoseFocus={onLoseFocus}
               onSelectYear={onSelectYear}
               currentYear={currentYear}
               onChangeInput={onChange}
@@ -140,7 +139,13 @@ function TransparencyHome() {
             <>
               <Row>
                 <StyledExportButtonsDiv>
-                  <ExportButtons csvVisible={false} xmlVisible={false} />
+                  <ExportButtons
+                    csvVisible={false}
+                    xmlVisible={false}
+                    placeName={getPlaceName()}
+                    selectedYear={selectedYear}
+                    dataForExport={tempData}
+                  />
                 </StyledExportButtonsDiv>
               </Row>
               <Row>
