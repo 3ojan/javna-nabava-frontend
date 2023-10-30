@@ -5,7 +5,6 @@ import {
   TransparencyState,
   changeSearchBarValue,
   changeSelectedYearValue,
-  getSearchData,
   getData,
 } from 'src/redux/transparency/transparency';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -51,7 +50,6 @@ function TransparencyHome() {
     // dispatch(getSearchData(selectedYear, searchValue) as any);
 
     //this searches loaded data by endpoint
-    debugger;
     setTempData(
       data.filter(
         (item: any) =>
@@ -129,7 +127,6 @@ function TransparencyHome() {
         <Col>
           <Row>
             <TransparentnostSearch
-              // onLoseFocus={onLoseFocus}
               onSelectYear={onSelectYear}
               currentYear={currentYear}
               onChangeInput={onChange}
@@ -147,6 +144,7 @@ function TransparencyHome() {
                     xmlVisible={false}
                     placeName={getPlaceName()}
                     selectedYear={selectedYear}
+                    dataForExport={tempData}
                   />
                 </StyledExportButtonsDiv>
               </Row>

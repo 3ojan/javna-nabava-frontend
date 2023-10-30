@@ -11,12 +11,19 @@ export type exportButtonProps = {
   jsonVisible: boolean;
   selectedYear: string;
   placeName: string;
+  dataForExport: any;
   onChangeWidth?: () => void;
 };
 
 export default function ExportButtons(exportButtonProps: exportButtonProps) {
-  const { xmlVisible, csvVisible, jsonVisible, selectedYear, placeName } =
-    exportButtonProps;
+  const {
+    xmlVisible,
+    csvVisible,
+    jsonVisible,
+    selectedYear,
+    placeName,
+    dataForExport,
+  } = exportButtonProps;
   const [xmlText, setXmlText] = useState(
     window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML'
   );
@@ -31,7 +38,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
 
   const handleDownloadJSON = () => {
     // Convert the JSON object to a string with pretty formatting (2 spaces for indentation)
-    const jsonData = JSON.stringify(transparencyState.data, null, 2);
+    const jsonData = JSON.stringify(dataForExport, null, 2); //todo: change transparencyState.data to temp data
 
     // Create a Blob object containing the JSON data
     const blob = new Blob([jsonData], { type: 'application/json' });
@@ -42,7 +49,6 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
     // Create a temporary anchor element for downloading
     const a = document.createElement('a');
     a.href = blobURL;
-    //"'ispalte iz proracuna-opcina' x godina seta podat, datum exporta"
     a.download = `${placeName}_isplate_iz_proracuna_${selectedYear}_godine_
     ${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}.json`;
 
