@@ -5,7 +5,6 @@ import {
   TransparencyState,
   changeSearchBarValue,
   changeSelectedYearValue,
-  getSearchData,
   getData,
 } from 'src/redux/transparency/transparency';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -128,7 +127,6 @@ function TransparencyHome() {
         <Col>
           <Row>
             <TransparentnostSearch
-              // onLoseFocus={onLoseFocus}
               onSelectYear={onSelectYear}
               currentYear={currentYear}
               onChangeInput={onChange}
