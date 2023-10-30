@@ -80,6 +80,21 @@ align-items: center;
 }
 `
 
+export const StyledCellHeightSpan = styled.span`
+    // height: 47px; /* Adjust the maximum height as needed */
+    // text-overflow: ellipsis;
+    // display: block;
+    // white-space: nowrap;
+    // word-wrap: break-word;
+
+    overflow: hidden; /* Hide overflowing content */
+
+    // ONLY FOR NEW BROWSERS
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+`
+
 export const StyledTableDivWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
@@ -91,18 +106,12 @@ export const StyledTableDivWrapper = styled.div`
     table-layout: fixed !important; /* rewrite inline styles */
   }
 
-  /* FIXES COLUMN HEIGHT AND OVERFLOW */
-  table td {
-    // max-height: 30px; /* Set the height of each cell */ 
-    overflow: hidden; /* Hide overflowing content */
-    text-overflow: ellipsis; /* Show ellipsis for overflowing content */
-
-    white-space: normal; 
-  }
-
   .ant-table-thead > tr > th {
     background-color: #4d4d4d; 
     color: white;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 12px;
   }
   @media (min-width: ${mobileWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
