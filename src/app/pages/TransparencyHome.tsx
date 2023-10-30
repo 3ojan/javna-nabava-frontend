@@ -83,7 +83,6 @@ function TransparencyHome() {
       }
     });
     const columnFilterItems: ColumnFilterItem[] = Array.from(uniqueFilters);
-    debugger;
     return columnFilterItems;
   };
 
@@ -118,7 +117,6 @@ function TransparencyHome() {
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
     }
-    debugger;
   }, [isDataLoaded]);
 
   useEffect(() => {
@@ -136,8 +134,8 @@ function TransparencyHome() {
               currentYear={currentYear}
               onChangeInput={onChange}
               onYearSelect={onYearChange}
-              // buttonEnabled={searchValue !== '' && selectedYear !== ''}
-              // onSearchClick={onSearch}
+            // buttonEnabled={searchValue !== '' && selectedYear !== ''}
+            // onSearchClick={onSearch}
             />
           </Row>
           {isDataLoaded ? (
