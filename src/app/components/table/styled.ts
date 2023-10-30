@@ -85,11 +85,25 @@ export const StyledTableDivWrapper = styled.div`
   border-radius: 10px;
   padding: 10px 0;
 
+  /* FIXES COLUMN WIDTH */
+  .table-wrapper table {
+    // width: 100%;
+    table-layout: fixed !important; /* rewrite inline styles */
+  }
+
+  /* FIXES COLUMN HEIGHT AND OVERFLOW */
+  table td {
+    // max-height: 30px; /* Set the height of each cell */ 
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Show ellipsis for overflowing content */
+
+    white-space: normal; 
+  }
+
   .ant-table-thead > tr > th {
     background-color: #4d4d4d; 
     color: white;
   }
-
   @media (min-width: ${mobileWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
         background-color: #e6faff; 
@@ -110,11 +124,13 @@ export const StyledTableDivWrapper = styled.div`
       margin-top: 20px;
 
     .ant-table-thead {
-        display: none; /* Hide the table header on mobile */
-      }
+      display: none; /* Hide the table header on mobile */
+    }
+
       .ant-table-tbody > tr > td {
-        border: none
+          border: none
       }
+
       .ant-table-tbody {
         display: block;
 
@@ -130,5 +146,4 @@ export const StyledTableDivWrapper = styled.div`
       }
     }
   }
-
 `
