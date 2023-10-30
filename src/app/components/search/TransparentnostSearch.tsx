@@ -31,22 +31,7 @@ export default function TransparentnostSearch(props: any) {
             <img src="../../../../img/grb.png" alt="" />
             {/* <a href=""> */}Transparentnost{/* </a> */}
           </StyledMainTitleH1>
-          {/* <Search
-            style={{ padding: '0' }}
-            placeholder="Upišite ključnu riječ..."
-            addonBefore={selectYear}
-            enterButton={
-              <StyledColoredButton
-                disabled={searchValue === ''}
-                onClick={onSearchClick}
-              >
-                Pretraži
-              </StyledColoredButton>
-            }
-            size="large"
-            onChange={onChangeInput}
-            value={searchValue}
-          /> */}
+
           <StyledSearchBar>
             <Input
               // onBlur={onLoseFocus}
@@ -87,15 +72,6 @@ export default function TransparentnostSearch(props: any) {
                 },
               ]}
             ></Select>
-            {/* removed because search was changed to on change value  */}
-            {/* <StyledColoredButton
-              disabled={!buttonEnabled}
-              onClick={onSearchClick}
-              type="primary"
-              className="search-button"
-            >
-              Pretraži
-            </StyledColoredButton> */}
           </StyledSearchBar>
         </div>
       </StyledTransparencyContent>
