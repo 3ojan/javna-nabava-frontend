@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
-const searchBarHeight = "40px";
+const searchBarHeight = "32px";
 const searchBorderRadius = "6px";
 
 export const StyledResultsTableDiv = styled.div`
@@ -54,6 +54,8 @@ align-items: center;
 
 :where(.css-dev-only-do-not-override-1m62vyb).ant-select-single .ant-select-selector{
    height: ${searchBarHeight};
+  //  border-radius: ${searchBorderRadius};
+   
 }
  select{
   background-color: transparent; 
@@ -66,7 +68,9 @@ align-items: center;
  }
 
 .ant-select-selector{
-  border-radius: 0;
+  border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
+  // border-top-right-radius: ${searchBorderRadius};
+  // border-bottom-right-radius: ${searchBorderRadius};
 }
 
 .dropdown {
