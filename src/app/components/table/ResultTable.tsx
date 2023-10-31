@@ -151,6 +151,8 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       width: '7%',
       filters: props.monthFilter,
+      onFilter: (value, record) =>
+        record.foramtedDate!.includes(value.toString()),
     },
     {
       title: 'Isplatitelj',

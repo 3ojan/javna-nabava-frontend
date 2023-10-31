@@ -69,8 +69,6 @@ align-items: center;
 
 .ant-select-selector{
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
-  // border-top-right-radius: ${searchBorderRadius};
-  // border-bottom-right-radius: ${searchBorderRadius};
 }
 
 .dropdown {
@@ -85,15 +83,10 @@ align-items: center;
 `
 
 export const StyledCellHeightSpan = styled.span`
-    // height: 47px; /* Adjust the maximum height as needed */
-    // text-overflow: ellipsis;
-    // display: block;
-    // white-space: nowrap;
-    // word-wrap: break-word;
-
-    overflow: hidden; /* Hide overflowing content */
-
-    // ONLY FOR NEW BROWSERS
+    height: 47px; /* ROW HEIGHT */
+    overflow: hidden; 
+    
+    // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -106,7 +99,6 @@ export const StyledTableDivWrapper = styled.div`
 
   /* FIXES COLUMN WIDTH */
   .table-wrapper table {
-    // width: 100%;
     table-layout: fixed !important; /* rewrite inline styles */
   }
 

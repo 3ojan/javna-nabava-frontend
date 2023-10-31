@@ -164,7 +164,7 @@ function TransparencyHome() {
                     xmlVisible={false}
                     placeName={getPlaceName()}
                     selectedYear={selectedYear}
-                    dataForExport={tempData}
+                    dataForExport={data}
                   />
                 </StyledExportButtonsDiv>
               </Row>
