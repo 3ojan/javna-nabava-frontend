@@ -106,7 +106,7 @@ export const StyledTableDivWrapper = styled.div`
     background-color: #4d4d4d; 
     color: white;
     text-transform: uppercase;
-    font-weight: 300;
+    font-weight: 500;
     font-size: 12px;
   }
   @media (min-width: ${mobileWidth}px) {
