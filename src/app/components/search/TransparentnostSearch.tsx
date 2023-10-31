@@ -28,7 +28,6 @@ export default function TransparentnostSearch(props: any) {
     const yearOptions: DefaultOptionType[] = [];
 
     availableYears.forEach((year: string) => {
-      // yearOptions.push(<Option value={year}>{year}</Option>);
       yearOptions.push({
         value: year,
         label: year,

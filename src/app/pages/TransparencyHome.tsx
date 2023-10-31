@@ -64,21 +64,26 @@ function TransparencyHome() {
   };
 
   const getFilters = (data: any, variable: string) => {
-    const uniqueFilters = new Set<ColumnFilterItem>();
+    let uniqueFilters: ColumnFilterItem[] = [];
 
     data.forEach((item: any) => {
       if (
-        !Array.from(uniqueFilters).some((itemFromSet) => {
+        !uniqueFilters.some((itemFromSet) => {
           return (
             itemFromSet.text === item[variable] &&
             itemFromSet.value === item[variable]
           );
         })
       ) {
-        uniqueFilters.add({
+        uniqueFilters.push({
           text: item[variable],
           value: item[variable],
         });
+        //SORTING of array, potential bug for date, reason: date is string not number
+        uniqueFilters = uniqueFilters.sort(
+          (a: ColumnFilterItem, b: ColumnFilterItem) =>
+            a.value < b.value ? -1 : a.value > b.value ? 1 : 0
+        );
       }
     });
     const columnFilterItems: ColumnFilterItem[] = Array.from(uniqueFilters);
