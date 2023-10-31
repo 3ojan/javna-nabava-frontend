@@ -27,6 +27,7 @@ function TransparencyHome() {
   const dispatch: AppDispatch = useDispatch();
 
   const [tempData, setTempData] = useState([]);
+  const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
     useState<ColumnFilterItem[]>([]);
   const [monthColumnFilterItems, setMonthColumnFilterItems] = useState<
@@ -93,6 +94,18 @@ function TransparencyHome() {
     setTempData(data);
   };
 
+  const getAvailableYears = () => {
+    const yearFromData: string[] = [];
+
+    data.forEach((item: any) => {
+      const year = item.datum.split('-')[0];
+      if (!yearFromData.includes(year)) {
+        yearFromData.push(year);
+      }
+    });
+    setAvailableYears(yearFromData);
+  };
+
   const currentYear = useMemo(() => {
     return parseInt(selectedYear);
   }, []);
@@ -114,6 +127,7 @@ function TransparencyHome() {
       setTempData(data);
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
+      getAvailableYears();
     }
   }, [isDataLoaded]);
 
@@ -131,8 +145,9 @@ function TransparencyHome() {
               currentYear={currentYear}
               onChangeInput={onChange}
               onYearSelect={onYearChange}
-            // buttonEnabled={searchValue !== '' && selectedYear !== ''}
-            // onSearchClick={onSearch}
+              availableYears={availableYears}
+              // buttonEnabled={searchValue !== '' && selectedYear !== ''}
+              // onSearchClick={onSearch}
             />
           </Row>
           {isDataLoaded ? (

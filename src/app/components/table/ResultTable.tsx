@@ -68,7 +68,7 @@ const renderLimitedCellHeight = (text: string) => (
 );
 
 export default function ResultTable(props: TableData) {
-  console.log('props', props);
+  // console.log('props', props);
 
   const columns: ColumnsType<DataType> = [
     {
