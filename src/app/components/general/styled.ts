@@ -25,23 +25,32 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
         align-items: center;
         height: 100%;
     `};
-    
+`
+export const StyledHeaderDiv = styled.div`
+    margin: 50px 0 50px 0;
+    img{
+        width: 100px;
+        margin-right: 10px;
+    }
+`
+
+export const StyledMainTitleDiv = styled.div`
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+
+   
 `
 
 export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
     font-size: 3rem;
     text-align: ${props => props.$center ? 'center' : 'default'};
     font-family: 'Abhaya Libre', serif;
+    margin: 0;
+
     a {
         link-style: none;
         color: black;
-    }
-    img{
-        width: 100px;
-        margin-right: 10px;
-    }
-    @media only screen and (min-width: ${mobileWidth}px) {
-        // margin-top: 50%;
     }
     @media only screen and (max-width: ${mobileWidth}px) {
         font-size: 2rem;

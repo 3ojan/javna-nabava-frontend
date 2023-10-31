@@ -9,13 +9,19 @@ import {
 } from 'src/redux/transparency/transparency';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
-import { StyledFullWidthDiv } from '../components/general/styled.ts';
+import {
+  StyledFullWidthDiv,
+  StyledHeaderDiv,
+  StyledMainTitleDiv,
+  StyledMainTitleH1,
+} from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
+import { StyledRow } from './styled.ts';
 
 export interface StringFilters {
   text: string;
@@ -144,30 +150,47 @@ function TransparencyHome() {
     <>
       <StyledFullWidthDiv $padding $background>
         <Col>
-          <Row>
-            <TransparentnostSearch
-              onSelectYear={onSelectYear}
-              currentYear={currentYear}
-              onChangeInput={onChange}
-              onYearSelect={onYearChange}
-              availableYears={availableYears}
-              // buttonEnabled={searchValue !== '' && selectedYear !== ''}
-              // onSearchClick={onSearch}
-            />
-          </Row>
+          <StyledHeaderDiv>
+            <Row>
+              <Col>
+                <img src="../../../../img/grb.png" alt="" />
+              </Col>
+              <Col>
+                <StyledMainTitleDiv className="StyledMainTitleDiv">
+                  <StyledMainTitleH1>
+                    {getPlaceName()[0].toUpperCase() + getPlaceName().slice(1)}
+                  </StyledMainTitleH1>
+                  <p>Transparentnost</p>
+                </StyledMainTitleDiv>
+              </Col>
+            </Row>
+          </StyledHeaderDiv>
           {isDataLoaded ? (
             <>
-              <Row>
-                <StyledExportButtonsDiv>
-                  <ExportButtons
-                    csvVisible={false}
-                    xmlVisible={false}
-                    placeName={getPlaceName()}
-                    selectedYear={selectedYear}
-                    dataForExport={data}
+              <StyledRow>
+                <Col xs={8}>
+                  <TransparentnostSearch
+                    onSelectYear={onSelectYear}
+                    currentYear={currentYear}
+                    onChangeInput={onChange}
+                    onYearSelect={onYearChange}
+                    availableYears={availableYears}
+                    // buttonEnabled={searchValue !== '' && selectedYear !== ''}
+                    // onSearchClick={onSearch}
                   />
-                </StyledExportButtonsDiv>
-              </Row>
+                </Col>
+                <Col xs={16}>
+                  <StyledExportButtonsDiv>
+                    <ExportButtons
+                      csvVisible={false}
+                      xmlVisible={false}
+                      placeName={getPlaceName()}
+                      selectedYear={selectedYear}
+                      dataForExport={data}
+                    />
+                  </StyledExportButtonsDiv>
+                </Col>
+              </StyledRow>
               <Row>
                 <ResultTable
                   isplatiteljsFilter={isplatiteljColumnFilterItems}

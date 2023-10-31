@@ -1,10 +1,9 @@
 import { Input, Select } from 'antd';
-import { StyledMainTitleH1 } from '../general/styled.ts';
 import {
   StyledTransparencyContent,
   StyledTransparencyLayout,
 } from '../search/styled.ts';
-import { StyledSearchBar } from '../table/styled.ts';
+import { StyledSearchBar } from '../search/styled.ts';
 import { DefaultOptionType } from 'antd/es/select/index';
 
 export default function TransparentnostSearch(props: any) {
@@ -40,10 +39,6 @@ export default function TransparentnostSearch(props: any) {
     <StyledTransparencyLayout>
       <StyledTransparencyContent>
         <div className={className}>
-          <StyledMainTitleH1 $center>
-            <img src="../../../../img/grb.png" alt="" />
-            {/* <a href=""> */}Transparentnost{/* </a> */}
-          </StyledMainTitleH1>
           <StyledSearchBar>
             <Input
               // onBlur={onLoseFocus}
