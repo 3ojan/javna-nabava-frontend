@@ -158,14 +158,17 @@ function TransparencyHome() {
           <StyledHeaderDiv>
             <Row>
               <Col>
-                <img src="../../../../img/grb.png" alt="" />
+                <img
+                  // http://127.0.0.1:8000
+                  // ${import.meta.env.VITE_API_BASE_URL}
+                  src={`http://127.0.0.1:8000/public/public/${opcinaData.grb}`}
+                  alt="Grb opcine"
+                />
               </Col>
               <Col>
                 <StyledMainTitleDiv className="StyledMainTitleDiv">
-                  <StyledMainTitleH1>
-                    {/* {getPlaceName()[0].toUpperCase() + getPlaceName().slice(1)} */}
-                  </StyledMainTitleH1>
-                  <p>Transparentnost</p>
+                  <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
+                  <p>{opcinaData.zupanija}</p>
                 </StyledMainTitleDiv>
               </Col>
             </Row>

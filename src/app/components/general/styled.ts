@@ -38,14 +38,12 @@ export const StyledMainTitleDiv = styled.div`
    display: flex;
    flex-direction: column;
    align-items: start;
-
-   
+   font-family: 'Abhaya Libre', serif;
 `
 
 export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
     font-size: 3rem;
     text-align: ${props => props.$center ? 'center' : 'default'};
-    font-family: 'Abhaya Libre', serif;
     margin: 0;
 
     a {

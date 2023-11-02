@@ -113,8 +113,6 @@ export const getSearchData = (placeName: string, year: string, value: string) =>
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
   try {
-    // const placeName = getPlaceName();
-
     const res = await axiosClient.get(`/${placeName}/transparentnost?year=` + year + '&keyword=' + value);
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
