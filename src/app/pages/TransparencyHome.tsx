@@ -6,6 +6,7 @@ import {
   changeSearchBarValue,
   changeSelectedYearValue,
   getData,
+  getOpcineData,
 } from 'src/redux/transparency/transparency';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
@@ -44,7 +45,7 @@ function TransparencyHome() {
     return state.transparency as TransparencyState;
   });
 
-  const { data, searchValue, selectedYear, isDataLoaded } =
+  const { data, opcinaData, searchValue, selectedYear, isDataLoaded } =
     transparencyState as TransparencyState;
 
   const onChange = (e: any) => {
@@ -101,7 +102,7 @@ function TransparencyHome() {
   };
   const onSelectYear = (e: any) => {
     //gets default data
-    dispatch(getData(selectedYear) as any);
+    dispatch(getData(opcinaData.url, selectedYear) as any);
     setTempData(data);
   };
 
@@ -129,7 +130,7 @@ function TransparencyHome() {
       searchValue === null
     ) {
       //gets default data
-      dispatch(getData(selectedYear) as any);
+      dispatch(getData(opcinaData.url, selectedYear) as any);
     }
   }, [selectedYear]);
 
@@ -143,7 +144,11 @@ function TransparencyHome() {
   }, [isDataLoaded]);
 
   useEffect(() => {
-    dispatch(getData(selectedYear) as any);
+    dispatch(getData(opcinaData.url, selectedYear) as any);
+  }, [opcinaData]);
+
+  useEffect(() => {
+    dispatch(getOpcineData() as any);
   }, []);
 
   return (
@@ -158,7 +163,7 @@ function TransparencyHome() {
               <Col>
                 <StyledMainTitleDiv className="StyledMainTitleDiv">
                   <StyledMainTitleH1>
-                    {getPlaceName()[0].toUpperCase() + getPlaceName().slice(1)}
+                    {/* {getPlaceName()[0].toUpperCase() + getPlaceName().slice(1)} */}
                   </StyledMainTitleH1>
                   <p>Transparentnost</p>
                 </StyledMainTitleDiv>
