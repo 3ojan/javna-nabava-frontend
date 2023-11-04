@@ -17,6 +17,7 @@ export interface TransparencyState {
   searchValue: string;
   selectedYear: string;
   isDataLoaded: boolean;
+  isOpcinaDataLoaded: boolean;
   // placeName: string;
   opcinaData: LocationInfo;
 }
@@ -63,6 +64,7 @@ const slice = createSlice({
     searchValue: "",
     isDataLoaded: false,
     selectedYear: new Date().getFullYear().toString(),
+    isOpcinaDataLoaded: false,
     opcinaData: {} as LocationInfo,
   } as  TransparencyState,
   reducers: {
@@ -82,6 +84,7 @@ const slice = createSlice({
       //result is only for testing purposes
       return {
         ...state,
+        isOpcinaDataLoaded: true,
         opcinaData: action.payload,
       }
     },
@@ -125,6 +128,7 @@ export const getOpcineData = (/* placeName: string */) => async (
 ) => {
   try {
     const res = await axiosClient.get(`/opcine/${getPlaceName()}`);
+    console.log('getOpcineData', res.data);
 
     dispatch(loadOpcina(res.data));
   } catch (e: any) {

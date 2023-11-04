@@ -35,6 +35,7 @@ function TransparencyHome() {
 
   const [tempData, setTempData] = useState([]);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
+  const [grbUrl, setGrbUrl] = useState('');
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
     useState<ColumnFilterItem[]>([]);
   const [monthColumnFilterItems, setMonthColumnFilterItems] = useState<
@@ -45,8 +46,14 @@ function TransparencyHome() {
     return state.transparency as TransparencyState;
   });
 
-  const { data, opcinaData, searchValue, selectedYear, isDataLoaded } =
-    transparencyState as TransparencyState;
+  const {
+    data,
+    opcinaData,
+    searchValue,
+    selectedYear,
+    isDataLoaded,
+    isOpcinaDataLoaded,
+  } = transparencyState as TransparencyState;
 
   const onChange = (e: any) => {
     dispatch(changeSearchBarValue(e.target.value) as any);
@@ -144,12 +151,27 @@ function TransparencyHome() {
   }, [isDataLoaded]);
 
   useEffect(() => {
+    console.log('opcinaData', opcinaData);
+    if (isOpcinaDataLoaded) {
+      setGrbUrl(
+        `${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb.substring(4)}`
+      );
+    }
     dispatch(getData(opcinaData.url, selectedYear) as any);
   }, [opcinaData]);
 
   useEffect(() => {
+    console.log('component is mounted');
+    //Good to add is OpcineData fetched flag for check
     dispatch(getOpcineData() as any);
   }, []);
+
+  if (process.env.NODE_ENV === 'development') {
+    useEffect(() => {
+      console.log('component is mounted in development');
+      // dispatch(getOpcineData() as any);
+    });
+  }
 
   return (
     <>
@@ -159,9 +181,9 @@ function TransparencyHome() {
             <Row>
               <Col>
                 <img
-                  // http://127.0.0.1:8000
-                  // ${import.meta.env.VITE_API_BASE_URL}
-                  src={`http://127.0.0.1:8000/public/public/${opcinaData.grb}`}
+                  // src={`http://127.0.0.1:8000/public/image/grb-opcina-podcrkavlje.jpg`} //${opcinaData.grb}
+                  src={grbUrl}
+                  //promijeniti image u img ili maknuti img iz grb u bazi!!!!!!
                   alt="Grb opcine"
                 />
               </Col>

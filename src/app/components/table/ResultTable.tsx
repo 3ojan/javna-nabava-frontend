@@ -207,7 +207,7 @@ export default function ResultTable(props: TableData) {
       key: 'iznos',
       align: 'right',
       responsive: ['sm'],
-      // width: '30%',
+      width: '7%',
       render: (number) => formatNumber(number),
     },
   ];
