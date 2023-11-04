@@ -163,6 +163,7 @@ function TransparencyHome() {
     console.log('opcinaData', opcinaData);
     if (isOpcinaDataLoaded) {
       setGrbUrl(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb}`);
+      document.title = `Proracun ${opcinaData.naziv}`;
     }
     dispatch(getData(opcinaData.url, selectedYear) as any);
   }, [opcinaData]);
@@ -170,6 +171,8 @@ function TransparencyHome() {
   useEffect(() => {
     console.log('component is mounted');
     //Good to add is OpcineData fetched flag for check
+
+    document.title = `Proracun`;
     dispatch(getOpcineData() as any);
   }, []);
 

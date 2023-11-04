@@ -45,16 +45,6 @@ interface DataType {
   iznos: string | null;
 }
 
-const formatNumber = (number: string) => {
-  const lastIndex = number.lastIndexOf('.');
-  const modifiedString =
-    lastIndex !== -1
-      ? number.slice(0, lastIndex) + ',' + number.slice(lastIndex + 1)
-      : number;
-
-  return modifiedString;
-};
-
 const onChange: TableProps<DataType>['onChange'] = (
   pagination,
   filters,
@@ -209,7 +199,11 @@ export default function ResultTable(props: TableData) {
       align: 'right',
       responsive: ['sm'],
       width: '7%',
-      render: (number) => formatNumber(number),
+      render: (value) =>
+        new Intl.NumberFormat('hr-HR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(value),
     },
   ];
 
