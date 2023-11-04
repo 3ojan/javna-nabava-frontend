@@ -13,6 +13,7 @@ interface TableData {
   data: DataType[];
   isplatiteljsFilter: ColumnFilterItem[];
   monthFilter: ColumnFilterItem[];
+  rowAmount: number;
 }
 
 enum Titles {
@@ -221,6 +222,7 @@ export default function ResultTable(props: TableData) {
           dataSource={props.data}
           onChange={onChange}
           size="middle"
+          pagination={{ pageSize: props.rowAmount }}
         />
       </StyledTableDivWrapper>
     </StyledResultsTableDiv>

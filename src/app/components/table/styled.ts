@@ -49,7 +49,7 @@ export const StyledCellHeightSpan = styled.span`
 export const StyledTableDivWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  padding: 10px 0;
+  // padding: 10px 0;
 
   /* FIXES COLUMN WIDTH */
   .table-wrapper table {
@@ -63,6 +63,12 @@ export const StyledTableDivWrapper = styled.div`
     font-weight: 500;
     font-size: 12px;
   }
+  
+// Row apdding
+  td.ant-table-cell {
+    padding:5px !important;
+  }
+
   @media (min-width: ${mobileWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
         background-color: #e6faff; 

@@ -77,6 +77,15 @@ function TransparencyHome() {
     );
   };
 
+  //TODO: TEST THIS WIHT DIFFERENT SCREEN SIZES
+  const rowAmountDependOnSize = () => {
+    console.log(window.screen.width);
+    if (window.screen.width <= 1500) {
+      return 5;
+    }
+    return 10;
+  };
+
   const getFilters = (data: any, variable: string) => {
     let uniqueFilters: ColumnFilterItem[] = [];
 
@@ -153,9 +162,7 @@ function TransparencyHome() {
   useEffect(() => {
     console.log('opcinaData', opcinaData);
     if (isOpcinaDataLoaded) {
-      setGrbUrl(
-        `${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb.substring(4)}`
-      );
+      setGrbUrl(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb}`);
     }
     dispatch(getData(opcinaData.url, selectedYear) as any);
   }, [opcinaData]);
@@ -166,12 +173,12 @@ function TransparencyHome() {
     dispatch(getOpcineData() as any);
   }, []);
 
-  if (process.env.NODE_ENV === 'development') {
-    useEffect(() => {
-      console.log('component is mounted in development');
-      // dispatch(getOpcineData() as any);
-    });
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   useEffect(() => {
+  //     console.log('component is mounted in development');
+  //     // dispatch(getOpcineData() as any);
+  //   });
+  // }
 
   return (
     <>
@@ -226,6 +233,7 @@ function TransparencyHome() {
                   isplatiteljsFilter={isplatiteljColumnFilterItems}
                   monthFilter={monthColumnFilterItems}
                   data={tempData}
+                  rowAmount={rowAmountDependOnSize()}
                 />
               </Row>
             </>
