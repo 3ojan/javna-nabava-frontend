@@ -45,26 +45,80 @@ export const StyledHeaderDiv = styled.div`
 export const StyledMainTitleDiv = styled.div`
    display: flex;
    flex-direction: column;
+   justify-content: space-between;
+   height: 100%;
    align-items: start;
    font-family: 'Abhaya Libre', serif;
+
+    h1{
+        font-size: 3.052rem;
+        font-weight: inherit;
+    }
+    h2{
+        font-size: 2.441rem;
+        font-weight: inherit;
+    }
+    h3 {
+        font-size: 1.953rem;
+        font-weight: inherit;
+    }
+    h4 {
+        font-size: 1.563rem;
+        font-weight: inherit;
+    }
+    h5 {
+        font-size: 1.25rem;
+        font-weight: inherit;
+}
 `
 
 export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
-    font-size: 3rem;
-    text-align: ${props => props.$center ? 'center' : 'default'};
-    margin: 0;
+text-align: ${props => props.$center ? 'center' : 'default'};\
+margin: 0;
+a {
+    link-style: none;
+    color: black;
+}
+@media only screen and (max-width: ${mobileWidth}px) {
+    font-size: 2rem;
+    img{
+        width: 70px;
+        margin-right: 10px;
+    }
+}
+`
 
-    a {
-        link-style: none;
-        color: black;
+export const StyledMainTitleH3 = styled.h3<{$center?: boolean}>`
+text-align: ${props => props.$center ? 'center' : 'default'};
+margin: 0;
+a {
+    link-style: none;
+    color: black;
+}
+@media only screen and (max-width: ${mobileWidth}px) {
+    font-size: 2rem;
+    img{
+        width: 70px;
+        margin-right: 10px;
     }
-    @media only screen and (max-width: ${mobileWidth}px) {
-        font-size: 2rem;
-        img{
-            width: 70px;
-            margin-right: 10px;
-        }
+}
+`
+
+export const StyledAppTitleHeaderH4 = styled.h4<{$center?: boolean}>`
+text-align: ${props => props.$center ? 'center' : 'default'};
+margin: 0;
+opacity: 0.5;
+a {
+    link-style: none;
+    color: black;
+}
+@media only screen and (max-width: ${mobileWidth}px) {
+    font-size: 2rem;
+    img{
+        width: 70px;
+        margin-right: 10px;
     }
+}
 `
 
 export const StyledCenterDivWrapper = styled.div`

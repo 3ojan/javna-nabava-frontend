@@ -78,6 +78,11 @@ export const StyledTableDivWrapper = styled.div`
   td.ant-table-column-sort {
       background-color: rgba(255, 255, 255, 0);
   }
+  
+  .anticon.anticon-filter svg path{
+    fill: white;
+    opacity: 0.7;
+  }
 
   /* Mobile-specific styles */
   @media (max-width: ${mobileWidth}px) {

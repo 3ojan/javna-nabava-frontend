@@ -11,10 +11,12 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import {
+  StyledAppTitleHeaderH4,
   StyledFullWidthDiv,
   StyledHeaderDiv,
   StyledMainTitleDiv,
   StyledMainTitleH1,
+  StyledMainTitleH3,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
@@ -208,9 +210,12 @@ function TransparencyHome() {
                 />
               </Col>
               <Col>
-                <StyledMainTitleDiv className="StyledMainTitleDiv">
+                <StyledMainTitleDiv>
                   <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
-                  <p>{opcinaData.zupanija}</p>
+                  <StyledMainTitleH3>{opcinaData.zupanija}</StyledMainTitleH3>
+                  <StyledAppTitleHeaderH4>
+                    Isplate iz proračuna
+                  </StyledAppTitleHeaderH4>
                 </StyledMainTitleDiv>
               </Col>
             </Row>
