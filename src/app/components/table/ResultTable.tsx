@@ -216,7 +216,7 @@ export default function ResultTable(props: TableData) {
           dataSource={props.data}
           onChange={onChange}
           size="middle"
-          pagination={{ pageSize: props.rowAmount }}
+          pagination={{ defaultPageSize: props.rowAmount }}
         />
       </StyledTableDivWrapper>
     </StyledResultsTableDiv>
