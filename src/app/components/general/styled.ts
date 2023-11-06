@@ -11,9 +11,10 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
     ${props => props.$padding && css`
         padding: 0 20%;
 
-        @media only screen and (max-width: 1900px) {
-            padding: 0 10%;
-        }
+        // For under 2k res screens max-width: 1900px
+        // @media only screen and (max-width: 1900px) {
+            padding: 0 7%;
+        // }
         @media only screen and (max-width: ${mobileWidth}px) {
             padding: 0 50;
         }
@@ -27,11 +28,18 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
     `};
 `
 export const StyledHeaderDiv = styled.div`
-    margin: 50px 0 50px 0;
+    margin: 50px 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
     img{
         width: 100px;
         margin-right: 10px;
     }
+    // @media only screen and (min-width: 1900px) {
+    //     padding: 0 15%;
+    // }
 `
 
 export const StyledMainTitleDiv = styled.div`

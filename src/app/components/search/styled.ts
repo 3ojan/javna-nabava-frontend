@@ -15,7 +15,6 @@ export const StyledTransparencyContent = styled(Content)`
     text-align: center;
     
     @media only screen and (min-width: ${mobileWidth}px) {
-        margin-bottom: 50px;
         // padding: 0 60% 0 0;
         .detailedSearchButton{
             margin-top: 50px;

@@ -1,4 +1,4 @@
-import { Col, Row, Spin, TableProps } from 'antd';
+import { Col, Row, Space, Spin, TableProps } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import {
@@ -204,7 +204,6 @@ function TransparencyHome() {
                 <img
                   // src={`http://127.0.0.1:8000/public/image/grb-opcina-podcrkavlje.jpg`} //${opcinaData.grb}
                   src={grbUrl}
-                  //promijeniti image u img ili maknuti img iz grb u bazi!!!!!!
                   alt="Grb opcine"
                 />
               </Col>
@@ -215,33 +214,33 @@ function TransparencyHome() {
                 </StyledMainTitleDiv>
               </Col>
             </Row>
+            <StyledRow>
+              <Col xs={8}>
+                <TransparentnostSearch
+                  onSelectYear={onSelectYear}
+                  currentYear={currentYear}
+                  onChangeInput={onChange}
+                  onYearSelect={onYearChange}
+                  availableYears={availableYears}
+                  // buttonEnabled={searchValue !== '' && selectedYear !== ''}
+                  // onSearchClick={onSearch}
+                />
+              </Col>
+              <Col xs={16}>
+                <StyledExportButtonsDiv>
+                  <ExportButtons
+                    csvVisible={false}
+                    xmlVisible={false}
+                    placeName={getPlaceName()}
+                    selectedYear={selectedYear}
+                    dataForExport={data}
+                  />
+                </StyledExportButtonsDiv>
+              </Col>
+            </StyledRow>
           </StyledHeaderDiv>
           {isDataLoaded ? (
             <>
-              <StyledRow>
-                <Col xs={8}>
-                  <TransparentnostSearch
-                    onSelectYear={onSelectYear}
-                    currentYear={currentYear}
-                    onChangeInput={onChange}
-                    onYearSelect={onYearChange}
-                    availableYears={availableYears}
-                    // buttonEnabled={searchValue !== '' && selectedYear !== ''}
-                    // onSearchClick={onSearch}
-                  />
-                </Col>
-                <Col xs={16}>
-                  <StyledExportButtonsDiv>
-                    <ExportButtons
-                      csvVisible={false}
-                      xmlVisible={false}
-                      placeName={getPlaceName()}
-                      selectedYear={selectedYear}
-                      dataForExport={data}
-                    />
-                  </StyledExportButtonsDiv>
-                </Col>
-              </StyledRow>
               <Row>
                 <ResultTable
                   isplatiteljsFilter={isplatiteljColumnFilterItems}
