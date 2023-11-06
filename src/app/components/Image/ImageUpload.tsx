@@ -24,7 +24,7 @@ export default function ImageUpload(props: ImageUploadProps) {
   const onUploadImage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedImage) return;
-
+    console.log('selectedImage', selectedImage);
     const data = new FormData();
     data.append('image', selectedImage);
     axiosClient
@@ -43,11 +43,11 @@ export default function ImageUpload(props: ImageUploadProps) {
       if (!selectedImage) return;
       // event.preventDefault();
       const data = new FormData();
-      data.append('image', selectedImage);
+      data.append('image', selectedImage, selectedImage.name);
       axiosClient
         .post('/store-image', data)
         .then((response) => {
-          console.log(response.data);
+          console.log('resp', response.data);
           onImageUpload && onImageUpload(response.data);
           alert('Image uploaded successfully');
         })

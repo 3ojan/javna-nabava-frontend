@@ -1,4 +1,4 @@
-import { Col, Row, Spin, TableProps } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import {
@@ -24,11 +24,7 @@ import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
 import { StyledRow } from './styled.ts';
 
-export interface StringFilters {
-  text: string;
-  value: string;
-}
-function TransparencyHome() {
+export function TransparencyHome() {
   const antIcon = <LoadingOutlined style={{ fontSize: 64 }} spin />;
 
   const dispatch: AppDispatch = useDispatch();
@@ -63,7 +59,6 @@ function TransparencyHome() {
   const searchData = (value: string) => {
     // this uses endpoint for search
     // dispatch(getSearchData(selectedYear, searchValue) as any);
-
     //this searches loaded data by endpoint
     setTempData(
       data.filter(
@@ -122,17 +117,6 @@ function TransparencyHome() {
     setTempData(data);
   };
 
-  const setFavicon = (faviconUrl: string) => {
-    const link: HTMLLinkElement =
-      document.querySelector("link[rel~='icon']") ||
-      document.createElement('link');
-    console.log(link);
-    link.type = 'image/x-icon';
-    link.rel = 'shortcut icon';
-    link.href = faviconUrl;
-    document.getElementsByTagName('head')[0].appendChild(link);
-  };
-
   const getAvailableYears = () => {
     const yearFromData: string[] = [];
 
@@ -174,15 +158,15 @@ function TransparencyHome() {
     console.log('opcinaData', opcinaData);
     if (isOpcinaDataLoaded) {
       setGrbUrl(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb}`);
-      setFavicon(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.favico}`);
+      setFavicon;
       document.title = `Proracun ${opcinaData.naziv}`;
     }
     dispatch(getData(opcinaData.url, selectedYear) as any);
   }, [opcinaData]);
 
   useEffect(() => {
+    console.log('component is mounted');
     //Good to add is OpcineData fetched flag for check
-
     document.title = `Proracun`;
     dispatch(getOpcineData() as any);
   }, []);
@@ -193,7 +177,6 @@ function TransparencyHome() {
   //     // dispatch(getOpcineData() as any);
   //   });
   // }
-
   return (
     <>
       <StyledFullWidthDiv $padding $background>
@@ -226,8 +209,6 @@ function TransparencyHome() {
                     onChangeInput={onChange}
                     onYearSelect={onYearChange}
                     availableYears={availableYears}
-                    // buttonEnabled={searchValue !== '' && selectedYear !== ''}
-                    // onSearchClick={onSearch}
                   />
                 </Col>
                 <Col xs={16}>
@@ -261,5 +242,3 @@ function TransparencyHome() {
     </>
   );
 }
-
-export default TransparencyHome;
