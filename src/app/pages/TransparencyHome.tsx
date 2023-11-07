@@ -217,7 +217,7 @@ function TransparencyHome() {
                   </StyledMainTitleH1>
                   <StyledMainTitleH2>{opcinaData.zupanija}</StyledMainTitleH2>
                   <StyledAppTitleHeaderH4>
-                    Isplate iz proračuna
+                    Isplata proračunskih sredstava
                   </StyledAppTitleHeaderH4>
                 </StyledMainTitleDiv>
               </Col>
