@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import NxWelcome from './nx-welcome';
 import store from '../redux/store';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import TransparencyHome from './pages/TransparencyHome';
+import TransparencyHome from './pages/TransparencyHome.tsx';
 import { GlobalStyle } from './global/styled';
 import { StyledFullWidthDiv } from './components/general/styled';
 import { ConfigProvider } from 'antd';
@@ -32,7 +32,10 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<TransparencyHome />} />
                 <Route path="/home" element={<NxWelcome title="" />} />
-                <Route path="/image-upload" element={<ImageUploadTestPage title="" />} />
+                <Route
+                  path="/image-upload"
+                  element={<ImageUploadTestPage title="" />}
+                />
               </Routes>
             </Router>
           </Provider>

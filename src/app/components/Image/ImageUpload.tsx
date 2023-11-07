@@ -24,7 +24,7 @@ export default function ImageUpload(props: ImageUploadProps) {
   const onUploadImage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedImage) return;
-
+    console.log('selectedImage', selectedImage);
     const data = new FormData();
     data.append('image', selectedImage);
     axiosClient
@@ -37,26 +37,31 @@ export default function ImageUpload(props: ImageUploadProps) {
       });
   };
 
-  const onCustomUpload = (event: ChangeEvent<HTMLInputElement>, file: File) => {
-    event.preventDefault();
-    const data = new FormData();
-    data.append('image', file);
-    axiosClient
-      .post('/store-image', data)
-      .then((response) => {
-        console.log(response.data);
-        onImageUpload && onImageUpload(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const onCustomUpload = () =>
+    /* event: ChangeEvent<HTMLInputElement>, file: File*/
+    {
+      if (!selectedImage) return;
+      // event.preventDefault();
+      const data = new FormData();
+      data.append('image', selectedImage, selectedImage.name);
+      console.log('data', data);
+      axiosClient
+        .post('/store-image', data)
+        .then((response) => {
+          console.log('resp', response.data);
+          onImageUpload && onImageUpload(response.data);
+          alert('Image uploaded successfully');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
   const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
       setSelectedImage(file);
-      onCustomUpload(event, file);
+      // onCustomUpload(event, file);
     }
   };
 
@@ -78,8 +83,10 @@ export default function ImageUpload(props: ImageUploadProps) {
             className="form-control"
             required
             name="image"
+            accept=".jpg" //, .jpeg, .png
             onChange={onImageChange}
           />
+          <button onClick={onCustomUpload}>Upload</button>
         </div>
         {/* <ButtonSecondary title="Upload Image"></ButtonSecondary> */}
       </form>
