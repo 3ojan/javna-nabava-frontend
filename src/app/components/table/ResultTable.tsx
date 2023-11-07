@@ -1,7 +1,6 @@
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledCellHeightSpan,
-  StyledDetailedRowModal,
   StyledMobileRow,
   // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
