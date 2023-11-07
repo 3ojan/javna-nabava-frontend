@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Modal, Table } from "antd";
 import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
@@ -44,6 +44,13 @@ export const StyledCellHeightSpan = styled.span`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+
+    // &:hover{
+    //   overflow: visible;
+    //   height: 100px;
+    //   background-color: rgba(255, 255, 255, 0.2);
+    //   -webkit-line-clamp: unset;
+    // }
 `
 
 export const StyledTableDivWrapper = styled.div`
