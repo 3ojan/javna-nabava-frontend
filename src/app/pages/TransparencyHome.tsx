@@ -16,7 +16,7 @@ import {
   StyledHeaderDiv,
   StyledMainTitleDiv,
   StyledMainTitleH1,
-  StyledMainTitleH3,
+  StyledMainTitleH2,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
@@ -211,14 +211,22 @@ function TransparencyHome() {
               </Col>
               <Col>
                 <StyledMainTitleDiv>
-                  <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
-                  <StyledMainTitleH3>{opcinaData.zupanija}</StyledMainTitleH3>
+                  <StyledMainTitleH1>
+                    {opcinaData.naziv}
+                    {/* <span>, isplate iz proračuna</span> */}
+                  </StyledMainTitleH1>
+                  <StyledMainTitleH2>{opcinaData.zupanija}</StyledMainTitleH2>
                   <StyledAppTitleHeaderH4>
                     Isplate iz proračuna
                   </StyledAppTitleHeaderH4>
                 </StyledMainTitleDiv>
               </Col>
             </Row>
+            {/* <Row>
+              <StyledAppTitleHeaderH4>
+                Isplate iz proračuna
+              </StyledAppTitleHeaderH4>
+            </Row> */}
             <StyledRow>
               <Col xs={8}>
                 <TransparentnostSearch

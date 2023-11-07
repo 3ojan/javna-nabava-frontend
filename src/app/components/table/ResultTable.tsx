@@ -193,7 +193,7 @@ export default function ResultTable(props: TableData) {
       // widthth: '7%',
     },
     {
-      title: 'Iznos',
+      title: 'Iznos €',
       dataIndex: 'iznos',
       key: 'iznos',
       align: 'right',

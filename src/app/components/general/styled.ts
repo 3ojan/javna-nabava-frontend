@@ -34,7 +34,7 @@ export const StyledHeaderDiv = styled.div`
     gap: 30px;
 
     img{
-        width: 100px;
+        width: 70px;
         margin-right: 10px;
     }
     // @media only screen and (min-width: 1900px) {
@@ -51,30 +51,29 @@ export const StyledMainTitleDiv = styled.div`
    font-family: 'Abhaya Libre', serif;
 
     h1{
-        font-size: 3.052rem;
+        font-size: ${2.5}rem;
         font-weight: inherit;
     }
-    h2{
-        font-size: 2.441rem;
+    h2 {
+        font-size: ${2.5/Math.pow(1.25, 2)}rem;
         font-weight: inherit;
     }
     h3 {
-        font-size: 1.953rem;
+        font-size: ${2.5/Math.pow(1.25, 3)}rem;
         font-weight: inherit;
     }
-    h4 {
-        font-size: 1.563rem;
-        font-weight: inherit;
-    }
-    h5 {
-        font-size: 1.25rem;
-        font-weight: inherit;
-}
 `
 
 export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
 text-align: ${props => props.$center ? 'center' : 'default'};\
 margin: 0;
+//span is just for testing
+span{
+    font-weight: 400;
+    opacity: 0.5;
+        font-size: 1.8rem;
+
+}
 a {
     link-style: none;
     color: black;
@@ -82,13 +81,13 @@ a {
 @media only screen and (max-width: ${mobileWidth}px) {
     font-size: 2rem;
     img{
-        width: 70px;
+        width: 50px;
         margin-right: 10px;
     }
 }
 `
 
-export const StyledMainTitleH3 = styled.h3<{$center?: boolean}>`
+export const StyledMainTitleH2 = styled.h2<{$center?: boolean}>`
 text-align: ${props => props.$center ? 'center' : 'default'};
 margin: 0;
 a {
@@ -104,7 +103,7 @@ a {
 }
 `
 
-export const StyledAppTitleHeaderH4 = styled.h4<{$center?: boolean}>`
+export const StyledAppTitleHeaderH4 = styled.h3<{$center?: boolean}>`
 text-align: ${props => props.$center ? 'center' : 'default'};
 margin: 0;
 opacity: 0.5;
