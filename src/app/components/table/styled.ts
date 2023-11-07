@@ -1,9 +1,7 @@
-import { Table } from "antd";
+import { Modal, Table } from "antd";
 import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
-const searchBarHeight = "40px";
-const searchBorderRadius = "6px";
 
 export const StyledResultsTableDiv = styled.div`
     width: 100%;
@@ -38,71 +36,30 @@ export const StyledMobileRow = styled.tr`
   }
 `
 
-export const StyledSearchBar = styled.div`
-display: flex;
-align-items: center;
-
-.search-input {
-  flex: 1;
-  height: ${searchBarHeight};
-  border-radius: ${searchBorderRadius} 0 0 ${searchBorderRadius};
-}
-
-// :where(.css-dev-only-do-not-override-1m62vyb).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
-//   height: ${searchBarHeight};
-// }
-
-:where(.css-dev-only-do-not-override-1m62vyb).ant-select-single .ant-select-selector{
-   height: ${searchBarHeight};
-}
- select{
-  background-color: transparent; 
-  border-top: 1px silver solid;
-  border-bottom: 1px silver solid; 
-  border-left: none;
-  border-right: none;
-  padding: 0 10px;
-  height: ${searchBarHeight};
- }
-
-.ant-select-selector{
-  border-radius: 0;
-}
-
-.dropdown {
-  width: 120px;
-}
-
-.search-button {
-  height: ${searchBarHeight};
-  margin-right: 0;
-  border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
-}
-`
-
 export const StyledCellHeightSpan = styled.span`
-    // height: 47px; /* Adjust the maximum height as needed */
-    // text-overflow: ellipsis;
-    // display: block;
-    // white-space: nowrap;
-    // word-wrap: break-word;
-
-    overflow: hidden; /* Hide overflowing content */
-
-    // ONLY FOR NEW BROWSERS
+    height: 47px; /* ROW HEIGHT */
+    overflow: hidden; 
+    
+    // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+
+    // &:hover{
+    //   overflow: visible;
+    //   height: 100px;
+    //   background-color: rgba(255, 255, 255, 0.2);
+    //   -webkit-line-clamp: unset;
+    // }
 `
 
 export const StyledTableDivWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  padding: 10px 0;
+  // padding: 10px 0;
 
   /* FIXES COLUMN WIDTH */
   .table-wrapper table {
-    // width: 100%;
     table-layout: fixed !important; /* rewrite inline styles */
   }
 
@@ -110,9 +67,15 @@ export const StyledTableDivWrapper = styled.div`
     background-color: #4d4d4d; 
     color: white;
     text-transform: uppercase;
-    font-weight: 300;
+    font-weight: 500;
     font-size: 12px;
   }
+  
+// Row apdding
+  td.ant-table-cell {
+    padding:5px !important;
+  }
+
   @media (min-width: ${mobileWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
         background-color: #e6faff; 
@@ -121,6 +84,11 @@ export const StyledTableDivWrapper = styled.div`
 
   td.ant-table-column-sort {
       background-color: rgba(255, 255, 255, 0);
+  }
+  
+  .anticon.anticon-filter svg path{
+    fill: white;
+    opacity: 0.7;
   }
 
   /* Mobile-specific styles */

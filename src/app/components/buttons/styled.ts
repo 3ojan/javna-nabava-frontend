@@ -13,8 +13,6 @@ export const StyledSpace = styled(Space)`
 ` 
 
 export const StyledExportButtonsDiv = styled.div`
-    padding: 10px 0;
-    width: 100%;    
     .buttonWrapper{  
         float: right;
         display: flex;

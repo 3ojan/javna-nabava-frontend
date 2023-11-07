@@ -9,6 +9,7 @@ import { AppDispatch } from '../store';
 import { useSelector } from 'react-redux';
 import { getPlaceName } from 'src/helper/domainHelper.js';
 
+
 export interface TransparencyState {
   data: any | null;
   loading: boolean;
@@ -16,7 +17,9 @@ export interface TransparencyState {
   searchValue: string;
   selectedYear: string;
   isDataLoaded: boolean;
-  placeName: string;
+  isOpcinaDataLoaded: boolean;
+  // placeName: string;
+  opcinaData: LocationInfo;
 }
 
 export interface RootState {
@@ -24,6 +27,25 @@ export interface RootState {
   searchValue: string;
   selectedYear: string;
   errorMessage: string | null;
+
+}
+
+interface LocationInfo {
+  id: number;
+  rkpid: number;
+  naziv: string;
+  adresa: string;
+  mjesto: string;
+  zupanija: string;
+  homepage: string;
+  oib: string;
+  url: string;
+  grb: string;
+  favico: string;
+  background: string;
+  description: string;
+  created_at: string | null;
+  updated_at: string | null;
 }
 
 interface Transparency {
@@ -42,6 +64,8 @@ const slice = createSlice({
     searchValue: "",
     isDataLoaded: false,
     selectedYear: new Date().getFullYear().toString(),
+    isOpcinaDataLoaded: false,
+    opcinaData: {} as LocationInfo,
   } as  TransparencyState,
   reducers: {
     loadSuccess: (state, action: PayloadAction<Transparency>) => {
@@ -56,6 +80,14 @@ const slice = createSlice({
       //   state.error = null; 
       // Reset error on login success
     },
+    loadOpcina: (state, action: PayloadAction<LocationInfo>) => {
+      //result is only for testing purposes
+      return {
+        ...state,
+        isOpcinaDataLoaded: true,
+        opcinaData: action.payload,
+      }
+    },
     onChangeSearchBarValue: (state, action: PayloadAction<string>) => { //PayloadAction<Transparency>
       state.searchValue = action.payload;
     }, 
@@ -67,13 +99,12 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, onChangeSearchBarValue, onChangeSelectYear} = slice.actions;
+const { loadSuccess, loadOpcina, onChangeSearchBarValue, onChangeSelectYear} = slice.actions;
 
-export const getData = (year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
+export const getData = (placeName: string, year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
     //this is temporary, needs to work for strings that do not have "opcina-" in front
-    const placeName = getPlaceName();
-    const res = await axiosClient.get(`/opcina-${placeName}/transparentnost?year=` + year);
+    const res = await axiosClient.get(`/${placeName}/transparentnost?year=` + year);
 
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
@@ -81,19 +112,29 @@ export const getData = (year: string): ThunkAction<Promise<void>, RootState, voi
   }
 };
 
-export const getSearchData = (year: string, value: string) => async (
+export const getSearchData = (placeName: string, year: string, value: string) => async (
   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 ) => {
   try {
-    const placeName = getPlaceName();
-
-    const res = await axiosClient.get(`/opcina-${placeName}/transparentnost?year=` + year + '&keyword=' + value);
+    const res = await axiosClient.get(`/${placeName}/transparentnost?year=` + year + '&keyword=' + value);
     dispatch(loadSuccess(res.data));
   } catch (e: any) {
     console.log(e);
   }
 };
 
+export const getOpcineData = (/* placeName: string */) => async (
+  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
+) => {
+  try {
+    const res = await axiosClient.get(`/opcine/${getPlaceName()}`);
+    console.log('getOpcineData', res.data);
+
+    dispatch(loadOpcina(res.data));
+  } catch (e: any) {
+    console.log(e);
+  }
+};
 // export const getData = ({ pagination }: { pagination: any }) => async (
 //   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 // ) => {

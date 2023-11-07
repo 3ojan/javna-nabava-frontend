@@ -8,11 +8,15 @@ import {
   StyledTableDivWrapper,
 } from './styled';
 import { ColumnFilterItem } from 'antd/es/table/interface';
+import { useRef, useState } from 'react';
+import React from 'react';
+import { Modal } from 'antd';
 
 interface TableData {
   data: DataType[];
   isplatiteljsFilter: ColumnFilterItem[];
   monthFilter: ColumnFilterItem[];
+  rowAmount: number;
 }
 
 enum Titles {
@@ -44,16 +48,6 @@ interface DataType {
   iznos: string | null;
 }
 
-const formatNumber = (number: string) => {
-  const lastIndex = number.lastIndexOf('.');
-  const modifiedString =
-    lastIndex !== -1
-      ? number.slice(0, lastIndex) + ',' + number.slice(lastIndex + 1)
-      : number;
-
-  return modifiedString;
-};
-
 const onChange: TableProps<DataType>['onChange'] = (
   pagination,
   filters,
@@ -68,7 +62,11 @@ const renderLimitedCellHeight = (text: string) => (
 );
 
 export default function ResultTable(props: TableData) {
-  console.log('props', props);
+  const [selectedRow, setSelectedRow] = useState<DataType | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+
+  const tableRef = useRef(null);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -151,6 +149,8 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       width: '7%',
       filters: props.monthFilter,
+      onFilter: (value, record) =>
+        record.foramtedDate!.includes(value.toString()),
     },
     {
       title: 'Isplatitelj',
@@ -200,26 +200,96 @@ export default function ResultTable(props: TableData) {
       // widthth: '7%',
     },
     {
-      title: 'Iznos',
+      title: 'Iznos €',
       dataIndex: 'iznos',
       key: 'iznos',
       align: 'right',
       responsive: ['sm'],
-      // width: '30%',
-      render: (number) => formatNumber(number),
+      width: '7%',
+      render: (value) =>
+        new Intl.NumberFormat('hr-HR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(value),
     },
   ];
+
+  const onSelectRow = (record: DataType, event: any) => {
+    setSelectedRow(record);
+    setIsModalVisible(true);
+
+    // Calculate the position of the modal relative to the clicked row
+    const rowBoundingRect = event.currentTarget.getBoundingClientRect();
+    setModalPosition({
+      top: rowBoundingRect.bottom,
+      left: rowBoundingRect.left,
+    });
+  };
+
+  const checkIfTextOverflowing = (record: DataType, rowIndex: any) => {
+    const trElement: HTMLElement | null | undefined = (
+      tableRef.current as HTMLElement | null
+    )?.querySelector(`tr[data-row-key="${record.id as string}"]`);
+
+    if (trElement) {
+      const spanEl = trElement.querySelector('td span') as HTMLElement;
+      if (
+        spanEl.clientWidth < spanEl.scrollWidth ||
+        spanEl.clientHeight < spanEl.scrollHeight
+      ) {
+        setSelectedRow(record);
+        setIsModalVisible(true);
+        // Calculate the position of the modal relative to the clicked row
+        const rowBoundingRect = trElement.getBoundingClientRect();
+        setModalPosition({
+          top: rowBoundingRect.bottom,
+          left: rowBoundingRect.left,
+        });
+      }
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <StyledResultsTableDiv>
       <StyledTableDivWrapper>
         <Table
+          ref={tableRef}
           className="table-wrapper"
           columns={columns} //columnType
           dataSource={props.data}
           onChange={onChange}
           size="middle"
+          rowKey="id"
+          pagination={{ defaultPageSize: props.rowAmount }}
+          onRow={(record, rowIndex) => ({
+            onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+          })}
         />
+        {isModalVisible && (
+          <Modal
+            title="Detaljno"
+            open={isModalVisible}
+            onCancel={closeModal}
+            mask={false}
+            footer={null}
+            style={{
+              position: 'absolute',
+              ...modalPosition,
+            }}
+          >
+            {selectedRow && (
+              <div>
+                {/* Display selected row details inside the modal */}
+                {/* need to test and see what to show, how  */}
+                <p>Vrsta rashoda: {selectedRow.vrstarashoda}</p>
+              </div>
+            )}
+          </Modal>
+        )}
       </StyledTableDivWrapper>
     </StyledResultsTableDiv>
   );

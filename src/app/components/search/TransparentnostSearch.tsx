@@ -1,11 +1,10 @@
 import { Input, Select } from 'antd';
-import { StyledColoredButton } from '../buttons/styled.ts';
-import { StyledMainTitleH1 } from '../general/styled.ts';
 import {
   StyledTransparencyContent,
   StyledTransparencyLayout,
 } from '../search/styled.ts';
-import { StyledSearchBar } from '../table/styled.ts';
+import { StyledSearchBar } from '../search/styled.ts';
+import { DefaultOptionType } from 'antd/es/select/index';
 
 export default function TransparentnostSearch(props: any) {
   const { Option } = Select;
@@ -13,40 +12,33 @@ export default function TransparentnostSearch(props: any) {
   const {
     onSelectYear,
     onChangeInput,
+    currentYear,
+    onYearSelect,
+    className,
+    availableYears,
     isplatiteljs,
     searchValueonSearchClick,
     searchValue,
-    currentYear,
-    onYearSelect,
     onSearchClick,
-    className,
     buttonEnabled,
   } = props;
+
+  const selectYearOptions = (): DefaultOptionType[] => {
+    const yearOptions: DefaultOptionType[] = [];
+
+    availableYears.forEach((year: string) => {
+      yearOptions.push({
+        value: year,
+        label: year,
+      });
+    });
+    return yearOptions;
+  };
 
   return (
     <StyledTransparencyLayout>
       <StyledTransparencyContent>
         <div className={className}>
-          <StyledMainTitleH1 $center>
-            <img src="../../../../img/grb.png" alt="" />
-            {/* <a href=""> */}Transparentnost{/* </a> */}
-          </StyledMainTitleH1>
-          {/* <Search
-            style={{ padding: '0' }}
-            placeholder="Upišite ključnu riječ..."
-            addonBefore={selectYear}
-            enterButton={
-              <StyledColoredButton
-                disabled={searchValue === ''}
-                onClick={onSearchClick}
-              >
-                Pretraži
-              </StyledColoredButton>
-            }
-            size="large"
-            onChange={onChangeInput}
-            value={searchValue}
-          /> */}
           <StyledSearchBar>
             <Input
               // onBlur={onLoseFocus}
@@ -68,34 +60,8 @@ export default function TransparentnostSearch(props: any) {
               defaultValue={currentYear}
               className="dropdown"
               onChange={onYearSelect}
-              options={[
-                {
-                  value: currentYear,
-                  label: currentYear,
-                },
-                {
-                  value: currentYear - 1,
-                  label: currentYear - 1,
-                },
-                {
-                  value: currentYear - 2,
-                  label: currentYear - 2,
-                },
-                {
-                  value: currentYear - 3,
-                  label: currentYear - 3,
-                },
-              ]}
+              options={selectYearOptions()}
             ></Select>
-            {/* removed because search was changed to on change value  */}
-            {/* <StyledColoredButton
-              disabled={!buttonEnabled}
-              onClick={onSearchClick}
-              type="primary"
-              className="search-button"
-            >
-              Pretraži
-            </StyledColoredButton> */}
           </StyledSearchBar>
         </div>
       </StyledTransparencyContent>

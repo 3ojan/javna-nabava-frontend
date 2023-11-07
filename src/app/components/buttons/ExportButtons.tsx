@@ -4,6 +4,7 @@ import { StyledColoredButton, StyledSpace } from './styled';
 import { mobileWidth } from 'src/app/global/constants';
 import { useSelector } from 'react-redux';
 import { TransparencyState } from 'src/redux/transparency/transparency';
+import { DownloadOutlined } from '@ant-design/icons';
 
 export type exportButtonProps = {
   xmlVisible: boolean;
@@ -38,11 +39,12 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
 
   const handleDownloadJSON = () => {
     // Convert the JSON object to a string with pretty formatting (2 spaces for indentation)
-    const jsonData = JSON.stringify(dataForExport, null, 2); //todo: change transparencyState.data to temp data
+    const jsonData = JSON.stringify(dataForExport, null, 2);
+    const currentDate: Date = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // months are 0-indexed
 
     // Create a Blob object containing the JSON data
     const blob = new Blob([jsonData], { type: 'application/json' });
-
     // Create a URL for the Blob
     const blobURL = URL.createObjectURL(blob);
 
@@ -50,7 +52,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
     const a = document.createElement('a');
     a.href = blobURL;
     a.download = `${placeName}_isplate_iz_proracuna_${selectedYear}_godine_
-    ${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}.json`;
+    ${currentDate.getDate()}.${currentMonth}.${currentDate.getFullYear()}.json`;
 
     // Trigger a click event to initiate the download
     a.click();
@@ -90,7 +92,11 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
           </Button>
         )}
         {jsonVisible && (
-          <Button danger type="primary" onClick={handleDownloadJSON}>
+          <Button
+            icon={<DownloadOutlined />}
+            type="default"
+            onClick={handleDownloadJSON}
+          >
             {window.innerWidth <= mobileWidth ? 'JSON' : 'Preuzmi JSON'}
           </Button>
         )}
