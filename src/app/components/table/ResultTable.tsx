@@ -1,7 +1,6 @@
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledCellHeightSpan,
-  StyledDetailedRowModal,
   StyledMobileRow,
   // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
@@ -241,7 +240,7 @@ export default function ResultTable(props: TableData) {
         setSelectedRow(record);
         setIsModalVisible(true);
         // Calculate the position of the modal relative to the clicked row
-        const rowBoundingRect = trElement.getBoundingClientRect();
+        const rowBoundingRect = spanEl.getBoundingClientRect();
         setModalPosition({
           top: rowBoundingRect.bottom,
           left: rowBoundingRect.left,
@@ -266,7 +265,10 @@ export default function ResultTable(props: TableData) {
           size="middle"
           rowKey="id"
           pagination={{ defaultPageSize: props.rowAmount }}
-          onCell={(record: any, rowIndex: any) => ({})}
+          onRow={(record, rowIndex) => ({
+            onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+            // onMouseLeave: (event) => closeModal(),
+          })}
         />
         {isModalVisible && (
           <Modal
