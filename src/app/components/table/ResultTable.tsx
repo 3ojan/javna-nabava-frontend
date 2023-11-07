@@ -266,9 +266,7 @@ export default function ResultTable(props: TableData) {
           size="middle"
           rowKey="id"
           pagination={{ defaultPageSize: props.rowAmount }}
-          onRow={(record, rowIndex) => ({
-            onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-          })}
+          onCell={(record: any, rowIndex: any) => ({})}
         />
         {isModalVisible && (
           <Modal
