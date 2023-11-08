@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AnyAction } from 'redux';
-import { base_url } from '../constants';
 import axiosClient from '../../axios-client.js';
 import { debug } from 'console';
 import { AppDispatch } from '../store';
@@ -128,7 +127,6 @@ export const getOpcineData = (/* placeName: string */) => async (
 ) => {
   try {
     const res = await axiosClient.get(`/opcine/${getPlaceName()}`);
-    console.log('getOpcineData', res.data);
 
     dispatch(loadOpcina(res.data));
   } catch (e: any) {
