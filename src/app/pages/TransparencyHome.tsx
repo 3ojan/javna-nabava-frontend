@@ -1,4 +1,4 @@
-import { Col, Row, Space, Spin, TableProps } from 'antd';
+import { Button, Col, Row, Space, Spin, TableProps } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import {
@@ -250,6 +250,11 @@ function TransparencyHome() {
                   // onSearchClick={onSearch}
                 />
               </Col>
+              {/* {isMobileWidth && (
+                <Col xs={24}>
+                  <Button>Filter mjeseca</Button>
+                </Col>
+              )} */}
               <Col xs={isMobileWidth ? 24 : 16}>
                 <StyledExportButtonsDiv>
                   <ExportButtons

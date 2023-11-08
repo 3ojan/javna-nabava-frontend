@@ -1,6 +1,7 @@
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledCellHeightSpan,
+  StyledFiltersCheckboxGroup,
   StyledMobileRow,
   // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
@@ -8,15 +9,25 @@ import {
   StyledTableDivWrapper,
 } from './styled';
 import { ColumnFilterItem } from 'antd/es/table/interface';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import React from 'react';
-import { Modal } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Dropdown,
+  Input,
+  Menu,
+  MenuProps,
+  Modal,
+  Space,
+} from 'antd';
 
 interface TableData {
   data: DataType[];
   isplatiteljsFilter: ColumnFilterItem[];
   monthFilter: ColumnFilterItem[];
   rowAmount: number;
+  // dateFilterDropDownVisible: () => boolean;
 }
 
 enum Titles {
@@ -62,6 +73,12 @@ const renderLimitedCellHeight = (text: string) => (
 );
 
 export default function ResultTable(props: TableData) {
+  const [filteredData, setFilteredData] = useState<DataType[]>(props.data);
+  const [selectedDateFilterValues, setSelectedDateFilterValues] = useState<
+    string[]
+  >([]);
+  const [selectedIsplatiteljFilterValues, setSelectedIsplatiteljFilterValues] =
+    useState([]);
   const [selectedRow, setSelectedRow] = useState<DataType | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
@@ -151,6 +168,34 @@ export default function ResultTable(props: TableData) {
       filters: props.monthFilter,
       onFilter: (value, record) =>
         record.foramtedDate!.includes(value.toString()),
+      filterDropdownVisible: false,
+      // filterDropdown: (
+      //   <div style={{ padding: 8 }}>
+      //     <Checkbox.Group
+      //       style={{ width: '100%' }}
+      //       // value={selectedKeys}
+      //       // onChange={(values) => setSelectedKeys(values)}
+      //     >
+      //       {props.monthFilter?.map((filter) => (
+      //         <Checkbox key={filter.value as string} value={filter.value}>
+      //           {filter.text}
+      //         </Checkbox>
+      //       ))}
+      //     </Checkbox.Group>
+      //     <Space>
+      //       <Button
+      //         type="primary"
+      //         onClick={() => {
+      //           confirm();
+      //           // Handle filtering logic here
+      //         }}
+      //       >
+      //         OK
+      //       </Button>
+      //       <Button>Reset</Button>
+      //     </Space>
+      //   </div>
+      // ),
     },
     {
       title: 'Isplatitelj',
@@ -234,8 +279,9 @@ export default function ResultTable(props: TableData) {
     if (trElement) {
       const spanEl = trElement.querySelector('td span') as HTMLElement;
       if (
-        spanEl.clientWidth < spanEl.scrollWidth ||
-        spanEl.clientHeight < spanEl.scrollHeight
+        spanEl &&
+        (spanEl.clientWidth < spanEl.scrollWidth ||
+          spanEl.clientHeight < spanEl.scrollHeight)
       ) {
         setSelectedRow(record);
         setIsModalVisible(true);
@@ -253,14 +299,88 @@ export default function ResultTable(props: TableData) {
     setIsModalVisible(false);
   };
 
+  const handleCheckboxChange = (values: any) => {
+    setSelectedDateFilterValues(values);
+  };
+
+  const filterDataByDate = () => {
+    if (selectedDateFilterValues) {
+      const filteredDataSource = props.data.filter((record: DataType) =>
+        selectedDateFilterValues.includes(record.foramtedDate as string)
+      );
+      setFilteredData(filteredDataSource);
+    } else {
+      setFilteredData(props.data);
+    }
+  };
+
+  const menu = () => (
+    <Menu>
+      <StyledFiltersCheckboxGroup
+        style={{ display: 'block' }}
+        onChange={handleCheckboxChange}
+      >
+        {props.monthFilter.map((filter) => (
+          <Menu.Item key={filter.value as string}>
+            <Checkbox onClick={(e) => e.stopPropagation()} value={filter.value}>
+              {filter.text}
+            </Checkbox>
+          </Menu.Item>
+        ))}
+      </StyledFiltersCheckboxGroup>
+      <Space>
+        {/* <Button
+          type="primary"
+          onClick={() => {
+            // debugger;
+            // confirm();
+            if (selectedDateFilterValues) {
+              const filteredDataSource = props.data.filter((record) =>
+                selectedDateFilterValues.includes(record.foramtedDate as string)
+              );
+              setFilteredData(filteredDataSource);
+            } else {
+              setFilteredData(props.data);
+            }
+          }}
+        >
+          U redu
+        </Button> */}
+        <Button>Resetiraj</Button>
+      </Space>
+    </Menu>
+  );
+
+  useEffect(() => {
+    filterDataByDate();
+  }, [selectedDateFilterValues]);
+
+  useEffect(() => {
+    setFilteredData(props.data);
+  }, [props.data]);
+
   return (
     <StyledResultsTableDiv>
+      {true && (
+        <>
+          <Dropdown
+            dropdownRender={menu}
+            placement="bottom"
+            // trigger={['click']}
+          >
+            <Button>Filter mjeseca</Button>
+          </Dropdown>
+          <Dropdown placement="bottom">
+            <Button>Filter Isplatitelja</Button>
+          </Dropdown>
+        </>
+      )}
       <StyledTableDivWrapper>
         <Table
           ref={tableRef}
           className="table-wrapper"
           columns={columns} //columnType
-          dataSource={props.data}
+          dataSource={filteredData}
           onChange={onChange}
           size="middle"
           rowKey="id"
