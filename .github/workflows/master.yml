@@ -16,9 +16,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: update npm
-        run: npm install -g npm@10.2.3
-
       - name: install dependencies
         run: npm install
 
