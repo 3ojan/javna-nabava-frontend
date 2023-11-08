@@ -58,7 +58,7 @@ export default function TransparentnostSearch(props: any) {
               onSelect={onSelectYear}
               rootClassName="dropdown"
               defaultValue={currentYear}
-              className="dropdown"
+              className="customDropdown" //TODO remove
               onChange={onYearSelect}
               options={selectYearOptions()}
             ></Select>
