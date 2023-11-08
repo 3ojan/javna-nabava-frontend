@@ -1,4 +1,4 @@
-import { Col, Row, Space, Spin, TableProps } from 'antd';
+import { Button, Col, Row, Space, Spin, TableProps } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable from '../components/table/ResultTable';
 import {
@@ -17,6 +17,7 @@ import {
   StyledMainTitleDiv,
   StyledMainTitleH1,
   StyledMainTitleH2,
+  StyledMobileMainTtileDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
@@ -25,6 +26,8 @@ import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
 import { StyledRow } from './styled.ts';
+import { largeScreenWidth, mobileWidth } from '../global/constants.ts';
+import { debug } from 'console';
 
 export interface StringFilters {
   text: string;
@@ -36,6 +39,7 @@ function TransparencyHome() {
   const dispatch: AppDispatch = useDispatch();
 
   const [tempData, setTempData] = useState([]);
+  const [isMobileWidth, setIsMobileWidth] = useState(false);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
@@ -81,8 +85,7 @@ function TransparencyHome() {
 
   //TODO: TEST THIS WIHT DIFFERENT SCREEN SIZES
   const rowAmountDependOnSize = () => {
-    console.log(window.screen.width);
-    if (window.screen.width <= 1500) {
+    if (window.screen.width <= largeScreenWidth) {
       return 5;
     }
     return 10;
@@ -128,7 +131,6 @@ function TransparencyHome() {
     const link: HTMLLinkElement =
       document.querySelector("link[rel~='icon']") ||
       document.createElement('link');
-    console.log(link);
     link.type = 'image/x-icon';
     link.rel = 'shortcut icon';
     link.href = faviconUrl;
@@ -173,7 +175,6 @@ function TransparencyHome() {
   }, [isDataLoaded]);
 
   useEffect(() => {
-    console.log('opcinaData', opcinaData);
     if (isOpcinaDataLoaded) {
       setGrbUrl(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb}`);
       setFavicon(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.favico}`);
@@ -186,6 +187,7 @@ function TransparencyHome() {
     //Good to add is OpcineData fetched flag for check
 
     document.title = `Proracun`;
+    setIsMobileWidth(window.screen.width <= mobileWidth);
     dispatch(getOpcineData() as any);
   }, []);
 
@@ -202,19 +204,28 @@ function TransparencyHome() {
         <Col>
           <StyledHeaderDiv>
             <Row>
-              <Col>
-                <img
-                  // src={`http://127.0.0.1:8000/public/image/grb-opcina-podcrkavlje.jpg`} //${opcinaData.grb}
-                  src={grbUrl}
-                  alt="Grb opcine"
-                />
+              <Col span={isMobileWidth ? 24 : undefined}>
+                {isMobileWidth ? (
+                  <>
+                    <StyledMobileMainTtileDiv>
+                      <img src={grbUrl} alt="Grb opcine" />
+                      <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
+                    </StyledMobileMainTtileDiv>
+                  </>
+                ) : (
+                  <img src={grbUrl} alt="Grb opcine" />
+                )}
               </Col>
-              <Col>
+              <Col span={isMobileWidth ? 24 : undefined}>
                 <StyledMainTitleDiv>
-                  <StyledMainTitleH1>
-                    {opcinaData.naziv}
-                    {/* <span>, isplate iz proračuna</span> */}
-                  </StyledMainTitleH1>
+                  {isMobileWidth ? (
+                    <></>
+                  ) : (
+                    <StyledMainTitleH1>
+                      {opcinaData.naziv}
+                      {/* <span>, isplate iz proračuna</span> */}
+                    </StyledMainTitleH1>
+                  )}
                   <StyledMainTitleH2>{opcinaData.zupanija}</StyledMainTitleH2>
                   <StyledAppTitleHeaderH4>
                     Isplata proračunskih sredstava
@@ -228,7 +239,7 @@ function TransparencyHome() {
               </StyledAppTitleHeaderH4>
             </Row> */}
             <StyledRow>
-              <Col xs={8}>
+              <Col xs={isMobileWidth ? 24 : 8}>
                 <TransparentnostSearch
                   onSelectYear={onSelectYear}
                   currentYear={currentYear}
@@ -239,7 +250,12 @@ function TransparencyHome() {
                   // onSearchClick={onSearch}
                 />
               </Col>
-              <Col xs={16}>
+              {/* {isMobileWidth && (
+                <Col xs={24}>
+                  <Button>Filter mjeseca</Button>
+                </Col>
+              )} */}
+              <Col xs={isMobileWidth ? 24 : 16}>
                 <StyledExportButtonsDiv>
                   <ExportButtons
                     csvVisible={false}
