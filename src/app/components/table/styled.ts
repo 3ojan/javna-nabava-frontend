@@ -1,4 +1,4 @@
-import { Modal, Table } from "antd";
+import { Checkbox, Modal, Table } from "antd";
 import { mobileWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
@@ -123,4 +123,17 @@ export const StyledTableDivWrapper = styled.div`
       }
     }
   }
+`
+
+export const StyledFiltersCheckboxGroup = styled(Checkbox.Group)`
+margin-bottom: 10px;
+.ant-dropdown-menu-item{
+  background-color: transparent !important;
+}
+`
+
+export const StyledMobileFiltersContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `

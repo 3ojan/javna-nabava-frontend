@@ -41,9 +41,7 @@ export default function TransparentnostSearch(props: any) {
         <div className={className}>
           <StyledSearchBar>
             <Input
-              // onBlur={onLoseFocus}
               placeholder="Upišite ključnu riječ..."
-              // onSearch={handleSearch}
               onChange={onChangeInput}
               className="search-input"
             />
@@ -56,9 +54,9 @@ export default function TransparentnostSearch(props: any) {
             </select> */}
             <Select
               onSelect={onSelectYear}
-              rootClassName="dropdown"
+              // rootClassName="dropdown"
               defaultValue={currentYear}
-              className="dropdown"
+              className="customDropdown"
               onChange={onYearSelect}
               options={selectYearOptions()}
             ></Select>

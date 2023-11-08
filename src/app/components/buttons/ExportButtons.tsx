@@ -71,7 +71,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
 
   return (
     <>
-      <p
+      {/* <p
         style={{
           textAlign: 'center',
           width: '100%',
@@ -79,7 +79,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
         }}
       >
         Preuzmite podatke u obliku:
-      </p>
+      </p> */}
       <div className="buttonWrapper">
         {xmlVisible && (
           <StyledColoredButton disabled={false} $color="green">
