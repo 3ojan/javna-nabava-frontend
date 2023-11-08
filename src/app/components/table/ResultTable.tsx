@@ -2,6 +2,7 @@ import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledCellHeightSpan,
   StyledFiltersCheckboxGroup,
+  StyledMobileFiltersContainer,
   StyledMobileRow,
   // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
@@ -14,11 +15,13 @@ import React from 'react';
 import {
   Button,
   Checkbox,
+  Col,
   Dropdown,
   Input,
   Menu,
   MenuProps,
   Modal,
+  Row,
   Space,
 } from 'antd';
 
@@ -78,7 +81,7 @@ export default function ResultTable(props: TableData) {
     string[]
   >([]);
   const [selectedIsplatiteljFilterValues, setSelectedIsplatiteljFilterValues] =
-    useState([]);
+    useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<DataType | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
@@ -91,23 +94,8 @@ export default function ResultTable(props: TableData) {
       render: (record) => (
         <>
           <StyledMobileRow>
-            <td>ID</td>
-            <td>{record.id}</td>
-          </StyledMobileRow>
-          <StyledMobileTdDividerLine />
-          <StyledMobileRow>
-            <td>RKPID</td>
-            <td>{record.rkpid}</td>
-          </StyledMobileRow>
-          <StyledMobileTdDividerLine />
-          <StyledMobileRow>
             <td>Mjesec</td>
             <td>{record.foramtedDate}</td>
-          </StyledMobileRow>
-          <StyledMobileTdDividerLine />
-          <StyledMobileRow>
-            <td>Isplatitelj RKPID</td>
-            <td>{record.isplatiteljrkp}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
@@ -116,23 +104,8 @@ export default function ResultTable(props: TableData) {
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Kategorija</td>
-            <td>{record.kategorija}</td>
-          </StyledMobileRow>
-          <StyledMobileTdDividerLine />
-          <StyledMobileRow>
-            <td>Vrsta Rashoda</td>
+            <td>Vr. Rashoda</td>
             <td>{record.vrstarashoda}</td>
-          </StyledMobileRow>
-          <StyledMobileTdDividerLine />
-          <StyledMobileRow>
-            <td>Opis</td>
-            <td>{record.opis}</td>
-          </StyledMobileRow>
-          <StyledMobileTdDividerLine />
-          <StyledMobileRow>
-            <td>Adresa</td>
-            <td>{record.adresa}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
@@ -151,7 +124,12 @@ export default function ResultTable(props: TableData) {
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Iznos</td>
+            <td>Opis</td>
+            <td>{record.opis}</td>
+          </StyledMobileRow>
+          <StyledMobileTdDividerLine />
+          <StyledMobileRow>
+            <td>Iznos €</td>
             <td>{record.iznos}</td>
           </StyledMobileRow>
           {/* <StyledMobileRowDividerLine /> */}
@@ -299,13 +277,31 @@ export default function ResultTable(props: TableData) {
     setIsModalVisible(false);
   };
 
-  const handleCheckboxChange = (values: any) => {
+  const handleCheckboxChangeDate = (values: any) => {
     setSelectedDateFilterValues(values);
+  };
+
+  const handleCheckboxChangeIsplatitelj = (values: any) => {
+    setSelectedIsplatiteljFilterValues(values);
+  };
+
+  const filterDataByIsplatiteljs = () => {
+    if (
+      selectedIsplatiteljFilterValues &&
+      selectedIsplatiteljFilterValues.length > 0
+    ) {
+      const filteredDataSource = filteredData.filter((record: DataType) =>
+        selectedIsplatiteljFilterValues.includes(record.isplatitelj as string)
+      );
+      setFilteredData(filteredDataSource);
+    } else {
+      setFilteredData(props.data);
+    }
   };
 
   const filterDataByDate = () => {
     if (selectedDateFilterValues && selectedDateFilterValues.length > 0) {
-      const filteredDataSource = props.data.filter((record: DataType) =>
+      const filteredDataSource = filteredData.filter((record: DataType) =>
         selectedDateFilterValues.includes(record.foramtedDate as string)
       );
       setFilteredData(filteredDataSource);
@@ -314,12 +310,34 @@ export default function ResultTable(props: TableData) {
     }
   };
 
-  const menu = () => (
+  const filtersMenuIsplatitelj = () => (
+    <Menu>
+      <StyledFiltersCheckboxGroup
+        style={{ display: 'block' }}
+        value={selectedIsplatiteljFilterValues}
+        onChange={handleCheckboxChangeIsplatitelj}
+      >
+        {props.isplatiteljsFilter.map((filter) => (
+          <Menu.Item key={filter.value as string}>
+            <Checkbox onClick={(e) => e.stopPropagation()} value={filter.value}>
+              {filter.text}
+            </Checkbox>
+          </Menu.Item>
+        ))}
+      </StyledFiltersCheckboxGroup>
+      <Space>
+        <Button onClick={() => setSelectedIsplatiteljFilterValues([])}>
+          Resetiraj
+        </Button>
+      </Space>
+    </Menu>
+  );
+  const filtersMenuDate = () => (
     <Menu>
       <StyledFiltersCheckboxGroup
         style={{ display: 'block' }}
         value={selectedDateFilterValues}
-        onChange={handleCheckboxChange}
+        onChange={handleCheckboxChangeDate}
       >
         {props.monthFilter.map((filter) => (
           <Menu.Item key={filter.value as string}>
@@ -338,6 +356,10 @@ export default function ResultTable(props: TableData) {
   );
 
   useEffect(() => {
+    filterDataByIsplatiteljs();
+  }, [selectedIsplatiteljFilterValues]);
+
+  useEffect(() => {
     filterDataByDate();
   }, [selectedDateFilterValues]);
 
@@ -349,16 +371,22 @@ export default function ResultTable(props: TableData) {
     <StyledResultsTableDiv>
       {true && (
         <>
-          <Dropdown
-            dropdownRender={menu}
-            placement="bottom"
-            // trigger={['click']}
-          >
-            <Button>Filter mjeseca</Button>
-          </Dropdown>
-          <Dropdown placement="bottom">
-            <Button>Filter Isplatitelja</Button>
-          </Dropdown>
+          <StyledMobileFiltersContainer>
+            <Dropdown
+              dropdownRender={filtersMenuDate}
+              placement="bottom"
+              // trigger={['click']}
+            >
+              <Button>Filter mjeseca</Button>
+            </Dropdown>
+
+            <Dropdown
+              dropdownRender={filtersMenuIsplatitelj}
+              placement="bottom"
+            >
+              <Button>Filter Isplatitelja</Button>
+            </Dropdown>
+          </StyledMobileFiltersContainer>
         </>
       )}
       <StyledTableDivWrapper>

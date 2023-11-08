@@ -131,3 +131,9 @@ margin-bottom: 10px;
   background-color: transparent !important;
 }
 `
+
+export const StyledMobileFiltersContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`
