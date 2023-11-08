@@ -15,7 +15,7 @@ export const StyledTransparencyContent = styled(Content)`
     text-align: center;
     
     @media only screen and (min-width: ${mobileWidth}px) {
-        // padding: 0 60% 0 0;
+        padding: 0 60% 0 0;
         .detailedSearchButton{
             margin-top: 50px;
         }
@@ -25,16 +25,11 @@ export const StyledTransparencyContent = styled(Content)`
 export const StyledSearchBar = styled.div`
 display: flex;
 align-items: center;
-
 .search-input {
   flex: 1;
   height: ${searchBarHeight};
   border-radius: ${searchBorderRadius} 0 0 ${searchBorderRadius};
 }
-
-// :where(.css-dev-only-do-not-override-1m62vyb).ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
-//   height: ${searchBarHeight};
-// }
 
 :where(.css-dev-only-do-not-override-1m62vyb).ant-select-single .ant-select-selector{
    height: ${searchBarHeight};
@@ -55,7 +50,7 @@ align-items: center;
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
 }
 
-.dropdown {
+.customDropdown {
   width: 120px;
 }
 
@@ -63,5 +58,13 @@ align-items: center;
   height: ${searchBarHeight};
   margin-right: 0;
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
+}
+
+@media only screen and (max-width: ${mobileWidth}px) {
+  width: 100%;
+  margin-bottom: 20px;
+  .customDropdown {
+    width: 100px
+  }  
 }
 `
