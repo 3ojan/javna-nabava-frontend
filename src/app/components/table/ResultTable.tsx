@@ -377,14 +377,14 @@ export default function ResultTable(props: TableData) {
               placement="bottom"
               // trigger={['click']}
             >
-              <Button>Filter mjeseca</Button>
+              <Button size="large">Filter mjeseca</Button>
             </Dropdown>
 
             <Dropdown
               dropdownRender={filtersMenuIsplatitelj}
               placement="bottom"
             >
-              <Button>Filter Isplatitelja</Button>
+              <Button size="large">Filter Isplatitelja</Button>
             </Dropdown>
           </StyledMobileFiltersContainer>
         </>
