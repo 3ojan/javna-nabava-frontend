@@ -304,7 +304,7 @@ export default function ResultTable(props: TableData) {
   };
 
   const filterDataByDate = () => {
-    if (selectedDateFilterValues) {
+    if (selectedDateFilterValues && selectedDateFilterValues.length > 0) {
       const filteredDataSource = props.data.filter((record: DataType) =>
         selectedDateFilterValues.includes(record.foramtedDate as string)
       );
@@ -318,6 +318,7 @@ export default function ResultTable(props: TableData) {
     <Menu>
       <StyledFiltersCheckboxGroup
         style={{ display: 'block' }}
+        value={selectedDateFilterValues}
         onChange={handleCheckboxChange}
       >
         {props.monthFilter.map((filter) => (
@@ -329,24 +330,9 @@ export default function ResultTable(props: TableData) {
         ))}
       </StyledFiltersCheckboxGroup>
       <Space>
-        {/* <Button
-          type="primary"
-          onClick={() => {
-            // debugger;
-            // confirm();
-            if (selectedDateFilterValues) {
-              const filteredDataSource = props.data.filter((record) =>
-                selectedDateFilterValues.includes(record.foramtedDate as string)
-              );
-              setFilteredData(filteredDataSource);
-            } else {
-              setFilteredData(props.data);
-            }
-          }}
-        >
-          U redu
-        </Button> */}
-        <Button>Resetiraj</Button>
+        <Button onClick={() => setSelectedDateFilterValues([])}>
+          Resetiraj
+        </Button>
       </Space>
     </Menu>
   );
