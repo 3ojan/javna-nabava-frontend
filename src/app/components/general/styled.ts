@@ -37,9 +37,12 @@ export const StyledHeaderDiv = styled.div`
         width: 70px;
         margin-right: 10px;
     }
-    // @media only screen and (min-width: 1900px) {
-    //     padding: 0 15%;
-    // }
+    @media only screen and (max-width: ${mobileWidth}px) {
+        img{
+            width: 60px;
+            margin-right: 0;
+        }
+    }
 `
 
 export const StyledMainTitleDiv = styled.div`
@@ -62,29 +65,58 @@ export const StyledMainTitleDiv = styled.div`
         font-size: ${2.5/Math.pow(1.25, 3)}rem;
         font-weight: inherit;
     }
+
+    @media only screen and (max-width: ${mobileWidth}px) {
+        width: 100%;
+        align-items: center;
+        h1{
+            font-size: ${2}rem;
+            font-weight: inherit;
+        }
+        h2 {
+            font-size: ${2/Math.pow(1.25, 2)}rem;
+            font-weight: inherit;
+        }
+        h3 {
+            font-size: ${2/Math.pow(1.25, 2)}rem;
+            font-weight: inherit;
+        }
+    }
+`
+
+
+export const StyledMobileMainTtileDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    font-family: 'Abhaya Libre', serif;
+    margin-bottom: 10px;
+
+    h1{
+        width: fit-content;
+        font-size: ${2}rem;
+        font-weight: inherit;
+        width: 50%;
+    }
 `
 
 export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
-text-align: ${props => props.$center ? 'center' : 'default'};\
-margin: 0;
-//span is just for testing
-span{
-    font-weight: 400;
-    opacity: 0.5;
-        font-size: 1.8rem;
+    text-align: ${props => props.$center ? 'center' : 'default'};
+    margin: 0;
+    // font-family: 'Abhaya Libre', serif;
+    // font-weight: inherit;
+    //span is just for testing
+    span{
+        font-weight: 400;
+        opacity: 0.5;
+            font-size: 1.8rem;
 
-}
-a {
-    link-style: none;
-    color: black;
-}
-@media only screen and (max-width: ${mobileWidth}px) {
-    font-size: 2rem;
-    img{
-        width: 50px;
-        margin-right: 10px;
     }
-}
+    a {
+        link-style: none;
+        color: black;
+    }
 `
 
 export const StyledMainTitleH2 = styled.h2<{$center?: boolean}>`
@@ -93,13 +125,6 @@ margin: 0;
 a {
     link-style: none;
     color: black;
-}
-@media only screen and (max-width: ${mobileWidth}px) {
-    font-size: 2rem;
-    img{
-        width: 70px;
-        margin-right: 10px;
-    }
 }
 `
 
@@ -111,13 +136,7 @@ a {
     link-style: none;
     color: black;
 }
-@media only screen and (max-width: ${mobileWidth}px) {
-    font-size: 2rem;
-    img{
-        width: 70px;
-        margin-right: 10px;
-    }
-}
+
 `
 
 export const StyledCenterDivWrapper = styled.div`
