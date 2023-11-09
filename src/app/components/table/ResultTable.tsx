@@ -88,7 +88,7 @@ export default function ResultTable(props: TableData) {
   const renderLimitedCellHeight = (text: string) => (
     // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
     <StyledCellHeightSpan
-      onMouseEnter={(event) =>
+      onMouseEnter={(event: any) =>
         checkIfTextOverflowing(
           { id: '', rkpid: '' } as DataType,
           undefined,
