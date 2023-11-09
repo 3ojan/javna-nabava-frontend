@@ -1,4 +1,4 @@
-import { mobileWidth } from "src/app/global/constants";
+import { fontHeader, mobileWidth } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
@@ -28,37 +28,20 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
     `};
 `
 export const StyledHeaderDiv = styled.div`
-    margin: 50px 0 30px 0;
+    margin: 40px 0 30px 0;
     display: flex;
     flex-direction: column;
     gap: 30px;
-
-    img{
-        width: 70px;
-        margin-right: 10px;
-    }
-    @media only screen and (max-width: ${mobileWidth}px) {
-        img{
-            width: 60px;
-            margin-right: 0;
-        }
-    }
 `
 
 export const StyledMainTitleDiv = styled.div`
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   height: 100%;
-   align-items: start;
-   font-family: 'Abhaya Libre', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
 
-    h1{
-        font-size: ${2.5}rem;
-        font-weight: inherit;
-    }
     h2 {
-        font-size: ${2.5/Math.pow(1.25, 2)}rem;
+        font-size: ${2.2/Math.pow(1.25, 2)}rem;
         font-weight: inherit;
     }
     h3 {
@@ -69,10 +52,6 @@ export const StyledMainTitleDiv = styled.div`
     @media only screen and (max-width: ${mobileWidth}px) {
         width: 100%;
         align-items: center;
-        h1{
-            font-size: ${2}rem;
-            font-weight: inherit;
-        }
         h2 {
             font-size: ${2/Math.pow(1.25, 2)}rem;
             font-weight: inherit;
@@ -84,10 +63,40 @@ export const StyledMainTitleDiv = styled.div`
     }
 `
 
+export const StyledMainTitlRow = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const StyledPlaceInfoDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+    }
+
+    img{
+        width: 50px;
+        margin-right: 10px;
+    }
+    @media only screen and (max-width: ${mobileWidth}px) {
+        img{
+            width: 35px;
+            margin-right: 0;
+        }
+    }
+`
 
 export const StyledMobileMainTtileDiv = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
     justify-content: center;
     font-family: 'Abhaya Libre', serif;
@@ -104,23 +113,22 @@ export const StyledMobileMainTtileDiv = styled.div`
 export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
     margin: 0;
-    // font-family: 'Abhaya Libre', serif;
-    // font-weight: inherit;
-    //span is just for testing
-    span{
-        font-weight: 400;
-        opacity: 0.5;
-            font-size: 1.8rem;
-
-    }
+    font-family: ${fontHeader};
+    font-size: ${2}rem;
+    font-weight: inherit;
     a {
         link-style: none;
         color: black;
+    }
+
+    @media only screen and (max-width: ${mobileWidth}px) {
+        font-size: ${1.5}rem;
     }
 `
 
 export const StyledMainTitleH2 = styled.h2<{$center?: boolean}>`
 text-align: ${props => props.$center ? 'center' : 'default'};
+font-family: ${fontHeader};
 margin: 0;
 a {
     link-style: none;
@@ -128,15 +136,24 @@ a {
 }
 `
 
-export const StyledAppTitleHeaderH4 = styled.h3<{$center?: boolean}>`
-text-align: ${props => props.$center ? 'center' : 'default'};
-margin: 0;
-opacity: 0.5;
-a {
-    link-style: none;
-    color: black;
-}
+export const StyledAppTitleHeader = styled.h1<{$center?: boolean}>`
+    text-align: ${props => props.$center ? 'center' : 'default'};
+    margin: 0;
+    margin-bottom: 30px;
+    width: fit-content;
+    font-size: ${3}rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-family: ${fontHeader};
+    text-align: center;
+    a {
+        link-style: none;
+        color: black;
+    }
 
+    @media only screen and (max-width: ${mobileWidth}px) {
+        font-size: ${1.8}rem;
+    }
 `
 
 export const StyledCenterDivWrapper = styled.div`

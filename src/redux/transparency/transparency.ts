@@ -7,10 +7,11 @@ import { debug } from 'console';
 import { AppDispatch } from '../store';
 import { useSelector } from 'react-redux';
 import { getPlaceName } from 'src/helper/domainHelper.js';
+import { DataType } from 'src/app/components/table/ResultTable.js';
 
 
 export interface TransparencyState {
-  data: any | null;
+  data: DataType[] ;//| null
   loading: boolean;
   errorMessage: string | null;
   searchValue: string;
@@ -57,7 +58,7 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: null, 
+    data: [], 
     loading: false,
     errorMessage: null,
     searchValue: "",
@@ -67,7 +68,7 @@ const slice = createSlice({
     opcinaData: {} as LocationInfo,
   } as  TransparencyState,
   reducers: {
-    loadSuccess: (state, action: PayloadAction<Transparency>) => {
+    loadSuccess: (state, action: PayloadAction< DataType[]>) => {
       return {
         ...state,
         isDataLoaded: true,

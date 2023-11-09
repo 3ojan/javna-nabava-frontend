@@ -30,6 +30,7 @@ interface TableData {
   isplatiteljsFilter: ColumnFilterItem[];
   monthFilter: ColumnFilterItem[];
   rowAmount: number;
+  isMobileWidth: boolean;
   // dateFilterDropDownVisible: () => boolean;
 }
 
@@ -45,7 +46,7 @@ enum Titles {
 }
 
 /** names need to be same as the names in json object */
-interface DataType {
+export interface DataType {
   id: string;
   rkpid: string;
   datum: string | null;
@@ -71,10 +72,6 @@ const onChange: TableProps<DataType>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra);
 };
 
-const renderLimitedCellHeight = (text: string) => (
-  <StyledCellHeightSpan>{text}</StyledCellHeightSpan>
-);
-
 export default function ResultTable(props: TableData) {
   const [filteredData, setFilteredData] = useState<DataType[]>(props.data);
   const [selectedDateFilterValues, setSelectedDateFilterValues] = useState<
@@ -88,49 +85,70 @@ export default function ResultTable(props: TableData) {
 
   const tableRef = useRef(null);
 
+  const renderLimitedCellHeight = (text: string) => (
+    // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+    <StyledCellHeightSpan
+      onMouseEnter={(event) =>
+        checkIfTextOverflowing(
+          { id: '', rkpid: '' } as DataType,
+          undefined,
+          text
+        )
+      }
+      // onMouseEnter={(event) => checkIfTextOverflowing(record, rowIndex)}
+    >
+      {text}
+    </StyledCellHeightSpan>
+  );
+
   const columns: ColumnsType<DataType> = [
     {
       title: 'mobile',
       render: (record) => (
         <>
           <StyledMobileRow>
-            <td>Mjesec</td>
+            <td>Mjesec:</td>
             <td>{record.foramtedDate}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Isplatitelj</td>
+            <td>Isplatitelj:</td>
             <td>{record.isplatitelj}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Vr. Rashoda</td>
+            <td>Rashod:</td>
             <td>{record.vrstarashoda}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Primatelj</td>
+            <td>Primatelj:</td>
             <td>{record.primatelj}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>OIB</td>
+            <td>OIB:</td>
             <td>{record.oib}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Mjesto</td>
+            <td>Mjesto:</td>
             <td>{record.mjesto}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Opis</td>
+            <td>Opis:</td>
             <td>{record.opis}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Iznos €</td>
-            <td>{record.iznos}</td>
+            <td>Iznos €:</td>
+            <td>
+              {new Intl.NumberFormat('hr-HR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(record.iznos)}
+            </td>
           </StyledMobileRow>
           {/* <StyledMobileRowDividerLine /> */}
         </>
@@ -146,34 +164,6 @@ export default function ResultTable(props: TableData) {
       filters: props.monthFilter,
       onFilter: (value, record) =>
         record.foramtedDate!.includes(value.toString()),
-      filterDropdownVisible: false,
-      // filterDropdown: (
-      //   <div style={{ padding: 8 }}>
-      //     <Checkbox.Group
-      //       style={{ width: '100%' }}
-      //       // value={selectedKeys}
-      //       // onChange={(values) => setSelectedKeys(values)}
-      //     >
-      //       {props.monthFilter?.map((filter) => (
-      //         <Checkbox key={filter.value as string} value={filter.value}>
-      //           {filter.text}
-      //         </Checkbox>
-      //       ))}
-      //     </Checkbox.Group>
-      //     <Space>
-      //       <Button
-      //         type="primary"
-      //         onClick={() => {
-      //           confirm();
-      //           // Handle filtering logic here
-      //         }}
-      //       >
-      //         OK
-      //       </Button>
-      //       <Button>Reset</Button>
-      //     </Space>
-      //   </div>
-      // ),
     },
     {
       title: 'Isplatitelj',
@@ -192,6 +182,10 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       // widthth: '7%',
       render: renderLimitedCellHeight,
+      onCell: (record, rowIndex) => ({
+        onMouseEnter: (event) =>
+          checkIfTextOverflowing(record, rowIndex, record.vrstarashoda),
+      }),
     },
     {
       title: 'Primatelj',
@@ -200,6 +194,10 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       // widthth: '7%',
       render: renderLimitedCellHeight,
+      onCell: (record, rowIndex) => ({
+        onMouseEnter: (event) =>
+          checkIfTextOverflowing(record, rowIndex, record.primatelj),
+      }),
     },
     {
       title: 'OIB',
@@ -249,7 +247,12 @@ export default function ResultTable(props: TableData) {
     });
   };
 
-  const checkIfTextOverflowing = (record: DataType, rowIndex: any) => {
+  const checkIfTextOverflowing = (
+    record: DataType,
+    rowIndex: any | undefined,
+    value: string | undefined | null
+  ) => {
+    debugger;
     const trElement: HTMLElement | null | undefined = (
       tableRef.current as HTMLElement | null
     )?.querySelector(`tr[data-row-key="${record.id as string}"]`);
@@ -367,9 +370,14 @@ export default function ResultTable(props: TableData) {
     setFilteredData(props.data);
   }, [props.data]);
 
+  useEffect(() => {
+    const modalElem = document.querySelector('.ant-modal-content');
+    modalElem?.addEventListener('mouseleave', closeModal);
+  }, [isModalVisible]);
+
   return (
     <StyledResultsTableDiv>
-      {true && (
+      {props.isMobileWidth && (
         <>
           <StyledMobileFiltersContainer>
             <Dropdown
@@ -399,31 +407,33 @@ export default function ResultTable(props: TableData) {
           size="middle"
           rowKey="id"
           pagination={{ defaultPageSize: props.rowAmount }}
-          onRow={(record, rowIndex) => ({
-            onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-            // onMouseLeave: (event) => closeModal(),
-          })}
+          // onRow={(record, rowIndex) => ({
+          // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+          //   // onMouseLeave: (event) => closeModal(),
+          // })}
         />
         {isModalVisible && (
-          <Modal
-            title="Detaljno"
-            open={isModalVisible}
-            onCancel={closeModal}
-            mask={false}
-            footer={null}
-            style={{
-              position: 'absolute',
-              ...modalPosition,
-            }}
-          >
-            {selectedRow && (
-              <div>
-                {/* Display selected row details inside the modal */}
-                {/* need to test and see what to show, how  */}
-                <p>Vrsta rashoda: {selectedRow.vrstarashoda}</p>
-              </div>
-            )}
-          </Modal>
+          <div onMouseLeave={closeModal}>
+            <Modal
+              title="Detaljno"
+              open={isModalVisible}
+              onCancel={closeModal}
+              mask={false}
+              footer={null}
+              style={{
+                position: 'absolute',
+                ...modalPosition,
+              }}
+            >
+              {selectedRow && (
+                <div>
+                  {/* Display selected row details inside the modal */}
+                  {/* need to test and see what to show, how  */}
+                  <p>Vrsta rashoda: {selectedRow.vrstarashoda}</p>
+                </div>
+              )}
+            </Modal>
+          </div>
         )}
       </StyledTableDivWrapper>
     </StyledResultsTableDiv>

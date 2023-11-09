@@ -1,6 +1,6 @@
 import { Button, Col, Row, Space, Spin, TableProps } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
-import ResultTable from '../components/table/ResultTable';
+import ResultTable, { DataType } from '../components/table/ResultTable';
 import {
   TransparencyState,
   changeSearchBarValue,
@@ -11,13 +11,14 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import {
-  StyledAppTitleHeaderH4,
+  StyledAppTitleHeader,
   StyledFullWidthDiv,
   StyledHeaderDiv,
+  StyledMainTitlRow,
   StyledMainTitleDiv,
   StyledMainTitleH1,
   StyledMainTitleH2,
-  StyledMobileMainTtileDiv,
+  StyledPlaceInfoDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
@@ -25,9 +26,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
-import { StyledRow } from './styled.ts';
+import { StyledAppDescDiv, StyledFooter, StyledRow } from './styled.ts';
 import { largeScreenWidth, mobileWidth } from '../global/constants.ts';
 import { debug } from 'console';
+import { Footer } from 'antd/es/layout/layout';
 
 export interface StringFilters {
   text: string;
@@ -38,7 +40,9 @@ function TransparencyHome() {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const [tempData, setTempData] = useState([]);
+  const [loadedValuesCount, setLoadedValuesCount] = useState<string>('0');
+  const [sumIznosValues, setSumIznosValues] = useState<string>('0');
+  const [tempData, setTempData] = useState<DataType[]>([]);
   const [isMobileWidth, setIsMobileWidth] = useState(false);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
@@ -153,6 +157,12 @@ function TransparencyHome() {
     return parseInt(selectedYear);
   }, []);
 
+  const sumArrayValues = (arr: DataType[]): number => {
+    return arr.reduce(
+      (total, currentValue) => total + parseFloat(currentValue.iznos as string),
+      0
+    );
+  };
   useEffect(() => {
     // This effect runs after the initial render
     if (
@@ -168,6 +178,14 @@ function TransparencyHome() {
   useEffect(() => {
     if (data) {
       setTempData(data);
+      setSumIznosValues(
+        new Intl.NumberFormat('hr-HR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(sumArrayValues(data))
+        // parseFloat(sumArrayValues(data).toFixed(2))
+      );
+      setLoadedValuesCount(new Intl.NumberFormat('hr-HR').format(data.length));
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
       getAvailableYears();
@@ -185,7 +203,6 @@ function TransparencyHome() {
 
   useEffect(() => {
     //Good to add is OpcineData fetched flag for check
-
     document.title = `Proracun`;
     setIsMobileWidth(window.screen.width <= mobileWidth);
     dispatch(getOpcineData() as any);
@@ -204,40 +221,29 @@ function TransparencyHome() {
         <Col>
           <StyledHeaderDiv>
             <Row>
-              <Col span={isMobileWidth ? 24 : undefined}>
-                {isMobileWidth ? (
-                  <>
-                    <StyledMobileMainTtileDiv>
-                      <img src={grbUrl} alt="Grb opcine" />
+              <StyledMainTitleDiv>
+                <StyledMainTitlRow>
+                  <Col>
+                    {/* <StyledMainTitleDiv> */}
+                    <StyledAppTitleHeader>
+                      Isplata proračunskih sredstava
+                    </StyledAppTitleHeader>
+                    {/* </StyledMainTitleDiv> */}
+                  </Col>
+                </StyledMainTitlRow>
+                <Row>
+                  <StyledPlaceInfoDiv>
+                    <img src={grbUrl} alt="Grb opcine" />
+                    <div>
                       <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
-                    </StyledMobileMainTtileDiv>
-                  </>
-                ) : (
-                  <img src={grbUrl} alt="Grb opcine" />
-                )}
-              </Col>
-              <Col span={isMobileWidth ? 24 : undefined}>
-                <StyledMainTitleDiv>
-                  {isMobileWidth ? (
-                    <></>
-                  ) : (
-                    <StyledMainTitleH1>
-                      {opcinaData.naziv}
-                      {/* <span>, isplate iz proračuna</span> */}
-                    </StyledMainTitleH1>
-                  )}
-                  <StyledMainTitleH2>{opcinaData.zupanija}</StyledMainTitleH2>
-                  <StyledAppTitleHeaderH4>
-                    Isplata proračunskih sredstava
-                  </StyledAppTitleHeaderH4>
-                </StyledMainTitleDiv>
-              </Col>
+                      <StyledMainTitleH2>
+                        {opcinaData.zupanija}
+                      </StyledMainTitleH2>
+                    </div>
+                  </StyledPlaceInfoDiv>
+                </Row>
+              </StyledMainTitleDiv>
             </Row>
-            {/* <Row>
-              <StyledAppTitleHeaderH4>
-                Isplate iz proračuna
-              </StyledAppTitleHeaderH4>
-            </Row> */}
             <StyledRow>
               <Col xs={isMobileWidth ? 24 : 8}>
                 <TransparentnostSearch
@@ -250,11 +256,6 @@ function TransparencyHome() {
                   // onSearchClick={onSearch}
                 />
               </Col>
-              {/* {isMobileWidth && (
-                <Col xs={24}>
-                  <Button>Filter mjeseca</Button>
-                </Col>
-              )} */}
               <Col xs={isMobileWidth ? 24 : 16}>
                 <StyledExportButtonsDiv>
                   <ExportButtons
@@ -276,6 +277,7 @@ function TransparencyHome() {
                   monthFilter={monthColumnFilterItems}
                   data={tempData}
                   rowAmount={rowAmountDependOnSize()}
+                  isMobileWidth={isMobileWidth}
                 />
               </Row>
             </>
@@ -285,6 +287,23 @@ function TransparencyHome() {
             </StyledFullWidthDiv>
           )}
         </Col>
+        <StyledFooter>
+          <StyledAppDescDiv>
+            <p>
+              Objava informacija o trošenju sredstava iz proračuna temeljem
+              članka 144.
+              <br /> Zakona o proračunu ("Narodne novine", broj 144/21) i
+              Naputka o okvirnom sadržaju, minimalnom skupu podataka te načinu
+              javne objave informacija o trošenju sredstava ("Narodne novine",
+              broj 59/23).
+            </p>
+            <b>
+              Isplate u {selectedYear}. godini = {sumIznosValues} €, ukupno
+              stavaka {loadedValuesCount}, podaci ažurirani 20.2.2024. godine.
+            </b>
+          </StyledAppDescDiv>
+          <p>Pavi link - {new Date().getFullYear().toString()}</p>
+        </StyledFooter>
       </StyledFullWidthDiv>
     </>
   );
