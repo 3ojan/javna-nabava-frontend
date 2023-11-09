@@ -1,5 +1,6 @@
 import { Input, Select } from 'antd';
 import {
+  StyledSelectWrapper,
   StyledTransparencyContent,
   StyledTransparencyLayout,
 } from '../search/styled.ts';
@@ -38,30 +39,30 @@ export default function TransparentnostSearch(props: any) {
   return (
     <StyledTransparencyLayout>
       <StyledTransparencyContent>
-        <div className={className}>
-          <StyledSearchBar>
-            <Input
-              placeholder="Upišite ključnu riječ..."
-              onChange={onChangeInput}
-              className="search-input"
-            />
-            {/* this vanilla select is if the antd one doesnt style properly*/}
-            {/* <select>
+        {/* <div className={className}> */}
+        <StyledSearchBar>
+          <Input
+            placeholder="Upišite ključnu riječ..."
+            onChange={onChangeInput}
+            className="search-input"
+          />
+          {/* this vanilla select is if the antd one doesnt style properly*/}
+          {/* <select>
               <option value="2023">2023</option>
               <option value="2023">2022</option>
               <option value="2023">2021</option>
               <option value="2023">2020</option>
             </select> */}
+          <StyledSelectWrapper>
             <Select
               onSelect={onSelectYear}
-              // rootClassName="dropdown"
               defaultValue={currentYear}
-              className="customDropdown" //TODO remove this class
               onChange={onYearSelect}
               options={selectYearOptions()}
             ></Select>
-          </StyledSearchBar>
-        </div>
+          </StyledSelectWrapper>
+        </StyledSearchBar>
+        {/* </div> */}
       </StyledTransparencyContent>
     </StyledTransparencyLayout>
   );

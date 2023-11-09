@@ -22,7 +22,14 @@ export const StyledTransparencyContent = styled(Content)`
     }
 `
 
+export const StyledSelectWrapper = styled.div`
+  div{
+      width: 120px;
+  }
+`
+
 export const StyledSearchBar = styled.div`
+width: 100%;
 display: flex;
 align-items: center;
 .search-input {
@@ -48,10 +55,6 @@ align-items: center;
 
 .ant-select-selector{
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
-}
-
-.customDropdown {
-  width: 120px;
 }
 
 .search-button {
