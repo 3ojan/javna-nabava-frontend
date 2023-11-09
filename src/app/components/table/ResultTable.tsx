@@ -349,7 +349,6 @@ export default function ResultTable(props: TableData) {
   }, [props.data]);
 
   useEffect(() => {
-    debugger;
     const modalElem = document.querySelector('.ant-modal-content');
     modalElem?.addEventListener('mouseleave', closeModal);
   }, [isModalVisible]);
