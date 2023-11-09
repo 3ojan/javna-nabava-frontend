@@ -30,6 +30,7 @@ interface TableData {
   isplatiteljsFilter: ColumnFilterItem[];
   monthFilter: ColumnFilterItem[];
   rowAmount: number;
+  isMobileWidth: boolean;
   // dateFilterDropDownVisible: () => boolean;
 }
 
@@ -369,7 +370,7 @@ export default function ResultTable(props: TableData) {
 
   return (
     <StyledResultsTableDiv>
-      {true && (
+      {props.isMobileWidth && (
         <>
           <StyledMobileFiltersContainer>
             <Dropdown

@@ -276,6 +276,7 @@ function TransparencyHome() {
                   monthFilter={monthColumnFilterItems}
                   data={tempData}
                   rowAmount={rowAmountDependOnSize()}
+                  isMobileWidth={isMobileWidth}
                 />
               </Row>
             </>
