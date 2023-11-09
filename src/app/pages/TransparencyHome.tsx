@@ -239,7 +239,7 @@ function TransparencyHome() {
               </StyledAppTitleHeaderH4>
             </Row> */}
             <StyledRow>
-              <Col xs={isMobileWidth ? 24 : 12}>
+              <Col xs={isMobileWidth ? 24 : 8}>
                 <TransparentnostSearch
                   onSelectYear={onSelectYear}
                   currentYear={currentYear}
@@ -250,12 +250,7 @@ function TransparencyHome() {
                   // onSearchClick={onSearch}
                 />
               </Col>
-              {/* {isMobileWidth && (
-                <Col xs={24}>
-                  <Button>Filter mjeseca</Button>
-                </Col>
-              )} */}
-              <Col xs={isMobileWidth ? 24 : 12}>
+              <Col xs={isMobileWidth ? 24 : 16}>
                 <StyledExportButtonsDiv>
                   <ExportButtons
                     csvVisible={false}

@@ -71,9 +71,13 @@ const onChange: TableProps<DataType>['onChange'] = (
 ) => {
   console.log('params', pagination, filters, sorter, extra);
 };
-
 const renderLimitedCellHeight = (text: string) => (
-  <StyledCellHeightSpan>{text}</StyledCellHeightSpan>
+  // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+  <StyledCellHeightSpan
+  // onMouseEnter={(event) => checkIfTextOverflowing(record, rowIndex)}
+  >
+    {text}
+  </StyledCellHeightSpan>
 );
 
 export default function ResultTable(props: TableData) {
@@ -147,34 +151,6 @@ export default function ResultTable(props: TableData) {
       filters: props.monthFilter,
       onFilter: (value, record) =>
         record.foramtedDate!.includes(value.toString()),
-      filterDropdownVisible: false,
-      // filterDropdown: (
-      //   <div style={{ padding: 8 }}>
-      //     <Checkbox.Group
-      //       style={{ width: '100%' }}
-      //       // value={selectedKeys}
-      //       // onChange={(values) => setSelectedKeys(values)}
-      //     >
-      //       {props.monthFilter?.map((filter) => (
-      //         <Checkbox key={filter.value as string} value={filter.value}>
-      //           {filter.text}
-      //         </Checkbox>
-      //       ))}
-      //     </Checkbox.Group>
-      //     <Space>
-      //       <Button
-      //         type="primary"
-      //         onClick={() => {
-      //           confirm();
-      //           // Handle filtering logic here
-      //         }}
-      //       >
-      //         OK
-      //       </Button>
-      //       <Button>Reset</Button>
-      //     </Space>
-      //   </div>
-      // ),
     },
     {
       title: 'Isplatitelj',
@@ -193,6 +169,10 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       // widthth: '7%',
       render: renderLimitedCellHeight,
+      onCell: (record, rowIndex) => ({
+        onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+        // onMouseLeave: (event) => closeModal(),
+      }),
     },
     {
       title: 'Primatelj',
@@ -368,6 +348,12 @@ export default function ResultTable(props: TableData) {
     setFilteredData(props.data);
   }, [props.data]);
 
+  useEffect(() => {
+    debugger;
+    const modalElem = document.querySelector('.ant-modal-content');
+    modalElem?.addEventListener('mouseleave', closeModal);
+  }, [isModalVisible]);
+
   return (
     <StyledResultsTableDiv>
       {props.isMobileWidth && (
@@ -400,31 +386,33 @@ export default function ResultTable(props: TableData) {
           size="middle"
           rowKey="id"
           pagination={{ defaultPageSize: props.rowAmount }}
-          onRow={(record, rowIndex) => ({
-            onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-            // onMouseLeave: (event) => closeModal(),
-          })}
+          // onRow={(record, rowIndex) => ({
+          // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+          //   // onMouseLeave: (event) => closeModal(),
+          // })}
         />
         {isModalVisible && (
-          <Modal
-            title="Detaljno"
-            open={isModalVisible}
-            onCancel={closeModal}
-            mask={false}
-            footer={null}
-            style={{
-              position: 'absolute',
-              ...modalPosition,
-            }}
-          >
-            {selectedRow && (
-              <div>
-                {/* Display selected row details inside the modal */}
-                {/* need to test and see what to show, how  */}
-                <p>Vrsta rashoda: {selectedRow.vrstarashoda}</p>
-              </div>
-            )}
-          </Modal>
+          <div onMouseLeave={closeModal}>
+            <Modal
+              title="Detaljno"
+              open={isModalVisible}
+              onCancel={closeModal}
+              mask={false}
+              footer={null}
+              style={{
+                position: 'absolute',
+                ...modalPosition,
+              }}
+            >
+              {selectedRow && (
+                <div>
+                  {/* Display selected row details inside the modal */}
+                  {/* need to test and see what to show, how  */}
+                  <p>Vrsta rashoda: {selectedRow.vrstarashoda}</p>
+                </div>
+              )}
+            </Modal>
+          </div>
         )}
       </StyledTableDivWrapper>
     </StyledResultsTableDiv>

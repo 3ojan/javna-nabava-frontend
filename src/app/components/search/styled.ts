@@ -13,13 +13,6 @@ export const StyledTransparencyLayout = styled(Layout)`
 export const StyledTransparencyContent = styled(Content)`
     background-color: transparent;
     text-align: center;
-    
-    @media only screen and (min-width: ${mobileWidth}px) {
-        padding: 0 60% 0 0;
-        .detailedSearchButton{
-            margin-top: 50px;
-        }
-    }
 `
 
 export const StyledSelectWrapper = styled.div`
