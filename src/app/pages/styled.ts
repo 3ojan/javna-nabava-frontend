@@ -19,6 +19,10 @@ justify-content: center;
 align-items: center;
 flex-direction: column;
 // margin-bottom: 40px;
+@media (max-width: ${mobileWidth}px) {
+  padding: 0;
+
+}
 `
 
 export const StyledAppDescDiv = styled.div`
@@ -26,5 +30,4 @@ background-color: transparent;
 font-size: 1.1rem;
 width: 70%;
 text-align: center;
-
 `

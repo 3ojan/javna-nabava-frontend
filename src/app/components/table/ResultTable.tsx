@@ -46,7 +46,7 @@ enum Titles {
 }
 
 /** names need to be same as the names in json object */
-interface DataType {
+export interface DataType {
   id: string;
   rkpid: string;
   datum: string | null;

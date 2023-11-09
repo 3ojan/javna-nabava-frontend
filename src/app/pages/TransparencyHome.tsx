@@ -1,6 +1,6 @@
 import { Button, Col, Row, Space, Spin, TableProps } from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
-import ResultTable from '../components/table/ResultTable';
+import ResultTable, { DataType } from '../components/table/ResultTable';
 import {
   TransparencyState,
   changeSearchBarValue,
@@ -40,7 +40,9 @@ function TransparencyHome() {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const [tempData, setTempData] = useState([]);
+  const [loadedValuesCount, setLoadedValuesCount] = useState<string>('0');
+  const [sumIznosValues, setSumIznosValues] = useState<string>('0');
+  const [tempData, setTempData] = useState<DataType[]>([]);
   const [isMobileWidth, setIsMobileWidth] = useState(false);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
@@ -155,6 +157,12 @@ function TransparencyHome() {
     return parseInt(selectedYear);
   }, []);
 
+  const sumArrayValues = (arr: DataType[]): number => {
+    return arr.reduce(
+      (total, currentValue) => total + parseFloat(currentValue.iznos as string),
+      0
+    );
+  };
   useEffect(() => {
     // This effect runs after the initial render
     if (
@@ -170,6 +178,14 @@ function TransparencyHome() {
   useEffect(() => {
     if (data) {
       setTempData(data);
+      setSumIznosValues(
+        new Intl.NumberFormat('hr-HR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(sumArrayValues(data))
+        // parseFloat(sumArrayValues(data).toFixed(2))
+      );
+      setLoadedValuesCount(new Intl.NumberFormat('hr-HR').format(data.length));
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
       getAvailableYears();
@@ -187,7 +203,6 @@ function TransparencyHome() {
 
   useEffect(() => {
     //Good to add is OpcineData fetched flag for check
-
     document.title = `Proracun`;
     setIsMobileWidth(window.screen.width <= mobileWidth);
     dispatch(getOpcineData() as any);
@@ -274,10 +289,18 @@ function TransparencyHome() {
         </Col>
         <StyledFooter>
           <StyledAppDescDiv>
-            Objava informacija o trošenju sredstava iz proračuna temeljem članka
-            144. Zakona o proračunu ("Narodne novine", broj 144/21) i Naputka o
-            okvirnom sadržaju, minimalnom skupu podataka te načinu javne objave
-            informacija o trošenju sredstava ("Narodne novine", broj 59/23).
+            <p>
+              Objava informacija o trošenju sredstava iz proračuna temeljem
+              članka 144.
+              <br /> Zakona o proračunu ("Narodne novine", broj 144/21) i
+              Naputka o okvirnom sadržaju, minimalnom skupu podataka te načinu
+              javne objave informacija o trošenju sredstava ("Narodne novine",
+              broj 59/23).
+            </p>
+            <b>
+              Isplate u {selectedYear}. godini = {sumIznosValues} €, ukupno
+              stavaka {loadedValuesCount}, podaci ažurirani 20.2.2024. godine.
+            </b>
           </StyledAppDescDiv>
           <p>Pavi link - {new Date().getFullYear().toString()}</p>
         </StyledFooter>
