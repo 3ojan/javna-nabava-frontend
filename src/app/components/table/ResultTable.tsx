@@ -71,14 +71,6 @@ const onChange: TableProps<DataType>['onChange'] = (
 ) => {
   console.log('params', pagination, filters, sorter, extra);
 };
-const renderLimitedCellHeight = (text: string) => (
-  // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-  <StyledCellHeightSpan
-  // onMouseEnter={(event) => checkIfTextOverflowing(record, rowIndex)}
-  >
-    {text}
-  </StyledCellHeightSpan>
-);
 
 export default function ResultTable(props: TableData) {
   const [filteredData, setFilteredData] = useState<DataType[]>(props.data);
@@ -93,49 +85,70 @@ export default function ResultTable(props: TableData) {
 
   const tableRef = useRef(null);
 
+  const renderLimitedCellHeight = (text: string) => (
+    // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+    <StyledCellHeightSpan
+      onMouseEnter={(event) =>
+        checkIfTextOverflowing(
+          { id: '', rkpid: '' } as DataType,
+          undefined,
+          text
+        )
+      }
+      // onMouseEnter={(event) => checkIfTextOverflowing(record, rowIndex)}
+    >
+      {text}
+    </StyledCellHeightSpan>
+  );
+
   const columns: ColumnsType<DataType> = [
     {
       title: 'mobile',
       render: (record) => (
         <>
           <StyledMobileRow>
-            <td>Mjesec</td>
+            <td>Mjesec:</td>
             <td>{record.foramtedDate}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Isplatitelj</td>
+            <td>Isplatitelj:</td>
             <td>{record.isplatitelj}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Vr. Rashoda</td>
+            <td>Rashod:</td>
             <td>{record.vrstarashoda}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Primatelj</td>
+            <td>Primatelj:</td>
             <td>{record.primatelj}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>OIB</td>
+            <td>OIB:</td>
             <td>{record.oib}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Mjesto</td>
+            <td>Mjesto:</td>
             <td>{record.mjesto}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Opis</td>
+            <td>Opis:</td>
             <td>{record.opis}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
-            <td>Iznos €</td>
-            <td>{record.iznos}</td>
+            <td>Iznos €:</td>
+            <td>
+              {new Intl.NumberFormat('hr-HR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(record.iznos)}
+            </td>
           </StyledMobileRow>
           {/* <StyledMobileRowDividerLine /> */}
         </>
@@ -170,8 +183,8 @@ export default function ResultTable(props: TableData) {
       // widthth: '7%',
       render: renderLimitedCellHeight,
       onCell: (record, rowIndex) => ({
-        onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-        // onMouseLeave: (event) => closeModal(),
+        onMouseEnter: (event) =>
+          checkIfTextOverflowing(record, rowIndex, record.vrstarashoda),
       }),
     },
     {
@@ -181,6 +194,10 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       // widthth: '7%',
       render: renderLimitedCellHeight,
+      onCell: (record, rowIndex) => ({
+        onMouseEnter: (event) =>
+          checkIfTextOverflowing(record, rowIndex, record.primatelj),
+      }),
     },
     {
       title: 'OIB',
@@ -230,7 +247,12 @@ export default function ResultTable(props: TableData) {
     });
   };
 
-  const checkIfTextOverflowing = (record: DataType, rowIndex: any) => {
+  const checkIfTextOverflowing = (
+    record: DataType,
+    rowIndex: any | undefined,
+    value: string | undefined | null
+  ) => {
+    debugger;
     const trElement: HTMLElement | null | undefined = (
       tableRef.current as HTMLElement | null
     )?.querySelector(`tr[data-row-key="${record.id as string}"]`);

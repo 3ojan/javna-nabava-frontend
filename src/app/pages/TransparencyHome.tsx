@@ -11,13 +11,14 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import {
-  StyledAppTitleHeaderH4,
+  StyledAppTitleHeader,
   StyledFullWidthDiv,
   StyledHeaderDiv,
+  StyledMainTitlRow,
   StyledMainTitleDiv,
   StyledMainTitleH1,
   StyledMainTitleH2,
-  StyledMobileMainTtileDiv,
+  StyledPlaceInfoDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
@@ -25,9 +26,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
-import { StyledRow } from './styled.ts';
+import { StyledAppDescDiv, StyledFooter, StyledRow } from './styled.ts';
 import { largeScreenWidth, mobileWidth } from '../global/constants.ts';
 import { debug } from 'console';
+import { Footer } from 'antd/es/layout/layout';
 
 export interface StringFilters {
   text: string;
@@ -204,40 +206,29 @@ function TransparencyHome() {
         <Col>
           <StyledHeaderDiv>
             <Row>
-              <Col span={isMobileWidth ? 24 : undefined}>
-                {isMobileWidth ? (
-                  <>
-                    <StyledMobileMainTtileDiv>
-                      <img src={grbUrl} alt="Grb opcine" />
+              <StyledMainTitleDiv>
+                <StyledMainTitlRow>
+                  <Col>
+                    {/* <StyledMainTitleDiv> */}
+                    <StyledAppTitleHeader>
+                      Isplata proračunskih sredstava
+                    </StyledAppTitleHeader>
+                    {/* </StyledMainTitleDiv> */}
+                  </Col>
+                </StyledMainTitlRow>
+                <Row>
+                  <StyledPlaceInfoDiv>
+                    <img src={grbUrl} alt="Grb opcine" />
+                    <div>
                       <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
-                    </StyledMobileMainTtileDiv>
-                  </>
-                ) : (
-                  <img src={grbUrl} alt="Grb opcine" />
-                )}
-              </Col>
-              <Col span={isMobileWidth ? 24 : undefined}>
-                <StyledMainTitleDiv>
-                  {isMobileWidth ? (
-                    <></>
-                  ) : (
-                    <StyledMainTitleH1>
-                      {opcinaData.naziv}
-                      {/* <span>, isplate iz proračuna</span> */}
-                    </StyledMainTitleH1>
-                  )}
-                  <StyledMainTitleH2>{opcinaData.zupanija}</StyledMainTitleH2>
-                  <StyledAppTitleHeaderH4>
-                    Isplata proračunskih sredstava
-                  </StyledAppTitleHeaderH4>
-                </StyledMainTitleDiv>
-              </Col>
+                      <StyledMainTitleH2>
+                        {opcinaData.zupanija}
+                      </StyledMainTitleH2>
+                    </div>
+                  </StyledPlaceInfoDiv>
+                </Row>
+              </StyledMainTitleDiv>
             </Row>
-            {/* <Row>
-              <StyledAppTitleHeaderH4>
-                Isplate iz proračuna
-              </StyledAppTitleHeaderH4>
-            </Row> */}
             <StyledRow>
               <Col xs={isMobileWidth ? 24 : 8}>
                 <TransparentnostSearch
@@ -281,6 +272,15 @@ function TransparencyHome() {
             </StyledFullWidthDiv>
           )}
         </Col>
+        <StyledFooter>
+          <StyledAppDescDiv>
+            Objava informacija o trošenju sredstava iz proračuna temeljem članka
+            144. Zakona o proračunu ("Narodne novine", broj 144/21) i Naputka o
+            okvirnom sadržaju, minimalnom skupu podataka te načinu javne objave
+            informacija o trošenju sredstava ("Narodne novine", broj 59/23).
+          </StyledAppDescDiv>
+          <p>Pavi link - {new Date().getFullYear().toString()}</p>
+        </StyledFooter>
       </StyledFullWidthDiv>
     </>
   );

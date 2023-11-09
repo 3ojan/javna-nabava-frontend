@@ -63,6 +63,10 @@ export const StyledTableDivWrapper = styled.div`
     table-layout: fixed !important; /* rewrite inline styles */
   }
 
+  .ant-pagination-item {
+    // padding: 5px; 
+  }
+
   .ant-table-thead > tr > th {
     background-color: #4d4d4d; 
     color: white;
