@@ -302,7 +302,7 @@ function TransparencyHome() {
               stavaka {loadedValuesCount}, podaci ažurirani 20.2.2024. godine.
             </b>
           </StyledAppDescDiv>
-          <p>Pavi link - {new Date().getFullYear().toString()}</p>
+          <p>Plavi link - {new Date().getFullYear().toString()}</p>
         </StyledFooter>
       </StyledFullWidthDiv>
     </>
