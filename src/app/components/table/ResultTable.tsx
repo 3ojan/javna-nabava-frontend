@@ -80,6 +80,7 @@ export default function ResultTable(props: TableData) {
   const [selectedIsplatiteljFilterValues, setSelectedIsplatiteljFilterValues] =
     useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<DataType | null>(null);
+  const [selectedCellValue, setSelectedCellValue] = useState<string>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
@@ -247,13 +248,13 @@ export default function ResultTable(props: TableData) {
 
     if (trElement) {
       const spanEl = trElement.querySelector(`td span#${key}`) as HTMLElement;
-      debugger;
       if (
         spanEl &&
         (spanEl.clientWidth < spanEl.scrollWidth ||
           spanEl.clientHeight < spanEl.scrollHeight)
       ) {
         setSelectedRow(record);
+        setSelectedCellValue((record as any)[key]);
         setIsModalVisible(true);
         // Calculate the position of the modal relative to the clicked row
         const rowBoundingRect = spanEl.getBoundingClientRect();
@@ -404,7 +405,7 @@ export default function ResultTable(props: TableData) {
         {isModalVisible && (
           <div onMouseLeave={closeModal}>
             <Modal
-              title="Detaljno"
+              title="Opširnije"
               open={isModalVisible}
               onCancel={closeModal}
               mask={false}
@@ -418,7 +419,7 @@ export default function ResultTable(props: TableData) {
                 <div>
                   {/* Display selected row details inside the modal */}
                   {/* need to test and see what to show, how  */}
-                  <p>Vrsta rashoda: {selectedRow.vrstarashoda}</p>
+                  <p>{selectedCellValue}</p>
                 </div>
               )}
             </Modal>
