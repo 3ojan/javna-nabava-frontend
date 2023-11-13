@@ -85,19 +85,12 @@ export default function ResultTable(props: TableData) {
 
   const tableRef = useRef(null);
 
-  const renderLimitedCellHeight = (text: string) => (
-    // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
+  const renderLimitedCellHeight = (key: string, record: DataType) => (
     <StyledCellHeightSpan
-      onMouseEnter={(event: any) =>
-        checkIfTextOverflowing(
-          { id: '', rkpid: '' } as DataType,
-          undefined,
-          text
-        )
-      }
-      // onMouseEnter={(event) => checkIfTextOverflowing(record, rowIndex)}
+      onMouseEnter={(event: any) => checkIfTextOverflowing(record, key)}
+      id={key}
     >
-      {text}
+      {(record as any)[key]}
     </StyledCellHeightSpan>
   );
 
@@ -181,11 +174,11 @@ export default function ResultTable(props: TableData) {
       key: 'vrstarashoda',
       responsive: ['sm'],
       // widthth: '7%',
-      render: renderLimitedCellHeight,
-      onCell: (record, rowIndex) => ({
-        onMouseEnter: (event) =>
-          checkIfTextOverflowing(record, rowIndex, record.vrstarashoda),
-      }),
+      render: (text, record) => renderLimitedCellHeight('vrstarashoda', record),
+      // onCell: (record, rowIndex) => ({
+      //   onMouseEnter: (event) =>
+      //     checkIfTextOverflowing(record, rowIndex, record.vrstarashoda),
+      // }),
     },
     {
       title: 'Primatelj',
@@ -193,11 +186,11 @@ export default function ResultTable(props: TableData) {
       key: 'primatelj',
       responsive: ['sm'],
       // widthth: '7%',
-      render: renderLimitedCellHeight,
-      onCell: (record, rowIndex) => ({
-        onMouseEnter: (event) =>
-          checkIfTextOverflowing(record, rowIndex, record.primatelj),
-      }),
+      render: (text, record) => renderLimitedCellHeight('primatelj', record),
+      // onCell: (record, rowIndex) => ({
+      //   onMouseEnter: (event) =>
+      //     checkIfTextOverflowing(record, rowIndex, record.primatelj),
+      // }),
     },
     {
       title: 'OIB',
@@ -247,18 +240,14 @@ export default function ResultTable(props: TableData) {
     });
   };
 
-  const checkIfTextOverflowing = (
-    record: DataType,
-    rowIndex: any | undefined,
-    value: string | undefined | null
-  ) => {
-    debugger;
+  const checkIfTextOverflowing = (record: DataType, key: string) => {
     const trElement: HTMLElement | null | undefined = (
       tableRef.current as HTMLElement | null
     )?.querySelector(`tr[data-row-key="${record.id as string}"]`);
 
     if (trElement) {
-      const spanEl = trElement.querySelector('td span') as HTMLElement;
+      const spanEl = trElement.querySelector(`td span#${key}`) as HTMLElement;
+      debugger;
       if (
         spanEl &&
         (spanEl.clientWidth < spanEl.scrollWidth ||
