@@ -223,7 +223,7 @@ export default function ResultTable(props: TableData) {
   const renderLimitedCellHeight = (key: string, record: DataType) => (
     <StyledCellHeightSpan
       onMouseEnter={(event: any) => checkIfTextOverflowing(record, key)}
-      onMouseLeave={handleCloseModal}
+      // onMouseLeave={handleCloseModal}
       id={key}
     >
       {(record as any)[key]}
@@ -232,6 +232,7 @@ export default function ResultTable(props: TableData) {
   const handleCloseModal = (event: any) => {
     const rectBounds = selectedCellElement?.getBoundingClientRect();
     if (rectBounds && checkCursorIsInModalOrSpan(event, rectBounds)) {
+      console.log('close modal');
       closeModal();
     }
   };
@@ -243,7 +244,8 @@ export default function ResultTable(props: TableData) {
     const { clientX, clientY } = event;
 
     const isOutsideTop = clientY < rectBounds.top;
-    const isOutsideRight = clientX > rectBounds.right;
+    const isOutsideRight =
+      clientX > rectBounds.right && clientY < rectBounds.y + rectBounds.height;
     const isOutsideLeft = clientX < rectBounds.left;
 
     return isOutsideTop || isOutsideRight || isOutsideLeft;
