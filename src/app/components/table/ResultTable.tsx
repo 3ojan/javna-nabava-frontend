@@ -4,7 +4,6 @@ import {
   StyledFiltersCheckboxGroup,
   StyledMobileFiltersContainer,
   StyledMobileRow,
-  // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
   StyledResultsTableDiv,
   StyledTableDivWrapper,
@@ -74,6 +73,7 @@ const onChange: TableProps<DataType>['onChange'] = (
 
 export default function ResultTable(props: TableData) {
   const [filteredData, setFilteredData] = useState<DataType[]>(props.data);
+  const [selectedCellElement, setSelectedCellElement] = useState<HTMLElement>();
   const [selectedDateFilterValues, setSelectedDateFilterValues] = useState<
     string[]
   >([]);
@@ -85,15 +85,6 @@ export default function ResultTable(props: TableData) {
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const tableRef = useRef(null);
-
-  const renderLimitedCellHeight = (key: string, record: DataType) => (
-    <StyledCellHeightSpan
-      onMouseEnter={(event: any) => checkIfTextOverflowing(record, key)}
-      id={key}
-    >
-      {(record as any)[key]}
-    </StyledCellHeightSpan>
-  );
 
   const columns: ColumnsType<DataType> = [
     {
@@ -229,16 +220,33 @@ export default function ResultTable(props: TableData) {
     },
   ];
 
-  const onSelectRow = (record: DataType, event: any) => {
-    setSelectedRow(record);
-    setIsModalVisible(true);
+  const renderLimitedCellHeight = (key: string, record: DataType) => (
+    <StyledCellHeightSpan
+      onMouseEnter={(event: any) => checkIfTextOverflowing(record, key)}
+      onMouseLeave={handleCloseModal}
+      id={key}
+    >
+      {(record as any)[key]}
+    </StyledCellHeightSpan>
+  );
+  const handleCloseModal = (event: any) => {
+    const rectBounds = selectedCellElement?.getBoundingClientRect();
+    if (rectBounds && checkCursorIsInModalOrSpan(event, rectBounds)) {
+      closeModal();
+    }
+  };
 
-    // Calculate the position of the modal relative to the clicked row
-    const rowBoundingRect = event.currentTarget.getBoundingClientRect();
-    setModalPosition({
-      top: rowBoundingRect.bottom,
-      left: rowBoundingRect.left,
-    });
+  const checkCursorIsInModalOrSpan = (
+    event: any,
+    rectBounds: DOMRect
+  ): boolean => {
+    const { clientX, clientY } = event;
+
+    const isOutsideTop = clientY < rectBounds.top;
+    const isOutsideRight = clientX > rectBounds.right;
+    const isOutsideLeft = clientX < rectBounds.left;
+
+    return isOutsideTop || isOutsideRight || isOutsideLeft;
   };
 
   const checkIfTextOverflowing = (record: DataType, key: string) => {
@@ -255,6 +263,7 @@ export default function ResultTable(props: TableData) {
       ) {
         setSelectedRow(record);
         setSelectedCellValue((record as any)[key]);
+        setSelectedCellElement(spanEl);
         setIsModalVisible(true);
         // Calculate the position of the modal relative to the clicked row
         const rowBoundingRect = spanEl.getBoundingClientRect();
@@ -267,7 +276,9 @@ export default function ResultTable(props: TableData) {
   };
 
   const closeModal = () => {
-    setIsModalVisible(false);
+    if (isModalVisible) {
+      setIsModalVisible(false);
+    }
   };
 
   const handleCheckboxChangeDate = (values: any) => {
@@ -361,8 +372,12 @@ export default function ResultTable(props: TableData) {
   }, [props.data]);
 
   useEffect(() => {
+    //adds event for closing modal on mouseleave of the modal and span elements
     const modalElem = document.querySelector('.ant-modal-content');
     modalElem?.addEventListener('mouseleave', closeModal);
+    const modalWrap = document.querySelector('.ant-modal-wrap');
+
+    modalWrap?.addEventListener('mousemove', handleCloseModal);
   }, [isModalVisible]);
 
   return (
@@ -403,27 +418,24 @@ export default function ResultTable(props: TableData) {
           // })}
         />
         {isModalVisible && (
-          <div onMouseLeave={closeModal}>
-            <Modal
-              title="Opširnije"
-              open={isModalVisible}
-              onCancel={closeModal}
-              mask={false}
-              footer={null}
-              style={{
-                position: 'absolute',
-                ...modalPosition,
-              }}
-            >
-              {selectedRow && (
-                <div>
-                  {/* Display selected row details inside the modal */}
-                  {/* need to test and see what to show, how  */}
-                  <p>{selectedCellValue}</p>
-                </div>
-              )}
-            </Modal>
-          </div>
+          <Modal
+            title="Opširnije"
+            open={isModalVisible}
+            onCancel={closeModal}
+            mask={false}
+            footer={null}
+            width={'auto'}
+            style={{
+              position: 'absolute',
+              ...modalPosition,
+            }}
+          >
+            {selectedRow && (
+              <div>
+                <p>{selectedCellValue}</p>
+              </div>
+            )}
+          </Modal>
         )}
       </StyledTableDivWrapper>
     </StyledResultsTableDiv>
