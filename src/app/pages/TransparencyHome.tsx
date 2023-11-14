@@ -171,7 +171,7 @@ function TransparencyHome() {
       searchValue === null
     ) {
       //gets default data
-      dispatch(getData(opcinaData.url, selectedYear) as any);
+      // dispatch(getData(opcinaData.url, selectedYear) as any);
     }
   }, [selectedYear]);
 
@@ -197,8 +197,9 @@ function TransparencyHome() {
       setGrbUrl(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb}`);
       setFavicon(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.favico}`);
       document.title = `Proracun ${opcinaData.naziv}`;
+      //gets default dat
+      dispatch(getData(opcinaData.url, selectedYear) as any);
     }
-    dispatch(getData(opcinaData.url, selectedYear) as any);
   }, [opcinaData]);
 
   useEffect(() => {
