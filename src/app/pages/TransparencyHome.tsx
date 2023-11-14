@@ -42,6 +42,7 @@ function TransparencyHome() {
 
   const [loadedValuesCount, setLoadedValuesCount] = useState<string>('0');
   const [sumIznosValues, setSumIznosValues] = useState<string>('0');
+  const [latestCreatedDate, setLatestCreatedDate] = useState<Date>();
   const [tempData, setTempData] = useState<DataType[]>([]);
   const [isMobileWidth, setIsMobileWidth] = useState(false);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
@@ -144,12 +145,22 @@ function TransparencyHome() {
   const getAvailableYears = () => {
     const yearFromData: string[] = [];
 
-    data.forEach((item: any) => {
-      const year = item.datum.split('-')[0];
-      if (!yearFromData.includes(year)) {
+    let latest_created_date: Date | null = null;
+
+    data.forEach((item: DataType) => {
+      const year = item.datum?.split('-')[0];
+      if (year && !yearFromData.includes(year)) {
         yearFromData.push(year);
       }
+
+      const createdDate = new Date(item.created_at);
+      if (!latest_created_date || createdDate > latest_created_date) {
+        latest_created_date = createdDate;
+      }
     });
+    if (latest_created_date) {
+      setLatestCreatedDate(latest_created_date);
+    }
     setAvailableYears(yearFromData);
   };
 
@@ -163,6 +174,7 @@ function TransparencyHome() {
       0
     );
   };
+
   useEffect(() => {
     // This effect runs after the initial render
     if (
@@ -197,7 +209,7 @@ function TransparencyHome() {
       setGrbUrl(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb}`);
       setFavicon(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.favico}`);
       document.title = `Proracun ${opcinaData.naziv}`;
-      //gets default dat
+      //gets default data
       dispatch(getData(opcinaData.url, selectedYear) as any);
     }
   }, [opcinaData]);
@@ -223,15 +235,6 @@ function TransparencyHome() {
           <StyledHeaderDiv>
             <Row>
               <StyledMainTitleDiv>
-                <StyledMainTitlRow>
-                  <Col>
-                    {/* <StyledMainTitleDiv> */}
-                    <StyledAppTitleHeader>
-                      Isplata proračunskih sredstava
-                    </StyledAppTitleHeader>
-                    {/* </StyledMainTitleDiv> */}
-                  </Col>
-                </StyledMainTitlRow>
                 <Row>
                   <StyledPlaceInfoDiv>
                     <img src={grbUrl} alt="Grb opcine" />
@@ -243,6 +246,15 @@ function TransparencyHome() {
                     </div>
                   </StyledPlaceInfoDiv>
                 </Row>
+                <StyledMainTitlRow>
+                  <Col>
+                    {/* <StyledMainTitleDiv> */}
+                    <StyledAppTitleHeader>
+                      Isplata proračunskih sredstava
+                    </StyledAppTitleHeader>
+                    {/* </StyledMainTitleDiv> */}
+                  </Col>
+                </StyledMainTitlRow>
               </StyledMainTitleDiv>
             </Row>
             <StyledRow>
@@ -300,7 +312,8 @@ function TransparencyHome() {
             </p>
             <b>
               Isplate u {selectedYear}. godini = {sumIznosValues} €, ukupno
-              stavaka {loadedValuesCount}, podaci ažurirani 20.2.2024. godine.
+              stavaka {loadedValuesCount}, podaci ažurirani{' '}
+              {latestCreatedDate?.toLocaleDateString('hr-HR')} godine.
             </b>
           </StyledAppDescDiv>
           <p>Plavi link - {new Date().getFullYear().toString()}</p>

@@ -60,6 +60,7 @@ export interface DataType {
   oib: string | null;
   mjesto: string | null;
   iznos: string | null;
+  created_at: Date;
 }
 
 const onChange: TableProps<DataType>['onChange'] = (

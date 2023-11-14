@@ -75,6 +75,7 @@ export const StyledPlaceInfoDiv = styled.div`
     flex-direction: row;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 60px;
     div{
         display: flex;
         flex-direction: column;
@@ -139,7 +140,7 @@ a {
 export const StyledAppTitleHeader = styled.h1<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
     margin: 0;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     width: fit-content;
     font-size: ${3}rem;
     font-weight: 300;
