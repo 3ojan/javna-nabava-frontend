@@ -405,7 +405,10 @@ export default function ResultTable(props: TableData) {
           dataSource={filteredData}
           onChange={onChange}
           rowKey="id"
-          pagination={{ defaultPageSize: props.rowAmount }}
+          pagination={{
+            defaultPageSize: props.rowAmount,
+            pageSizeOptions: [7, 10, 13, 20, 50, 100],
+          }}
         />
         {isModalVisible && (
           <Modal

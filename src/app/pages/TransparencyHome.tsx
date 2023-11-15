@@ -27,7 +27,11 @@ import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
 import { StyledAppDescDiv, StyledFooter, StyledRow } from './styled.ts';
-import { largeScreenWidth, mobileWidth } from '../global/constants.ts';
+import {
+  largeScreenHeight,
+  largeScreenWidth,
+  mobileWidth,
+} from '../global/constants.ts';
 import { debug } from 'console';
 import { Footer } from 'antd/es/layout/layout';
 
@@ -88,12 +92,12 @@ function TransparencyHome() {
     );
   };
 
-  //TODO: TEST THIS WIHT DIFFERENT SCREEN SIZES
+  //TODO: TEST THIS WITH DIFFERENT SCREEN SIZES
   const rowAmountDependOnSize = () => {
-    if (window.screen.width <= largeScreenWidth) {
-      return 5;
+    if (window.innerHeight <= largeScreenHeight) {
+      return 7;
     }
-    return 10;
+    return 13;
   };
 
   const getFilters = (data: any, variable: string) => {
