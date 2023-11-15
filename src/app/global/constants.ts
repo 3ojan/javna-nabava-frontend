@@ -4,4 +4,7 @@ export const midScreenWidth = 991;
 export const largeScreenWidth = 1200;
 
 export const fontHeader = "'Abhaya Libre', serif";
+// export const fontHeader = "'Merriweather', serif";
+// export const fontHeader = "'Inria Serif', serif";
+
 

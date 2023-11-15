@@ -248,11 +248,9 @@ function TransparencyHome() {
                 </Row>
                 <StyledMainTitlRow>
                   <Col>
-                    {/* <StyledMainTitleDiv> */}
                     <StyledAppTitleHeader>
                       Isplata proračunskih sredstava
                     </StyledAppTitleHeader>
-                    {/* </StyledMainTitleDiv> */}
                   </Col>
                 </StyledMainTitlRow>
               </StyledMainTitleDiv>

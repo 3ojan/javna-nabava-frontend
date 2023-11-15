@@ -100,7 +100,7 @@ export const StyledMobileMainTtileDiv = styled.div`
     flex-direction: column;
     gap: 10px;
     justify-content: center;
-    font-family: 'Abhaya Libre', serif;
+    // font-family: 'Abhaya Libre', serif;
     margin-bottom: 10px;
 
     h1{
@@ -140,10 +140,11 @@ a {
 export const StyledAppTitleHeader = styled.h1<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
     margin: 0;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     width: fit-content;
-    font-size: ${3}rem;
+    font-size: ${3.4}rem;
     font-weight: 300;
+    // letter-spacing: 0.3rem;
     text-transform: uppercase;
     font-family: ${fontHeader};
     text-align: center;
@@ -154,6 +155,7 @@ export const StyledAppTitleHeader = styled.h1<{$center?: boolean}>`
 
     @media only screen and (max-width: ${mobileWidth}px) {
         font-size: ${1.8}rem;
+        margin-bottom: 0px;
     }
 `
 

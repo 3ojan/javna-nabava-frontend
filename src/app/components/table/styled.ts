@@ -97,6 +97,8 @@ export const StyledTableDivWrapper = styled.div`
 
   /* Mobile-specific styles */
   @media (max-width: ${mobileWidth}px) {
+    margin-bottom: 30px;
+
     .ant-table-tbody > tr:nth-child(2n) {
       background-color: #e6faff; 
     }

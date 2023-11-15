@@ -12,6 +12,7 @@ export const StyledRow = styled(Row)`
   }
 `;
 export const StyledFooter = styled.div`
+// font-family: 'Merriweather', serif;
 background-color: transparent;
 padding: 60px;
 display: flex;
@@ -21,13 +22,16 @@ flex-direction: column;
 // margin-bottom: 40px;
 @media (max-width: ${mobileWidth}px) {
   padding: 0;
-
 }
 `
 
 export const StyledAppDescDiv = styled.div`
 background-color: transparent;
-font-size: 1.1rem;
+// font-size: 0.97rem;
 width: 70%;
 text-align: center;
+@media (max-width: ${mobileWidth}px) {
+  width: 90%;
+  margin-bottom: 20px;
+}
 `

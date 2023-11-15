@@ -168,10 +168,6 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       // widthth: '7%',
       render: (text, record) => renderLimitedCellHeight('vrstarashoda', record),
-      // onCell: (record, rowIndex) => ({
-      //   onMouseEnter: (event) =>
-      //     checkIfTextOverflowing(record, rowIndex, record.vrstarashoda),
-      // }),
     },
     {
       title: 'Primatelj',
@@ -180,10 +176,6 @@ export default function ResultTable(props: TableData) {
       responsive: ['sm'],
       // widthth: '7%',
       render: (text, record) => renderLimitedCellHeight('primatelj', record),
-      // onCell: (record, rowIndex) => ({
-      //   onMouseEnter: (event) =>
-      //     checkIfTextOverflowing(record, rowIndex, record.primatelj),
-      // }),
     },
     {
       title: 'OIB',
@@ -412,13 +404,8 @@ export default function ResultTable(props: TableData) {
           columns={columns} //columnType
           dataSource={filteredData}
           onChange={onChange}
-          size="middle"
           rowKey="id"
           pagination={{ defaultPageSize: props.rowAmount }}
-          // onRow={(record, rowIndex) => ({
-          // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-          //   // onMouseLeave: (event) => closeModal(),
-          // })}
         />
         {isModalVisible && (
           <Modal
