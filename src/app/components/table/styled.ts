@@ -56,6 +56,7 @@ export const StyledCellHeightSpan = styled.span`
 export const StyledTableDivWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
+  margin-bottom: 40px;
   // padding: 10px 0;
 
   /* FIXES COLUMN WIDTH */

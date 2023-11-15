@@ -75,7 +75,7 @@ export const StyledPlaceInfoDiv = styled.div`
     flex-direction: row;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     div{
         display: flex;
         flex-direction: column;
