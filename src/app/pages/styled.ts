@@ -4,6 +4,7 @@ import { fontHeader, mobileWidth, searchBorderRadius } from "../global/constants
 
 export const StyledRow = styled(Row)`
   height: fit-content;
+  margin-bottom: 20px;
   .ant-col {
     height: fit-content;
   }
@@ -12,15 +13,15 @@ export const StyledRow = styled(Row)`
   }
 `;
 export const StyledMainPageContainerDiv = styled.div`
-display: flex;
-flex-direction: column;
-min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 `
 
 export const StyledFooter = styled.div`
-  font-family: 'Merriweather', serif;
-  // padding: 0 60px;
-  // margin-bottom: 40px;
+  // font-family: 'Merriweather', serif;
+  border-radius: 15px 15px 0 0;
+  padding: 30px;
   
   display: flex;
   justify-content: center;
@@ -33,9 +34,19 @@ export const StyledFooter = styled.div`
   bottom: 0;
   position: relative;
 
+  p{
+    font-weight: 300;
+  }
+
   @media (max-width: ${mobileWidth}px) {
     padding: 0;
   }
+  
+`
+
+export const StyledFooterLogoImg = styled.img`
+  width: 30px;
+  // height: 100%;
 `
 
 export const StyledResultsInfoDiv = styled.div`

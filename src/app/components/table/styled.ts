@@ -37,7 +37,10 @@ export const StyledMobileRow = styled.tr`
 `
 
 export const StyledCellHeightSpan = styled.span`
-    height: 47px; /* ROW HEIGHT */
+    height: 2.7rem; /* ROW HEIGHT */
+    line-height: 1.5em;
+    // font-size: 0.9rem;
+    // margin: auto;
     overflow: hidden; 
     
     // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
@@ -56,7 +59,7 @@ export const StyledCellHeightSpan = styled.span`
 export const StyledTableDivWrapper = styled.div`
   // background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  // margin-bottom: 40px;
+  margin-bottom: 20px;
   // padding: 10px 0;
 
   /* FIXES COLUMN WIDTH */
@@ -64,21 +67,17 @@ export const StyledTableDivWrapper = styled.div`
     table-layout: fixed !important; /* rewrite inline styles */
   }
 
-  .ant-pagination-item {
-    // padding: 5px; 
-  }
-
   .ant-table-thead > tr > th {
     background-color: #4d4d4d; 
     color: white;
     text-transform: uppercase;
     font-weight: 500;
-    font-size: 12px;
+    // font-size: 12px;
   }
   
 // Row apdding
   td.ant-table-cell {
-    padding:5px !important;
+    padding: 5px 16px !important;
   }
 
   @media (min-width: ${mobileWidth}px) {
@@ -88,7 +87,7 @@ export const StyledTableDivWrapper = styled.div`
   }
 
   td.ant-table-column-sort {
-      background-color: rgba(255, 255, 255, 0);
+      // background-color: rgba(255, 255, 255, 0);
   }
   
   .anticon.anticon-filter svg path{

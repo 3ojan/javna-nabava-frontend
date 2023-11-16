@@ -10,7 +10,8 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
     // `}
 
     ${props => props.$padding && css`
-        padding: 0 20%;
+    //pushes footer from the main content
+        margin-bottom: 50px;
 
         // For under 2k res screens max-width: 1900px
         // @media only screen and (max-width: 1900px) {
@@ -27,19 +28,15 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
         // justify-content: center;
         // align-items: center;
         min-height: 100vh;
-        
-        // main{
-        //     flex: 1;
-        // }
     `};
 `
 
-export const StyledHeaderDiv = styled.div`
-    margin: 40px 0 30px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-`
+// export const StyledHeaderDiv = styled.div`
+//     margin: 40px 0 30px 0;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 30px;
+// `
 
 export const StyledHeaderLine = styled.div`
 height: 1px;
@@ -55,7 +52,7 @@ gap: 10px;
 justify-content: start;
 align-items: center;
 `
-export const StyledAppTitleHeader = styled.h1`
+export const StyledAppTitleH1 = styled.h1`
     // margin: auto;
     margin: 0;
     // letter-spacing: 0.3rem;
@@ -76,7 +73,8 @@ export const StyledAppTitleHeader = styled.h1`
 
 export const StyledAppHeaderDiv = styled.div`    
     width: 100%;
-    margin-bottom:100px;
+    margin-top:40px;
+    margin-bottom:70px;
 
     h2 {
         font-size: ${2.5/Math.pow(1.25, 2)}rem;

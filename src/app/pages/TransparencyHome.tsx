@@ -11,9 +11,8 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import {
-  StyledAppTitleHeader,
+  StyledAppTitleH1,
   StyledFullWidthDiv,
-  StyledHeaderDiv,
   StyledHeaderLine,
   StyledMainTitlRow,
   StyledMainTitleDiv,
@@ -31,6 +30,7 @@ import { getPlaceName } from 'src/helper/domainHelper.ts';
 import {
   StyledAppDescDiv,
   StyledFooter,
+  StyledFooterLogoImg,
   StyledMainPageContainerDiv,
   StyledResultsInfoDiv,
   StyledRow,
@@ -245,61 +245,57 @@ function TransparencyHome() {
       <StyledFullWidthDiv $padding $background>
         {/* <main> */}
         <Col>
-          <StyledHeaderDiv>
-            <Row>
-              <StyledAppHeaderDiv>
-                <StyledMainTitleDiv>
-                  <StyledPlaceInfoDiv>
-                    <img src={grbUrl} alt="Grb opcine" />
-                    <div>
-                      <StyledPlaceInfoH1>{opcinaData.naziv}</StyledPlaceInfoH1>
-                      <StyledPlaceInfoH2>
-                        {opcinaData.zupanija}
-                      </StyledPlaceInfoH2>
-                    </div>
-                  </StyledPlaceInfoDiv>
-                  <StyledAppTitleHeader>
-                    Isplata proračunskih sredstava
-                  </StyledAppTitleHeader>
-                </StyledMainTitleDiv>
-                <StyledHeaderLine />
-                <StyledAppDescDiv>
-                  <p>
-                    Objava informacija o trošenju sredstava iz proračuna
-                    temeljem članka 144. Zakona o proračunu ("Narodne novine",
-                    broj 144/21) i
-                    <br />
-                    {/* maknut br na mobilnoh */}
-                    Naputka o okvirnom sadržaju, minimalnom skupu podataka te
-                    načinu javne objave informacija o trošenju sredstava
-                    ("Narodne novine", broj 59/23).
-                  </p>
-                </StyledAppDescDiv>
-              </StyledAppHeaderDiv>
-            </Row>
-            <StyledRow>
-              <Col xs={isMobileWidth ? 24 : 8}>
-                <TransparentnostSearch
-                  onSelectYear={onSelectYear}
-                  currentYear={currentYear}
-                  onChangeInput={onChange}
-                  onYearSelect={onYearChange}
-                  availableYears={availableYears}
+          <Row>
+            <StyledAppHeaderDiv>
+              <StyledMainTitleDiv>
+                <StyledPlaceInfoDiv>
+                  <img src={grbUrl} alt="Grb opcine" />
+                  <div>
+                    <StyledPlaceInfoH1>{opcinaData.naziv}</StyledPlaceInfoH1>
+                    <StyledPlaceInfoH2>{opcinaData.zupanija}</StyledPlaceInfoH2>
+                  </div>
+                </StyledPlaceInfoDiv>
+                <StyledAppTitleH1>
+                  Isplata proračunskih sredstava
+                </StyledAppTitleH1>
+              </StyledMainTitleDiv>
+              <StyledHeaderLine />
+              <StyledAppDescDiv>
+                <p>
+                  Objava informacija o trošenju sredstava iz proračuna temeljem
+                  članka 144. Zakona o proračunu ("Narodne novine", broj 144/21)
+                  i
+                  <br />
+                  {/* maknut br na mobilnoh */}
+                  Naputka o okvirnom sadržaju, minimalnom skupu podataka te
+                  načinu javne objave informacija o trošenju sredstava ("Narodne
+                  novine", broj 59/23).
+                </p>
+              </StyledAppDescDiv>
+            </StyledAppHeaderDiv>
+          </Row>
+          <StyledRow>
+            <Col xs={isMobileWidth ? 24 : 8}>
+              <TransparentnostSearch
+                onSelectYear={onSelectYear}
+                currentYear={currentYear}
+                onChangeInput={onChange}
+                onYearSelect={onYearChange}
+                availableYears={availableYears}
+              />
+            </Col>
+            <Col xs={isMobileWidth ? 24 : 16}>
+              <StyledExportButtonsDiv>
+                <ExportButtons
+                  csvVisible={false}
+                  xmlVisible={false}
+                  placeName={getPlaceName()}
+                  selectedYear={selectedYear}
+                  dataForExport={data}
                 />
-              </Col>
-              <Col xs={isMobileWidth ? 24 : 16}>
-                <StyledExportButtonsDiv>
-                  <ExportButtons
-                    csvVisible={false}
-                    xmlVisible={false}
-                    placeName={getPlaceName()}
-                    selectedYear={selectedYear}
-                    dataForExport={data}
-                  />
-                </StyledExportButtonsDiv>
-              </Col>
-            </StyledRow>
-          </StyledHeaderDiv>
+              </StyledExportButtonsDiv>
+            </Col>
+          </StyledRow>
           {isDataLoaded ? (
             <>
               <Row>
@@ -337,7 +333,11 @@ function TransparencyHome() {
         {/* </main> */}
       </StyledFullWidthDiv>
       <StyledFooter>
-        <p>Plavi link - {new Date().getFullYear().toString()}</p>
+        <p>Plavi link d.o.o.</p>
+        <StyledFooterLogoImg
+          src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
+        />
+        <p> za usluge informacijskog društva</p>
       </StyledFooter>
     </StyledMainPageContainerDiv>
   );
