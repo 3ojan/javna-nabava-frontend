@@ -2,7 +2,7 @@ import { fontHeader, mobileWidth } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
-    // width: 100%;
+    flex: 1;
 
     //gives gradient blue background
     // ${props => props.$padding && css`
