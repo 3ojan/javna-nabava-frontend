@@ -34,10 +34,13 @@ export const StyledHeaderDiv = styled.div`
     gap: 30px;
 `
 
-export const StyledMainTitleDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+export const StyledHeaderLine = styled.div`
+height: 1px;
+background-color: black;
+width: 100%;
+`
+
+export const StyledAppHeaderDiv = styled.div`    
     width: 100%;
 
     h2 {
@@ -46,6 +49,10 @@ export const StyledMainTitleDiv = styled.div`
     }
     h3 {
         font-size: ${2.5/Math.pow(1.25, 3)}rem;
+        font-weight: inherit;
+    }
+    p{
+        // font-size: ${1.5/Math.pow(1.25, 2)}rem;
         font-weight: inherit;
     }
 
@@ -75,7 +82,10 @@ export const StyledPlaceInfoDiv = styled.div`
     flex-direction: row;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 50px;
+    // margin-bottom: 50px;
+
+    float: left;
+
     div{
         display: flex;
         flex-direction: column;
@@ -85,6 +95,7 @@ export const StyledPlaceInfoDiv = styled.div`
 
     img{
         width: 50px;
+        height: 100%;
         margin-right: 10px;
     }
     @media only screen and (max-width: ${mobileWidth}px) {
@@ -111,7 +122,7 @@ export const StyledMobileMainTtileDiv = styled.div`
     }
 `
 
-export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
+export const StyledPlaceInfoH1 = styled.h1<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
     margin: 0;
     font-family: ${fontHeader};
@@ -127,7 +138,7 @@ export const StyledMainTitleH1 = styled.h1<{$center?: boolean}>`
     }
 `
 
-export const StyledMainTitleH2 = styled.h2<{$center?: boolean}>`
+export const StyledPlaceInfoH2 = styled.h2<{$center?: boolean}>`
 text-align: ${props => props.$center ? 'center' : 'default'};
 font-family: ${fontHeader};
 margin: 0;
@@ -139,14 +150,16 @@ a {
 
 export const StyledAppTitleHeader = styled.h1<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
-    margin: 0;
-    margin-bottom: 50px;
-    width: fit-content;
+    margin: auto;
+    margin-bottom: 30px;
+    width: 60%;
+    background-color: red;
     font-size: ${3.4}rem;
     font-weight: 300;
     // letter-spacing: 0.3rem;
     text-transform: uppercase;
     font-family: ${fontHeader};
+    font-weight: 700;
     text-align: center;
     a {
         link-style: none;

@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   // }
 
   body {
-    background-color: transparent;
+    background-color: whitesmoke;
     margin: 0;
     padding: 0;
     // overflow-y: scroll; 

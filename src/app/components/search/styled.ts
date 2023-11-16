@@ -1,11 +1,10 @@
 import { Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { mobileWidth } from "src/app/global/constants";
+import { mobileWidth, searchBorderRadius } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 
 const searchBarHeight = "32px";
-const searchBorderRadius = "6px";
 
 export const StyledTransparencyLayout = styled(Layout)`
     background-color: transparent;

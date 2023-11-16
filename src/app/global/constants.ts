@@ -6,8 +6,11 @@ export const largeScreenWidth = 1200;
 export const midScreenHeight = 910;
 export const largeScreenHeight = 1290;
 
-export const fontHeader = "'Abhaya Libre', serif";
-// export const fontHeader = "'Merriweather', serif";
+// export const fontHeader = "'Abhaya Libre', serif";
+export const fontHeader = "'Merriweather', serif";
+// export const fontHeader = "'robot', sans-serif";
 // export const fontHeader = "'Inria Serif', serif";
+
+export const searchBorderRadius = "6px";
 
 

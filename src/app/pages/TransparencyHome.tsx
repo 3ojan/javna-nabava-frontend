@@ -14,10 +14,11 @@ import {
   StyledAppTitleHeader,
   StyledFullWidthDiv,
   StyledHeaderDiv,
+  StyledHeaderLine,
   StyledMainTitlRow,
-  StyledMainTitleDiv,
-  StyledMainTitleH1,
-  StyledMainTitleH2,
+  StyledAppHeaderDiv,
+  StyledPlaceInfoH1,
+  StyledPlaceInfoH2,
   StyledPlaceInfoDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
@@ -26,7 +27,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
-import { StyledAppDescDiv, StyledFooter, StyledRow } from './styled.ts';
+import {
+  StyledAppDescDiv,
+  StyledFooter,
+  StyledResultsInfoDiv,
+  StyledRow,
+} from './styled.ts';
 import {
   largeScreenHeight,
   largeScreenWidth,
@@ -238,26 +244,31 @@ function TransparencyHome() {
         <Col>
           <StyledHeaderDiv>
             <Row>
-              <StyledMainTitleDiv>
-                <Row>
-                  <StyledPlaceInfoDiv>
-                    <img src={grbUrl} alt="Grb opcine" />
-                    <div>
-                      <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
-                      <StyledMainTitleH2>
-                        {opcinaData.zupanija}
-                      </StyledMainTitleH2>
-                    </div>
-                  </StyledPlaceInfoDiv>
-                </Row>
-                <StyledMainTitlRow>
-                  <Col>
-                    <StyledAppTitleHeader>
-                      Isplata proračunskih sredstava
-                    </StyledAppTitleHeader>
-                  </Col>
-                </StyledMainTitlRow>
-              </StyledMainTitleDiv>
+              <StyledAppHeaderDiv>
+                <StyledPlaceInfoDiv>
+                  <img src={grbUrl} alt="Grb opcine" />
+                  <div>
+                    <StyledPlaceInfoH1>{opcinaData.naziv}</StyledPlaceInfoH1>
+                    <StyledPlaceInfoH2>{opcinaData.zupanija}</StyledPlaceInfoH2>
+                  </div>
+                </StyledPlaceInfoDiv>
+                <StyledAppTitleHeader>
+                  Isplata proračunskih sredstava
+                </StyledAppTitleHeader>
+                <StyledHeaderLine />
+                <StyledAppDescDiv>
+                  <p>
+                    Objava informacija o trošenju sredstava iz proračuna
+                    temeljem članka 144. Zakona o proračunu ("Narodne novine",
+                    broj 144/21) i
+                    <br />
+                    {/* maknut br na mobilnoh */}
+                    Naputka o okvirnom sadržaju, minimalnom skupu podataka te
+                    načinu javne objave informacija o trošenju sredstava
+                    ("Narodne novine", broj 59/23).
+                  </p>
+                </StyledAppDescDiv>
+              </StyledAppHeaderDiv>
             </Row>
             <StyledRow>
               <Col xs={isMobileWidth ? 24 : 8}>
@@ -267,8 +278,6 @@ function TransparencyHome() {
                   onChangeInput={onChange}
                   onYearSelect={onYearChange}
                   availableYears={availableYears}
-                  // buttonEnabled={searchValue !== '' && selectedYear !== ''}
-                  // onSearchClick={onSearch}
                 />
               </Col>
               <Col xs={isMobileWidth ? 24 : 16}>
@@ -302,22 +311,23 @@ function TransparencyHome() {
             </StyledFullWidthDiv>
           )}
         </Col>
+        <StyledResultsInfoDiv>
+          <p>
+            Ukupno isplata u <b>{selectedYear}.</b> godini ={' '}
+            <b>{sumIznosValues}</b> €
+          </p>
+          <hr />
+          <p>
+            Ukupno stavaka <b>{loadedValuesCount}</b>
+          </p>
+          <hr />
+
+          <p>
+            Podaci ažurirani{' '}
+            <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
+          </p>
+        </StyledResultsInfoDiv>
         <StyledFooter>
-          <StyledAppDescDiv>
-            <p>
-              Objava informacija o trošenju sredstava iz proračuna temeljem
-              članka 144.
-              <br /> Zakona o proračunu ("Narodne novine", broj 144/21) i
-              Naputka o okvirnom sadržaju, minimalnom skupu podataka te načinu
-              javne objave informacija o trošenju sredstava ("Narodne novine",
-              broj 59/23).
-            </p>
-            <b>
-              Isplate u {selectedYear}. godini = {sumIznosValues} €, ukupno
-              stavaka {loadedValuesCount}, podaci ažurirani{' '}
-              {latestCreatedDate?.toLocaleDateString('hr-HR')} godine.
-            </b>
-          </StyledAppDescDiv>
           <p>Plavi link - {new Date().getFullYear().toString()}</p>
         </StyledFooter>
       </StyledFullWidthDiv>
