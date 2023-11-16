@@ -11,17 +11,31 @@ export const StyledRow = styled(Row)`
     flex-direction: column;
   }
 `;
-export const StyledFooter = styled.div`
-font-family: 'Merriweather', serif;
-// padding: 0 60px;
+export const StyledMainPageContainerDiv = styled.div`
 display: flex;
-justify-content: center;
-align-items: center;
 flex-direction: column;
-// margin-bottom: 40px;
-@media (max-width: ${mobileWidth}px) {
-  padding: 0;
-}
+min-height: 100vh;
+`
+
+export const StyledFooter = styled.div`
+  font-family: 'Merriweather', serif;
+  // padding: 0 60px;
+  // margin-bottom: 40px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: #4d4d4d; 
+  color: white;
+
+  bottom: 0;
+  position: relative;
+
+  @media (max-width: ${mobileWidth}px) {
+    padding: 0;
+  }
 `
 
 export const StyledResultsInfoDiv = styled.div`

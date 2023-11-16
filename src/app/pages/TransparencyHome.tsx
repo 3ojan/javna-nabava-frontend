@@ -31,6 +31,7 @@ import { getPlaceName } from 'src/helper/domainHelper.ts';
 import {
   StyledAppDescDiv,
   StyledFooter,
+  StyledMainPageContainerDiv,
   StyledResultsInfoDiv,
   StyledRow,
 } from './styled.ts';
@@ -240,8 +241,9 @@ function TransparencyHome() {
   // }
 
   return (
-    <>
+    <StyledMainPageContainerDiv>
       <StyledFullWidthDiv $padding $background>
+        {/* <main> */}
         <Col>
           <StyledHeaderDiv>
             <Row>
@@ -332,11 +334,12 @@ function TransparencyHome() {
             <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
           </p>
         </StyledResultsInfoDiv>
-        <StyledFooter>
-          <p>Plavi link - {new Date().getFullYear().toString()}</p>
-        </StyledFooter>
+        {/* </main> */}
       </StyledFullWidthDiv>
-    </>
+      <StyledFooter>
+        <p>Plavi link - {new Date().getFullYear().toString()}</p>
+      </StyledFooter>
+    </StyledMainPageContainerDiv>
   );
 }
 

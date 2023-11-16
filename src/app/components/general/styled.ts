@@ -2,7 +2,8 @@ import { fontHeader, mobileWidth } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
-    width: 100%;
+    // width: 100%;
+
     //gives gradient blue background
     // ${props => props.$padding && css`
     //     background: linear-gradient(0deg, rgba(34,193,195,0) 0%, rgba(45,119,253,1) 100%);
@@ -22,11 +23,17 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
     
     ${props => props.$center && css`
         display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
+        flex-direction: column;
+        // justify-content: center;
+        // align-items: center;
+        min-height: 100vh;
+        
+        // main{
+        //     flex: 1;
+        // }
     `};
 `
+
 export const StyledHeaderDiv = styled.div`
     margin: 40px 0 30px 0;
     display: flex;
