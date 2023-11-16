@@ -2,7 +2,7 @@ import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledCellHeightSpan,
   StyledFiltersCheckboxGroup,
-  StyledMobileFiltersContainer,
+  StyledMobileFiltersContainerDiv,
   StyledMobileRow,
   StyledMobileTdDividerLine,
   StyledResultsTableDiv,
@@ -379,7 +379,7 @@ export default function ResultTable(props: TableData) {
     <StyledResultsTableDiv>
       {props.isMobileWidth && (
         <>
-          <StyledMobileFiltersContainer>
+          <StyledMobileFiltersContainerDiv>
             <Dropdown
               dropdownRender={filtersMenuDate}
               placement="bottom"
@@ -394,7 +394,7 @@ export default function ResultTable(props: TableData) {
             >
               <Button size="large">Filter Isplatitelja</Button>
             </Dropdown>
-          </StyledMobileFiltersContainer>
+          </StyledMobileFiltersContainerDiv>
         </>
       )}
       <StyledTableDivWrapper>

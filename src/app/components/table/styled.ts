@@ -1,5 +1,5 @@
 import { Checkbox, Modal, Table } from "antd";
-import { mobileWidth } from "src/app/global/constants";
+import { mobileScreenWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 
@@ -80,7 +80,7 @@ export const StyledTableDivWrapper = styled.div`
     padding: 5px 16px !important;
   }
 
-  @media (min-width: ${mobileWidth}px) {
+  @media (min-width: ${mobileScreenWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
         background-color: #e6faff; 
       }
@@ -96,7 +96,7 @@ export const StyledTableDivWrapper = styled.div`
   }
 
   /* Mobile-specific styles */
-  @media (max-width: ${mobileWidth}px) {
+  @media (max-width: ${mobileScreenWidth}px) {
     margin-bottom: 30px;
 
     .ant-table-tbody > tr:nth-child(2n) {
@@ -138,7 +138,7 @@ margin-bottom: 10px;
 }
 `
 
-export const StyledMobileFiltersContainer = styled.div`
+export const StyledMobileFiltersContainerDiv = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;

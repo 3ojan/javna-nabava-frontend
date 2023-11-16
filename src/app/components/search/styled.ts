@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { mobileWidth, searchBorderRadius } from "src/app/global/constants";
+import { mobileScreenWidth, searchBorderRadius } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 
@@ -17,6 +17,12 @@ export const StyledTransparencyContent = styled(Content)`
 export const StyledSelectWrapper = styled.div`
   div{
       width: 120px;
+  }
+  
+  @media only screen and (max-width: ${mobileScreenWidth}px) {
+    div{
+      width: 80px;
+    }
   }
 `
 
@@ -55,9 +61,9 @@ align-items: center;
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
 }
 
-@media only screen and (max-width: ${mobileWidth}px) {
+@media only screen and (max-width: ${mobileScreenWidth}px) {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   .customDropdown {
     width: 100px
   }  

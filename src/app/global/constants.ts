@@ -1,6 +1,7 @@
 //All Widths are the minimum for each size
-export const mobileWidth = 767;//767, 575, Mobile
-export const midScreenWidth = 991; //Tablet, or small desktop
+export const mobileScreenWidth = 767;//767, 575, Mobile
+export const tabletScreenWidth = 991; //Tablet, or small desktop
+export const midScreenWidth = 1450; //Tablet, or small desktop
 export const largeScreenWidth = 1200;
 //All Heights are the minimum for each size
 export const midScreenHeight = 910;

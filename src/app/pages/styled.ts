@@ -1,15 +1,12 @@
 import { Col, Row } from "antd";
 import { css, keyframes, styled } from "styled-components";
-import { fontHeader, mobileWidth, searchBorderRadius } from "../global/constants";
+import { fontHeader, mobileScreenWidth, searchBorderRadius } from "../global/constants";
 
 export const StyledRow = styled(Row)`
   height: fit-content;
   margin-bottom: 20px;
   .ant-col {
     height: fit-content;
-  }
-  @media (max-width: ${mobileWidth}px) {
-    flex-direction: column;
   }
 `;
 export const StyledMainPageContainerDiv = styled.div`
@@ -38,7 +35,7 @@ export const StyledFooter = styled.div`
     font-weight: 300;
   }
 
-  @media (max-width: ${mobileWidth}px) {
+  @media (max-width: ${mobileScreenWidth}px) {
     padding: 0;
   }
   
@@ -71,8 +68,8 @@ export const StyledAppDescDiv = styled.div`
     text-align: start;
     // text-align: center;
 
-  @media (max-width: ${mobileWidth}px) {
-    width: 90%;
+  @media (max-width: ${mobileScreenWidth}px) {
+    width: 100%;
     margin-bottom: 20px;
   }
 `

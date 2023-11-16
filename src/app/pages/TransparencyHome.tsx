@@ -1,4 +1,13 @@
-import { Button, Col, Row, Space, Spin, TableProps } from 'antd';
+import {
+  Button,
+  Col,
+  Collapse,
+  CollapseProps,
+  Row,
+  Space,
+  Spin,
+  TableProps,
+} from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable, { DataType } from '../components/table/ResultTable';
 import {
@@ -38,7 +47,7 @@ import {
 import {
   largeScreenHeight,
   largeScreenWidth,
-  mobileWidth,
+  mobileScreenWidth,
 } from '../global/constants.ts';
 import { debug } from 'console';
 import { Footer } from 'antd/es/layout/layout';
@@ -56,7 +65,7 @@ function TransparencyHome() {
   const [sumIznosValues, setSumIznosValues] = useState<string>('0');
   const [latestCreatedDate, setLatestCreatedDate] = useState<Date>();
   const [tempData, setTempData] = useState<DataType[]>([]);
-  const [isMobileWidth, setIsMobileWidth] = useState(false);
+  const [ismobileScreenWidth, setIsmobileScreenWidth] = useState(false);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
@@ -77,6 +86,25 @@ function TransparencyHome() {
     isDataLoaded,
     isOpcinaDataLoaded,
   } = transparencyState as TransparencyState;
+
+  const AboutAppText = () => (
+    <p>
+      Objava informacija o trošenju sredstava iz proračuna temeljem članka 144.
+      Zakona o proračunu ("Narodne novine", broj 144/21) i
+      <br />
+      {/* maknut br na mobilnoh */}
+      Naputka o okvirnom sadržaju, minimalnom skupu podataka te načinu javne
+      objave informacija o trošenju sredstava ("Narodne novine", broj 59/23).
+    </p>
+  );
+
+  const items: CollapseProps['items'] = [
+    {
+      key: '1',
+      label: 'O aplikaciji',
+      children: <AboutAppText />,
+    },
+  ];
 
   const onChange = (e: any) => {
     dispatch(changeSearchBarValue(e.target.value) as any);
@@ -229,7 +257,7 @@ function TransparencyHome() {
   useEffect(() => {
     //Good to add is OpcineData fetched flag for check
     document.title = `Proracun`;
-    setIsMobileWidth(window.screen.width <= mobileWidth);
+    setIsmobileScreenWidth(window.screen.width <= mobileScreenWidth);
     dispatch(getOpcineData() as any);
   }, []);
 
@@ -261,21 +289,20 @@ function TransparencyHome() {
               </StyledMainTitleDiv>
               <StyledHeaderLine />
               <StyledAppDescDiv>
-                <p>
-                  Objava informacija o trošenju sredstava iz proračuna temeljem
-                  članka 144. Zakona o proračunu ("Narodne novine", broj 144/21)
-                  i
-                  <br />
-                  {/* maknut br na mobilnoh */}
-                  Naputka o okvirnom sadržaju, minimalnom skupu podataka te
-                  načinu javne objave informacija o trošenju sredstava ("Narodne
-                  novine", broj 59/23).
-                </p>
+                {ismobileScreenWidth ? (
+                  <Collapse
+                    bordered={false}
+                    items={items}
+                    // defaultActiveKey={['1']}
+                  ></Collapse>
+                ) : (
+                  <AboutAppText />
+                )}
               </StyledAppDescDiv>
             </StyledAppHeaderDiv>
           </Row>
           <StyledRow>
-            <Col xs={isMobileWidth ? 24 : 8}>
+            <Col xs={ismobileScreenWidth ? 18 : 8}>
               <TransparentnostSearch
                 onSelectYear={onSelectYear}
                 currentYear={currentYear}
@@ -284,7 +311,7 @@ function TransparencyHome() {
                 availableYears={availableYears}
               />
             </Col>
-            <Col xs={isMobileWidth ? 24 : 16}>
+            <Col xs={ismobileScreenWidth ? 6 : 16}>
               <StyledExportButtonsDiv>
                 <ExportButtons
                   csvVisible={false}
@@ -298,15 +325,15 @@ function TransparencyHome() {
           </StyledRow>
           {isDataLoaded ? (
             <>
-              <Row>
-                <ResultTable
-                  isplatiteljsFilter={isplatiteljColumnFilterItems}
-                  monthFilter={monthColumnFilterItems}
-                  data={tempData}
-                  rowAmount={rowAmountDependOnSize()}
-                  isMobileWidth={isMobileWidth}
-                />
-              </Row>
+              {/* <Row> */}
+              <ResultTable
+                isplatiteljsFilter={isplatiteljColumnFilterItems}
+                monthFilter={monthColumnFilterItems}
+                data={tempData}
+                rowAmount={rowAmountDependOnSize()}
+                isMobileWidth={ismobileScreenWidth}
+              />
+              {/* </Row> */}
             </>
           ) : (
             <StyledFullWidthDiv $center>

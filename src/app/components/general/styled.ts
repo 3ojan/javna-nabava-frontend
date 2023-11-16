@@ -1,4 +1,4 @@
-import { fontHeader, mobileWidth } from "src/app/global/constants";
+import { fontHeader, midScreenHeight, midScreenWidth, mobileScreenWidth } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
@@ -17,7 +17,7 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
         // @media only screen and (max-width: 1900px) {
             padding: 0 7%;
         // }
-        @media only screen and (max-width: ${mobileWidth}px) {
+        @media only screen and (max-width: ${mobileScreenWidth}px) {
             padding: 0 50;
         }
     `}
@@ -45,12 +45,18 @@ width: 100%;
 `
 
 export const StyledMainTitleDiv = styled.div`
-// background-color: blue;
-margin-bottom: 30px;
-display: flex;
-gap: 10px;
-justify-content: start;
-align-items: center;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;
+
+
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
+        font-size: ${1.8}rem;
+        margin-bottom: 0px;
+        flex-direction: column;
+    }
 `
 export const StyledAppTitleH1 = styled.h1`
     // margin: auto;
@@ -65,7 +71,11 @@ export const StyledAppTitleH1 = styled.h1`
     font-weight: 700;
     text-align: center;
 
-    @media only screen and (max-width: ${mobileWidth}px) {
+    @media only screen and (max-width: ${midScreenWidth}px) {
+        font-size: ${2.4}rem;
+    }
+
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
         font-size: ${1.8}rem;
         margin-bottom: 0px;
     }
@@ -89,15 +99,29 @@ export const StyledAppHeaderDiv = styled.div`
         font-weight: inherit;
     }
 
-    @media only screen and (max-width: ${mobileWidth}px) {
+    @media only screen and (max-width: ${midScreenWidth}px) {
         width: 100%;
-        align-items: center;
+        margin-bottom: 0;
+
         h2 {
             font-size: ${2/Math.pow(1.25, 2)}rem;
             font-weight: inherit;
         }
         h3 {
             font-size: ${2/Math.pow(1.25, 2)}rem;
+            font-weight: inherit;
+        }
+    }
+
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
+        width: 100%;
+
+        h2 {
+            font-size: ${1.5/Math.pow(1.25, 2)}rem;
+            font-weight: inherit;
+        }
+        h3 {
+            font-size: ${1.5/Math.pow(1.25, 2)}rem;
             font-weight: inherit;
         }
     }
@@ -128,14 +152,19 @@ export const StyledPlaceInfoDiv = styled.div`
     }
 
     img{
-        width: 50px;
-        height: 100%;
-        // margin-right: 10px;
+        height: 75px;
+        width: auto;
     }
-    @media only screen and (max-width: ${mobileWidth}px) {
+    @media only screen and (max-width: ${midScreenWidth}px) {
         img{
-            width: 35px;
-            margin-right: 0;
+            height: 55px;
+            width: auto;
+        }
+    }
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
+        img{
+            height: 40px;
+            width: auto;
         }
     }
 `
@@ -167,7 +196,7 @@ export const StyledPlaceInfoH1 = styled.h2<{$center?: boolean}>`
         color: black;
     }
 
-    @media only screen and (max-width: ${mobileWidth}px) {
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
         font-size: ${1.5}rem;
     }
 `
