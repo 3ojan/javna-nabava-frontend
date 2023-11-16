@@ -40,13 +40,12 @@ margin: 10px 0;
 `
 
 export const StyledAppDescDiv = styled.div`
-  font-family: ${fontHeader};
-  background-color: transparent;
-  font-size: 0.94rem;
-  text-align: start;
-  // width: 70%;
-    margin-bottom:100px;
-    text-align: center;
+    font-family: ${fontHeader};
+    background-color: transparent;
+    font-size: 0.94rem;
+    text-align: start;
+    // text-align: center;
+
   @media (max-width: ${mobileWidth}px) {
     width: 90%;
     margin-bottom: 20px;

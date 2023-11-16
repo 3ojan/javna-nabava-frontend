@@ -16,6 +16,7 @@ import {
   StyledHeaderDiv,
   StyledHeaderLine,
   StyledMainTitlRow,
+  StyledMainTitleDiv,
   StyledAppHeaderDiv,
   StyledPlaceInfoH1,
   StyledPlaceInfoH2,
@@ -245,16 +246,20 @@ function TransparencyHome() {
           <StyledHeaderDiv>
             <Row>
               <StyledAppHeaderDiv>
-                <StyledPlaceInfoDiv>
-                  <img src={grbUrl} alt="Grb opcine" />
-                  <div>
-                    <StyledPlaceInfoH1>{opcinaData.naziv}</StyledPlaceInfoH1>
-                    <StyledPlaceInfoH2>{opcinaData.zupanija}</StyledPlaceInfoH2>
-                  </div>
-                </StyledPlaceInfoDiv>
-                <StyledAppTitleHeader>
-                  Isplata proračunskih sredstava
-                </StyledAppTitleHeader>
+                <StyledMainTitleDiv>
+                  <StyledPlaceInfoDiv>
+                    <img src={grbUrl} alt="Grb opcine" />
+                    <div>
+                      <StyledPlaceInfoH1>{opcinaData.naziv}</StyledPlaceInfoH1>
+                      <StyledPlaceInfoH2>
+                        {opcinaData.zupanija}
+                      </StyledPlaceInfoH2>
+                    </div>
+                  </StyledPlaceInfoDiv>
+                  <StyledAppTitleHeader>
+                    Isplata proračunskih sredstava
+                  </StyledAppTitleHeader>
+                </StyledMainTitleDiv>
                 <StyledHeaderLine />
                 <StyledAppDescDiv>
                   <p>

@@ -40,11 +40,39 @@ background-color: black;
 width: 100%;
 `
 
+export const StyledMainTitleDiv = styled.div`
+// background-color: blue;
+margin-bottom: 30px;
+display: flex;
+gap: 10px;
+justify-content: start;
+align-items: center;
+`
+export const StyledAppTitleHeader = styled.h1`
+    // margin: auto;
+    margin: 0;
+    // letter-spacing: 0.3rem;
+    // width: 60%;
+    // background-color: red;
+    font-size: ${3.4}rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-family: ${fontHeader};
+    font-weight: 700;
+    text-align: center;
+
+    @media only screen and (max-width: ${mobileWidth}px) {
+        font-size: ${1.8}rem;
+        margin-bottom: 0px;
+    }
+`
+
 export const StyledAppHeaderDiv = styled.div`    
     width: 100%;
+    margin-bottom:100px;
 
     h2 {
-        font-size: ${2.2/Math.pow(1.25, 2)}rem;
+        font-size: ${2.5/Math.pow(1.25, 2)}rem;
         font-weight: inherit;
     }
     h3 {
@@ -78,25 +106,26 @@ export const StyledMainTitlRow = styled.div`
 `
 
 export const StyledPlaceInfoDiv = styled.div`
+// background-color: purple;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 10px;
     // margin-bottom: 50px;
-
     float: left;
+    height: 70px;
 
     div{
         display: flex;
         flex-direction: column;
         align-items: start;
-        justify-content: space-between;
+        // justify-content: space-between;
     }
 
     img{
         width: 50px;
         height: 100%;
-        margin-right: 10px;
+        // margin-right: 10px;
     }
     @media only screen and (max-width: ${mobileWidth}px) {
         img{
@@ -122,11 +151,11 @@ export const StyledMobileMainTtileDiv = styled.div`
     }
 `
 
-export const StyledPlaceInfoH1 = styled.h1<{$center?: boolean}>`
+export const StyledPlaceInfoH1 = styled.h2<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
     margin: 0;
     font-family: ${fontHeader};
-    font-size: ${2}rem;
+    // font-size: ${1.8}rem;
     font-weight: inherit;
     a {
         link-style: none;
@@ -138,38 +167,15 @@ export const StyledPlaceInfoH1 = styled.h1<{$center?: boolean}>`
     }
 `
 
-export const StyledPlaceInfoH2 = styled.h2<{$center?: boolean}>`
+export const StyledPlaceInfoH2 = styled.h3<{$center?: boolean}>`
 text-align: ${props => props.$center ? 'center' : 'default'};
 font-family: ${fontHeader};
+
 margin: 0;
 a {
     link-style: none;
     color: black;
 }
-`
-
-export const StyledAppTitleHeader = styled.h1<{$center?: boolean}>`
-    text-align: ${props => props.$center ? 'center' : 'default'};
-    margin: auto;
-    margin-bottom: 30px;
-    width: 60%;
-    background-color: red;
-    font-size: ${3.4}rem;
-    font-weight: 300;
-    // letter-spacing: 0.3rem;
-    text-transform: uppercase;
-    font-family: ${fontHeader};
-    font-weight: 700;
-    text-align: center;
-    a {
-        link-style: none;
-        color: black;
-    }
-
-    @media only screen and (max-width: ${mobileWidth}px) {
-        font-size: ${1.8}rem;
-        margin-bottom: 0px;
-    }
 `
 
 export const StyledCenterDivWrapper = styled.div`
