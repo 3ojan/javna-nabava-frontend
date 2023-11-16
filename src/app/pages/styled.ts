@@ -47,18 +47,22 @@ export const StyledFooterLogoImg = styled.img`
 `
 
 export const StyledResultsInfoDiv = styled.div`
-padding: 10px 25px;
-width: fit-content;
-height: fit-content;
-display: flex;
-gap: 10px;
-border: 1px solid silver;
-background-color: white;
-border-radius: 15px;
-line-height: 1;
-p{
-margin: 10px 0;
-}
+  padding: 10px 25px;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  gap: 10px;
+  border: 1px solid silver;
+  background-color: white;
+  border-radius: 15px;
+  line-height: 1;
+  p{
+    margin: 10px 0;
+  }
+  @media (max-width: ${mobileScreenWidth}px) {
+    margin-top: 20px;
+    flex-direction: column;
+  }
 `
 
 export const StyledAppDescDiv = styled.div`

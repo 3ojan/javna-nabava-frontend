@@ -45,12 +45,10 @@ width: 100%;
 `
 
 export const StyledMainTitleDiv = styled.div`
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     display: flex;
-    gap: 10px;
     justify-content: start;
     align-items: center;
-
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
         font-size: ${1.8}rem;
@@ -62,9 +60,8 @@ export const StyledAppTitleH1 = styled.h1`
     // margin: auto;
     margin: 0;
     // letter-spacing: 0.3rem;
-    // width: 60%;
-    // background-color: red;
-    font-size: ${3.4}rem;
+    line-height: 1;
+    font-size: 2.6rem;
     font-weight: 300;
     text-transform: uppercase;
     font-family: ${fontHeader};

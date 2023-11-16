@@ -65,7 +65,7 @@ function TransparencyHome() {
   const [sumIznosValues, setSumIznosValues] = useState<string>('0');
   const [latestCreatedDate, setLatestCreatedDate] = useState<Date>();
   const [tempData, setTempData] = useState<DataType[]>([]);
-  const [ismobileScreenWidth, setIsmobileScreenWidth] = useState(false);
+  const [isMobileScreenWidth, setIsMobileScreenWidth] = useState(false);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
@@ -86,6 +86,23 @@ function TransparencyHome() {
     isDataLoaded,
     isOpcinaDataLoaded,
   } = transparencyState as TransparencyState;
+
+  const ResultsInfo = () => (
+    <StyledResultsInfoDiv>
+      <p>
+        Ukupno isplata u <b>{selectedYear}.</b> godini = <b>{sumIznosValues}</b>{' '}
+        €
+      </p>
+      <hr />
+      <p>
+        Ukupno stavaka <b>{loadedValuesCount}</b>
+      </p>
+      <hr />
+      <p>
+        Podaci ažurirani <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
+      </p>
+    </StyledResultsInfoDiv>
+  );
 
   const AboutAppText = () => (
     <p>
@@ -257,7 +274,7 @@ function TransparencyHome() {
   useEffect(() => {
     //Good to add is OpcineData fetched flag for check
     document.title = `Proracun`;
-    setIsmobileScreenWidth(window.screen.width <= mobileScreenWidth);
+    setIsMobileScreenWidth(window.screen.width <= mobileScreenWidth);
     dispatch(getOpcineData() as any);
   }, []);
 
@@ -279,17 +296,19 @@ function TransparencyHome() {
                 <StyledPlaceInfoDiv>
                   <img src={grbUrl} alt="Grb opcine" />
                   <div>
-                    <StyledPlaceInfoH1>{opcinaData.naziv}</StyledPlaceInfoH1>
-                    <StyledPlaceInfoH2>{opcinaData.zupanija}</StyledPlaceInfoH2>
+                    <StyledAppTitleH1>
+                      Isplata proračunskih sredstava
+                    </StyledAppTitleH1>
+                    <StyledPlaceInfoH2>
+                      {opcinaData.naziv}, {opcinaData.zupanija}
+                    </StyledPlaceInfoH2>
+                    {/* <StyledPlaceInfoH2>{opcinaData.zupanija}</StyledPlaceInfoH2> */}
                   </div>
                 </StyledPlaceInfoDiv>
-                <StyledAppTitleH1>
-                  Isplata proračunskih sredstava
-                </StyledAppTitleH1>
               </StyledMainTitleDiv>
               <StyledHeaderLine />
               <StyledAppDescDiv>
-                {ismobileScreenWidth ? (
+                {isMobileScreenWidth ? (
                   <Collapse
                     bordered={false}
                     items={items}
@@ -302,7 +321,7 @@ function TransparencyHome() {
             </StyledAppHeaderDiv>
           </Row>
           <StyledRow>
-            <Col xs={ismobileScreenWidth ? 18 : 8}>
+            <Col xs={isMobileScreenWidth ? 18 : 8}>
               <TransparentnostSearch
                 onSelectYear={onSelectYear}
                 currentYear={currentYear}
@@ -311,7 +330,7 @@ function TransparencyHome() {
                 availableYears={availableYears}
               />
             </Col>
-            <Col xs={ismobileScreenWidth ? 6 : 16}>
+            <Col xs={isMobileScreenWidth ? 6 : 16}>
               <StyledExportButtonsDiv>
                 <ExportButtons
                   csvVisible={false}
@@ -322,6 +341,7 @@ function TransparencyHome() {
                 />
               </StyledExportButtonsDiv>
             </Col>
+            {isMobileScreenWidth && <Collapse></Collapse>}
           </StyledRow>
           {isDataLoaded ? (
             <>
@@ -331,7 +351,7 @@ function TransparencyHome() {
                 monthFilter={monthColumnFilterItems}
                 data={tempData}
                 rowAmount={rowAmountDependOnSize()}
-                isMobileWidth={ismobileScreenWidth}
+                isMobileWidth={isMobileScreenWidth}
               />
               {/* </Row> */}
             </>
@@ -341,22 +361,7 @@ function TransparencyHome() {
             </StyledFullWidthDiv>
           )}
         </Col>
-        <StyledResultsInfoDiv>
-          <p>
-            Ukupno isplata u <b>{selectedYear}.</b> godini ={' '}
-            <b>{sumIznosValues}</b> €
-          </p>
-          <hr />
-          <p>
-            Ukupno stavaka <b>{loadedValuesCount}</b>
-          </p>
-          <hr />
-
-          <p>
-            Podaci ažurirani{' '}
-            <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
-          </p>
-        </StyledResultsInfoDiv>
+        {!isMobileScreenWidth && <ResultsInfo />}
         {/* </main> */}
       </StyledFullWidthDiv>
       <StyledFooter>
