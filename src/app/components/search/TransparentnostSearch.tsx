@@ -51,6 +51,7 @@ export default function TransparentnostSearch(props: any) {
               defaultValue={currentYear}
               onChange={onYearSelect}
               options={selectYearOptions()}
+              // size="large"
             ></Select>
           </StyledSelectWrapper>
         </StyledSearchBar>

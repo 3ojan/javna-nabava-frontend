@@ -28,7 +28,9 @@ export const StyledExportButtonsDiv = styled.div`
         }
         .buttonWrapper > button{  
             flex: 1;
-            font-size: 0.8rem;
+            // padding: 10px;
+            // height: 40px;
+            // font-size: 1rem;
         }
     }
 `

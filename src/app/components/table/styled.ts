@@ -37,9 +37,9 @@ export const StyledMobileRow = styled.tr`
 `
 
 export const StyledCellHeightSpan = styled.span`
-    height: 2.7rem; /* ROW HEIGHT */
-    line-height: 1.5em;
-    // font-size: 0.9rem;
+    height: 3rem; /* ROW HEIGHT */
+    line-height: 1.4rem;
+    
     // margin: auto;
     overflow: hidden; 
     
@@ -61,6 +61,13 @@ export const StyledTableDivWrapper = styled.div`
   border-radius: 10px;
   margin-bottom: 20px;
   // padding: 10px 0;
+  
+  
+  //TABLE FONT SIZE
+  table{
+    // font-size: 1rem;
+  }
+
 
   /* FIXES COLUMN WIDTH */
   .table-wrapper table {
@@ -71,8 +78,7 @@ export const StyledTableDivWrapper = styled.div`
     background-color: #4d4d4d; 
     color: white;
     text-transform: uppercase;
-    font-weight: 500;
-    // font-size: 12px;
+    font-weight: 400;
   }
   
 // Row apdding
@@ -142,4 +148,7 @@ export const StyledMobileFiltersContainerDiv = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  button span{ 
+    // font-size: 1rem;
+  }
 `

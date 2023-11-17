@@ -222,6 +222,7 @@ export default function ResultTable(props: TableData) {
       {(record as any)[key]}
     </StyledCellHeightSpan>
   );
+
   const handleCloseModal = (event: any) => {
     const rectBounds = selectedCellElement?.getBoundingClientRect();
     if (rectBounds && checkCursorIsInModalOrSpan(event, rectBounds)) {
@@ -385,14 +386,14 @@ export default function ResultTable(props: TableData) {
               placement="bottom"
               // trigger={['click']}
             >
-              <Button size="large">Filter mjeseca</Button>
+              <Button>Filter mjeseca</Button>
             </Dropdown>
 
             <Dropdown
               dropdownRender={filtersMenuIsplatitelj}
               placement="bottom"
             >
-              <Button size="large">Filter Isplatitelja</Button>
+              <Button>Filter Isplatitelja</Button>
             </Dropdown>
           </StyledMobileFiltersContainerDiv>
         </>

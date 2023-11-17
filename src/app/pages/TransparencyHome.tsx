@@ -91,14 +91,15 @@ function TransparencyHome() {
     <StyledResultsInfoDiv>
       <p>
         Ukupno isplata u <b>{selectedYear}.</b> godini: <b>{sumIznosValues}</b>{' '}
-        €
-      </p>
-      {/* <hr /> */}
-      <p>
+        €<br />
+        {/* </p> */}
+        {/* <hr /> */}
+        {/* <p> */}
         Ukupno stavaka: <b>{loadedValuesCount}</b>
-      </p>
-      {/* <hr /> */}
-      <p>
+        <br />
+        {/* </p> */}
+        {/* <hr /> */}
+        {/* <p> */}
         Podaci ažurirani:{' '}
         <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
       </p>
@@ -157,9 +158,9 @@ function TransparencyHome() {
   //TODO: TEST THIS WITH DIFFERENT SCREEN SIZES
   const rowAmountDependOnSize = () => {
     if (window.innerHeight <= largeScreenHeight) {
-      return 7;
+      return 5;
     }
-    return 13;
+    return 10;
   };
 
   const getFilters = (data: any, variable: string) => {
@@ -376,11 +377,10 @@ function TransparencyHome() {
         {/* </main> */}
       </StyledFullWidthDiv>
       <StyledFooter>
-        <p>Plavi link d.o.o.</p>
+        <p>Plavi link d.o.o., za usluge informacijskog društva</p>
         <StyledFooterLogoImg
           src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
         />
-        <p> za usluge informacijskog društva</p>
       </StyledFooter>
     </StyledMainPageContainerDiv>
   );

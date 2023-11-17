@@ -23,6 +23,10 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
         }
         @media only screen and (max-width: ${mobileScreenWidth}px) {
             padding: 0 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // justify-content: center;
         }
     `}
     
@@ -76,15 +80,14 @@ export const StyledAppTitleH1 = styled.h1`
     display: inline-block;
 
     @media only screen and (max-width: ${midScreenWidth}px) {
-        font-size: ${2.4}rem;
+        font-size: 2.4rem;
     }
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
         text-align: start;
-        font-size: ${1.2}rem;
-        line-height: 0,.8rem;
+        font-size: 1.2rem;
+        line-height: normal;
         margin-bottom: 0px;
-        line-height: 1.8rem;
     }
 `
 
@@ -99,10 +102,6 @@ export const StyledAppHeaderDiv = styled.div`
     }
     h3 {
         font-size: ${2.5/Math.pow(1.25, 3)}rem;
-        font-weight: inherit;
-    }
-    p{
-        // font-size: ${1.5/Math.pow(1.25, 2)}rem;
         font-weight: inherit;
     }
 
@@ -162,12 +161,14 @@ export const StyledPlaceInfoDiv = styled.div`
         height: 75px;
         width: auto;
     }
+
     @media only screen and (max-width: ${midScreenWidth}px) {
         img{
             height: 55px;
             width: auto;
         }
     }
+    
     @media only screen and (max-width: ${mobileScreenWidth}px) {
         padding-bottom: 10px;
         align-items: center;
@@ -202,7 +203,7 @@ export const StyledPlaceInfoH1 = styled.h2<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
     margin: 0;
     font-family: ${fontHeader};
-    // font-size: ${1.8}rem;
+    font-size: ${1.8}rem;
     font-weight: inherit;
     a {
         link-style: none;

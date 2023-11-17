@@ -9,6 +9,10 @@ export const GlobalStyle = createGlobalStyle`
   //   /* Add more font formats as needed (e.g., .ttf, .svg) */
   // }
 
+  html {
+    font-size: 16px;
+  }
+
   body {
     background-color: whitesmoke;
     margin: 0;

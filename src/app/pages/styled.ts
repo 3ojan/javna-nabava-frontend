@@ -36,7 +36,7 @@ export const StyledFooter = styled.div`
   }
 
   @media (max-width: ${mobileScreenWidth}px) {
-    padding: 0;
+    // padding: 0;
   }
   
 `
@@ -54,8 +54,9 @@ export const StyledResultsInfoDiv = styled.div`
   border: 1px solid silver;
   background-color: white;
   border-radius: 15px;
-  line-height: 1rem;
   flex-direction: column;
+  
+  // line-height: 1rem;
 
   p{
     margin: 10px 0;
@@ -63,16 +64,17 @@ export const StyledResultsInfoDiv = styled.div`
   @media (max-width: ${mobileScreenWidth}px) {
     // margin-top: 20px;
     // flex-direction: column;
-    border: 0;
-    background-color: transparent;
-    padding: 0;
+    // border: 0;
+    // background-color: transparent;
+    padding: 10px 20px;
+    // width: 87%;
   }
 `
 
 export const StyledAppDescDiv = styled.div`
     // font-family: ${fontHeader};
     background-color: transparent;
-    font-size: 1rem;
+    // font-size: 1rem;
     text-align: start;
     // text-align: center;
 
