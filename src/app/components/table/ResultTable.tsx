@@ -146,7 +146,7 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'foramtedDate',
       key: 'foramtedDate',
       responsive: ['sm'],
-      width: '8%',
+      width: '9%',
       filters: props.monthFilter,
       onFilter: (value, record) =>
         record.foramtedDate!.includes(value.toString()),
@@ -204,7 +204,7 @@ export default function ResultTable(props: TableData) {
       key: 'iznos',
       align: 'right',
       responsive: ['sm'],
-      width: '7%',
+      width: '8%',
       render: (value) =>
         new Intl.NumberFormat('hr-HR', {
           minimumFractionDigits: 2,

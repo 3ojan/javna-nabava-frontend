@@ -158,7 +158,7 @@ function TransparencyHome() {
   //TODO: TEST THIS WITH DIFFERENT SCREEN SIZES
   const rowAmountDependOnSize = () => {
     if (window.innerHeight <= largeScreenHeight) {
-      return 5;
+      return 7;
     }
     return 10;
   };
