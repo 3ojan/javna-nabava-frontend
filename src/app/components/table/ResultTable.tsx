@@ -246,9 +246,11 @@ export default function ResultTable(props: TableData) {
   };
 
   const checkIfTextOverflowing = (record: DataType, key: string) => {
+    console.log(record);
+    debugger;
     const trElement: HTMLElement | null | undefined = (
       tableRef.current as HTMLElement | null
-    )?.querySelector(`tr[data-row-key="${record.id as string}"]`);
+    )?.querySelector(`table tr[data-row-key="${record.id as string}"]`);
 
     if (trElement) {
       const spanEl = trElement.querySelector(`td span#${key}`) as HTMLElement;
@@ -365,6 +367,9 @@ export default function ResultTable(props: TableData) {
 
   useEffect(() => {
     setFilteredData(props.data);
+    // onMouseEnter={(e) => {
+    //   tebleRef.current = e.target as HTMLElement;
+    // }};
   }, [props.data]);
 
   useEffect(() => {
@@ -399,18 +404,20 @@ export default function ResultTable(props: TableData) {
         </>
       )}
       <StyledTableDivWrapper>
-        <Table
-          ref={tableRef}
-          className="table-wrapper"
-          columns={columns} //columnType
-          dataSource={filteredData}
-          onChange={onChange}
-          rowKey="id"
-          pagination={{
-            defaultPageSize: props.rowAmount,
-            pageSizeOptions: [7, 10, 13, 20, 50, 100],
-          }}
-        />
+        <div ref={tableRef}>
+          <Table
+            // ref={tableRef}
+            className="table-wrapper"
+            columns={columns} //columnType
+            dataSource={filteredData}
+            onChange={onChange}
+            rowKey="id"
+            pagination={{
+              defaultPageSize: props.rowAmount,
+              pageSizeOptions: [7, 10, 13, 20, 50, 100],
+            }}
+          />
+        </div>
         {isModalVisible && (
           <Modal
             title="Opširnije"
