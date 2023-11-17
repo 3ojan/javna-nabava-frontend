@@ -8,6 +8,9 @@ const searchBarHeight = "32px";
 
 export const StyledTransparencyLayout = styled(Layout)`
     background-color: transparent;
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
+      padding-right: 10px;
+    }
 `
 export const StyledTransparencyContent = styled(Content)`
     background-color: transparent;

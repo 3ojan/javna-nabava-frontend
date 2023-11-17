@@ -27,7 +27,7 @@ import {
   StyledMainTitleDiv,
   StyledAppHeaderDiv,
   StyledPlaceInfoH1,
-  StyledPlaceInfoH2,
+  StyledPlaceInfoH3,
   StyledPlaceInfoDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
@@ -90,16 +90,17 @@ function TransparencyHome() {
   const ResultsInfo = () => (
     <StyledResultsInfoDiv>
       <p>
-        Ukupno isplata u <b>{selectedYear}.</b> godini = <b>{sumIznosValues}</b>{' '}
+        Ukupno isplata u <b>{selectedYear}.</b> godini: <b>{sumIznosValues}</b>{' '}
         €
       </p>
-      <hr />
+      {/* <hr /> */}
       <p>
-        Ukupno stavaka <b>{loadedValuesCount}</b>
+        Ukupno stavaka: <b>{loadedValuesCount}</b>
       </p>
-      <hr />
+      {/* <hr /> */}
       <p>
-        Podaci ažurirani <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
+        Podaci ažurirani:{' '}
+        <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
       </p>
     </StyledResultsInfoDiv>
   );
@@ -120,6 +121,14 @@ function TransparencyHome() {
       key: '1',
       label: 'O aplikaciji',
       children: <AboutAppText />,
+    },
+  ];
+
+  const resultInfoCollapseProps: CollapseProps['items'] = [
+    {
+      key: '1',
+      label: 'informacije o sveukupnim rezultatima',
+      children: <ResultsInfo />,
     },
   ];
 
@@ -299,24 +308,27 @@ function TransparencyHome() {
                     <StyledAppTitleH1>
                       Isplata proračunskih sredstava
                     </StyledAppTitleH1>
-                    <StyledPlaceInfoH2>
+                    <StyledPlaceInfoH3>
                       {opcinaData.naziv}, {opcinaData.zupanija}
-                    </StyledPlaceInfoH2>
-                    {/* <StyledPlaceInfoH2>{opcinaData.zupanija}</StyledPlaceInfoH2> */}
+                    </StyledPlaceInfoH3>
                   </div>
                 </StyledPlaceInfoDiv>
               </StyledMainTitleDiv>
               <StyledHeaderLine />
               <StyledAppDescDiv>
                 {isMobileScreenWidth ? (
-                  <Collapse
-                    bordered={false}
-                    items={items}
-                    // defaultActiveKey={['1']}
-                  ></Collapse>
+                  <Collapse bordered={false} items={items}></Collapse>
                 ) : (
                   <AboutAppText />
                 )}
+                {/* {isMobileScreenWidth && (
+                  <Collapse
+                    bordered={false}
+                    // ghost={true}
+                    // size={'small'}
+                    items={resultInfoCollapseProps}
+                  ></Collapse>
+                )} */}
               </StyledAppDescDiv>
             </StyledAppHeaderDiv>
           </Row>
@@ -341,7 +353,6 @@ function TransparencyHome() {
                 />
               </StyledExportButtonsDiv>
             </Col>
-            {isMobileScreenWidth && <Collapse></Collapse>}
           </StyledRow>
           {isDataLoaded ? (
             <>
@@ -361,7 +372,7 @@ function TransparencyHome() {
             </StyledFullWidthDiv>
           )}
         </Col>
-        {!isMobileScreenWidth && <ResultsInfo />}
+        <ResultsInfo />
         {/* </main> */}
       </StyledFullWidthDiv>
       <StyledFooter>

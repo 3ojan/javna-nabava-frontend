@@ -11,12 +11,16 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
 
     ${props => props.$padding && css`
     //pushes footer from the main content
-        margin-bottom: 50px;
+        margin-bottom: 150px;
 
         // For under 2k res screens max-width: 1900px
         // @media only screen and (max-width: 1900px) {
             padding: 0 7%;
         // }
+
+        @media only screen and (max-width: ${midScreenWidth}px) {
+            padding: 0 5%;
+        }
         @media only screen and (max-width: ${mobileScreenWidth}px) {
             padding: 0 50;
         }
@@ -45,7 +49,7 @@ width: 100%;
 `
 
 export const StyledMainTitleDiv = styled.div`
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -56,6 +60,7 @@ export const StyledMainTitleDiv = styled.div`
         flex-direction: column;
     }
 `
+
 export const StyledAppTitleH1 = styled.h1`
     // margin: auto;
     margin: 0;
@@ -67,21 +72,26 @@ export const StyledAppTitleH1 = styled.h1`
     font-family: ${fontHeader};
     font-weight: 700;
     text-align: center;
+    width: fit-content;
+    display: inline-block;
 
     @media only screen and (max-width: ${midScreenWidth}px) {
         font-size: ${2.4}rem;
     }
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
-        font-size: ${1.8}rem;
+        text-align: start;
+        font-size: ${1.2}rem;
+        line-height: 0,.8rem;
         margin-bottom: 0px;
+        line-height: 1.8rem;
     }
 `
 
 export const StyledAppHeaderDiv = styled.div`    
     width: 100%;
     margin-top:40px;
-    margin-bottom:70px;
+    margin-bottom: 70px;
 
     h2 {
         font-size: ${2.5/Math.pow(1.25, 2)}rem;
@@ -98,7 +108,6 @@ export const StyledAppHeaderDiv = styled.div`
 
     @media only screen and (max-width: ${midScreenWidth}px) {
         width: 100%;
-        margin-bottom: 0;
 
         h2 {
             font-size: ${2/Math.pow(1.25, 2)}rem;
@@ -112,6 +121,7 @@ export const StyledAppHeaderDiv = styled.div`
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
         width: 100%;
+        margin-bottom: 0;
 
         h2 {
             font-size: ${1.5/Math.pow(1.25, 2)}rem;
@@ -139,7 +149,7 @@ export const StyledPlaceInfoDiv = styled.div`
     gap: 10px;
     // margin-bottom: 50px;
     float: left;
-    height: 70px;
+    // height: 70px;
 
     div{
         display: flex;
@@ -159,8 +169,14 @@ export const StyledPlaceInfoDiv = styled.div`
         }
     }
     @media only screen and (max-width: ${mobileScreenWidth}px) {
+        padding-bottom: 10px;
+        align-items: center;
+
+        div{
+
+        }
         img{
-            height: 40px;
+            height: 70px;
             width: auto;
         }
     }
@@ -198,15 +214,19 @@ export const StyledPlaceInfoH1 = styled.h2<{$center?: boolean}>`
     }
 `
 
-export const StyledPlaceInfoH2 = styled.h3<{$center?: boolean}>`
-text-align: ${props => props.$center ? 'center' : 'default'};
-font-family: ${fontHeader};
+export const StyledPlaceInfoH3 = styled.h3<{$center?: boolean}>`
+    text-align: ${props => props.$center ? 'center' : 'default'};
+    font-family: ${fontHeader};
 
-margin: 0;
-a {
-    link-style: none;
-    color: black;
-}
+    margin: 0;
+    a {
+        link-style: none;
+        color: black;
+    }
+
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
+        // text-align: center;
+    }
 `
 
 export const StyledCenterDivWrapper = styled.div`

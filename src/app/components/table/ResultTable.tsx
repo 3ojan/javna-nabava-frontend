@@ -146,7 +146,7 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'foramtedDate',
       key: 'foramtedDate',
       responsive: ['sm'],
-      width: '7%',
+      width: '8%',
       filters: props.monthFilter,
       onFilter: (value, record) =>
         record.foramtedDate!.includes(value.toString()),

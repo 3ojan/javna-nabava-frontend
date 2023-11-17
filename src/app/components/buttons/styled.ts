@@ -13,9 +13,7 @@ export const StyledSpace = styled(Space)`
 ` 
 
 export const StyledExportButtonsDiv = styled.div`
-    button{
-        font-size: 0.8rem;
-    }
+
     .buttonWrapper{  
         float: right;
         display: flex;
@@ -30,6 +28,7 @@ export const StyledExportButtonsDiv = styled.div`
         }
         .buttonWrapper > button{  
             flex: 1;
+            font-size: 0.8rem;
         }
     }
 `

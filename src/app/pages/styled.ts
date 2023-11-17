@@ -51,29 +51,38 @@ export const StyledResultsInfoDiv = styled.div`
   width: fit-content;
   height: fit-content;
   display: flex;
-  gap: 10px;
   border: 1px solid silver;
   background-color: white;
   border-radius: 15px;
-  line-height: 1;
+  line-height: 1rem;
+  flex-direction: column;
+
   p{
     margin: 10px 0;
   }
   @media (max-width: ${mobileScreenWidth}px) {
-    margin-top: 20px;
-    flex-direction: column;
+    // margin-top: 20px;
+    // flex-direction: column;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
   }
 `
 
 export const StyledAppDescDiv = styled.div`
-    font-family: ${fontHeader};
+    // font-family: ${fontHeader};
     background-color: transparent;
-    font-size: 0.94rem;
+    font-size: 1rem;
     text-align: start;
     // text-align: center;
 
   @media (max-width: ${mobileScreenWidth}px) {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
+    // display: flex;
+    // flex-direction: column;
+    // gap: 10px;
+    padding: 10px 0;
   }
 `
