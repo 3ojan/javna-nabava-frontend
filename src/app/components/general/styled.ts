@@ -19,7 +19,7 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
         // }
 
         @media only screen and (max-width: ${midScreenWidth}px) {
-            padding: 0 5%;
+            padding: 0 4%;
         }
         @media only screen and (max-width: ${mobileScreenWidth}px) {
             padding: 0 50;
