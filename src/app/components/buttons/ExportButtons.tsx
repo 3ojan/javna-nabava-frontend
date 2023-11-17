@@ -1,7 +1,7 @@
 import { Button, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { StyledColoredButton, StyledSpace } from './styled';
-import { mobileWidth } from 'src/app/global/constants';
+import { mobileScreenWidth } from 'src/app/global/constants';
 import { useSelector } from 'react-redux';
 import { TransparencyState } from 'src/redux/transparency/transparency';
 import { DownloadOutlined } from '@ant-design/icons';
@@ -26,7 +26,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
     dataForExport,
   } = exportButtonProps;
   const [xmlText, setXmlText] = useState(
-    window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML'
+    window.innerWidth <= mobileScreenWidth ? 'XML' : 'Preuzmi XML'
   );
 
   const transparencyState = useSelector(
@@ -34,7 +34,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
   );
 
   const handleResize = () => {
-    setXmlText(window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML');
+    setXmlText(window.innerWidth <= mobileScreenWidth ? 'XML' : 'Preuzmi XML');
   };
 
   const handleDownloadJSON = () => {
@@ -75,7 +75,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
         style={{
           textAlign: 'center',
           width: '100%',
-          display: window.innerWidth <= mobileWidth ? 'block' : 'none',
+          display: window.innerWidth <= mobileScreenWidth ? 'block' : 'none',
         }}
       >
         Preuzmite podatke u obliku:
@@ -83,12 +83,12 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
       <div className="buttonWrapper">
         {xmlVisible && (
           <StyledColoredButton disabled={false} $color="green">
-            {window.innerWidth <= mobileWidth ? 'XML' : 'Preuzmi XML'}
+            {window.innerWidth <= mobileScreenWidth ? 'XML' : 'Preuzmi XML'}
           </StyledColoredButton>
         )}
         {csvVisible && (
           <Button>
-            {window.innerWidth <= mobileWidth ? 'CSV' : 'Preuzmi CSV'}
+            {window.innerWidth <= mobileScreenWidth ? 'CSV' : 'Preuzmi CSV'}
           </Button>
         )}
         {jsonVisible && (
@@ -97,7 +97,7 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
             type="default"
             onClick={handleDownloadJSON}
           >
-            {window.innerWidth <= mobileWidth ? 'JSON' : 'Preuzmi JSON'}
+            {window.innerWidth <= mobileScreenWidth ? 'JSON' : 'Preuzmi JSON'}
           </Button>
         )}
       </div>

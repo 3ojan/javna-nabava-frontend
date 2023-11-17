@@ -1,5 +1,5 @@
 import { Button, Space } from "antd"
-import { mobileWidth } from "src/app/global/constants"
+import { mobileScreenWidth } from "src/app/global/constants"
 import styled from "styled-components"
 
 export const StyledColoredButton = styled(Button)<{$color?: string, $textContrast?: boolean}>`
@@ -13,6 +13,7 @@ export const StyledSpace = styled(Space)`
 ` 
 
 export const StyledExportButtonsDiv = styled.div`
+
     .buttonWrapper{  
         float: right;
         display: flex;
@@ -20,13 +21,16 @@ export const StyledExportButtonsDiv = styled.div`
         gap: 10px;
     }
 
-    @media only screen and (max-width: ${mobileWidth}px) {
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
         .buttonWrapper{  
             display: flex;
             width: 100%;
         }
         .buttonWrapper > button{  
             flex: 1;
+            // padding: 10px;
+            // height: 40px;
+            // font-size: 1rem;
         }
     }
 `

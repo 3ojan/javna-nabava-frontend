@@ -18,11 +18,12 @@ export default function App() {
     <>
       <ConfigProvider
         locale={hrHR}
-        theme={
-          {
-            // token: { fontFamily: 'Abhaya Libre' },
-          }
-        } //changes the global font
+        theme={{
+          token: {
+            /* fontFamily: 'Abhaya Libre', */
+            fontSize: 16, //antd font size, theme font size
+          },
+        }} //changes the global font
       >
         <GlobalStyle />
 

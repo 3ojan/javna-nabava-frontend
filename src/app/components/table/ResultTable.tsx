@@ -2,9 +2,8 @@ import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import {
   StyledCellHeightSpan,
   StyledFiltersCheckboxGroup,
-  StyledMobileFiltersContainer,
+  StyledMobileFiltersContainerDiv,
   StyledMobileRow,
-  // StyledMobileRowDividerLine,
   StyledMobileTdDividerLine,
   StyledResultsTableDiv,
   StyledTableDivWrapper,
@@ -61,6 +60,7 @@ export interface DataType {
   oib: string | null;
   mjesto: string | null;
   iznos: string | null;
+  created_at: Date;
 }
 
 const onChange: TableProps<DataType>['onChange'] = (
@@ -74,32 +74,18 @@ const onChange: TableProps<DataType>['onChange'] = (
 
 export default function ResultTable(props: TableData) {
   const [filteredData, setFilteredData] = useState<DataType[]>(props.data);
+  const [selectedCellElement, setSelectedCellElement] = useState<HTMLElement>();
   const [selectedDateFilterValues, setSelectedDateFilterValues] = useState<
     string[]
   >([]);
   const [selectedIsplatiteljFilterValues, setSelectedIsplatiteljFilterValues] =
     useState<string[]>([]);
   const [selectedRow, setSelectedRow] = useState<DataType | null>(null);
+  const [selectedCellValue, setSelectedCellValue] = useState<string>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const tableRef = useRef(null);
-
-  const renderLimitedCellHeight = (text: string) => (
-    // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-    <StyledCellHeightSpan
-      onMouseEnter={(event) =>
-        checkIfTextOverflowing(
-          { id: '', rkpid: '' } as DataType,
-          undefined,
-          text
-        )
-      }
-      // onMouseEnter={(event) => checkIfTextOverflowing(record, rowIndex)}
-    >
-      {text}
-    </StyledCellHeightSpan>
-  );
 
   const columns: ColumnsType<DataType> = [
     {
@@ -160,7 +146,7 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'foramtedDate',
       key: 'foramtedDate',
       responsive: ['sm'],
-      width: '7%',
+      width: '9%',
       filters: props.monthFilter,
       onFilter: (value, record) =>
         record.foramtedDate!.includes(value.toString()),
@@ -181,11 +167,7 @@ export default function ResultTable(props: TableData) {
       key: 'vrstarashoda',
       responsive: ['sm'],
       // widthth: '7%',
-      render: renderLimitedCellHeight,
-      onCell: (record, rowIndex) => ({
-        onMouseEnter: (event) =>
-          checkIfTextOverflowing(record, rowIndex, record.vrstarashoda),
-      }),
+      render: (text, record) => renderLimitedCellHeight('vrstarashoda', record),
     },
     {
       title: 'Primatelj',
@@ -193,11 +175,7 @@ export default function ResultTable(props: TableData) {
       key: 'primatelj',
       responsive: ['sm'],
       // widthth: '7%',
-      render: renderLimitedCellHeight,
-      onCell: (record, rowIndex) => ({
-        onMouseEnter: (event) =>
-          checkIfTextOverflowing(record, rowIndex, record.primatelj),
-      }),
+      render: (text, record) => renderLimitedCellHeight('primatelj', record),
     },
     {
       title: 'OIB',
@@ -226,7 +204,7 @@ export default function ResultTable(props: TableData) {
       key: 'iznos',
       align: 'right',
       responsive: ['sm'],
-      width: '7%',
+      width: '8%',
       render: (value) =>
         new Intl.NumberFormat('hr-HR', {
           minimumFractionDigits: 2,
@@ -235,36 +213,55 @@ export default function ResultTable(props: TableData) {
     },
   ];
 
-  const onSelectRow = (record: DataType, event: any) => {
-    setSelectedRow(record);
-    setIsModalVisible(true);
+  const renderLimitedCellHeight = (key: string, record: DataType) => (
+    <StyledCellHeightSpan
+      onMouseEnter={(event: any) => checkIfTextOverflowing(record, key)}
+      // onMouseLeave={handleCloseModal}
+      id={key}
+    >
+      {(record as any)[key]}
+    </StyledCellHeightSpan>
+  );
 
-    // Calculate the position of the modal relative to the clicked row
-    const rowBoundingRect = event.currentTarget.getBoundingClientRect();
-    setModalPosition({
-      top: rowBoundingRect.bottom,
-      left: rowBoundingRect.left,
-    });
+  const handleCloseModal = (event: any) => {
+    const rectBounds = selectedCellElement?.getBoundingClientRect();
+    if (rectBounds && checkCursorIsInModalOrSpan(event, rectBounds)) {
+      console.log('close modal');
+      closeModal();
+    }
   };
 
-  const checkIfTextOverflowing = (
-    record: DataType,
-    rowIndex: any | undefined,
-    value: string | undefined | null
-  ) => {
+  const checkCursorIsInModalOrSpan = (
+    event: any,
+    rectBounds: DOMRect
+  ): boolean => {
+    const { clientX, clientY } = event;
+
+    const isOutsideTop = clientY < rectBounds.top;
+    const isOutsideRight =
+      clientX > rectBounds.right && clientY < rectBounds.y + rectBounds.height;
+    const isOutsideLeft = clientX < rectBounds.left;
+
+    return isOutsideTop || isOutsideRight || isOutsideLeft;
+  };
+
+  const checkIfTextOverflowing = (record: DataType, key: string) => {
+    console.log(record);
     debugger;
     const trElement: HTMLElement | null | undefined = (
       tableRef.current as HTMLElement | null
-    )?.querySelector(`tr[data-row-key="${record.id as string}"]`);
+    )?.querySelector(`table tr[data-row-key="${record.id as string}"]`);
 
     if (trElement) {
-      const spanEl = trElement.querySelector('td span') as HTMLElement;
+      const spanEl = trElement.querySelector(`td span#${key}`) as HTMLElement;
       if (
         spanEl &&
         (spanEl.clientWidth < spanEl.scrollWidth ||
           spanEl.clientHeight < spanEl.scrollHeight)
       ) {
         setSelectedRow(record);
+        setSelectedCellValue((record as any)[key]);
+        setSelectedCellElement(spanEl);
         setIsModalVisible(true);
         // Calculate the position of the modal relative to the clicked row
         const rowBoundingRect = spanEl.getBoundingClientRect();
@@ -277,7 +274,9 @@ export default function ResultTable(props: TableData) {
   };
 
   const closeModal = () => {
-    setIsModalVisible(false);
+    if (isModalVisible) {
+      setIsModalVisible(false);
+    }
   };
 
   const handleCheckboxChangeDate = (values: any) => {
@@ -368,72 +367,76 @@ export default function ResultTable(props: TableData) {
 
   useEffect(() => {
     setFilteredData(props.data);
+    // onMouseEnter={(e) => {
+    //   tebleRef.current = e.target as HTMLElement;
+    // }};
   }, [props.data]);
 
   useEffect(() => {
+    //adds event for closing modal on mouseleave of the modal and span elements
     const modalElem = document.querySelector('.ant-modal-content');
     modalElem?.addEventListener('mouseleave', closeModal);
+    const modalWrap = document.querySelector('.ant-modal-wrap');
+
+    modalWrap?.addEventListener('mousemove', handleCloseModal);
   }, [isModalVisible]);
 
   return (
     <StyledResultsTableDiv>
       {props.isMobileWidth && (
         <>
-          <StyledMobileFiltersContainer>
+          <StyledMobileFiltersContainerDiv>
             <Dropdown
               dropdownRender={filtersMenuDate}
               placement="bottom"
               // trigger={['click']}
             >
-              <Button size="large">Filter mjeseca</Button>
+              <Button>Filter mjeseca</Button>
             </Dropdown>
 
             <Dropdown
               dropdownRender={filtersMenuIsplatitelj}
               placement="bottom"
             >
-              <Button size="large">Filter Isplatitelja</Button>
+              <Button>Filter Isplatitelja</Button>
             </Dropdown>
-          </StyledMobileFiltersContainer>
+          </StyledMobileFiltersContainerDiv>
         </>
       )}
       <StyledTableDivWrapper>
-        <Table
-          ref={tableRef}
-          className="table-wrapper"
-          columns={columns} //columnType
-          dataSource={filteredData}
-          onChange={onChange}
-          size="middle"
-          rowKey="id"
-          pagination={{ defaultPageSize: props.rowAmount }}
-          // onRow={(record, rowIndex) => ({
-          // onMouseEnter: (event) => checkIfTextOverflowing(record, rowIndex),
-          //   // onMouseLeave: (event) => closeModal(),
-          // })}
-        />
+        <div ref={tableRef}>
+          <Table
+            // ref={tableRef}
+            className="table-wrapper"
+            columns={columns} //columnType
+            dataSource={filteredData}
+            onChange={onChange}
+            rowKey="id"
+            pagination={{
+              defaultPageSize: props.rowAmount,
+              pageSizeOptions: [7, 10, 13, 20, 50, 100],
+            }}
+          />
+        </div>
         {isModalVisible && (
-          <div onMouseLeave={closeModal}>
-            <Modal
-              title="Detaljno"
-              open={isModalVisible}
-              onCancel={closeModal}
-              mask={false}
-              footer={null}
-              style={{
-                position: 'absolute',
-                ...modalPosition,
-              }}
-            >
-              {selectedRow && (
-                <div>
-                  {/* Display selected row details inside the modal */}
-                  {/* need to test and see what to show, how  */}
-                  <p>Vrsta rashoda: {selectedRow.vrstarashoda}</p>
-                </div>
-              )}
-            </Modal>
-          </div>
+          <Modal
+            title="Opširnije"
+            open={isModalVisible}
+            onCancel={closeModal}
+            mask={false}
+            footer={null}
+            width={'auto'}
+            style={{
+              position: 'absolute',
+              ...modalPosition,
+            }}
+          >
+            {selectedRow && (
+              <div>
+                <p>{selectedCellValue}</p>
+              </div>
+            )}
+          </Modal>
         )}
       </StyledTableDivWrapper>
     </StyledResultsTableDiv>

@@ -1,5 +1,5 @@
 import { Checkbox, Modal, Table } from "antd";
-import { mobileWidth } from "src/app/global/constants";
+import { mobileScreenWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 
@@ -37,7 +37,10 @@ export const StyledMobileRow = styled.tr`
 `
 
 export const StyledCellHeightSpan = styled.span`
-    height: 47px; /* ROW HEIGHT */
+    height: 3rem; /* ROW HEIGHT */
+    line-height: 1.4rem;
+    
+    // margin: auto;
     overflow: hidden; 
     
     // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
@@ -54,40 +57,43 @@ export const StyledCellHeightSpan = styled.span`
 `
 
 export const StyledTableDivWrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.2);
+  // background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
+  margin-bottom: 20px;
   // padding: 10px 0;
+  
+  
+  //TABLE FONT SIZE
+  table{
+    // font-size: 1rem;
+  }
+
 
   /* FIXES COLUMN WIDTH */
   .table-wrapper table {
     table-layout: fixed !important; /* rewrite inline styles */
   }
 
-  .ant-pagination-item {
-    // padding: 5px; 
-  }
-
   .ant-table-thead > tr > th {
     background-color: #4d4d4d; 
     color: white;
     text-transform: uppercase;
-    font-weight: 500;
-    font-size: 12px;
+    font-weight: 400;
   }
   
 // Row apdding
   td.ant-table-cell {
-    padding:5px !important;
+    padding: 5px 16px !important;
   }
 
-  @media (min-width: ${mobileWidth}px) {
+  @media (min-width: ${mobileScreenWidth}px) {
       .ant-table-tbody > tr:nth-child(3n) {
         background-color: #e6faff; 
       }
   }
 
   td.ant-table-column-sort {
-      background-color: rgba(255, 255, 255, 0);
+      // background-color: rgba(255, 255, 255, 0);
   }
   
   .anticon.anticon-filter svg path{
@@ -96,7 +102,9 @@ export const StyledTableDivWrapper = styled.div`
   }
 
   /* Mobile-specific styles */
-  @media (max-width: ${mobileWidth}px) {
+  @media (max-width: ${mobileScreenWidth}px) {
+    margin-bottom: 30px;
+
     .ant-table-tbody > tr:nth-child(2n) {
       background-color: #e6faff; 
     }
@@ -136,8 +144,11 @@ margin-bottom: 10px;
 }
 `
 
-export const StyledMobileFiltersContainer = styled.div`
+export const StyledMobileFiltersContainerDiv = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  button span{ 
+    // font-size: 1rem;
+  }
 `

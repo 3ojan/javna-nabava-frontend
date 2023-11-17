@@ -1,14 +1,16 @@
 import { Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { mobileWidth } from "src/app/global/constants";
+import { mobileScreenWidth, searchBorderRadius } from "src/app/global/constants";
 import { styled } from "styled-components";
 
 
 const searchBarHeight = "32px";
-const searchBorderRadius = "6px";
 
 export const StyledTransparencyLayout = styled(Layout)`
     background-color: transparent;
+    @media only screen and (max-width: ${mobileScreenWidth}px) {
+      padding-right: 10px;
+    }
 `
 export const StyledTransparencyContent = styled(Content)`
     background-color: transparent;
@@ -19,13 +21,23 @@ export const StyledSelectWrapper = styled.div`
   div{
       width: 120px;
   }
+  
+  @media only screen and (max-width: ${mobileScreenWidth}px) {
+    div{
+    width: 90px;
+    }
+  }
 `
 
 export const StyledSearchBar = styled.div`
 width: 100%;
 display: flex;
 align-items: center;
+
 .search-input {
+  // font-size: 1rem;
+  // padding: 20px;
+
   flex: 1;
   height: ${searchBarHeight};
   border-radius: ${searchBorderRadius} 0 0 ${searchBorderRadius};
@@ -34,9 +46,8 @@ align-items: center;
 :where(.css-dev-only-do-not-override-1m62vyb).ant-select-single .ant-select-selector{
    height: ${searchBarHeight};
   //  border-radius: ${searchBorderRadius};
-   
 }
- select{
+ select {
   background-color: transparent; 
   border-top: 1px silver solid;
   border-bottom: 1px silver solid; 
@@ -47,6 +58,7 @@ align-items: center;
  }
 
 .ant-select-selector{
+  // font-size: 1rem;
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
 }
 
@@ -56,9 +68,9 @@ align-items: center;
   border-radius: 0 ${searchBorderRadius} ${searchBorderRadius} 0;
 }
 
-@media only screen and (max-width: ${mobileWidth}px) {
+@media only screen and (max-width: ${mobileScreenWidth}px) {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   .customDropdown {
     width: 100px
   }  

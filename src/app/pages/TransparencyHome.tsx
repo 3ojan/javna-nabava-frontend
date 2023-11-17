@@ -1,4 +1,13 @@
-import { Button, Col, Row, Space, Spin, TableProps } from 'antd';
+import {
+  Button,
+  Col,
+  Collapse,
+  CollapseProps,
+  Row,
+  Space,
+  Spin,
+  TableProps,
+} from 'antd';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable, { DataType } from '../components/table/ResultTable';
 import {
@@ -11,13 +20,14 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import {
-  StyledAppTitleHeader,
+  StyledAppTitleH1,
   StyledFullWidthDiv,
-  StyledHeaderDiv,
+  StyledHeaderLine,
   StyledMainTitlRow,
   StyledMainTitleDiv,
-  StyledMainTitleH1,
-  StyledMainTitleH2,
+  StyledAppHeaderDiv,
+  StyledPlaceInfoH1,
+  StyledPlaceInfoH3,
   StyledPlaceInfoDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
@@ -26,8 +36,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
-import { StyledAppDescDiv, StyledFooter, StyledRow } from './styled.ts';
-import { largeScreenWidth, mobileWidth } from '../global/constants.ts';
+import {
+  StyledAppDescDiv,
+  StyledFooter,
+  StyledFooterLogoImg,
+  StyledMainPageContainerDiv,
+  StyledResultsInfoDiv,
+  StyledRow,
+} from './styled.ts';
+import {
+  largeScreenHeight,
+  largeScreenWidth,
+  mobileScreenWidth,
+} from '../global/constants.ts';
 import { debug } from 'console';
 import { Footer } from 'antd/es/layout/layout';
 
@@ -42,8 +63,9 @@ function TransparencyHome() {
 
   const [loadedValuesCount, setLoadedValuesCount] = useState<string>('0');
   const [sumIznosValues, setSumIznosValues] = useState<string>('0');
+  const [latestCreatedDate, setLatestCreatedDate] = useState<Date>();
   const [tempData, setTempData] = useState<DataType[]>([]);
-  const [isMobileWidth, setIsMobileWidth] = useState(false);
+  const [isMobileScreenWidth, setIsMobileScreenWidth] = useState(false);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
@@ -64,6 +86,52 @@ function TransparencyHome() {
     isDataLoaded,
     isOpcinaDataLoaded,
   } = transparencyState as TransparencyState;
+
+  const ResultsInfo = () => (
+    <StyledResultsInfoDiv>
+      <p>
+        Ukupno isplata u <b>{selectedYear}.</b> godini: <b>{sumIznosValues}</b>{' '}
+        €<br />
+        {/* </p> */}
+        {/* <hr /> */}
+        {/* <p> */}
+        Ukupno stavaka: <b>{loadedValuesCount}</b>
+        <br />
+        {/* </p> */}
+        {/* <hr /> */}
+        {/* <p> */}
+        Podaci ažurirani:{' '}
+        <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
+      </p>
+    </StyledResultsInfoDiv>
+  );
+
+  const AboutAppText = () => (
+    <p>
+      Objava informacija o trošenju sredstava iz proračuna temeljem članka 144.
+      Zakona o proračunu ("Narodne novine", broj 144/21) i
+      <br />
+      {/* maknut br na mobilnoh */}
+      Naputka o okvirnom sadržaju, minimalnom skupu podataka te načinu javne
+      objave informacija o trošenju sredstava ("Narodne novine", broj 59/23).
+    </p>
+  );
+
+  const items: CollapseProps['items'] = [
+    {
+      key: '1',
+      label: 'O aplikaciji',
+      children: <AboutAppText />,
+    },
+  ];
+
+  const resultInfoCollapseProps: CollapseProps['items'] = [
+    {
+      key: '1',
+      label: 'informacije o sveukupnim rezultatima',
+      children: <ResultsInfo />,
+    },
+  ];
 
   const onChange = (e: any) => {
     dispatch(changeSearchBarValue(e.target.value) as any);
@@ -87,10 +155,10 @@ function TransparencyHome() {
     );
   };
 
-  //TODO: TEST THIS WIHT DIFFERENT SCREEN SIZES
+  //TODO: TEST THIS WITH DIFFERENT SCREEN SIZES
   const rowAmountDependOnSize = () => {
-    if (window.screen.width <= largeScreenWidth) {
-      return 5;
+    if (window.innerHeight <= largeScreenHeight) {
+      return 7;
     }
     return 10;
   };
@@ -144,12 +212,22 @@ function TransparencyHome() {
   const getAvailableYears = () => {
     const yearFromData: string[] = [];
 
-    data.forEach((item: any) => {
-      const year = item.datum.split('-')[0];
-      if (!yearFromData.includes(year)) {
+    let latest_created_date: Date | null = null;
+
+    data.forEach((item: DataType) => {
+      const year = item.datum?.split('-')[0];
+      if (year && !yearFromData.includes(year)) {
         yearFromData.push(year);
       }
+
+      const createdDate = new Date(item.created_at);
+      if (!latest_created_date || createdDate > latest_created_date) {
+        latest_created_date = createdDate;
+      }
     });
+    if (latest_created_date) {
+      setLatestCreatedDate(latest_created_date);
+    }
     setAvailableYears(yearFromData);
   };
 
@@ -163,6 +241,7 @@ function TransparencyHome() {
       0
     );
   };
+
   useEffect(() => {
     // This effect runs after the initial render
     if (
@@ -171,7 +250,7 @@ function TransparencyHome() {
       searchValue === null
     ) {
       //gets default data
-      dispatch(getData(opcinaData.url, selectedYear) as any);
+      // dispatch(getData(opcinaData.url, selectedYear) as any);
     }
   }, [selectedYear]);
 
@@ -197,14 +276,15 @@ function TransparencyHome() {
       setGrbUrl(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.grb}`);
       setFavicon(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.favico}`);
       document.title = `Proracun ${opcinaData.naziv}`;
+      //gets default data
+      dispatch(getData(opcinaData.url, selectedYear) as any);
     }
-    dispatch(getData(opcinaData.url, selectedYear) as any);
   }, [opcinaData]);
 
   useEffect(() => {
     //Good to add is OpcineData fetched flag for check
     document.title = `Proracun`;
-    setIsMobileWidth(window.screen.width <= mobileWidth);
+    setIsMobileScreenWidth(window.screen.width <= mobileScreenWidth);
     dispatch(getOpcineData() as any);
   }, []);
 
@@ -216,70 +296,76 @@ function TransparencyHome() {
   // }
 
   return (
-    <>
+    <StyledMainPageContainerDiv>
       <StyledFullWidthDiv $padding $background>
+        {/* <main> */}
         <Col>
-          <StyledHeaderDiv>
-            <Row>
+          <Row>
+            <StyledAppHeaderDiv>
               <StyledMainTitleDiv>
-                <StyledMainTitlRow>
-                  <Col>
-                    {/* <StyledMainTitleDiv> */}
-                    <StyledAppTitleHeader>
+                <StyledPlaceInfoDiv>
+                  <img src={grbUrl} alt="Grb opcine" />
+                  <div>
+                    <StyledAppTitleH1>
                       Isplata proračunskih sredstava
-                    </StyledAppTitleHeader>
-                    {/* </StyledMainTitleDiv> */}
-                  </Col>
-                </StyledMainTitlRow>
-                <Row>
-                  <StyledPlaceInfoDiv>
-                    <img src={grbUrl} alt="Grb opcine" />
-                    <div>
-                      <StyledMainTitleH1>{opcinaData.naziv}</StyledMainTitleH1>
-                      <StyledMainTitleH2>
-                        {opcinaData.zupanija}
-                      </StyledMainTitleH2>
-                    </div>
-                  </StyledPlaceInfoDiv>
-                </Row>
+                    </StyledAppTitleH1>
+                    <StyledPlaceInfoH3>
+                      {opcinaData.naziv}, {opcinaData.zupanija}
+                    </StyledPlaceInfoH3>
+                  </div>
+                </StyledPlaceInfoDiv>
               </StyledMainTitleDiv>
-            </Row>
-            <StyledRow>
-              <Col xs={isMobileWidth ? 24 : 8}>
-                <TransparentnostSearch
-                  onSelectYear={onSelectYear}
-                  currentYear={currentYear}
-                  onChangeInput={onChange}
-                  onYearSelect={onYearChange}
-                  availableYears={availableYears}
-                  // buttonEnabled={searchValue !== '' && selectedYear !== ''}
-                  // onSearchClick={onSearch}
+              <StyledHeaderLine />
+              <StyledAppDescDiv>
+                {isMobileScreenWidth ? (
+                  <Collapse bordered={false} items={items}></Collapse>
+                ) : (
+                  <AboutAppText />
+                )}
+                {/* {isMobileScreenWidth && (
+                  <Collapse
+                    bordered={false}
+                    // ghost={true}
+                    // size={'small'}
+                    items={resultInfoCollapseProps}
+                  ></Collapse>
+                )} */}
+              </StyledAppDescDiv>
+            </StyledAppHeaderDiv>
+          </Row>
+          <StyledRow>
+            <Col xs={isMobileScreenWidth ? 18 : 8}>
+              <TransparentnostSearch
+                onSelectYear={onSelectYear}
+                currentYear={currentYear}
+                onChangeInput={onChange}
+                onYearSelect={onYearChange}
+                availableYears={availableYears}
+              />
+            </Col>
+            <Col xs={isMobileScreenWidth ? 6 : 16}>
+              <StyledExportButtonsDiv>
+                <ExportButtons
+                  csvVisible={false}
+                  xmlVisible={false}
+                  placeName={getPlaceName()}
+                  selectedYear={selectedYear}
+                  dataForExport={data}
                 />
-              </Col>
-              <Col xs={isMobileWidth ? 24 : 16}>
-                <StyledExportButtonsDiv>
-                  <ExportButtons
-                    csvVisible={false}
-                    xmlVisible={false}
-                    placeName={getPlaceName()}
-                    selectedYear={selectedYear}
-                    dataForExport={data}
-                  />
-                </StyledExportButtonsDiv>
-              </Col>
-            </StyledRow>
-          </StyledHeaderDiv>
+              </StyledExportButtonsDiv>
+            </Col>
+          </StyledRow>
           {isDataLoaded ? (
             <>
-              <Row>
-                <ResultTable
-                  isplatiteljsFilter={isplatiteljColumnFilterItems}
-                  monthFilter={monthColumnFilterItems}
-                  data={tempData}
-                  rowAmount={rowAmountDependOnSize()}
-                  isMobileWidth={isMobileWidth}
-                />
-              </Row>
+              {/* <Row> */}
+              <ResultTable
+                isplatiteljsFilter={isplatiteljColumnFilterItems}
+                monthFilter={monthColumnFilterItems}
+                data={tempData}
+                rowAmount={rowAmountDependOnSize()}
+                isMobileWidth={isMobileScreenWidth}
+              />
+              {/* </Row> */}
             </>
           ) : (
             <StyledFullWidthDiv $center>
@@ -287,25 +373,16 @@ function TransparencyHome() {
             </StyledFullWidthDiv>
           )}
         </Col>
-        <StyledFooter>
-          <StyledAppDescDiv>
-            <p>
-              Objava informacija o trošenju sredstava iz proračuna temeljem
-              članka 144.
-              <br /> Zakona o proračunu ("Narodne novine", broj 144/21) i
-              Naputka o okvirnom sadržaju, minimalnom skupu podataka te načinu
-              javne objave informacija o trošenju sredstava ("Narodne novine",
-              broj 59/23).
-            </p>
-            <b>
-              Isplate u {selectedYear}. godini = {sumIznosValues} €, ukupno
-              stavaka {loadedValuesCount}, podaci ažurirani 20.2.2024. godine.
-            </b>
-          </StyledAppDescDiv>
-          <p>Pavi link - {new Date().getFullYear().toString()}</p>
-        </StyledFooter>
+        <ResultsInfo />
+        {/* </main> */}
       </StyledFullWidthDiv>
-    </>
+      <StyledFooter>
+        <p>Plavi link d.o.o., za usluge informacijskog društva</p>
+        <StyledFooterLogoImg
+          src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
+        />
+      </StyledFooter>
+    </StyledMainPageContainerDiv>
   );
 }
 
