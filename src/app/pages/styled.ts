@@ -55,7 +55,7 @@ export const StyledResultsInfoDiv = styled.div`
   background-color: white;
   border-radius: 15px;
   flex-direction: column;
-  
+
   // line-height: 1rem;
 
   p{

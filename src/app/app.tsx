@@ -21,7 +21,7 @@ export default function App() {
         theme={{
           token: {
             /* fontFamily: 'Abhaya Libre', */
-            fontSize: 16, //antd font size, theme font size
+            fontSize: 14, //antd font size, theme font size
           },
         }} //changes the global font
       >
