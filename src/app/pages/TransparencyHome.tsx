@@ -297,32 +297,29 @@ function TransparencyHome() {
 
   return (
     <StyledMainPageContainerDiv>
-      <StyledFullWidthDiv $padding $background>
-        {/* <main> */}
-        <Col>
-          <Row>
-            <StyledAppHeaderDiv>
-              <StyledMainTitleDiv>
-                <StyledPlaceInfoDiv>
-                  <img src={grbUrl} alt="Grb opcine" />
-                  <div>
-                    <StyledAppTitleH1>
-                      Isplata proračunskih sredstava
-                    </StyledAppTitleH1>
-                    <StyledPlaceInfoH3>
-                      {opcinaData.naziv}, {opcinaData.zupanija}
-                    </StyledPlaceInfoH3>
-                  </div>
-                </StyledPlaceInfoDiv>
-              </StyledMainTitleDiv>
-              <StyledHeaderLine />
-              <StyledAppDescDiv>
-                {isMobileScreenWidth ? (
-                  <Collapse bordered={false} items={items}></Collapse>
-                ) : (
-                  <AboutAppText />
-                )}
-                {/* {isMobileScreenWidth && (
+      <StyledAppHeaderDiv>
+        <StyledMainTitleDiv>
+          <StyledPlaceInfoDiv>
+            <img src={grbUrl} alt="Grb opcine" />
+            <div>
+              <StyledAppTitleH1>
+                Isplata proračunskih sredstava
+              </StyledAppTitleH1>
+              <StyledPlaceInfoH3>
+                {opcinaData.naziv}, {opcinaData.zupanija}
+              </StyledPlaceInfoH3>
+            </div>
+          </StyledPlaceInfoDiv>
+        </StyledMainTitleDiv>
+        <StyledAppDescDiv>
+          {isMobileScreenWidth ? (
+            <Collapse bordered={false} items={items}></Collapse>
+          ) : (
+            <>
+              <AboutAppText />
+            </>
+          )}
+          {/* {isMobileScreenWidth && (
                   <Collapse
                     bordered={false}
                     // ghost={true}
@@ -330,9 +327,10 @@ function TransparencyHome() {
                     items={resultInfoCollapseProps}
                   ></Collapse>
                 )} */}
-              </StyledAppDescDiv>
-            </StyledAppHeaderDiv>
-          </Row>
+        </StyledAppDescDiv>
+      </StyledAppHeaderDiv>
+      <StyledFullWidthDiv $padding $background>
+        <Col>
           <StyledRow>
             <Col xs={isMobileScreenWidth ? 18 : 8}>
               <TransparentnostSearch
@@ -357,7 +355,6 @@ function TransparencyHome() {
           </StyledRow>
           {isDataLoaded ? (
             <>
-              {/* <Row> */}
               <ResultTable
                 isplatiteljsFilter={isplatiteljColumnFilterItems}
                 monthFilter={monthColumnFilterItems}
@@ -365,7 +362,6 @@ function TransparencyHome() {
                 rowAmount={rowAmountDependOnSize()}
                 isMobileWidth={isMobileScreenWidth}
               />
-              {/* </Row> */}
             </>
           ) : (
             <StyledFullWidthDiv $center>
@@ -374,7 +370,6 @@ function TransparencyHome() {
           )}
         </Col>
         <ResultsInfo />
-        {/* </main> */}
       </StyledFullWidthDiv>
       <StyledFooter>
         <p>Plavi link d.o.o., za usluge informacijskog društva</p>

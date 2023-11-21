@@ -17,7 +17,7 @@ export const StyledMainPageContainerDiv = styled.div`
 
 export const StyledFooter = styled.div`
   // font-family: 'Merriweather', serif;
-  border-radius: 15px 15px 0 0;
+  // border-radius: 15px 15px 0 0;
   padding: 30px;
   
   display: flex;
@@ -25,7 +25,7 @@ export const StyledFooter = styled.div`
   align-items: center;
   flex-direction: column;
 
-  background-color: #4d4d4d; 
+  background-color: #265694; 
   color: white;
 
   bottom: 0;
@@ -72,17 +72,16 @@ export const StyledResultsInfoDiv = styled.div`
 `
 
 export const StyledAppDescDiv = styled.div`
-    // font-family: ${fontHeader};
     background-color: transparent;
-    // font-size: 1rem;
     text-align: start;
-    // text-align: center;
+    color: white;
+    // width: 100%;
 
   @media (max-width: ${mobileScreenWidth}px) {
     width: 100%;
     margin-bottom: 10px;
 
-    // display: flex;
+    display: flex;
     // flex-direction: column;
     // gap: 10px;
     padding: 10px 0;
