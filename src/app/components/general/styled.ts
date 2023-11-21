@@ -90,8 +90,7 @@ export const StyledAppTitleH1 = styled.h1`
 `
 
     
-export const StyledAppHeaderDiv = styled.div`    
-    // width: 100%;
+export const StyledAppHeaderDiv = styled.div`
     padding: 0 ${sitePaddingHorizontalLargeScreen};
     padding-top:10px;
     margin-bottom: 70px;
@@ -107,7 +106,8 @@ export const StyledAppHeaderDiv = styled.div`
     }
 
     @media only screen and (max-width: ${midScreenWidth}px) {
-        width: 100%;
+        padding: 0 ${sitePaddingHorizontalMidScreen};
+        padding-top: 10px;
 
         h2 {
             font-size: ${2/Math.pow(1.25, 2)}rem;
@@ -120,8 +120,9 @@ export const StyledAppHeaderDiv = styled.div`
     }
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
-        width: 100%;
-        margin-bottom: 0;
+        padding: 0 ${sitePaddingHorizontalMobileScreen};
+        padding-top: 10px;
+        margin-bottom: 20px;
 
         h2 {
             font-size: ${1.5/Math.pow(1.25, 2)}rem;

@@ -313,20 +313,12 @@ function TransparencyHome() {
         </StyledMainTitleDiv>
         <StyledAppDescDiv>
           {isMobileScreenWidth ? (
-            <Collapse bordered={false} items={items}></Collapse>
+            <Collapse items={items}></Collapse>
           ) : (
             <>
               <AboutAppText />
             </>
           )}
-          {/* {isMobileScreenWidth && (
-                  <Collapse
-                    bordered={false}
-                    // ghost={true}
-                    // size={'small'}
-                    items={resultInfoCollapseProps}
-                  ></Collapse>
-                )} */}
         </StyledAppDescDiv>
       </StyledAppHeaderDiv>
       <StyledFullWidthDiv $padding $background>

@@ -75,13 +75,17 @@ export const StyledAppDescDiv = styled.div`
     background-color: transparent;
     text-align: start;
     color: white;
-    // width: 100%;
 
   @media (max-width: ${mobileScreenWidth}px) {
-    width: 100%;
-    margin-bottom: 10px;
+    .ant-collapse-header-text, .ant-collapse-expand-icon {
+        color: white; /* Set your desired background color */
+    }
+    // width: 100%;
+    // margin-bottom: 10px;
 
-    display: flex;
+    // background-color: white;
+
+    // display: flex;
     // flex-direction: column;
     // gap: 10px;
     padding: 10px 0;
