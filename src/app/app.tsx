@@ -12,6 +12,7 @@ import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
 import BottomImages from './components/background/BottomImages';
 import { ImageUploadTestPage } from './pages/ImageUploadTestPage';
+import Login from './pages/Login.tsx';
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
                   path="/image-upload"
                   element={<ImageUploadTestPage title="" />}
                 />
+                <Route path="/login" element={<Login />} />
               </Routes>
             </Router>
           </Provider>

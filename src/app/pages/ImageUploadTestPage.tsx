@@ -1,4 +1,4 @@
-import ImageUpload from "../components/Image/ImageUpload";
+import ImageUpload from '../components/Image/ImageUpload';
 
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -8,6 +8,10 @@ import ImageUpload from "../components/Image/ImageUpload";
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 export function ImageUploadTestPage({ title }: { title: string }) {
+  // if (!token) {
+  //     return <Navigate to="/login" />;
+  // }
+
   return (
     <>
       <ImageUpload></ImageUpload>

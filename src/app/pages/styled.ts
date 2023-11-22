@@ -80,14 +80,7 @@ export const StyledAppDescDiv = styled.div`
     .ant-collapse-header-text, .ant-collapse-expand-icon {
         color: white; /* Set your desired background color */
     }
-    // width: 100%;
-    // margin-bottom: 10px;
-
-    // background-color: white;
-
-    // display: flex;
-    // flex-direction: column;
-    // gap: 10px;
+    
     padding: 10px 0;
   }
 `
