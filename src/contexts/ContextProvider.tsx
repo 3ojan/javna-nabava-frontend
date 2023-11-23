@@ -18,18 +18,17 @@ const StateContext = createContext<StateContextType>({
   //<StateContextType>
   user: null,
   token: null,
-  setUser: () => {},
-  setToken: () => {},
+  setUser: () => { },
+  setToken: () => { },
 });
 
-export const ContextProvider = (children: any) => {
+export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any>({});
   const [token, _setToken] = useState<string | null>(
     localStorage.getItem(ACCESS_TOKEN)
   );
 
   const setToken = (token: any) => {
-    debugger;
     _setToken(token);
     if (token) {
       localStorage.setItem(ACCESS_TOKEN, token);
@@ -38,18 +37,8 @@ export const ContextProvider = (children: any) => {
     }
   };
 
-  return (
-    <StateContext.Provider
-      value={{
-        user,
-        token,
-        setUser,
-        setToken,
-      }}
-    >
-      {children}
-    </StateContext.Provider>
-  );
+
+  return <StateContext.Provider value={{ user, token, setUser, setToken }}>{children}</StateContext.Provider>;
 };
 
 export const useStateContext = () => useContext(StateContext);

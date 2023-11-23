@@ -25,8 +25,10 @@ export default function LoginForm() {
 
   const onSubmit = (values: any) => {
     const payload: authPayload = {
-      name: values.name,
-      password: values.password,
+      // name: values.name,
+      // password: values.password,
+      name: "Admin User",
+      password: "Pa$$w0rd",
     };
     // console.log('Received values payload: ', payload);
     axiosClient
@@ -82,7 +84,7 @@ export default function LoginForm() {
 
         <Form.Item
           name="name"
-          rules={[{ required: true, message: 'Unesite korisnčko ime' }]}
+        // rules={[{ required: true, message: 'Unesite korisnčko ime' }]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -91,7 +93,7 @@ export default function LoginForm() {
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Unesite lozinku' }]}
+        // rules={[{ required: true, message: 'Unesite lozinku' }]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}

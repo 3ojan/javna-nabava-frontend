@@ -14,19 +14,19 @@ axiosClient.interceptors.request.use((config) => {
 
 axiosClient.interceptors.response.use(
   (response) => {
-      return response;
+    return response;
   },
   (error) => {
-      try {
-          const { response } = error;
-          if (response.status === 401) {
-              localStorage.removeItem(getACCESS_TOKEN);
-          }
-      } catch (e) {
-          console.error(e);
+    try {
+      const { response } = error;
+      if (response.status === 401) {
+        localStorage.removeItem(getACCESS_TOKEN);
       }
+    } catch (e) {
+      console.error(e);
+    }
 
-      throw error;
+    throw error;
   }
 );
 export default axiosClient;
