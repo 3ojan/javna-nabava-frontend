@@ -36,8 +36,7 @@ export default function LoginForm() {
       .then((res: any) => {
         console.log('res data', res.data);
         setUser(res.data.user);
-        debugger;
-
+        ///ovo ti neće raditi, stavi setTokenAndUser(token.user)
         setToken(res.data.token);
 
         console.log('token', token);
