@@ -8,37 +8,67 @@ export const StyledRow = styled(Row)`
   .ant-col {
     height: fit-content;
   }
-`;
+`
+
 export const StyledMainPageContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 `
 
+export const StyledFooterBgImg = styled.img`
+  width: 900px; /* Make the image fill the container */
+  height: auto; /* Maintain aspect ratio */
+  transform: rotate(13deg);
+  margin-left: -100px;
+  margin-top: 150px;
+
+    // float: left;
+    // z-index: -10;
+`
+
+export const StyledFooterBgImgContainerDiv = styled.div`
+  left: 0;
+  bottom: -150px;
+  position: absolute;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  z-index: -10;
+`
+
 export const StyledFooter = styled.div`
-  // font-family: 'Merriweather', serif;
-  // border-radius: 15px 15px 0 0;
-  padding: 30px;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  background-color: #265694; 
+  padding: 10px;  
   color: white;
-
   bottom: 0;
   position: relative;
+  hegith: 100vh;
+  // background-color: #265694; 
+  text-align: center;
+
+overflow: hidden;
 
   p{
     font-weight: 300;
   }
 
-  @media (max-width: ${mobileScreenWidth}px) {
-    // padding: 0;
+  //for background radius conatiner
+  div{
+      background-color: #265694;
+      padding: 40px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1; // puts div info
   }
-  
+
+  @media (max-width: ${mobileScreenWidth}px) {
+    div{
+      padding: 20px;
+    }
+  }
 `
 
 export const StyledFooterLogoImg = styled.img`
@@ -75,6 +105,9 @@ export const StyledAppDescDiv = styled.div`
     background-color: transparent;
     text-align: start;
     color: white;
+    p{
+      margin-bottom: 0;
+    }
 
   @media (max-width: ${mobileScreenWidth}px) {
     .ant-collapse-header-text, .ant-collapse-expand-icon {

@@ -19,6 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     // font-family: 'open sans', sans-serif;
     font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
     // overflow-y: scroll; 
+    // overflow: hidden;
   }
 `;
  

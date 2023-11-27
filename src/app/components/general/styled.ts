@@ -92,9 +92,9 @@ export const StyledAppTitleH1 = styled.h1`
     
 export const StyledAppHeaderDiv = styled.div`
     padding: 0 ${sitePaddingHorizontalLargeScreen};
-    padding-top:10px;
+    padding:10px;
     margin-bottom: 70px;
-    background-color: #265694;
+    // background-color: #265694;
 
     h2 {
         font-size: ${2.5/Math.pow(1.25, 2)}rem;
@@ -107,7 +107,7 @@ export const StyledAppHeaderDiv = styled.div`
 
     @media only screen and (max-width: ${midScreenWidth}px) {
         padding: 0 ${sitePaddingHorizontalMidScreen};
-        padding-top: 10px;
+        padding:10px;
 
         h2 {
             font-size: ${2/Math.pow(1.25, 2)}rem;
@@ -133,6 +133,12 @@ export const StyledAppHeaderDiv = styled.div`
             font-weight: inherit;
         }
     }
+`
+
+export const StyledAppHeaderBgDiv = styled.div`
+    background-color: #265694;
+    padding: 15px 30px;
+    border-radius: 10px;
 `
 
 export const StyledMainTitlRow = styled.div`

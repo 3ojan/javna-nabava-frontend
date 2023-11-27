@@ -29,6 +29,7 @@ import {
   StyledPlaceInfoH1,
   StyledPlaceInfoH3,
   StyledPlaceInfoDiv,
+  StyledAppHeaderBgDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
@@ -39,6 +40,8 @@ import { getPlaceName } from 'src/helper/domainHelper.ts';
 import {
   StyledAppDescDiv,
   StyledFooter,
+  StyledFooterBgImg,
+  StyledFooterBgImgContainerDiv,
   StyledFooterLogoImg,
   StyledMainPageContainerDiv,
   StyledResultsInfoDiv,
@@ -298,28 +301,30 @@ function TransparencyHome() {
   return (
     <StyledMainPageContainerDiv>
       <StyledAppHeaderDiv>
-        <StyledMainTitleDiv>
-          <StyledPlaceInfoDiv>
-            <img src={grbUrl} alt="Grb opcine" />
-            <div>
-              <StyledAppTitleH1>
-                Isplata proračunskih sredstava
-              </StyledAppTitleH1>
-              <StyledPlaceInfoH3>
-                {opcinaData.naziv}, {opcinaData.zupanija}
-              </StyledPlaceInfoH3>
-            </div>
-          </StyledPlaceInfoDiv>
-        </StyledMainTitleDiv>
-        <StyledAppDescDiv>
-          {isMobileScreenWidth ? (
-            <Collapse items={items}></Collapse>
-          ) : (
-            <>
-              <AboutAppText />
-            </>
-          )}
-        </StyledAppDescDiv>
+        <StyledAppHeaderBgDiv>
+          <StyledMainTitleDiv>
+            <StyledPlaceInfoDiv>
+              <img src={grbUrl} alt="Grb opcine" />
+              <div>
+                <StyledAppTitleH1>
+                  Isplata proračunskih sredstava
+                </StyledAppTitleH1>
+                <StyledPlaceInfoH3>
+                  {opcinaData.naziv}, {opcinaData.zupanija}
+                </StyledPlaceInfoH3>
+              </div>
+            </StyledPlaceInfoDiv>
+          </StyledMainTitleDiv>
+          <StyledAppDescDiv>
+            {isMobileScreenWidth ? (
+              <Collapse items={items}></Collapse>
+            ) : (
+              <>
+                <AboutAppText />
+              </>
+            )}
+          </StyledAppDescDiv>
+        </StyledAppHeaderBgDiv>
       </StyledAppHeaderDiv>
       <StyledFullWidthDiv $padding $background>
         <Col>
@@ -364,11 +369,19 @@ function TransparencyHome() {
         <ResultsInfo />
       </StyledFullWidthDiv>
       <StyledFooter>
-        <p>Plavi link d.o.o., za usluge informacijskog društva</p>
-        <StyledFooterLogoImg
-          src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
-        />
+        <div>
+          <p>Plavi link d.o.o., za usluge informacijskog društva</p>
+          <StyledFooterLogoImg
+            src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
+          />
+        </div>
       </StyledFooter>
+      <StyledFooterBgImgContainerDiv>
+        <StyledFooterBgImg
+          src={`${import.meta.env.VITE_API_IMG_URL}/footerImg.jpg`}
+          alt="footer image"
+        />
+      </StyledFooterBgImgContainerDiv>
     </StyledMainPageContainerDiv>
   );
 }
