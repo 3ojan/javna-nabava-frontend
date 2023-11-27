@@ -12,6 +12,9 @@ import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
 import BottomImages from './components/background/BottomImages';
 import { ImageUploadTestPage } from './pages/ImageUploadTestPage';
+import Login from './pages/Login.tsx';
+import { ContextProvider } from 'src/contexts/ContextProvider.tsx';
+
 
 export default function App() {
   return (
@@ -25,22 +28,24 @@ export default function App() {
           },
         }} //changes the global font
       >
-        <GlobalStyle />
-
-        <StyledFullWidthDiv $center>
-          <Provider store={store}>
-            <Router>
-              <Routes>
-                <Route path="/" element={<TransparencyHome />} />
-                <Route path="/home" element={<NxWelcome title="" />} />
-                <Route
-                  path="/image-upload"
-                  element={<ImageUploadTestPage title="" />}
-                />
-              </Routes>
-            </Router>
-          </Provider>
-        </StyledFullWidthDiv>
+        <ContextProvider>
+          <GlobalStyle />
+          <StyledFullWidthDiv $center>
+            <Provider store={store}>
+              <Router>
+                <Routes>
+                  <Route path="/" element={<TransparencyHome />} />
+                  <Route path="/home" element={<NxWelcome title="" />} />
+                  <Route
+                    path="/image-upload"
+                    element={<ImageUploadTestPage title="" />}
+                  />
+                  <Route path="/login" element={<Login />} />
+                </Routes>
+              </Router>
+            </Provider>
+          </StyledFullWidthDiv>
+        </ContextProvider>
       </ConfigProvider>
     </>
   );
