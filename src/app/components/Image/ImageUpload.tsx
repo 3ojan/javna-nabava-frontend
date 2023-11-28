@@ -53,6 +53,7 @@ export default function ImageUpload(props: ImageUploadProps) {
           alert('Image uploaded successfully');
         })
         .catch((error) => {
+          alert('Error while uploading image');
           console.log(error);
         });
     };
@@ -83,7 +84,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             className="form-control"
             required
             name="image"
-            accept=".jpg" //, .jpeg, .png
+            accept=".jpg, .jpeg, .png"
             onChange={onImageChange}
           />
           <button onClick={onCustomUpload}>Upload</button>

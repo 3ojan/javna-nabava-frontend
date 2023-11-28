@@ -40,6 +40,7 @@ import { getPlaceName } from 'src/helper/domainHelper.ts';
 import {
   StyledAppDescDiv,
   StyledFooter,
+  StyledFooterContainerDiv,
   StyledFooterBgImg,
   StyledFooterBgImgContainerDiv,
   StyledFooterLogoImg,
@@ -368,17 +369,17 @@ function TransparencyHome() {
         </Col>
         <ResultsInfo />
       </StyledFullWidthDiv>
-      <StyledFooter>
-        <div>
+      <StyledFooterContainerDiv>
+        <StyledFooter>
           <p>Plavi link d.o.o., za usluge informacijskog društva</p>
           <StyledFooterLogoImg
             src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
           />
-        </div>
-      </StyledFooter>
+        </StyledFooter>
+      </StyledFooterContainerDiv>
       <StyledFooterBgImgContainerDiv>
         <StyledFooterBgImg
-          src={`${import.meta.env.VITE_API_IMG_URL}/footerImg.jpg`}
+          src={`${import.meta.env.VITE_API_IMG_URL}/footerSvg.svg`}
           alt="footer image"
         />
       </StyledFooterBgImgContainerDiv>

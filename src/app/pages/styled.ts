@@ -14,22 +14,20 @@ export const StyledMainPageContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 `
 
 export const StyledFooterBgImg = styled.img`
-  width: 900px; /* Make the image fill the container */
+  width: 1300px; /* Make the image fill the container */
   height: auto; /* Maintain aspect ratio */
-  transform: rotate(13deg);
+  transform: rotate(15deg);
   margin-left: -100px;
-  margin-top: 150px;
-
-    // float: left;
-    // z-index: -10;
+  margin-top: -140px;
 `
 
 export const StyledFooterBgImgContainerDiv = styled.div`
   left: 0;
-  bottom: -150px;
+  bottom: 0px;
   position: absolute;
   height: 400px;
   width: 100%;
@@ -37,7 +35,7 @@ export const StyledFooterBgImgContainerDiv = styled.div`
   z-index: -10;
 `
 
-export const StyledFooter = styled.div`
+export const StyledFooterContainerDiv = styled.div`
   padding: 10px;  
   color: white;
   bottom: 0;
@@ -46,30 +44,29 @@ export const StyledFooter = styled.div`
   // background-color: #265694; 
   text-align: center;
 
-overflow: hidden;
-
   p{
     font-weight: 300;
   }
+`
 
-  //for background radius conatiner
-  div{
-      background-color: #265694;
-      padding: 40px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1; // puts div info
+export const StyledFooter = styled.div`
+  background-color: #265694;
+  padding: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1; // puts div info
+
+    div{
   }
 
   @media (max-width: ${mobileScreenWidth}px) {
-    div{
       padding: 20px;
-    }
   }
 `
+
 
 export const StyledFooterLogoImg = styled.img`
   width: 30px;
