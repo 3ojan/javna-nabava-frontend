@@ -247,7 +247,6 @@ export default function ResultTable(props: TableData) {
 
   const checkIfTextOverflowing = (record: DataType, key: string) => {
     console.log(record);
-    debugger;
     const trElement: HTMLElement | null | undefined = (
       tableRef.current as HTMLElement | null
     )?.querySelector(`table tr[data-row-key="${record.id as string}"]`);

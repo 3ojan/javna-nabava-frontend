@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios'; // Assuming you're using axios
 import axiosClient from 'src/axios-client';
+import { useStateContext } from 'src/contexts/ContextProvider';
 
 interface ImageUploadProps {
   onImageUpload?: (data: any) => void;
@@ -20,6 +21,13 @@ export const StyledImageWrapper = styled.div`
 export default function ImageUpload(props: ImageUploadProps) {
   const { onImageUpload } = props;
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [expirationTime, setExpirationTime] = useState<Date | null>(null);
+  const { expiration } = useStateContext();
+
+  if (new Date() > new Date(expiration!)) {
+    // Perform logout logic here
+    // Redirect the user to the login page or show a logout modal
+  }
 
   const onUploadImage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -65,6 +73,14 @@ export default function ImageUpload(props: ImageUploadProps) {
       // onCustomUpload(event, file);
     }
   };
+
+  useEffect(() => {
+    const timeToExpire = new Date();
+    timeToExpire.setHours(timeToExpire.getHours() + expiration! / 60);
+
+    setExpirationTime(timeToExpire);
+    console.log('expirartionTime', expirationTime);
+  }, [expiration]);
 
   return (
     <>
