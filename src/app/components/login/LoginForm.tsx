@@ -19,9 +19,9 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<string[] | undefined>(undefined);
   const { token, setUser, setToken } = useStateContext();
 
-  if (token) {
-    return <Navigate to="/image-upload" />;
-  }
+  // if (token) {
+  //   return <Navigate to="/image-upload" />;
+  // }
 
   const onSubmit = (values: any) => {
     const payload: authPayload = {
@@ -68,7 +68,6 @@ export default function LoginForm() {
         <h1>Prijava</h1>
         {errors &&
           Object.keys(errors).map((index: string) => {
-            debugger;
             return (
               <Alert
                 key={index}

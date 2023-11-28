@@ -12,14 +12,12 @@ import { useStateContext } from 'src/contexts/ContextProvider';
 export function ImageUploadTestPage({ title }: { title: string }) {
   const { token } = useStateContext();
 
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
+  // if (!token) {
+  //   return <Navigate to="/login" />;
+  // }
 
   return (
-    <>
-      <ImageUpload></ImageUpload>
-    </>
+    <ImageUpload></ImageUpload>
   );
 }
 
