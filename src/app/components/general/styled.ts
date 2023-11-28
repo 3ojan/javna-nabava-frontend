@@ -1,4 +1,4 @@
-import { fontHeader, midScreenHeight, midScreenWidth, mobileScreenWidth } from "src/app/global/constants";
+import { colorPrimary, fontHeader, midScreenHeight, midScreenWidth, mobileScreenWidth, sitePaddingHorizontalLargeScreen, sitePaddingHorizontalMidScreen, sitePaddingHorizontalMobileScreen } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
@@ -12,17 +12,13 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
     ${props => props.$padding && css`
     //pushes footer from the main content
         margin-bottom: 150px;
-
-        // For under 2k res screens max-width: 1900px
-        // @media only screen and (max-width: 1900px) {
-            padding: 0 7%;
-        // }
+        padding: 0 ${sitePaddingHorizontalLargeScreen};
 
         @media only screen and (max-width: ${midScreenWidth}px) {
-            padding: 0 5%;
+            padding: 0 ${sitePaddingHorizontalMidScreen};
         }
         @media only screen and (max-width: ${mobileScreenWidth}px) {
-            padding: 0 50;
+            padding: 0 ${sitePaddingHorizontalMobileScreen};
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -47,13 +43,14 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
 // `
 
 export const StyledHeaderLine = styled.div`
-height: 1px;
-background-color: black;
-width: 100%;
+    height: 1px;
+    background-color: white;
+    // background: linear-gradient(to right, white, transparent);
+    width: 10%;
 `
 
 export const StyledMainTitleDiv = styled.div`
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -78,6 +75,7 @@ export const StyledAppTitleH1 = styled.h1`
     text-align: center;
     width: fit-content;
     display: inline-block;
+    color: white;
 
     @media only screen and (max-width: ${midScreenWidth}px) {
         font-size: 2.4rem;
@@ -91,10 +89,12 @@ export const StyledAppTitleH1 = styled.h1`
     }
 `
 
-export const StyledAppHeaderDiv = styled.div`    
-    width: 100%;
-    margin-top:40px;
+    
+export const StyledAppHeaderDiv = styled.div`
+    padding: 0 ${sitePaddingHorizontalLargeScreen};
+    padding:10px;
     margin-bottom: 70px;
+    // background-color: ${colorPrimary};
 
     h2 {
         font-size: ${2.5/Math.pow(1.25, 2)}rem;
@@ -106,7 +106,8 @@ export const StyledAppHeaderDiv = styled.div`
     }
 
     @media only screen and (max-width: ${midScreenWidth}px) {
-        width: 100%;
+        padding: 0 ${sitePaddingHorizontalMidScreen};
+        padding:10px;
 
         h2 {
             font-size: ${2/Math.pow(1.25, 2)}rem;
@@ -119,8 +120,9 @@ export const StyledAppHeaderDiv = styled.div`
     }
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
-        width: 100%;
-        margin-bottom: 0;
+        padding: 0 ${sitePaddingHorizontalMobileScreen};
+        padding-top: 10px;
+        margin-bottom: 20px;
 
         h2 {
             font-size: ${1.5/Math.pow(1.25, 2)}rem;
@@ -133,6 +135,12 @@ export const StyledAppHeaderDiv = styled.div`
     }
 `
 
+export const StyledAppHeaderBgDiv = styled.div`
+    background-color: ${colorPrimary};
+    padding: 15px 30px;
+    border-radius: 10px;
+`
+
 export const StyledMainTitlRow = styled.div`
     width: 100%;
     display: flex;
@@ -141,20 +149,16 @@ export const StyledMainTitlRow = styled.div`
 `
 
 export const StyledPlaceInfoDiv = styled.div`
-// background-color: purple;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 10px;
-    // margin-bottom: 50px;
     float: left;
-    // height: 70px;
 
     div{
         display: flex;
         flex-direction: column;
         align-items: start;
-        // justify-content: space-between;
     }
 
     img{
@@ -205,11 +209,7 @@ export const StyledPlaceInfoH1 = styled.h2<{$center?: boolean}>`
     font-family: ${fontHeader};
     font-size: ${1.8}rem;
     font-weight: inherit;
-    a {
-        link-style: none;
-        color: black;
-    }
-
+    
     @media only screen and (max-width: ${mobileScreenWidth}px) {
         font-size: ${1.5}rem;
     }
@@ -218,12 +218,8 @@ export const StyledPlaceInfoH1 = styled.h2<{$center?: boolean}>`
 export const StyledPlaceInfoH3 = styled.h3<{$center?: boolean}>`
     text-align: ${props => props.$center ? 'center' : 'default'};
     font-family: ${fontHeader};
-
     margin: 0;
-    a {
-        link-style: none;
-        color: black;
-    }
+    color: white;
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
         // text-align: center;

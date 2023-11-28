@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import { css, keyframes, styled } from "styled-components";
-import { fontHeader, mobileScreenWidth, searchBorderRadius } from "../global/constants";
+import { colorPrimary, fontHeader, mobileScreenWidth, searchBorderRadius } from "../global/constants";
 
 export const StyledRow = styled(Row)`
   height: fit-content;
@@ -8,38 +8,66 @@ export const StyledRow = styled(Row)`
   .ant-col {
     height: fit-content;
   }
-`;
+`
+
 export const StyledMainPageContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 `
 
-export const StyledFooter = styled.div`
-  // font-family: 'Merriweather', serif;
-  border-radius: 15px 15px 0 0;
-  padding: 30px;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+export const StyledFooterBgImg = styled.img`
+  width: 1300px; /* Make the image fill the container */
+  height: auto; /* Maintain aspect ratio */
+  transform: rotate(15deg);
+  margin-left: -100px;
+  margin-top: -140px;
+`
 
-  background-color: #4d4d4d; 
+export const StyledFooterBgImgContainerDiv = styled.div`
+  left: 0;
+  bottom: 0px;
+  position: absolute;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  z-index: -10;
+`
+
+export const StyledFooterContainerDiv = styled.div`
+  padding: 10px;  
   color: white;
-
   bottom: 0;
-  position: relative;
+  // position: relative;
+  hegith: 100vh;
+  // background-color: ${colorPrimary}; 
+  text-align: center;
 
   p{
     font-weight: 300;
   }
+`
+
+export const StyledFooter = styled.div`
+  // background-color: ${colorPrimary};
+  background: linear-gradient( #1c416e 0%, #265694 15%, #335d93 50%, #265694 85%, #1c416e 100%);
+  padding: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1; // puts div info
+
+    div{
+  }
 
   @media (max-width: ${mobileScreenWidth}px) {
-    // padding: 0;
+      padding: 20px;
   }
-  
 `
+
 
 export const StyledFooterLogoImg = styled.img`
   width: 30px;
@@ -55,7 +83,7 @@ export const StyledResultsInfoDiv = styled.div`
   background-color: white;
   border-radius: 15px;
   flex-direction: column;
-  
+
   // line-height: 1rem;
 
   p{
@@ -72,19 +100,34 @@ export const StyledResultsInfoDiv = styled.div`
 `
 
 export const StyledAppDescDiv = styled.div`
-    // font-family: ${fontHeader};
     background-color: transparent;
-    // font-size: 1rem;
     text-align: start;
-    // text-align: center;
+    color: white;
+    p{
+      margin-bottom: 0;
+    }
 
   @media (max-width: ${mobileScreenWidth}px) {
-    width: 100%;
-    margin-bottom: 10px;
-
-    // display: flex;
-    // flex-direction: column;
-    // gap: 10px;
+    .ant-collapse-header-text, .ant-collapse-expand-icon {
+        color: white; /* Set your desired background color */
+    }
+    
     padding: 10px 0;
+  }
+`
+
+export const LoginFormConatainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+
+  form{
+    width: 400px;
+  }
+
+  .login-form-button{
+    width: 100%;
   }
 `

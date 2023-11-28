@@ -10,15 +10,16 @@ export const GlobalStyle = createGlobalStyle`
   // }
 
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   body {
-    background-color: whitesmoke;
+    background-color: white;
     margin: 0;
     // font-family: 'open sans', sans-serif;
     font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
     // overflow-y: scroll; 
+    // overflow: hidden;
   }
 `;
  

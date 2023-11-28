@@ -38,24 +38,24 @@ export default function ImageUpload(props: ImageUploadProps) {
   };
 
   const onCustomUpload = () =>
-    /* event: ChangeEvent<HTMLInputElement>, file: File*/
-    {
-      if (!selectedImage) return;
-      // event.preventDefault();
-      const data = new FormData();
-      data.append('image', selectedImage, selectedImage.name);
-      console.log('data', data);
-      axiosClient
-        .post('/store-image', data)
-        .then((response) => {
-          console.log('resp', response.data);
-          onImageUpload && onImageUpload(response.data);
-          alert('Image uploaded successfully');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
+    /* event: ChangeEvent<HTMLInputElement>, file: File*/ {
+    if (!selectedImage) return;
+    // event.preventDefault();
+    const data = new FormData();
+    data.append('image', selectedImage, selectedImage.name);
+    console.log('data', data);
+    axiosClient
+      .post('/store-image', data)
+      .then((response) => {
+        console.log('resp', response.data);
+        onImageUpload && onImageUpload(response.data);
+        alert('Image uploaded successfully');
+      })
+      .catch((error) => {
+        alert('Error while uploading image');
+        console.log(error);
+      });
+  };
 
   const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -66,30 +66,28 @@ export default function ImageUpload(props: ImageUploadProps) {
   };
 
   return (
-    <>
-      <form onSubmit={onUploadImage}>
-        <div className="image">
-          {selectedImage && (
-            <StyledImageWrapper>
-              <img
-                alt="not fount"
-                width={'250px'}
-                src={URL.createObjectURL(selectedImage)}
-              />
-            </StyledImageWrapper>
-          )}
-          <input
-            type="file"
-            className="form-control"
-            required
-            name="image"
-            accept=".jpg" //, .jpeg, .png
-            onChange={onImageChange}
-          />
-          <button onClick={onCustomUpload}>Upload</button>
-        </div>
-        {/* <ButtonSecondary title="Upload Image"></ButtonSecondary> */}
-      </form>
-    </>
+    <form onSubmit={onUploadImage}>
+      <div className="image">
+        {selectedImage && (
+          <StyledImageWrapper>
+            <img
+              alt="not fount"
+              width={'250px'}
+              src={URL.createObjectURL(selectedImage)}
+            />
+          </StyledImageWrapper>
+        )}
+        <input
+          type="file"
+          className="form-control"
+          required
+          name="image"
+          accept=".jpg, .jpeg, .png"
+          onChange={onImageChange}
+        />
+        <button onClick={onCustomUpload}>Upload</button>
+      </div>
+      {/* <ButtonSecondary title="Upload Image"></ButtonSecondary> */}
+    </form>
   );
 }

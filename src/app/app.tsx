@@ -12,21 +12,24 @@ import { ConfigProvider } from 'antd';
 import hrHR from 'antd/locale/hr_HR';
 import BottomImages from './components/background/BottomImages';
 import { ImageUploadTestPage } from './pages/ImageUploadTestPage';
+import Login from './pages/Login.tsx';
+import { ContextProvider } from 'src/contexts/ContextProvider.tsx';
+import CreateProfile from './pages/CreateProfile.tsx';
+
 
 export default function App() {
   return (
-    <>
-      <ConfigProvider
-        locale={hrHR}
-        theme={{
-          token: {
-            /* fontFamily: 'Abhaya Libre', */
-            fontSize: 16, //antd font size, theme font size
-          },
-        }} //changes the global font
-      >
+    <ConfigProvider
+      locale={hrHR}
+      theme={{
+        token: {
+          /* fontFamily: 'Abhaya Libre', */
+          fontSize: 14, //antd font size, theme font size
+        },
+      }} //changes the global font
+    >
+      <ContextProvider>
         <GlobalStyle />
-
         <StyledFullWidthDiv $center>
           <Provider store={store}>
             <Router>
@@ -37,11 +40,13 @@ export default function App() {
                   path="/image-upload"
                   element={<ImageUploadTestPage title="" />}
                 />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<CreateProfile />} />
               </Routes>
             </Router>
           </Provider>
         </StyledFullWidthDiv>
-      </ConfigProvider>
-    </>
+      </ContextProvider>
+    </ConfigProvider>
   );
 }

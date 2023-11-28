@@ -1,4 +1,6 @@
-import ImageUpload from "../components/Image/ImageUpload";
+import { Navigate } from 'react-router-dom';
+import ImageUpload from '../components/Image/ImageUpload';
+import { useStateContext } from 'src/contexts/ContextProvider';
 
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -8,10 +10,14 @@ import ImageUpload from "../components/Image/ImageUpload";
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 export function ImageUploadTestPage({ title }: { title: string }) {
+  const { token } = useStateContext();
+
+  // if (!token) {
+  //   return <Navigate to="/login" />;
+  // }
+
   return (
-    <>
-      <ImageUpload></ImageUpload>
-    </>
+    <ImageUpload></ImageUpload>
   );
 }
 

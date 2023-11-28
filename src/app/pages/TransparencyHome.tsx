@@ -29,6 +29,7 @@ import {
   StyledPlaceInfoH1,
   StyledPlaceInfoH3,
   StyledPlaceInfoDiv,
+  StyledAppHeaderBgDiv,
 } from '../components/general/styled.ts';
 import ExportButtons from '../components/buttons/ExportButtons';
 import { AppDispatch } from 'src/redux/store';
@@ -39,6 +40,9 @@ import { getPlaceName } from 'src/helper/domainHelper.ts';
 import {
   StyledAppDescDiv,
   StyledFooter,
+  StyledFooterContainerDiv,
+  StyledFooterBgImg,
+  StyledFooterBgImgContainerDiv,
   StyledFooterLogoImg,
   StyledMainPageContainerDiv,
   StyledResultsInfoDiv,
@@ -297,42 +301,34 @@ function TransparencyHome() {
 
   return (
     <StyledMainPageContainerDiv>
+      <StyledAppHeaderDiv>
+        <StyledAppHeaderBgDiv>
+          <StyledMainTitleDiv>
+            <StyledPlaceInfoDiv>
+              <img src={grbUrl} alt="Grb opcine" />
+              <div>
+                <StyledAppTitleH1>
+                  Isplata proračunskih sredstava
+                </StyledAppTitleH1>
+                <StyledPlaceInfoH3>
+                  {opcinaData.naziv}, {opcinaData.zupanija}
+                </StyledPlaceInfoH3>
+              </div>
+            </StyledPlaceInfoDiv>
+          </StyledMainTitleDiv>
+          <StyledAppDescDiv>
+            {isMobileScreenWidth ? (
+              <Collapse items={items}></Collapse>
+            ) : (
+              <>
+                <AboutAppText />
+              </>
+            )}
+          </StyledAppDescDiv>
+        </StyledAppHeaderBgDiv>
+      </StyledAppHeaderDiv>
       <StyledFullWidthDiv $padding $background>
-        {/* <main> */}
         <Col>
-          <Row>
-            <StyledAppHeaderDiv>
-              <StyledMainTitleDiv>
-                <StyledPlaceInfoDiv>
-                  <img src={grbUrl} alt="Grb opcine" />
-                  <div>
-                    <StyledAppTitleH1>
-                      Isplata proračunskih sredstava
-                    </StyledAppTitleH1>
-                    <StyledPlaceInfoH3>
-                      {opcinaData.naziv}, {opcinaData.zupanija}
-                    </StyledPlaceInfoH3>
-                  </div>
-                </StyledPlaceInfoDiv>
-              </StyledMainTitleDiv>
-              <StyledHeaderLine />
-              <StyledAppDescDiv>
-                {isMobileScreenWidth ? (
-                  <Collapse bordered={false} items={items}></Collapse>
-                ) : (
-                  <AboutAppText />
-                )}
-                {/* {isMobileScreenWidth && (
-                  <Collapse
-                    bordered={false}
-                    // ghost={true}
-                    // size={'small'}
-                    items={resultInfoCollapseProps}
-                  ></Collapse>
-                )} */}
-              </StyledAppDescDiv>
-            </StyledAppHeaderDiv>
-          </Row>
           <StyledRow>
             <Col xs={isMobileScreenWidth ? 18 : 8}>
               <TransparentnostSearch
@@ -357,7 +353,6 @@ function TransparencyHome() {
           </StyledRow>
           {isDataLoaded ? (
             <>
-              {/* <Row> */}
               <ResultTable
                 isplatiteljsFilter={isplatiteljColumnFilterItems}
                 monthFilter={monthColumnFilterItems}
@@ -365,7 +360,6 @@ function TransparencyHome() {
                 rowAmount={rowAmountDependOnSize()}
                 isMobileWidth={isMobileScreenWidth}
               />
-              {/* </Row> */}
             </>
           ) : (
             <StyledFullWidthDiv $center>
@@ -374,14 +368,21 @@ function TransparencyHome() {
           )}
         </Col>
         <ResultsInfo />
-        {/* </main> */}
       </StyledFullWidthDiv>
-      <StyledFooter>
-        <p>Plavi link d.o.o., za usluge informacijskog društva</p>
-        <StyledFooterLogoImg
-          src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
+      <StyledFooterContainerDiv>
+        <StyledFooter>
+          <p>Plavi link d.o.o., za usluge informacijskog društva</p>
+          <StyledFooterLogoImg
+            src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
+          />
+        </StyledFooter>
+      </StyledFooterContainerDiv>
+      <StyledFooterBgImgContainerDiv>
+        <StyledFooterBgImg
+          src={`${import.meta.env.VITE_API_IMG_URL}/footerSvg.svg`}
+          alt="footer image"
         />
-      </StyledFooter>
+      </StyledFooterBgImgContainerDiv>
     </StyledMainPageContainerDiv>
   );
 }
