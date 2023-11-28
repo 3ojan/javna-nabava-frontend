@@ -1,4 +1,4 @@
-import { fontHeader, midScreenHeight, midScreenWidth, mobileScreenWidth, sitePaddingHorizontalLargeScreen, sitePaddingHorizontalMidScreen, sitePaddingHorizontalMobileScreen } from "src/app/global/constants";
+import { colorPrimary, fontHeader, midScreenHeight, midScreenWidth, mobileScreenWidth, sitePaddingHorizontalLargeScreen, sitePaddingHorizontalMidScreen, sitePaddingHorizontalMobileScreen } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
@@ -94,7 +94,7 @@ export const StyledAppHeaderDiv = styled.div`
     padding: 0 ${sitePaddingHorizontalLargeScreen};
     padding:10px;
     margin-bottom: 70px;
-    // background-color: #265694;
+    // background-color: ${colorPrimary};
 
     h2 {
         font-size: ${2.5/Math.pow(1.25, 2)}rem;
@@ -136,7 +136,7 @@ export const StyledAppHeaderDiv = styled.div`
 `
 
 export const StyledAppHeaderBgDiv = styled.div`
-    background-color: #265694;
+    background-color: ${colorPrimary};
     padding: 15px 30px;
     border-radius: 10px;
 `

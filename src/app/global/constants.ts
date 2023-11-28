@@ -15,4 +15,7 @@ export const fontHeader = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'H
 //Radius
 export const searchBorderRadius = "6px";
 
+//Colors
+export const colorPrimary = "#265694";//2D62A5
+
 

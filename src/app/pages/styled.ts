@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import { css, keyframes, styled } from "styled-components";
-import { fontHeader, mobileScreenWidth, searchBorderRadius } from "../global/constants";
+import { colorPrimary, fontHeader, mobileScreenWidth, searchBorderRadius } from "../global/constants";
 
 export const StyledRow = styled(Row)`
   height: fit-content;
@@ -39,9 +39,9 @@ export const StyledFooterContainerDiv = styled.div`
   padding: 10px;  
   color: white;
   bottom: 0;
-  position: relative;
+  // position: relative;
   hegith: 100vh;
-  // background-color: #265694; 
+  // background-color: ${colorPrimary}; 
   text-align: center;
 
   p{
@@ -50,7 +50,8 @@ export const StyledFooterContainerDiv = styled.div`
 `
 
 export const StyledFooter = styled.div`
-  background-color: #265694;
+  // background-color: ${colorPrimary};
+  background: linear-gradient( #1c416e 0%, #265694 15%, #335d93 50%, #265694 85%, #1c416e 100%);
   padding: 40px;
   border-radius: 10px;
   display: flex;
