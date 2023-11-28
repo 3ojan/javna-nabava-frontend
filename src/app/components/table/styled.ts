@@ -72,10 +72,13 @@ export const StyledTableDivWrapper = styled.div`
     font-weight: 400;
   }
   
-// Row apdding
+  table{
+    font-size: 1rem;
+  }
 
   th.ant-table-cell {
     padding: 10px 16px !important;
+    
   }
   td.ant-table-cell {
     padding: 5px 16px !important;
