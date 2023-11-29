@@ -25,10 +25,10 @@ export default function LoginForm() {
 
   const onSubmit = (values: any) => {
     const payload: authPayload = {
-      // email: values.email,
-      // password: values.password,
-      email: 'admin@example.com',
-      password: 'Pa$$w0rd',
+      email: values.email,
+      password: values.password,
+      // email: 'admin@example.com',
+      // password: 'Pa$$w0rd',
     };
     console.log('Received values payload: ', payload);
     axiosClient
