@@ -28,9 +28,11 @@ const CreateProfile: React.FC = () => {
   };
 
   // Dummy request function for upload
+  //TODO: dummy request needs fixed, error: file type
+
   const dummyRequest: UploadProps['customRequest'] = ({ file, onSuccess }) => {
     setTimeout(() => {
-      onSuccess?.("ok", file);
+      // onSuccess?.('ok', file);
     }, 0);
   };
 
@@ -61,11 +63,15 @@ const CreateProfile: React.FC = () => {
         <Form.Item
           label="Organization"
           name="organization"
-          rules={[{ required: true, message: 'Please select your organization!' }]}
+          rules={[
+            { required: true, message: 'Please select your organization!' },
+          ]}
         >
           <Select placeholder="Select your organization">
-            {organizations.map(org => (
-              <Option key={org} value={org}>{org}</Option>
+            {organizations.map((org) => (
+              <Option key={org} value={org}>
+                {org}
+              </Option>
             ))}
           </Select>
         </Form.Item>
@@ -79,13 +85,13 @@ const CreateProfile: React.FC = () => {
         </Form.Item>
 
         <Form.Item label="Profile Image" name="image">
-          <Upload customRequest={dummyRequest}>
+          <Upload /* customRequest={dummyRequest} */>
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         </Form.Item>
 
         <Form.Item label="Logo Image" name="logoImage">
-          <Upload customRequest={dummyRequest}>
+          <Upload /* customRequest={dummyRequest} */>
             <Button icon={<UploadOutlined />}>Click to Upload</Button>
           </Upload>
         </Form.Item>
