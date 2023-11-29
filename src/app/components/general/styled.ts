@@ -50,24 +50,23 @@ export const StyledHeaderLine = styled.div`
 `
 
 export const StyledMainTitleDiv = styled.div`
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
     display: flex;
     justify-content: start;
     align-items: center;
 
     @media only screen and (max-width: ${mobileScreenWidth}px) {
-        font-size: ${1.8}rem;
+        font-size: 1.8rem;
         margin-bottom: 0px;
         flex-direction: column;
     }
 `
 
 export const StyledAppTitleH1 = styled.h1`
-    // margin: auto;
     margin: 0;
     // letter-spacing: 0.3rem;
     line-height: 1;
-    font-size: 2.6rem;
+    font-size: 2.4rem;
     font-weight: 300;
     text-transform: uppercase;
     font-family: ${fontHeader};
@@ -137,6 +136,8 @@ export const StyledAppHeaderDiv = styled.div`
 
 export const StyledAppHeaderBgDiv = styled.div`
     background-color: ${colorPrimary};
+//   background: linear-gradient( #1c416e 0%, #265694 15%, #335d93 50%, #265694 85%, #1c416e 100%);
+
     padding: 15px 30px;
     border-radius: 10px;
 `

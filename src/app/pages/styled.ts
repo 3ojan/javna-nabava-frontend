@@ -18,7 +18,7 @@ export const StyledMainPageContainerDiv = styled.div`
 `
 
 export const StyledFooterBgImg = styled.img`
-  width: 1300px; /* Make the image fill the container */
+  width: 1200px; /* Make the image fill the container */
   height: auto; /* Maintain aspect ratio */
   transform: rotate(15deg);
   margin-left: -100px;
@@ -29,7 +29,7 @@ export const StyledFooterBgImgContainerDiv = styled.div`
   left: 0;
   bottom: 0px;
   position: absolute;
-  height: 400px;
+  height: 375px;
   width: 100%;
   overflow: hidden;
   z-index: -10;
@@ -50,8 +50,8 @@ export const StyledFooterContainerDiv = styled.div`
 `
 
 export const StyledFooter = styled.div`
-  // background-color: ${colorPrimary};
-  background: linear-gradient( #1c416e 0%, #265694 15%, #335d93 50%, #265694 85%, #1c416e 100%);
+  background-color: ${colorPrimary};
+  // background: linear-gradient( #1c416e 0%, #265694 15%, #335d93 50%, #265694 85%, #1c416e 100%);
   padding: 40px;
   border-radius: 10px;
   display: flex;
@@ -104,6 +104,7 @@ export const StyledAppDescDiv = styled.div`
     text-align: start;
     color: white;
     p{
+      margin-top: 5px;
       margin-bottom: 0;
     }
 

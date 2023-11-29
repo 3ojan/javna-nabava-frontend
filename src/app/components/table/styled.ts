@@ -57,18 +57,8 @@ export const StyledCellHeightSpan = styled.span`
 `
 
 export const StyledTableDivWrapper = styled.div`
-  // background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   margin-bottom: 20px;
-  // box-shadow: 0px 10px 28px rgba(77, 121, 178, 0.5); 
-  // padding: 10px 0;
-  
-  
-  //TABLE FONT SIZE
-  table{
-    // font-size: 1rem;
-  }
-
 
   /* FIXES COLUMN WIDTH */
   .table-wrapper table {
@@ -82,7 +72,14 @@ export const StyledTableDivWrapper = styled.div`
     font-weight: 400;
   }
   
-// Row apdding
+  table{
+    font-size: 1rem;
+  }
+
+  th.ant-table-cell {
+    padding: 10px 16px !important;
+    
+  }
   td.ant-table-cell {
     padding: 5px 16px !important;
   }

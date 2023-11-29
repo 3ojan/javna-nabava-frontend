@@ -6,18 +6,18 @@ import { ContextProvider, useStateContext } from 'src/contexts/ContextProvider';
 import { Navigate } from 'react-router-dom';
 
 interface authPayload {
-  name: string;
+  email: string;
   password: string;
 }
 
 type FieldType = {
-  username?: string;
+  email?: string;
   password?: string;
 };
 
 export default function LoginForm() {
   const [errors, setErrors] = useState<string[] | undefined>(undefined);
-  const { token, setUser, setToken } = useStateContext();
+  const { token, setUser, setToken /* , setExpiration */ } = useStateContext();
 
   // if (token) {
   //   return <Navigate to="/image-upload" />;
@@ -25,21 +25,20 @@ export default function LoginForm() {
 
   const onSubmit = (values: any) => {
     const payload: authPayload = {
-      // name: values.name,
+      // email: values.email,
       // password: values.password,
-      name: "Admin User",
-      password: "Pa$$w0rd",
+      email: 'admin@example.com',
+      password: 'Pa$$w0rd',
     };
-    // console.log('Received values payload: ', payload);
+    console.log('Received values payload: ', payload);
     axiosClient
       .post('/login', payload)
       .then((res: any) => {
-        console.log('res data', res.data);
+        // console.log('res data', res.data);
         setUser(res.data.user);
         ///ovo ti neće raditi, stavi setTokenAndUser(token.user)
         setToken(res.data.token);
-
-        console.log('token', token);
+        // setExpiration(createExpirationDate(res.data.expiration));
       })
       .catch((err: any) => {
         const response: any = err.response;
@@ -81,17 +80,17 @@ export default function LoginForm() {
           })}
 
         <Form.Item
-          name="name"
-        // rules={[{ required: true, message: 'Unesite korisnčko ime' }]}
+          name="email"
+          // rules={[{ required: true, message: 'Unesite korisnčko ime' }]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Korisničko ime"
+            placeholder="Email"
           />
         </Form.Item>
         <Form.Item
           name="password"
-        // rules={[{ required: true, message: 'Unesite lozinku' }]}
+          // rules={[{ required: true, message: 'Unesite lozinku' }]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
@@ -113,3 +112,13 @@ export default function LoginForm() {
     </>
   );
 }
+
+// function createExpirationDate(expirationMinutes: any): Date {
+//   const expirationInMilliseconds = expirationMinutes * 60 * 1000; // Convert minutes to milliseconds
+//   const currentTime = new Date().getTime();
+//   const timeToExpire = new Date(currentTime + expirationInMilliseconds);
+
+//   // console.log('expirartionTime', expiration);
+//   // setExpiration(timeToExpire);
+//   return timeToExpire;
+// }
