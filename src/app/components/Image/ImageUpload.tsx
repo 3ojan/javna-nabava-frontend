@@ -76,6 +76,7 @@ export default function ImageUpload(props: ImageUploadProps) {
           // console.log(error);
         });
     };
+        
 
   const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];

@@ -14,39 +14,39 @@ import BottomImages from './components/background/BottomImages';
 import { ImageUploadTestPage } from './pages/ImageUploadTestPage';
 import Login from './pages/Login.tsx';
 import { ContextProvider } from 'src/contexts/ContextProvider.tsx';
+import CreateProfile from './pages/CreateProfile.tsx';
 
 
 export default function App() {
   return (
-    <>
-      <ConfigProvider
-        locale={hrHR}
-        theme={{
-          token: {
-            /* fontFamily: 'Abhaya Libre', */
-            fontSize: 14, //antd font size, theme font size
-          },
-        }} //changes the global font
-      >
-        <ContextProvider>
-          <GlobalStyle />
-          <StyledFullWidthDiv $center>
-            <Provider store={store}>
-              <Router>
-                <Routes>
-                  <Route path="/" element={<TransparencyHome />} />
-                  <Route path="/home" element={<NxWelcome title="" />} />
-                  <Route
-                    path="/image-upload"
-                    element={<ImageUploadTestPage title="" />}
-                  />
-                  <Route path="/login" element={<Login />} />
-                </Routes>
-              </Router>
-            </Provider>
-          </StyledFullWidthDiv>
-        </ContextProvider>
-      </ConfigProvider>
-    </>
+    <ConfigProvider
+      locale={hrHR}
+      theme={{
+        token: {
+          /* fontFamily: 'Abhaya Libre', */
+          fontSize: 14, //antd font size, theme font size
+        },
+      }} //changes the global font
+    >
+      <ContextProvider>
+        <GlobalStyle />
+        <StyledFullWidthDiv $center>
+          <Provider store={store}>
+            <Router>
+              <Routes>
+                <Route path="/" element={<TransparencyHome />} />
+                <Route path="/home" element={<NxWelcome title="" />} />
+                <Route
+                  path="/image-upload"
+                  element={<ImageUploadTestPage title="" />}
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<CreateProfile />} />
+              </Routes>
+            </Router>
+          </Provider>
+        </StyledFullWidthDiv>
+      </ContextProvider>
+    </ConfigProvider>
   );
 }
