@@ -33,12 +33,11 @@ export default function ImageUpload(props: ImageUploadProps) {
   // const [expiration, setExpiration] = useState<Date | null>(
   //   setExpirationFromLocalStorage() || null
   // );
-  const { setToken, setUser } = useStateContext();
+  const { token, setToken, setUser } = useStateContext();
 
-  // if (new Date() > new Date(expiration!)) {
-  //   // Perform logout logic here
-  //   // Redirect the user to the login page or show a logout modal
-  // }
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   const onUploadImage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -76,7 +75,6 @@ export default function ImageUpload(props: ImageUploadProps) {
           // console.log(error);
         });
     };
-        
 
   const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
