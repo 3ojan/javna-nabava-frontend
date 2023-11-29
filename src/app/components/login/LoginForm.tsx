@@ -41,10 +41,15 @@ export default function LoginForm() {
         // setExpiration(createExpirationDate(res.data.expiration));
       })
       .catch((err: any) => {
+        // Rework errors to croatian
         const response: any = err.response;
         if (response && response.status === 422) {
           if (response.data.errors) {
-            setErrors(response.data.errors);
+            const emailErrors = response.data.errors.email || [];
+            const passwordErrors = response.data.errors.password || [];
+
+            const combinedErrors = emailErrors.concat(passwordErrors);
+            setErrors(combinedErrors);
           } else {
             setErrors([response.data.message]);
           }
@@ -71,7 +76,7 @@ export default function LoginForm() {
               <Alert
                 key={index}
                 style={{ marginBottom: 24 }}
-                message={`${errors[Number(index)]}`}
+                message={`${errors[Number.parseInt(index)]}`}
                 type="error"
                 showIcon
                 closable
@@ -81,7 +86,7 @@ export default function LoginForm() {
 
         <Form.Item
           name="email"
-          // rules={[{ required: true, message: 'Unesite korisnčko ime' }]}
+          rules={[{ required: true, message: 'Unesite email adresu' }]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -90,7 +95,7 @@ export default function LoginForm() {
         </Form.Item>
         <Form.Item
           name="password"
-          // rules={[{ required: true, message: 'Unesite lozinku' }]}
+          rules={[{ required: true, message: 'Unesite lozinku' }]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
@@ -112,13 +117,3 @@ export default function LoginForm() {
     </>
   );
 }
-
-// function createExpirationDate(expirationMinutes: any): Date {
-//   const expirationInMilliseconds = expirationMinutes * 60 * 1000; // Convert minutes to milliseconds
-//   const currentTime = new Date().getTime();
-//   const timeToExpire = new Date(currentTime + expirationInMilliseconds);
-
-//   // console.log('expirartionTime', expiration);
-//   // setExpiration(timeToExpire);
-//   return timeToExpire;
-// }
