@@ -6,25 +6,24 @@ import {
   useState,
 } from 'react';
 const ACCESS_TOKEN = 'ACCESS_TOKEN';
-const EXPIRATION = 'EXPIRATION';
+// const EXPIRATION = 'EXPIRATION';
 
 interface StateContextType {
   user: null | {};
   token: null | string;
-  expiration: null | number;
+  // expiration: null | Date;
   setUser: (user: any | null) => void;
   setToken: (token: string | null) => void;
-  setExpiration: (expiration: number) => void;
+  // setExpiration: (expiration: Date) => void;
 }
 
 const StateContext = createContext<StateContextType>({
-  //<StateContextType>
   user: null,
   token: null,
-  expiration: null,
+  // expiration: new Date(),
   setUser: () => {},
   setToken: () => {},
-  setExpiration: () => {},
+  // setExpiration: () => {},
 });
 
 export const ContextProvider = ({
@@ -36,7 +35,7 @@ export const ContextProvider = ({
   const [token, _setToken] = useState<string | null>(
     localStorage.getItem(ACCESS_TOKEN)
   );
-  const [expiration, _setExpiration] = useState<number | null>(null);
+  // const [expiration, _setExpiration] = useState<Date | null>(null);
 
   const setToken = (token: any) => {
     _setToken(token);
@@ -46,18 +45,24 @@ export const ContextProvider = ({
       localStorage.removeItem(ACCESS_TOKEN);
     }
   };
-  const setExpiration = (expiration: number) => {
-    _setExpiration(expiration);
-    if (expiration) {
-      localStorage.setItem(EXPIRATION, expiration.toString());
-    } else {
-      localStorage.removeItem(EXPIRATION);
-    }
-  };
+
+  // const setExpiration = (expiration: Date) => {
+  //   _setExpiration(expiration);
+  //   if (expiration) {
+  //     localStorage.setItem(EXPIRATION, expiration.toString());
+  //   } else {
+  //     localStorage.removeItem(EXPIRATION);
+  //   }
+  // };
 
   return (
     <StateContext.Provider
-      value={{ user, token, expiration, setUser, setToken, setExpiration }}
+      value={{
+        user,
+        token,
+        /*expiration, */ setUser,
+        setToken /* setExpiration */,
+      }}
     >
       {children}
     </StateContext.Provider>
@@ -65,4 +70,5 @@ export const ContextProvider = ({
 };
 
 export const useStateContext = () => useContext(StateContext);
-export const getACCESS_TOKEN = ACCESS_TOKEN;
+export const getACCESS_TOKEN_key = ACCESS_TOKEN;
+// export const getEXPIRATION_key = EXPIRATION;

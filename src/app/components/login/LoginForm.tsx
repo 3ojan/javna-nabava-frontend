@@ -17,7 +17,7 @@ type FieldType = {
 
 export default function LoginForm() {
   const [errors, setErrors] = useState<string[] | undefined>(undefined);
-  const { token, setUser, setToken, setExpiration } = useStateContext();
+  const { token, setUser, setToken /* , setExpiration */ } = useStateContext();
 
   if (token) {
     return <Navigate to="/image-upload" />;
@@ -38,7 +38,7 @@ export default function LoginForm() {
         setUser(res.data.user);
         ///ovo ti neće raditi, stavi setTokenAndUser(token.user)
         setToken(res.data.token);
-        setExpiration(res.data.expiration);
+        // setExpiration(createExpirationDate(res.data.expiration));
       })
       .catch((err: any) => {
         const response: any = err.response;
@@ -112,3 +112,13 @@ export default function LoginForm() {
     </>
   );
 }
+
+// function createExpirationDate(expirationMinutes: any): Date {
+//   const expirationInMilliseconds = expirationMinutes * 60 * 1000; // Convert minutes to milliseconds
+//   const currentTime = new Date().getTime();
+//   const timeToExpire = new Date(currentTime + expirationInMilliseconds);
+
+//   // console.log('expirartionTime', expiration);
+//   // setExpiration(timeToExpire);
+//   return timeToExpire;
+// }
