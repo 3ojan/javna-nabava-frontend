@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useContext,
-  useState,
-} from 'react';
+import { createContext, useContext, useState } from 'react';
 const ACCESS_TOKEN = 'ACCESS_TOKEN';
 // const EXPIRATION = 'EXPIRATION';
 
@@ -60,8 +54,8 @@ export const ContextProvider = ({
       value={{
         user,
         token,
-        /*expiration, */ setUser,
-        setToken /* setExpiration */,
+        setUser,
+        setToken,
       }}
     >
       {children}

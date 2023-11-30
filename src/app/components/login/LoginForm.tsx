@@ -1,7 +1,7 @@
 import { Alert, Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import axiosClient from 'src/axios-client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ContextProvider, useStateContext } from 'src/contexts/ContextProvider';
 import { Navigate } from 'react-router-dom';
 
@@ -17,11 +17,11 @@ type FieldType = {
 
 export default function LoginForm() {
   const [errors, setErrors] = useState<string[] | undefined>(undefined);
-  const { token, setUser, setToken /* , setExpiration */ } = useStateContext();
+  const { token, setUser, setToken } = useStateContext();
 
-  // if (token) {
-  //   return <Navigate to="/image-upload" />;
-  // }
+  if (token) {
+    return <Navigate to="/image-upload" />;
+  }
 
   const onSubmit = (values: any) => {
     const payload: authPayload = {
@@ -30,15 +30,19 @@ export default function LoginForm() {
       // email: 'admin@example.com',
       // password: 'Pa$$w0rd',
     };
-    console.log('Received values payload: ', payload);
+
+    setErrors(undefined);
     axiosClient
       .post('/login', payload)
       .then((res: any) => {
-        // console.log('res data', res.data);
-        setUser(res.data.user);
-        ///ovo ti neće raditi, stavi setTokenAndUser(token.user)
-        setToken(res.data.token);
-        // setExpiration(createExpirationDate(res.data.expiration));
+        if (!token) {
+          // console.log('res data', res.data);
+          setUser(res.data.user);
+          ///ovo ti neće raditi, stavi setTokenAndUser(token.user)
+          setToken(res.data.token);
+          // setExpiration(createExpirationDate(res.data.expiration));
+          // <Navigate to="/image-upload" />;
+        }
       })
       .catch((err: any) => {
         // Rework errors to croatian

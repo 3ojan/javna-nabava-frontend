@@ -2,10 +2,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios'; // Assuming you're using axios
 import axiosClient from 'src/axios-client';
-import {
-  // getEXPIRATION_key,
-  useStateContext,
-} from 'src/contexts/ContextProvider';
+import { useStateContext } from 'src/contexts/ContextProvider';
 import { Navigate } from 'react-router-dom';
 import { Button } from 'antd';
 
@@ -23,10 +20,6 @@ export const StyledImageWrapper = styled.div`
   }
 `;
 
-// function setExpirationFromLocalStorage() {
-
-// }
-
 export default function ImageUpload(props: ImageUploadProps) {
   const { onImageUpload } = props;
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -34,10 +27,6 @@ export default function ImageUpload(props: ImageUploadProps) {
   //   setExpirationFromLocalStorage() || null
   // );
   const { token, setToken, setUser } = useStateContext();
-
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
 
   const onUploadImage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -87,8 +76,6 @@ export default function ImageUpload(props: ImageUploadProps) {
   const onLogout = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     axiosClient.post('/logout').then(() => {
-      console.log('logout');
-
       setUser({}), setToken(null);
     });
   };
@@ -113,6 +100,10 @@ export default function ImageUpload(props: ImageUploadProps) {
       setUser(data);
     });
   }, []);
+
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>
