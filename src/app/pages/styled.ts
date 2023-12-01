@@ -16,24 +16,24 @@ export const StyledMainPageContainerDiv = styled.div`
   min-height: 100vh;
   position: relative;
 `
-
-export const StyledFooterBgImg = styled.img`
-  width: 1200px; /* Make the image fill the container */
-  height: auto; /* Maintain aspect ratio */
-  transform: rotate(15deg);
-  margin-left: -100px;
-  margin-top: -140px;
-`
-
 export const StyledFooterBgImgContainerDiv = styled.div`
   left: 0;
   bottom: 0px;
   position: absolute;
-  height: 375px;
+  height: 400px;
   width: 100%;
   overflow: hidden;
   z-index: -10;
 `
+
+export const StyledFooterBgImg = styled.img`
+  width: 1200px; /* Make the image fill the container */
+  height: auto; /* Maintain aspect ratio */
+  transform: rotate(14deg);
+  // margin-left: 10px;
+  margin-top: -260px;
+`
+
 
 export const StyledFooterContainerDiv = styled.div`
   padding: 10px;  
