@@ -8,7 +8,7 @@ export const getPlaceName = ()=>{
 
         //Only for local testing purposes
         if (placeName === "127."){
-            placeName = "podcrkavlje";
+            placeName = "stankovci";
         }
     }
 return placeName;

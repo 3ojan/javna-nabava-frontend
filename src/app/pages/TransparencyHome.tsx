@@ -376,7 +376,7 @@ function TransparencyHome() {
         <StyledFooter>
           <p>Plavi link d.o.o., za usluge informacijskog društva</p>
           <StyledFooterLogoImg
-            src={`${import.meta.env.VITE_API_IMG_URL}/LogoVector.jpg`}
+            src={`${import.meta.env.VITE_API_IMG_URL}/logoVector.svg`}
           />
         </StyledFooter>
       </StyledFooterContainerDiv>
