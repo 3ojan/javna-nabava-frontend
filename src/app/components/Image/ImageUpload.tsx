@@ -123,7 +123,7 @@ export default function ImageUpload(props: ImageUploadProps) {
             className="form-control"
             required
             name="image"
-            accept=".jpg, .jpeg, .png"
+            accept=".jpg, .jpeg, .png, .svg"
             onChange={onImageChange}
           />
           <button onClick={onCustomUpload}>Upload</button>
