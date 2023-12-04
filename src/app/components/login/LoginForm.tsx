@@ -1,9 +1,10 @@
-import { Alert, Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import axiosClient from 'src/axios-client';
-import { useEffect, useState } from 'react';
-import { ContextProvider, useStateContext } from 'src/contexts/ContextProvider';
+import { Alert, Button, Form, Input } from 'antd';
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import axiosClient from 'src/axios-client';
+import { useStateContext } from 'src/contexts/ContextProvider';
+import { LoginFormConatainerDiv } from './styled';
 
 interface authPayload {
   email: string;
@@ -36,12 +37,9 @@ export default function LoginForm() {
       .post('/login', payload)
       .then((res: any) => {
         if (!token) {
-          // console.log('res data', res.data);
           setUser(res.data.user);
           ///ovo ti neće raditi, stavi setTokenAndUser(token.user)
           setToken(res.data.token);
-          // setExpiration(createExpirationDate(res.data.expiration));
-          // <Navigate to="/image-upload" />;
         }
       })
       .catch((err: any) => {
@@ -63,61 +61,61 @@ export default function LoginForm() {
 
   return (
     <>
-      {/* <LoginFormConatainerDiv> */}
-      <Form
-        name="login"
-        className="login-form"
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={onSubmit}
-        // onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <h1>Prijava</h1>
-        {errors &&
-          Object.keys(errors).map((index: string) => {
-            return (
-              <Alert
-                key={index}
-                style={{ marginBottom: 24 }}
-                message={`${errors[Number.parseInt(index)]}`}
-                type="error"
-                showIcon
-                closable
-              />
-            );
-          })}
+      <LoginFormConatainerDiv>
+        <Form
+          name="login"
+          className="login-form"
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onSubmit}
+          // onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <h1>Prijava</h1>
+          {errors &&
+            Object.keys(errors).map((index: string) => {
+              return (
+                <Alert
+                  key={index}
+                  style={{ marginBottom: 24 }}
+                  message={`${errors[Number.parseInt(index)]}`}
+                  type="error"
+                  showIcon
+                  closable
+                />
+              );
+            })}
 
-        <Form.Item
-          name="email"
-          rules={[{ required: true, message: 'Unesite email adresu' }]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Email"
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: 'Unesite lozinku' }]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Lozinka"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
+          <Form.Item
+            name="email"
+            rules={[{ required: true, message: 'Unesite email adresu' }]}
           >
-            Prijavi se
-          </Button>
-        </Form.Item>
-      </Form>
-      {/* </LoginFormConatainerDiv> */}
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Email"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: 'Unesite lozinku' }]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Lozinka"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Prijavi se
+            </Button>
+          </Form.Item>
+        </Form>
+      </LoginFormConatainerDiv>
     </>
   );
 }

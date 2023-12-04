@@ -1,10 +1,10 @@
-import { Button, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { StyledColoredButton, StyledSpace } from './styled';
-import { mobileScreenWidth } from 'src/app/global/constants';
-import { useSelector } from 'react-redux';
-import { TransparencyState } from 'src/redux/transparency/transparency';
 import { DownloadOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { mobileScreenWidth } from 'src/app/global/constants';
+import { TransparencyState } from 'src/redux/transparency/transparency';
+import { StyledColoredButton } from './styled';
 
 export type exportButtonProps = {
   xmlVisible: boolean;

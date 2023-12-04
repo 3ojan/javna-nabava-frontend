@@ -1,4 +1,7 @@
+import { Button, Checkbox, Dropdown, Menu, Modal, Space } from 'antd';
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
+import { ColumnFilterItem } from 'antd/es/table/interface';
+import { useEffect, useRef, useState } from 'react';
 import {
   StyledCellHeightSpan,
   StyledFiltersCheckboxGroup,
@@ -8,21 +11,6 @@ import {
   StyledResultsTableDiv,
   StyledTableDivWrapper,
 } from './styled';
-import { ColumnFilterItem } from 'antd/es/table/interface';
-import { useEffect, useRef, useState } from 'react';
-import React from 'react';
-import {
-  Button,
-  Checkbox,
-  Col,
-  Dropdown,
-  Input,
-  Menu,
-  MenuProps,
-  Modal,
-  Row,
-  Space,
-} from 'antd';
 
 interface TableData {
   data: DataType[];
@@ -30,7 +18,6 @@ interface TableData {
   monthFilter: ColumnFilterItem[];
   rowAmount: number;
   isMobileWidth: boolean;
-  // dateFilterDropDownVisible: () => boolean;
 }
 
 enum Titles {

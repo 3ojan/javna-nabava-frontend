@@ -1,15 +1,11 @@
-import {
-  Button,
-  Col,
-  Collapse,
-  CollapseProps,
-  Row,
-  Space,
-  Spin,
-  TableProps,
-} from 'antd';
-import TransparentnostSearch from '../components/search/TransparentnostSearch';
-import ResultTable, { DataType } from '../components/table/ResultTable';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Col, Collapse, CollapseProps, Spin } from 'antd';
+import { ColumnFilterItem } from 'antd/es/table/interface';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
+import { getPlaceName } from 'src/helper/domainHelper.ts';
+import { AppDispatch } from 'src/redux/store';
 import {
   TransparencyState,
   changeSearchBarValue,
@@ -17,44 +13,30 @@ import {
   getData,
   getOpcineData,
 } from 'src/redux/transparency/transparency';
-import { LoadingOutlined } from '@ant-design/icons';
-import { useEffect, useMemo, useState } from 'react';
+import ExportButtons from '../components/buttons/ExportButtons';
 import {
+  StyledAppHeaderBgDiv,
+  StyledAppHeaderDiv,
   StyledAppTitleH1,
   StyledFullWidthDiv,
-  StyledHeaderLine,
-  StyledMainTitlRow,
   StyledMainTitleDiv,
-  StyledAppHeaderDiv,
-  StyledPlaceInfoH1,
-  StyledPlaceInfoH3,
   StyledPlaceInfoDiv,
-  StyledAppHeaderBgDiv,
+  StyledPlaceInfoH3,
 } from '../components/general/styled.ts';
-import ExportButtons from '../components/buttons/ExportButtons';
-import { AppDispatch } from 'src/redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
-import { ColumnFilterItem } from 'antd/es/table/interface';
-import { getPlaceName } from 'src/helper/domainHelper.ts';
+import TransparentnostSearch from '../components/search/TransparentnostSearch';
+import ResultTable, { DataType } from '../components/table/ResultTable';
+import { largeScreenHeight, mobileScreenWidth } from '../global/constants.ts';
 import {
   StyledAppDescDiv,
   StyledFooter,
-  StyledFooterContainerDiv,
   StyledFooterBgImg,
   StyledFooterBgImgContainerDiv,
+  StyledFooterContainerDiv,
   StyledFooterLogoImg,
   StyledMainPageContainerDiv,
   StyledResultsInfoDiv,
   StyledRow,
 } from './styled.ts';
-import {
-  largeScreenHeight,
-  largeScreenWidth,
-  mobileScreenWidth,
-} from '../global/constants.ts';
-import { debug } from 'console';
-import { Footer } from 'antd/es/layout/layout';
 
 export interface StringFilters {
   text: string;
@@ -99,14 +81,8 @@ function TransparencyHome() {
       <p>
         Ukupno isplata u <b>{selectedYear}.</b> godini: <b>{sumIznosValues}</b>{' '}
         €<br />
-        {/* </p> */}
-        {/* <hr /> */}
-        {/* <p> */}
         Ukupno stavaka: <b>{loadedValuesCount}</b>
         <br />
-        {/* </p> */}
-        {/* <hr /> */}
-        {/* <p> */}
         Podaci ažurirani:{' '}
         <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
       </p>

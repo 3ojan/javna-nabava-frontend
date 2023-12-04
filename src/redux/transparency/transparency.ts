@@ -2,23 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AnyAction } from 'redux';
-import axiosClient from '../../axios-client.js';
-import { debug } from 'console';
-import { AppDispatch } from '../store';
-import { useSelector } from 'react-redux';
-import { getPlaceName } from 'src/helper/domainHelper.js';
 import { DataType } from 'src/app/components/table/ResultTable.js';
+import { getPlaceName } from 'src/helper/domainHelper.js';
+import axiosClient from '../../axios-client.js';
 
 
 export interface TransparencyState {
-  data: DataType[] ;//| null
+  data: DataType[] ;
   loading: boolean;
   errorMessage: string | null;
   searchValue: string;
   selectedYear: string;
   isDataLoaded: boolean;
   isOpcinaDataLoaded: boolean;
-  // placeName: string;
   opcinaData: LocationInfo;
 }
 

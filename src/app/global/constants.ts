@@ -17,5 +17,6 @@ export const searchBorderRadius = "6px";
 
 //Colors
 export const colorPrimary = "#265694";//2D62A5
+export const colorBorder = "#d9d9d9";
 
 

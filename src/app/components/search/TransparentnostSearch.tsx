@@ -1,27 +1,21 @@
 import { Input, Select } from 'antd';
+import { DefaultOptionType } from 'antd/es/select/index';
 import {
+  StyledSearchBar,
   StyledSelectWrapper,
   StyledTransparencyContent,
   StyledTransparencyLayout,
 } from '../search/styled.ts';
-import { StyledSearchBar } from '../search/styled.ts';
-import { DefaultOptionType } from 'antd/es/select/index';
 
 export default function TransparentnostSearch(props: any) {
-  const { Option } = Select;
-  const { Search } = Input;
+  // const { Option } = Select;
+  // const { Search } = Input;
   const {
     onSelectYear,
     onChangeInput,
     currentYear,
     onYearSelect,
-    className,
     availableYears,
-    isplatiteljs,
-    searchValueonSearchClick,
-    searchValue,
-    onSearchClick,
-    buttonEnabled,
   } = props;
 
   const selectYearOptions = (): DefaultOptionType[] => {

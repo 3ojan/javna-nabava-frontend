@@ -1,10 +1,9 @@
+import { Button } from 'antd';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios'; // Assuming you're using axios
+import { Navigate } from 'react-router-dom';
 import axiosClient from 'src/axios-client';
 import { useStateContext } from 'src/contexts/ContextProvider';
-import { Navigate } from 'react-router-dom';
-import { Button } from 'antd';
+import styled from 'styled-components';
 
 interface ImageUploadProps {
   onImageUpload?: (data: any) => void;
