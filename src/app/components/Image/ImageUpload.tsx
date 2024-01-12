@@ -1,24 +1,29 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios'; // Assuming you're using axios
+import { Button } from 'antd';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import axiosClient from 'src/axios-client';
 import { useStateContext } from 'src/contexts/ContextProvider';
-import { Navigate } from 'react-router-dom';
-import { Button } from 'antd';
+import LogoutButton from '../buttons/LogoutButton';
+import {
+  StyledButtonsContainer,
+  StyledImageFormWrapperDiv,
+  StyledImageWrapper,
+} from './styled';
+// =======
+// import { Button } from 'antd';
+// import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+// import axiosClient from 'src/axios-client';
+// import { useStateContext } from 'src/contexts/ContextProvider';
+// import LogoutButton from '../buttons/LogoutButton';
+// import {
+//   StyledButtonsContainer,
+//   StyledImageFormWrapperDiv,
+//   StyledImageWrapper,
+// } from './styled';
+// >>>>>>> Stashed changes
 
 interface ImageUploadProps {
   onImageUpload?: (data: any) => void;
 }
-
-export const StyledImageWrapper = styled.div`
-  text-align: center;
-  background: #ebebea;
-  overflow: hidden;
-  max-height: 200px;
-  img {
-    width: 100%;
-  }
-`;
 
 export default function ImageUpload(props: ImageUploadProps) {
   const { onImageUpload } = props;
@@ -43,6 +48,8 @@ export default function ImageUpload(props: ImageUploadProps) {
         console.log(error);
       });
   };
+
+  const onInputFile = () => {};
 
   const onCustomUpload = () =>
     /* event: ChangeEvent<HTMLInputElement>, file: File*/
@@ -73,65 +80,52 @@ export default function ImageUpload(props: ImageUploadProps) {
     }
   };
 
-  const onLogout = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    axiosClient.post('/logout').then(() => {
-      setUser({}), setToken(null);
-    });
-  };
-
-  // const checkTokenExpiration = () => {
-  //   if (
-  //     localStorage.getItem(getEXPIRATION_key) &&
-  //     new Date() > new Date(localStorage.getItem(getEXPIRATION_key)!)
-  //   ) {
-  //     // alert('Session expired');
-  //     //passing null logs out user
-  //     setToken(null);
-  //     <Navigate to="/login" />;
-  //   }
-  // };
-
   useEffect(() => {
-    // console.log('expiration', expiration);
-    // checkTokenExpiration();
     axiosClient.get('/user').then(({ data }) => {
       console.log('user', data);
       setUser(data);
     });
   }, []);
 
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
+  // if (!token) {
+  //   return <Navigate to="/login" />;
+  // }
 
   return (
     <>
-      <form onSubmit={onUploadImage}>
-        <div className="image">
-          {selectedImage && (
-            <StyledImageWrapper>
-              <img
-                alt="not fount"
-                width={'250px'}
-                src={URL.createObjectURL(selectedImage)}
+      <LogoutButton />
+      <StyledImageFormWrapperDiv>
+        <form onSubmit={onUploadImage}>
+          <div className="image">
+            {selectedImage && (
+              <StyledImageWrapper>
+                <img
+                  alt="not fount"
+                  width={'250px'}
+                  src={URL.createObjectURL(selectedImage)}
+                />
+              </StyledImageWrapper>
+            )}
+            <StyledButtonsContainer>
+              <input
+                type="file"
+                className="form-control"
+                id="image-input"
+                required
+                name="image"
+                accept=".jpg, .jpeg, .png, .svg"
+                onChange={onImageChange}
               />
-            </StyledImageWrapper>
-          )}
-          <input
-            type="file"
-            className="form-control"
-            required
-            name="image"
-            accept=".jpg, .jpeg, .png, .svg"
-            onChange={onImageChange}
-          />
-          <button onClick={onCustomUpload}>Upload</button>
-        </div>
-        <Button title="Logout" onClick={onLogout}>
-          Logout
-        </Button>
-      </form>
+              {/* <Button
+                onClick={document.getElementById('image-input')?.click?}
+              >
+                {<UploadOutlined />}Odaberi...
+              </Button> */}
+              <Button onClick={onCustomUpload}>Upload</Button>
+            </StyledButtonsContainer>
+          </div>
+        </form>
+      </StyledImageFormWrapperDiv>
     </>
   );
 }

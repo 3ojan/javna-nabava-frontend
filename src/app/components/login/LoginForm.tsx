@@ -1,9 +1,9 @@
-import { Alert, Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import axiosClient from 'src/axios-client';
-import { useEffect, useState } from 'react';
-import { ContextProvider, useStateContext } from 'src/contexts/ContextProvider';
+import { Alert, Button, Form, Input } from 'antd';
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import axiosClient from 'src/axios-client';
+import { useStateContext } from 'src/contexts/ContextProvider';
 
 interface authPayload {
   email: string;
@@ -87,6 +87,32 @@ export default function LoginForm() {
               />
             );
           })}
+        {/* =======
+      <LoginFormWrapperDiv>
+        <Form
+          name="login"
+          className="login-form"
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onSubmit}
+          // onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <h1>Prijava</h1>
+          {errors &&
+            Object.keys(errors).map((index: string) => {
+              return (
+                <Alert
+                  key={index}
+                  style={{ marginBottom: 24 }}
+                  message={`${errors[Number.parseInt(index)]}`}
+                  type="error"
+                  showIcon
+                  closable
+                />
+              );
+            })}
+>>>>>>> Stashed changes */}
 
         <Form.Item
           name="email"
@@ -119,5 +145,34 @@ export default function LoginForm() {
       </Form>
       {/* </LoginFormConatainerDiv> */}
     </>
+    // =======
+    //             <Input
+    //               prefix={<UserOutlined className="site-form-item-icon" />}
+    //               placeholder="Email"
+    //             />
+    //           </Form.Item>
+    //           <Form.Item
+    //             name="password"
+    //             rules={[{ required: true, message: 'Unesite lozinku' }]}
+    //           >
+    //             <Input
+    //               prefix={<LockOutlined className="site-form-item-icon" />}
+    //               type="password"
+    //               placeholder="Lozinka"
+    //             />
+    //           </Form.Item>
+    //           <Form.Item>
+    //             <Button
+    //               type="primary"
+    //               htmlType="submit"
+    //               className="login-form-button"
+    //             >
+    //               Prijavi se
+    //             </Button>
+    //           </Form.Item>
+    //         </Form>
+    //       </LoginFormWrapperDiv>
+    // >>>>>>> Stashed changes
+    // </>
   );
 }

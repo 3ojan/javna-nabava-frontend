@@ -136,7 +136,6 @@ export default function ResultTable(props: TableData) {
               }).format(record.iznos)}
             </td>
           </StyledMobileRow>
-          {/* <StyledMobileRowDividerLine /> */}
         </>
       ),
       responsive: ['xs'],
@@ -146,6 +145,9 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'foramtedDate',
       key: 'foramtedDate',
       responsive: ['sm'],
+      ellipsis: {
+        showTitle: true,
+      },
       width: '9%',
       filters: props.monthFilter,
       onFilter: (value, record) =>
@@ -156,6 +158,9 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'isplatitelj',
       key: 'isplatitelj',
       responsive: ['sm'],
+      ellipsis: {
+        showTitle: true,
+      },
       // widthth: '7%',
       filters: props.isplatiteljsFilter,
       onFilter: (value, record) =>
@@ -166,6 +171,9 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'vrstarashoda',
       key: 'vrstarashoda',
       responsive: ['sm'],
+      ellipsis: {
+        showTitle: true,
+      },
       // widthth: '7%',
       render: (text, record) => renderLimitedCellHeight('vrstarashoda', record),
     },
@@ -183,12 +191,18 @@ export default function ResultTable(props: TableData) {
       key: 'oib',
       responsive: ['sm'],
       width: '10%',
+      ellipsis: {
+        showTitle: true,
+      },
     },
     {
       title: 'Mjesto',
       dataIndex: 'mjesto',
       key: 'mjesto',
       responsive: ['sm'],
+      ellipsis: {
+        showTitle: true,
+      },
       // widthth: '7%',
     },
     {
@@ -196,6 +210,9 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'opis',
       key: 'opis',
       responsive: ['sm'],
+      ellipsis: {
+        showTitle: true,
+      },
       // widthth: '7%',
     },
     {
@@ -204,6 +221,9 @@ export default function ResultTable(props: TableData) {
       key: 'iznos',
       align: 'right',
       responsive: ['sm'],
+      ellipsis: {
+        showTitle: true,
+      },
       width: '8%',
       render: (value) =>
         new Intl.NumberFormat('hr-HR', {
@@ -245,6 +265,7 @@ export default function ResultTable(props: TableData) {
     return isOutsideTop || isOutsideRight || isOutsideLeft;
   };
 
+  //TODO: test with antd elipsis feature
   const checkIfTextOverflowing = (record: DataType, key: string) => {
     console.log(record);
     const trElement: HTMLElement | null | undefined = (

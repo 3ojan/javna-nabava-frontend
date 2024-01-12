@@ -1,4 +1,4 @@
-import { Checkbox, Modal, Table } from "antd";
+import { Checkbox } from "antd";
 import { mobileScreenWidth } from "src/app/global/constants";
 import { styled } from "styled-components";
 
@@ -44,9 +44,9 @@ export const StyledCellHeightSpan = styled.span`
     overflow: hidden; 
     
     // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 2;
+    // -webkit-box-orient: vertical;
 
     // &:hover{
     //   overflow: visible;
