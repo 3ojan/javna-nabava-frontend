@@ -75,6 +75,7 @@ export default function ResultTable(props: TableData) {
 
   const tableRef = useRef(null);
 
+  //NOTE: Elipsis might cause problems with height or anything else really, dunno
   const columns: ColumnsType<DataType> = [
     {
       title: 'mobile',
@@ -159,9 +160,9 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'vrstarashoda',
       key: 'vrstarashoda',
       responsive: ['sm'],
-      ellipsis: {
-        showTitle: true,
-      },
+      // ellipsis: {
+      //   showTitle: true,
+      // },
       // widthth: '7%',
       render: (text, record) => renderLimitedCellHeight('vrstarashoda', record),
     },
@@ -198,9 +199,10 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'opis',
       key: 'opis',
       responsive: ['sm'],
-      ellipsis: {
-        showTitle: true,
-      },
+      // ellipsis: {
+      //   showTitle: true,
+      // },
+      render: (text, record) => renderLimitedCellHeight('primatelj', record),
       // widthth: '7%',
     },
     {

@@ -39,14 +39,15 @@ export const StyledMobileRow = styled.tr`
 
 export const StyledCellHeightSpan = styled.span`
     height: 3rem; /* ROW HEIGHT */
-    min-height: 3rem;
-    // line-height: 1.4rem;
+    // min-height: 3rem;
+    line-height: 1.4rem;
      
     
     // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
-    // display: -webkit-box;
-    // -webkit-line-clamp: 2;
-    // -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 
     // &:hover{
     //   overflow: visible;
