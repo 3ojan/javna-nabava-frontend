@@ -1,4 +1,7 @@
+import { Button, Checkbox, Dropdown, Menu, Modal, Space } from 'antd';
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
+import { ColumnFilterItem } from 'antd/es/table/interface';
+import { useEffect, useRef, useState } from 'react';
 import {
   StyledCellHeightSpan,
   StyledFiltersCheckboxGroup,
@@ -8,21 +11,6 @@ import {
   StyledResultsTableDiv,
   StyledTableDivWrapper,
 } from './styled';
-import { ColumnFilterItem } from 'antd/es/table/interface';
-import { useEffect, useRef, useState } from 'react';
-import React from 'react';
-import {
-  Button,
-  Checkbox,
-  Col,
-  Dropdown,
-  Input,
-  Menu,
-  MenuProps,
-  Modal,
-  Row,
-  Space,
-} from 'antd';
 
 interface TableData {
   data: DataType[];
@@ -434,7 +422,7 @@ export default function ResultTable(props: TableData) {
             rowKey="id"
             pagination={{
               defaultPageSize: props.rowAmount,
-              pageSizeOptions: [7, 10, 13, 20, 50, 100],
+              pageSizeOptions: [/* 7, 10, */ 15, 20, 50, 100],
             }}
           />
         </div>

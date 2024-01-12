@@ -21,6 +21,7 @@ export const StyledMobileTdDividerLine = styled.div`
 // `
 export const StyledMobileRow = styled.tr`
   display: flex;
+  // height: 3rem; /* ROW HEIGHT */
 
   td{
     flex: 2;
@@ -38,10 +39,9 @@ export const StyledMobileRow = styled.tr`
 
 export const StyledCellHeightSpan = styled.span`
     height: 3rem; /* ROW HEIGHT */
-    line-height: 1.4rem;
-    
-    // margin: auto;
-    overflow: hidden; 
+    min-height: 3rem;
+    // line-height: 1.4rem;
+     
     
     // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
     // display: -webkit-box;

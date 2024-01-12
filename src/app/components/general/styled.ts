@@ -11,7 +11,7 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
 
     ${props => props.$padding && css`
     //pushes footer from the main content
-        margin-bottom: 150px;
+        margin-bottom: 50px;
         padding: 0 ${sitePaddingHorizontalLargeScreen};
 
         @media only screen and (max-width: ${midScreenWidth}px) {
