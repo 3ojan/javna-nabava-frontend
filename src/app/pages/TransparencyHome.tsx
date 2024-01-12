@@ -209,7 +209,7 @@ function TransparencyHome() {
         yearFromData.push(year);
       }
 
-      const createdDate = new Date(item.created_at);
+      const createdDate = item.datum ? new Date(item.datum) : new Date();
       if (!latest_created_date || createdDate > latest_created_date) {
         latest_created_date = createdDate;
       }
