@@ -1,4 +1,4 @@
-import { colorPrimary, fontHeader, midScreenHeight, midScreenWidth, mobileScreenWidth, sitePaddingHorizontalLargeScreen, sitePaddingHorizontalMidScreen, sitePaddingHorizontalMobileScreen } from "src/app/global/constants";
+import { colorPrimary, fontHeader, midScreenWidth, mobileScreenWidth, sitePaddingHorizontalLargeScreen, sitePaddingHorizontalMidScreen, sitePaddingHorizontalMobileScreen } from "src/app/global/constants";
 import { css, styled } from "styled-components";
 
 export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: boolean, $background?: boolean}>`
@@ -92,7 +92,7 @@ export const StyledAppTitleH1 = styled.h1`
 export const StyledAppHeaderDiv = styled.div`
     padding: 0 ${sitePaddingHorizontalLargeScreen};
     padding:10px;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
     // background-color: ${colorPrimary};
 
     h2 {
