@@ -200,27 +200,27 @@ function TransparencyHome() {
     document.getElementsByTagName('head')[0].appendChild(link);
   };
 
-  // const getAvailableYears = () => {
-  //   const yearFromData: string[] = [];
+  const getLatestCreatedDate = () => {
+    // const yearFromData: string[] = [];
 
-  //   let latest_created_date: Date | null = null;
+    let latest_created_date: Date | null = null;
 
-  //   data.forEach((item: DataType) => {
-  //     const year = item.datum?.split('-')[0];
-  //     if (year && !yearFromData.includes(year)) {
-  //       yearFromData.push(year);
-  //     }
+    data.forEach((item: DataType) => {
+      // const year = item.datum?.split('-')[0];
+      // if (year && !yearFromData.includes(year)) {
+      //   yearFromData.push(year);
+      // }
 
-  //     const createdDate = item.datum ? new Date(item.datum) : new Date();
-  //     if (!latest_created_date || createdDate > latest_created_date) {
-  //       latest_created_date = createdDate;
-  //     }
-  //   });
-  //   if (latest_created_date) {
-  //     setLatestCreatedDate(latest_created_date);
-  //   }
-  //   // setAvailableYears(yearFromData);
-  // };
+      const createdDate = item.datum ? new Date(item.datum) : new Date();
+      if (!latest_created_date || createdDate > latest_created_date) {
+        latest_created_date = createdDate;
+      }
+    });
+    if (latest_created_date) {
+      setLatestCreatedDate(latest_created_date);
+    }
+    // setAvailableYears(yearFromData);
+  };
 
   const currentYear = useMemo(() => {
     return parseInt(selectedYear);
@@ -233,17 +233,17 @@ function TransparencyHome() {
     );
   };
 
-  useEffect(() => {
-    // This effect runs after the initial render
-    if (
-      searchValue === '' ||
-      searchValue === undefined ||
-      searchValue === null
-    ) {
-      //gets default data
-      // dispatch(getData(opcinaData.url, selectedYear) as any);
-    }
-  }, [selectedYear]);
+  // useEffect(() => {
+  //   // This effect runs after the initial render
+  //   if (
+  //     searchValue === '' ||
+  //     searchValue === undefined ||
+  //     searchValue === null
+  //   ) {
+  //     //gets default data
+  //     // dispatch(getData(opcinaData.url, selectedYear) as any);
+  //   }
+  // }, [selectedYear]);
 
   useEffect(() => {
     if (data) {
@@ -258,6 +258,7 @@ function TransparencyHome() {
       setLoadedValuesCount(new Intl.NumberFormat('hr-HR').format(data.length));
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
+      getLatestCreatedDate();
       // getAvailableYears();
     }
   }, [isDataLoaded]);
