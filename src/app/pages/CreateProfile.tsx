@@ -1,7 +1,7 @@
-import React from 'react';
-import { Form, Input, Button, Upload, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, Upload } from 'antd';
 import { RcFile, UploadProps } from 'antd/lib/upload';
+import React from 'react';
 import { LoginFormConatainerDiv } from './styled';
 
 const { Option } = Select;

@@ -100,6 +100,7 @@ export const StyledTableDivWrapper = styled.div`
     opacity: 0.7;
   }
 
+
   /* Mobile-specific styles */
   @media (max-width: ${mobileScreenWidth}px) {
     margin-bottom: 30px;

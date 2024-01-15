@@ -13,6 +13,7 @@ export interface TransparencyState {
   errorMessage: string | null;
   searchValue: string;
   selectedYear: string;
+  availableYears: [];
   isDataLoaded: boolean;
   isOpcinaDataLoaded: boolean;
   // placeName: string;
@@ -22,7 +23,7 @@ export interface TransparencyState {
 export interface RootState {
   trasparency: TransparencyState
   searchValue: string;
-  selectedYear: string;
+  // selectedYear: string;
   errorMessage: string | null;
 
 }
@@ -61,6 +62,7 @@ const slice = createSlice({
     searchValue: "",
     isDataLoaded: false,
     selectedYear: "2023",//new Date().getFullYear().toString(),
+    availableYears: [],
     isOpcinaDataLoaded: false,
     opcinaData: {} as LocationInfo,
   } as  TransparencyState,
@@ -78,11 +80,19 @@ const slice = createSlice({
       // Reset error on login success
     },
     loadOpcina: (state, action: PayloadAction<LocationInfo>) => {
-      //result is only for testing purposes
       return {
         ...state,
         isOpcinaDataLoaded: true,
         opcinaData: action.payload,
+      }
+    },
+    loadYears: (state, action: PayloadAction<any>) => {
+      // console.log(action.payload)
+      const availableYears = action.payload.map((year: any) => String(year.godina));
+      return {
+        ...state,
+        availableYears: availableYears,
+        // selectedYear: availableYears[0], //data is sorted by year desc b4 returning to frontend
       }
     },
     onChangeSearchBarValue: (state, action: PayloadAction<string>) => { //PayloadAction<Transparency>
@@ -96,7 +106,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, loadOpcina, onChangeSearchBarValue, onChangeSelectYear} = slice.actions;
+const { loadSuccess, loadOpcina, loadYears, onChangeSearchBarValue, onChangeSelectYear} = slice.actions;
 
 export const getData = (placeName: string, year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
   try {
@@ -131,6 +141,19 @@ export const getOpcineData = (/* placeName: string */) => async (
     console.log(e);
   }
 };
+
+export const getAvailableYearsData = (placeName: string) => async (
+  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
+) => {
+  try {
+    const res = await axiosClient.get(`/${placeName}/transparentnost/godinePodataka`);
+
+    // console.log(res.data)
+    dispatch(loadYears(res.data));
+  } catch (e: any) {
+    console.log(e);
+  }
+};
 // export const getData = ({ pagination }: { pagination: any }) => async (
 //   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
 // ) => {
@@ -140,7 +163,7 @@ export const getOpcineData = (/* placeName: string */) => async (
 // } catch (e: any) {
 //   // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
 // }
-// };
+// }
 
 
 export const changeSearchBarValue = (value: string) => (

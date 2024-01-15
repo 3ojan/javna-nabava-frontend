@@ -57,7 +57,7 @@ const onChange: TableProps<DataType>['onChange'] = (
   sorter,
   extra
 ) => {
-  console.log('params', pagination, filters, sorter, extra);
+  // console.log('params', pagination, filters, sorter, extra);
 };
 
 export default function ResultTable(props: TableData) {
@@ -236,7 +236,7 @@ export default function ResultTable(props: TableData) {
   const handleCloseModal = (event: any) => {
     const rectBounds = selectedCellElement?.getBoundingClientRect();
     if (rectBounds && checkCursorIsInModalOrSpan(event, rectBounds)) {
-      console.log('close modal');
+      // console.log('close modal');
       closeModal();
     }
   };
@@ -257,7 +257,7 @@ export default function ResultTable(props: TableData) {
 
   //TODO: test with antd elipsis feature
   const checkIfTextOverflowing = (record: DataType, key: string) => {
-    console.log(record);
+    // console.log(record);
     const trElement: HTMLElement | null | undefined = (
       tableRef.current as HTMLElement | null
     )?.querySelector(`table tr[data-row-key="${record.id as string}"]`);

@@ -10,6 +10,7 @@ import {
   TransparencyState,
   changeSearchBarValue,
   changeSelectedYearValue,
+  getAvailableYearsData,
   getData,
   getOpcineData,
 } from 'src/redux/transparency/transparency';
@@ -55,7 +56,7 @@ function TransparencyHome() {
   const [latestCreatedDate, setLatestCreatedDate] = useState<Date>();
   const [tempData, setTempData] = useState<DataType[]>([]);
   const [isMobileScreenWidth, setIsMobileScreenWidth] = useState(false);
-  const [availableYears, setAvailableYears] = useState<string[]>([]);
+  // const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
     useState<ColumnFilterItem[]>([]);
@@ -72,6 +73,7 @@ function TransparencyHome() {
     opcinaData,
     searchValue,
     selectedYear,
+    availableYears,
     isDataLoaded,
     isOpcinaDataLoaded,
   } = transparencyState as TransparencyState;
@@ -198,27 +200,27 @@ function TransparencyHome() {
     document.getElementsByTagName('head')[0].appendChild(link);
   };
 
-  const getAvailableYears = () => {
-    const yearFromData: string[] = [];
+  // const getAvailableYears = () => {
+  //   const yearFromData: string[] = [];
 
-    let latest_created_date: Date | null = null;
+  //   let latest_created_date: Date | null = null;
 
-    data.forEach((item: DataType) => {
-      const year = item.datum?.split('-')[0];
-      if (year && !yearFromData.includes(year)) {
-        yearFromData.push(year);
-      }
+  //   data.forEach((item: DataType) => {
+  //     const year = item.datum?.split('-')[0];
+  //     if (year && !yearFromData.includes(year)) {
+  //       yearFromData.push(year);
+  //     }
 
-      const createdDate = item.datum ? new Date(item.datum) : new Date();
-      if (!latest_created_date || createdDate > latest_created_date) {
-        latest_created_date = createdDate;
-      }
-    });
-    if (latest_created_date) {
-      setLatestCreatedDate(latest_created_date);
-    }
-    setAvailableYears(yearFromData);
-  };
+  //     const createdDate = item.datum ? new Date(item.datum) : new Date();
+  //     if (!latest_created_date || createdDate > latest_created_date) {
+  //       latest_created_date = createdDate;
+  //     }
+  //   });
+  //   if (latest_created_date) {
+  //     setLatestCreatedDate(latest_created_date);
+  //   }
+  //   // setAvailableYears(yearFromData);
+  // };
 
   const currentYear = useMemo(() => {
     return parseInt(selectedYear);
@@ -256,7 +258,7 @@ function TransparencyHome() {
       setLoadedValuesCount(new Intl.NumberFormat('hr-HR').format(data.length));
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
-      getAvailableYears();
+      // getAvailableYears();
     }
   }, [isDataLoaded]);
 
@@ -267,6 +269,7 @@ function TransparencyHome() {
       document.title = `Proracun ${opcinaData.naziv}`;
       //gets default data
       dispatch(getData(opcinaData.url, selectedYear) as any);
+      dispatch(getAvailableYearsData(opcinaData.url) as any);
     }
   }, [opcinaData]);
 

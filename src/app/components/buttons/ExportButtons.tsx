@@ -1,10 +1,8 @@
-import { Button, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { StyledColoredButton, StyledSpace } from './styled';
-import { mobileScreenWidth } from 'src/app/global/constants';
-import { useSelector } from 'react-redux';
-import { TransparencyState } from 'src/redux/transparency/transparency';
 import { DownloadOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { useEffect, useState } from 'react';
+import { mobileScreenWidth } from 'src/app/global/constants';
+import { StyledColoredButton } from './styled';
 
 export type exportButtonProps = {
   xmlVisible: boolean;
@@ -29,9 +27,9 @@ export default function ExportButtons(exportButtonProps: exportButtonProps) {
     window.innerWidth <= mobileScreenWidth ? 'XML' : 'Preuzmi XML'
   );
 
-  const transparencyState = useSelector(
-    (state: any) => state.transparency as TransparencyState
-  );
+  // const transparencyState = useSelector(
+  //   (state: any) => state.transparency as TransparencyState
+  // );
 
   const handleResize = () => {
     setXmlText(window.innerWidth <= mobileScreenWidth ? 'XML' : 'Preuzmi XML');
