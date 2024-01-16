@@ -229,7 +229,7 @@ export default function ResultTable(props: TableData) {
       // onMouseLeave={handleCloseModal}
       id={key}
     >
-      {(record as any)[key]}
+      <div>{(record as any)[key]}</div>
     </StyledCellHeightSpan>
   );
 
@@ -263,7 +263,9 @@ export default function ResultTable(props: TableData) {
     )?.querySelector(`table tr[data-row-key="${record.id as string}"]`);
 
     if (trElement) {
-      const spanEl = trElement.querySelector(`td span#${key}`) as HTMLElement;
+      const spanEl = trElement.querySelector(
+        `td span#${key} div`
+      ) as HTMLElement;
       if (
         spanEl &&
         (spanEl.clientWidth < spanEl.scrollWidth ||

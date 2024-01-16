@@ -42,19 +42,17 @@ export const StyledCellHeightSpan = styled.span`
     // min-height: 3rem;
     line-height: 1.4rem;
      
+    display: flex;
+    align-items: center;
     
+    div{
     // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-
-    // &:hover{
-    //   overflow: visible;
-    //   height: 100px;
-    //   background-color: rgba(255, 255, 255, 0.2);
-    //   -webkit-line-clamp: unset;
-    // }
+    text-overflow: ellipsis;
+  }
 `
 
 export const StyledTableDivWrapper = styled.div`

@@ -201,17 +201,12 @@ function TransparencyHome() {
   };
 
   const getLatestCreatedDate = () => {
-    // const yearFromData: string[] = [];
-
     let latest_created_date: Date | null = null;
 
     data.forEach((item: DataType) => {
-      // const year = item.datum?.split('-')[0];
-      // if (year && !yearFromData.includes(year)) {
-      //   yearFromData.push(year);
-      // }
-
-      const createdDate = item.datum ? new Date(item.datum) : new Date();
+      const createdDate = item.created_at
+        ? new Date(item.created_at)
+        : new Date();
       if (!latest_created_date || createdDate > latest_created_date) {
         latest_created_date = createdDate;
       }
@@ -219,7 +214,6 @@ function TransparencyHome() {
     if (latest_created_date) {
       setLatestCreatedDate(latest_created_date);
     }
-    // setAvailableYears(yearFromData);
   };
 
   const currentYear = useMemo(() => {
@@ -347,7 +341,7 @@ function TransparencyHome() {
                 monthFilter={monthColumnFilterItems}
                 data={tempData}
                 // rowAmount={rowAmountDependOnSize()}
-                rowAmount={100}
+                rowAmount={50}
                 isMobileWidth={isMobileScreenWidth}
               />
             </>
