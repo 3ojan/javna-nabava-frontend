@@ -136,6 +136,7 @@ export const getOpcineData = (/* placeName: string */) => async (
   try {
     const res = await axiosClient.get(`/opcine/${getPlaceName()}`);
 
+    // console.log("Resource data", res.data)
     dispatch(loadOpcina(res.data));
   } catch (e: any) {
     console.log(e);

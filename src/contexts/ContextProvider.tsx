@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react';
 const ACCESS_TOKEN = 'ACCESS_TOKEN';
-// const EXPIRATION = 'EXPIRATION';
 
 interface StateContextType {
   user: null | {};

@@ -46,13 +46,13 @@ export const StyledCellHeightSpan = styled.span`
     align-items: center;
     
     div{
-    // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+      // ONLY FOR NEW BROWSERS, puts elipsis on overflow in multiple lines
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 `
 
 export const StyledTableDivWrapper = styled.div`

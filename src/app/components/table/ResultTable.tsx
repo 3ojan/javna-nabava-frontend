@@ -427,6 +427,7 @@ export default function ResultTable(props: TableData) {
             pagination={{
               defaultPageSize: props.rowAmount,
               pageSizeOptions: [/* 7, 10, */ 15, 20, 50, 100],
+              showSizeChanger: true,
             }}
           />
         </div>
