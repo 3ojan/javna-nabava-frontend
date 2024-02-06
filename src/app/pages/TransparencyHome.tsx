@@ -56,7 +56,6 @@ function TransparencyHome() {
   const [latestCreatedDate, setLatestCreatedDate] = useState<Date>();
   const [tempData, setTempData] = useState<DataType[]>([]);
   const [isMobileScreenWidth, setIsMobileScreenWidth] = useState(false);
-  // const [availableYears, setAvailableYears] = useState<string[]>([]);
   const [grbUrl, setGrbUrl] = useState('');
   const [isplatiteljColumnFilterItems, setIsplatiteljColumnFilterItems] =
     useState<ColumnFilterItem[]>([]);
@@ -83,14 +82,8 @@ function TransparencyHome() {
       <p>
         Ukupno isplata u <b>{selectedYear}.</b> godini: <b>{sumIznosValues}</b>{' '}
         €<br />
-        {/* </p> */}
-        {/* <hr /> */}
-        {/* <p> */}
         Ukupno stavaka: <b>{loadedValuesCount}</b>
         <br />
-        {/* </p> */}
-        {/* <hr /> */}
-        {/* <p> */}
         Podaci ažurirani:{' '}
         <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
       </p>
@@ -102,7 +95,6 @@ function TransparencyHome() {
       Objava informacija o trošenju sredstava iz proračuna temeljem članka 144.
       Zakona o proračunu ("Narodne novine", broj 144/21) i
       <br />
-      {/* maknut br na mobilnoh */}
       Naputka o okvirnom sadržaju, minimalnom skupu podataka te načinu javne
       objave informacija o trošenju sredstava ("Narodne novine", broj 59/23).
     </p>
