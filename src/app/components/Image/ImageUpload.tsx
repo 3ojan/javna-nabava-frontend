@@ -49,28 +49,24 @@ export default function ImageUpload(props: ImageUploadProps) {
       });
   };
 
-  const onInputFile = () => {};
-
-  const onCustomUpload = () =>
-    /* event: ChangeEvent<HTMLInputElement>, file: File*/
-    {
-      if (!selectedImage) return;
-      // event.preventDefault();
-      const data = new FormData();
-      data.append('image', selectedImage, selectedImage.name);
-      console.log('data', data);
-      axiosClient
-        .post('/store-image', data)
-        .then((response) => {
-          console.log('resp', response.data);
-          onImageUpload && onImageUpload(response.data);
-          alert('Image uploaded successfully');
-        })
-        .catch((error) => {
-          alert(`Error while uploading image: ${error.response.data.message}`);
-          // console.log(error);
-        });
-    };
+  const onCustomUpload = () => {
+    if (!selectedImage) return;
+    // event.preventDefault();
+    const data = new FormData();
+    data.append('image', selectedImage, selectedImage.name);
+    console.log('data', data);
+    axiosClient
+      .post('/store-image', data)
+      .then((response) => {
+        console.log('resp', response.data);
+        onImageUpload && onImageUpload(response.data);
+        alert('Image uploaded successfully');
+      })
+      .catch((error) => {
+        alert(`Error while uploading image: ${error.response.data.message}`);
+        // console.log(error);
+      });
+  };
 
   const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];

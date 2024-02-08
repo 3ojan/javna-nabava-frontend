@@ -10,9 +10,6 @@ import NxWelcome from './nx-welcome';
 import TransparencyHome from './pages/TransparencyHome.tsx';
 // import BottomImages from './components/background/BottomImages';
 import { ContextProvider } from 'src/contexts/ContextProvider.tsx';
-import CreateProfile from './pages/CreateProfile.tsx';
-import { ImageUploadTestPage } from './pages/ImageUploadTestPage';
-import Login from './pages/Login.tsx';
 
 export default function App() {
   return (
@@ -33,12 +30,12 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<TransparencyHome />} />
                 <Route path="/home" element={<NxWelcome title="" />} />
-                <Route
+                {/* <Route
                   path="/image-upload"
                   element={<ImageUploadTestPage title="" />}
-                />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<CreateProfile />} />
+                /> */}
+                {/* <Route path="/login" element={<Login />} /> */}
+                {/* <Route path="/register" element={<CreateProfile />} /> */}
               </Routes>
             </Router>
           </Provider>
