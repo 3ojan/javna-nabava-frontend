@@ -111,7 +111,6 @@ export default function ResultTable(props: TableData) {
             <td>{record.mjesto}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
-          <StyledMobileTdDividerLine />
           <StyledMobileRow>
             <td>Iznos €:</td>
             <td>
