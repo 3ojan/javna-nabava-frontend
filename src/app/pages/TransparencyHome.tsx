@@ -129,7 +129,7 @@ function TransparencyHome() {
     setTempData(
       data.filter(
         (item: any) =>
-          item.opis.toLowerCase().includes(value) ||
+          // item.opis.toLowerCase().includes(value) ||
           item.primatelj.toLowerCase().includes(value) ||
           item.vrstarashoda.toLowerCase().includes(value) ||
           item.oib.toLowerCase().includes(value) ||
