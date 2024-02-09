@@ -111,10 +111,6 @@ export default function ResultTable(props: TableData) {
             <td>{record.mjesto}</td>
           </StyledMobileRow>
           <StyledMobileTdDividerLine />
-          <StyledMobileRow>
-            <td>Opis:</td>
-            <td>{record.opis}</td>
-          </StyledMobileRow>
           <StyledMobileTdDividerLine />
           <StyledMobileRow>
             <td>Iznos €:</td>
@@ -192,17 +188,6 @@ export default function ResultTable(props: TableData) {
       ellipsis: {
         showTitle: true,
       },
-      // widthth: '7%',
-    },
-    {
-      title: 'Opis',
-      dataIndex: 'opis',
-      key: 'opis',
-      responsive: ['sm'],
-      // ellipsis: {
-      //   showTitle: true,
-      // },
-      render: (text, record) => renderLimitedCellHeight('primatelj', record),
       // widthth: '7%',
     },
     {
