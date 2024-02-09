@@ -164,7 +164,7 @@ export const StyledPlaceInfoDiv = styled.div`
 
     img{
         height: 75px;
-        width: auto;
+        // width: auto;
     }
 
     @media only screen and (max-width: ${midScreenWidth}px) {
