@@ -3,8 +3,7 @@ let placeName: string | undefined;
 
 export const getPlaceName = ()=>{
     if (!placeName){
-        // const domain = window.location.hostname;
-        const domain ="isplate.opcina-tovarnik.hr/";
+        const domain = window.location.hostname;
         const pattern = /[ .,;-]+/;
 
         //old way of doing it, left just in case.
