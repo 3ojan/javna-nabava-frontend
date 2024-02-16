@@ -24,7 +24,7 @@ const CreateProfile: React.FC = () => {
 
   // Handle form submission
   const onFinish = (values: ProfileFormValues) => {
-    console.log('Received values of form: ', values);
+    // console.log('Received values of form: ', values);
   };
 
   // Dummy request function for upload

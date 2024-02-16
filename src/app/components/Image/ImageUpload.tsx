@@ -54,11 +54,11 @@ export default function ImageUpload(props: ImageUploadProps) {
     // event.preventDefault();
     const data = new FormData();
     data.append('image', selectedImage, selectedImage.name);
-    console.log('data', data);
+    // console.log('data', data);
     axiosClient
       .post('/store-image', data)
       .then((response) => {
-        console.log('resp', response.data);
+        // console.log('resp', response.data);
         onImageUpload && onImageUpload(response.data);
         alert('Image uploaded successfully');
       })
@@ -78,7 +78,7 @@ export default function ImageUpload(props: ImageUploadProps) {
 
   useEffect(() => {
     axiosClient.get('/user').then(({ data }) => {
-      console.log('user', data);
+      // console.log('user', data);
       setUser(data);
     });
   }, []);
