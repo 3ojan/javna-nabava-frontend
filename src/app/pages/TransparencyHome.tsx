@@ -53,7 +53,7 @@ function TransparencyHome() {
 
   const [loadedValuesCount, setLoadedValuesCount] = useState<string>('0');
   const [sumIznosValues, setSumIznosValues] = useState<string>('0');
-  const [latestCreatedDate, setLatestCreatedDate] = useState<Date>();
+  const [latestCreatedDate, setLatestCreatedDate] = useState<Date | null>();
   const [tempData, setTempData] = useState<DataType[]>([]);
   const [isMobileScreenWidth, setIsMobileScreenWidth] = useState(false);
   const [grbUrl, setGrbUrl] = useState('');
@@ -85,7 +85,11 @@ function TransparencyHome() {
         Ukupno stavaka: <b>{loadedValuesCount}</b>
         <br />
         Podaci ažurirani:{' '}
-        <b>{latestCreatedDate?.toLocaleDateString('hr-HR')}</b>
+        <b>
+          {latestCreatedDate
+            ? latestCreatedDate?.toLocaleDateString('hr-HR')
+            : 'nema '}
+        </b>
       </p>
     </StyledResultsInfoDiv>
   );
@@ -175,7 +179,10 @@ function TransparencyHome() {
 
   const onYearChange = (e: any) => {
     dispatch(changeSelectedYearValue(e) as any);
+    dispatch(getData(opcinaData.url, e) as any);
+    // setTempData(data);
   };
+
   const onSelectYear = (e: any) => {
     //gets default data
     dispatch(getData(opcinaData.url, selectedYear) as any);
@@ -192,10 +199,10 @@ function TransparencyHome() {
     document.getElementsByTagName('head')[0].appendChild(link);
   };
 
-  const getLatestCreatedDate = () => {
+  const getLatestCreatedDate = (currentData: DataType[]) => {
     let latest_created_date: Date | null = null;
 
-    data.forEach((item: DataType) => {
+    currentData.forEach((item: DataType) => {
       const createdDate = item.created_at
         ? new Date(item.created_at)
         : new Date();
@@ -203,9 +210,11 @@ function TransparencyHome() {
         latest_created_date = createdDate;
       }
     });
-    if (latest_created_date) {
-      setLatestCreatedDate(latest_created_date);
-    }
+    // if (latest_created_date) {
+    setLatestCreatedDate(latest_created_date);
+    // }else{
+
+    // }
   };
 
   const currentYear = useMemo(() => {
@@ -231,7 +240,7 @@ function TransparencyHome() {
   //   }
   // }, [selectedYear]);
 
-  useEffect(() => {
+  const reloadData = () => {
     if (data) {
       setTempData(data);
       setSumIznosValues(
@@ -244,9 +253,17 @@ function TransparencyHome() {
       setLoadedValuesCount(new Intl.NumberFormat('hr-HR').format(data.length));
       setIsplatiteljColumnFilterItems(getFilters(data, 'isplatitelj'));
       setMonthColumnFilterItems(getFilters(data, 'foramtedDate'));
-      getLatestCreatedDate();
+      getLatestCreatedDate(data);
       // getAvailableYears();
     }
+  };
+
+  useEffect(() => {
+    reloadData();
+  }, [data]);
+
+  useEffect(() => {
+    reloadData();
   }, [isDataLoaded]);
 
   useEffect(() => {
@@ -255,10 +272,15 @@ function TransparencyHome() {
       setFavicon(`${import.meta.env.VITE_API_IMG_URL}/${opcinaData.favico}`);
       document.title = `Proracun ${opcinaData.naziv}`;
       //gets default data
-      dispatch(getData(opcinaData.url, selectedYear) as any);
       dispatch(getAvailableYearsData(opcinaData.url) as any);
     }
   }, [opcinaData]);
+
+  useEffect(() => {
+    if (selectedYear) {
+      dispatch(getData(opcinaData.url, selectedYear) as any);
+    }
+  }, [selectedYear]);
 
   useEffect(() => {
     //Good to add is OpcineData fetched flag for check
@@ -307,11 +329,11 @@ function TransparencyHome() {
           <StyledRow>
             <Col xs={isMobileScreenWidth ? 18 : 8}>
               <TransparentnostSearch
-                onSelectYear={onSelectYear}
+                // onSelectYear={onSelectYear}
                 currentYear={currentYear}
                 onChangeInput={onChange}
-                onYearSelect={onYearChange}
-                availableYears={availableYears}
+                onYearChange={onYearChange}
+                // yearOptions={availableYearsState}
               />
             </Col>
             <Col xs={isMobileScreenWidth ? 6 : 16}>

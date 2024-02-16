@@ -61,7 +61,7 @@ const slice = createSlice({
     errorMessage: null,
     searchValue: "",
     isDataLoaded: false,
-    selectedYear: "2023",//new Date().getFullYear().toString(),
+    selectedYear: "", //new Date().getFullYear().toString(),
     availableYears: [],
     isOpcinaDataLoaded: false,
     opcinaData: {} as LocationInfo,
@@ -91,6 +91,7 @@ const slice = createSlice({
       const availableYears = action.payload.map((year: any) => String(year.godina));
       return {
         ...state,
+        selectedYear: availableYears[0],
         availableYears: availableYears,
         // selectedYear: availableYears[0], //data is sorted by year desc b4 returning to frontend
       }

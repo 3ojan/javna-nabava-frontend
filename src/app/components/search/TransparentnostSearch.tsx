@@ -1,5 +1,8 @@
 import { Input, Select } from 'antd';
 import { DefaultOptionType } from 'antd/es/select/index';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { TransparencyState } from 'src/redux/transparency/transparency.ts';
 import {
   StyledSearchBar,
   StyledSelectWrapper,
@@ -8,23 +11,21 @@ import {
 } from '../search/styled.ts';
 
 export default function TransparentnostSearch(props: any) {
+  const [latestYearOption, setLatestYearOption] = useState<string>();
+  const [availableYearsOptions, setAvailableYearsOptions] =
+    useState<DefaultOptionType[]>();
+
+  const transparencyState = useSelector((state: any) => {
+    return state.transparency as TransparencyState;
+  });
+
+  const { availableYears, selectedYear } =
+    transparencyState as TransparencyState;
   const { Option } = Select;
   const { Search } = Input;
-  const {
-    onSelectYear,
-    onChangeInput,
-    currentYear,
-    onYearSelect,
-    className,
-    availableYears,
-    isplatiteljs,
-    searchValueonSearchClick,
-    searchValue,
-    onSearchClick,
-    buttonEnabled,
-  } = props;
+  const { onChangeInput, currentYear, onYearChange } = props;
 
-  const selectYearOptions = (): DefaultOptionType[] => {
+  const fillSelectYearOptions = () /* : DefaultOptionType[] */ => {
     const yearOptions: DefaultOptionType[] = [];
 
     availableYears.forEach((year: string) => {
@@ -33,8 +34,18 @@ export default function TransparentnostSearch(props: any) {
         label: year,
       });
     });
-    return yearOptions;
+    // return yearOptions;
+    setLatestYearOption(yearOptions[0].value as string);
+
+    setAvailableYearsOptions(yearOptions);
+    console.log('availableYearsOptions', availableYearsOptions);
   };
+
+  useEffect(() => {
+    if (availableYears.length > 0) {
+      fillSelectYearOptions();
+    }
+  }, [availableYears]);
 
   return (
     <StyledTransparencyLayout>
@@ -47,10 +58,11 @@ export default function TransparentnostSearch(props: any) {
           />
           <StyledSelectWrapper>
             <Select
-              onSelect={onSelectYear}
-              defaultValue={currentYear}
-              onChange={onYearSelect}
-              options={selectYearOptions()}
+              // onSelect={onSelectYear}
+              // defaultValue={selectedYear}
+              value={selectedYear || latestYearOption}
+              onChange={onYearChange}
+              options={availableYearsOptions} //selectYearOptions()
               // size="large"
             ></Select>
           </StyledSelectWrapper>
