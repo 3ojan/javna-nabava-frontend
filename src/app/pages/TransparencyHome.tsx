@@ -130,14 +130,15 @@ function TransparencyHome() {
     // dispatch(getSearchData(selectedYear, searchValue) as any);
 
     //this searches loaded data by endpoint
+    const lowerCaseValue = value.toLowerCase();
     setTempData(
       data.filter(
         (item: any) =>
           // item.opis.toLowerCase().includes(value) ||
-          item.primatelj.toLowerCase().includes(value) ||
-          item.vrstarashoda.toLowerCase().includes(value) ||
-          item.oib.toLowerCase().includes(value) ||
-          item.mjesto.toLowerCase().includes(value)
+          item.primatelj.toLowerCase().includes(lowerCaseValue) ||
+          item.vrstarashoda.toLowerCase().includes(lowerCaseValue) ||
+          item.oib.toLowerCase().includes(lowerCaseValue) ||
+          item.mjesto.toLowerCase().includes(lowerCaseValue)
       )
     );
   };
