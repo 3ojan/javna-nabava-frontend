@@ -29,6 +29,7 @@ export default function App() {
             <Router>
               <Routes>
                 <Route path="/" element={<TransparencyHome />} />
+                <Route path="/:isplatiteljrkp" element={<TransparencyHome />} />
                 <Route path="/home" element={<NxWelcome title="" />} />
                 {/* <Route
                   path="/image-upload"
