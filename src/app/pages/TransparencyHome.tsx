@@ -3,6 +3,7 @@ import { Col, Collapse, CollapseProps, Spin } from 'antd';
 import { ColumnFilterItem } from 'antd/es/table/interface';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { StyledExportButtonsDiv } from 'src/app/components/buttons/styled.ts';
 import { getPlaceName } from 'src/helper/domainHelper.ts';
 import { AppDispatch } from 'src/redux/store';
@@ -26,14 +27,10 @@ import {
 } from '../components/general/styled.ts';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable, { DataType } from '../components/table/ResultTable';
+import TransparencyFooter from '../components/transparencyFooter/TransparencyFooter.tsx';
 import { largeScreenHeight, mobileScreenWidth } from '../global/constants.ts';
 import {
   StyledAppDescDiv,
-  StyledFooter,
-  StyledFooterBgImg,
-  StyledFooterBgImgContainerDiv,
-  StyledFooterContainerDiv,
-  StyledFooterLogoImg,
   StyledMainPageContainerDiv,
   StyledResultsInfoDiv,
   StyledRow,
@@ -47,10 +44,14 @@ export interface StringFilters {
 //TEST comment
 
 function TransparencyHome() {
+  const { isplatiteljrkp } = useParams();
   const antIcon = <LoadingOutlined style={{ fontSize: 64 }} spin />;
 
   const dispatch: AppDispatch = useDispatch();
 
+  const [isplatiteljUrlFilter, setIsplatiteljUrlFilter] = useState<
+    string | undefined
+  >();
   const [loadedValuesCount, setLoadedValuesCount] = useState<string>('0');
   const [sumIznosValues, setSumIznosValues] = useState<string>('0');
   const [latestCreatedDate, setLatestCreatedDate] = useState<Date | null>();
@@ -153,19 +154,34 @@ function TransparencyHome() {
 
   const getFilters = (data: any, variable: string) => {
     let uniqueFilters: ColumnFilterItem[] = [];
-
+    // let isSetDeftaultFilter = false;
+    let valueVariable = variable;
+    if (variable === 'isplatitelj') {
+      valueVariable = 'isplatiteljrkp';
+    }
     data.forEach((item: any) => {
       if (
         !uniqueFilters.some((itemFromSet) => {
           return (
             itemFromSet.text === item[variable] &&
-            itemFromSet.value === item[variable]
+            itemFromSet.value === item[valueVariable]
           );
         })
       ) {
+        // if (
+        //   isplatiteljrkp &&
+        //   !isSetDeftaultFilter &&
+        //   item['isplatiteljrkp'] === isplatiteljrkp
+        // ) {
+        //   isSetDeftaultFilter = true;
+        //   setIsplatiteljUrlFilter(item['isplatitelj']);
+        // }
+
         uniqueFilters.push({
           text: item[variable],
-          value: item[variable],
+          value: item[valueVariable],
+          // if variable is isplatitelj, then value is isplatiteljrkp
+          // value: item[variable === 'isplatitelj' ? 'isplatiteljrkp' : variable],
         });
         //SORTING of array, potential bug for date, reason: date is string not number
         uniqueFilters = uniqueFilters.sort(
@@ -174,6 +190,7 @@ function TransparencyHome() {
         );
       }
     });
+
     const columnFilterItems: ColumnFilterItem[] = Array.from(uniqueFilters);
     return columnFilterItems;
   };
@@ -213,9 +230,6 @@ function TransparencyHome() {
     });
     // if (latest_created_date) {
     setLatestCreatedDate(latest_created_date);
-    // }else{
-
-    // }
   };
 
   const currentYear = useMemo(() => {
@@ -241,9 +255,23 @@ function TransparencyHome() {
   //   }
   // }, [selectedYear]);
 
+  const filterDataByIsplatiteljrkp = (isplatiteljrkp: string) => {
+    // const lowerCaseValue = isplatiteljrkp.toLowerCase();
+    setTempData(
+      data.filter((item: DataType) => {
+        if (item.isplatiteljrkp.toString() === isplatiteljrkp) {
+          return true;
+        } else return false;
+      })
+    );
+  };
   const reloadData = () => {
     if (data) {
+      // if (isplatiteljrkp) {
+      //   filterDataByIsplatiteljrkp(isplatiteljrkp);
+      // } else {
       setTempData(data);
+      // }
       setSumIznosValues(
         new Intl.NumberFormat('hr-HR', {
           minimumFractionDigits: 2,
@@ -264,7 +292,11 @@ function TransparencyHome() {
   }, [data]);
 
   useEffect(() => {
+    // if (isplatiteljrkp) {
+    //   filterDataByIsplatiteljrkp(isplatiteljrkp);
+    // } else {
     reloadData();
+    console.log(isplatiteljrkp);
   }, [isDataLoaded]);
 
   useEffect(() => {
@@ -350,16 +382,15 @@ function TransparencyHome() {
             </Col>
           </StyledRow>
           {isDataLoaded ? (
-            <>
-              <ResultTable
-                isplatiteljsFilter={isplatiteljColumnFilterItems}
-                monthFilter={monthColumnFilterItems}
-                data={tempData}
-                // rowAmount={rowAmountDependOnSize()}
-                rowAmount={50}
-                isMobileWidth={isMobileScreenWidth}
-              />
-            </>
+            <ResultTable
+              defaultFilteredValue={isplatiteljrkp ? isplatiteljrkp : undefined}
+              isplatiteljsFilters={isplatiteljColumnFilterItems}
+              monthFilter={monthColumnFilterItems}
+              data={tempData}
+              // rowAmount={rowAmountDependOnSize()}
+              rowAmount={50}
+              isMobileWidth={isMobileScreenWidth}
+            />
           ) : (
             <StyledFullWidthDiv $center>
               <Spin size="large" indicator={antIcon} />
@@ -368,7 +399,7 @@ function TransparencyHome() {
         </Col>
         <ResultsInfo />
       </StyledFullWidthDiv>
-      <StyledFooterContainerDiv>
+      {/* <StyledFooterContainerDiv>
         <StyledFooter>
           <p>Plavi link d.o.o., za usluge informacijskog društva</p>
           <StyledFooterLogoImg
@@ -381,7 +412,8 @@ function TransparencyHome() {
           src={`${import.meta.env.VITE_API_IMG_URL}/footerSvg.svg`}
           alt="footer image"
         />
-      </StyledFooterBgImgContainerDiv>
+      </StyledFooterBgImgContainerDiv> */}
+      <TransparencyFooter />
     </StyledMainPageContainerDiv>
   );
 }

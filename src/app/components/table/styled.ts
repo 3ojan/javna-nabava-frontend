@@ -136,10 +136,14 @@ export const StyledTableDivWrapper = styled.div`
 `
 
 export const StyledFiltersCheckboxGroup = styled(Checkbox.Group)`
-margin-bottom: 10px;
-.ant-dropdown-menu-item{
-  background-color: transparent !important;
-}
+  // margin-bottom: 10px;
+  max-height: 200px;
+  min-width: 120px;
+  display: block;
+  overflow-y: auto;
+  .ant-dropdown-menu-item{
+    background-color: transparent !important;
+  }
 `
 
 export const StyledMobileFiltersContainerDiv = styled.div`

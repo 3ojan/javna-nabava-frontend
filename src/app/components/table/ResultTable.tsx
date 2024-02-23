@@ -1,6 +1,7 @@
 import { Button, Checkbox, Dropdown, Menu, Modal, Space } from 'antd';
+import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
-import { ColumnFilterItem } from 'antd/es/table/interface';
+import { ColumnFilterItem, FilterDropdownProps } from 'antd/es/table/interface';
 import { useEffect, useRef, useState } from 'react';
 import {
   StyledCellHeightSpan,
@@ -14,7 +15,8 @@ import {
 
 interface TableData {
   data: DataType[];
-  isplatiteljsFilter: ColumnFilterItem[];
+  defaultFilteredValue: string | undefined;
+  isplatiteljsFilters: ColumnFilterItem[];
   monthFilter: ColumnFilterItem[];
   rowAmount: number;
   isMobileWidth: boolean;
@@ -51,13 +53,18 @@ export interface DataType {
   created_at: Date;
 }
 
-const onChange: TableProps<DataType>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra
-) => {
-  // console.log('params', pagination, filters, sorter, extra);
+type OnChange = NonNullable<TableProps<DataType>['onChange']>;
+type Filters = Parameters<OnChange>[1];
+
+const handleClearFilters = (clearFilters?: () => void) => {
+  // Add your custom logic here before clearing filters
+  console.log('Custom logic before clearing filters');
+
+  // Call the original clearFilters function to reset the filters
+  if (clearFilters) clearFilters();
+
+  // Additional logic after clearing filters, if needed
+  console.log('Custom logic after clearing filters');
 };
 
 export default function ResultTable(props: TableData) {
@@ -66,14 +73,117 @@ export default function ResultTable(props: TableData) {
   const [selectedDateFilterValues, setSelectedDateFilterValues] = useState<
     string[]
   >([]);
-  const [selectedIsplatiteljFilterValues, setSelectedIsplatiteljFilterValues] =
-    useState<string[]>([]);
+  const [checkedIsplatiteljFilterList, setCheckedIsplatiteljFilterList] = //selectedIsplatiteljFilterValues
+    useState<CheckboxValueType[]>([]);
   const [selectedRow, setSelectedRow] = useState<DataType | null>(null);
   const [selectedCellValue, setSelectedCellValue] = useState<string>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const tableRef = useRef(null);
+
+  const handleCheckboxChangeDate = (values: any) => {
+    setSelectedDateFilterValues(values);
+  };
+
+  const handleCheckboxChangeIsplatitelj = (values: any) => {
+    // setCheckedIsplatiteljFilterList(values);
+  };
+  const onChangeCheckbox = (list: CheckboxValueType[]) => {
+    setCheckedIsplatiteljFilterList(list);
+    // console.log('checked = ', checkedValues.target);
+    // if (checkedValues.target.checked) {
+    //   const newSelectedFilters = [
+    //     ...selectedFilters,
+    //     checkedValues.target.value,
+    //   ]  ;
+    //   setSelectedFilters(newSelectedFilters);
+  };
+
+  const filtersMenuIsplatitelj = () => (
+    <Menu>
+      <StyledFiltersCheckboxGroup
+        value={checkedIsplatiteljFilterList} //checkedIsplatiteljFilterList
+        onChange={onChangeCheckbox}
+        // defaultValue={
+        //   props.defaultFilteredValue
+        //     ? [parseInt(props.defaultFilteredValue)]
+        //     : []
+        // }
+      >
+        {props.isplatiteljsFilters.map((filter) => (
+          <Menu.Item key={filter.value as string}>
+            <Checkbox onClick={(e) => e.stopPropagation()} value={filter.value}>
+              {filter.text}
+            </Checkbox>
+          </Menu.Item>
+        ))}
+      </StyledFiltersCheckboxGroup>
+      <Space>
+        <Button onClick={() => setCheckedIsplatiteljFilterList([])}>
+          Resetiraj
+        </Button>
+      </Space>
+    </Menu>
+  );
+
+  const filtersMenuDate = () => (
+    <Menu>
+      <StyledFiltersCheckboxGroup
+        value={selectedDateFilterValues}
+        onChange={handleCheckboxChangeDate}
+      >
+        {props.monthFilter.map((filter) => (
+          <Menu.Item key={filter.value as string}>
+            <Checkbox onClick={(e) => e.stopPropagation()} value={filter.value}>
+              {filter.text}
+            </Checkbox>
+          </Menu.Item>
+        ))}
+      </StyledFiltersCheckboxGroup>
+      <Space>
+        <Button onClick={() => setSelectedDateFilterValues([])}>
+          Resetiraj
+        </Button>
+      </Space>
+    </Menu>
+  );
+
+  const CustomFilterDropdown: React.FC<FilterDropdownProps> = ({
+    setSelectedKeys,
+    selectedKeys,
+    confirm,
+    clearFilters,
+  }) => {
+    return (
+      <div style={{ padding: 8 }}>
+        {/* <Input
+          placeholder="Search text"
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          style={{ marginBottom: 8, display: 'block' }}
+        /> */}
+        {/* <Checkbox.Group options={props.isplatiteljsFilters} /> */}
+        <Button
+          type="primary"
+          onClick={() => confirm()}
+          size="small"
+          style={{ width: 90, marginRight: 8 }}
+        >
+          Search
+        </Button>
+        <Button
+          onClick={() => handleClearFilters(clearFilters)}
+          size="small"
+          style={{ width: 90 }}
+        >
+          Reset
+        </Button>
+      </div>
+    );
+  };
 
   //NOTE: Elipsis might cause problems with height or anything else really, dunno
   const columns: ColumnsType<DataType> = [
@@ -134,8 +244,10 @@ export default function ResultTable(props: TableData) {
       },
       width: '9%',
       filters: props.monthFilter,
-      onFilter: (value, record) =>
-        record.foramtedDate!.includes(value.toString()),
+      filterDropdown: filtersMenuDate(),
+
+      // onFilter: (value, record) =>
+      // record.foramtedDate!.includes(value.toString()),
     },
     {
       title: 'Isplatitelj',
@@ -145,20 +257,22 @@ export default function ResultTable(props: TableData) {
       ellipsis: {
         showTitle: true,
       },
-      // widthth: '7%',
-      filters: props.isplatiteljsFilter,
-      onFilter: (value, record) =>
-        record.isplatitelj!.includes(value.toString()),
+      filters: props.isplatiteljsFilters,
+      // defaultFilteredValue: ['RAZVOJNA AGENCIJA DARUVAR'],
+      // filteredValue: props.defaultFilteredValue
+      //   ? ([props.defaultFilteredValue] as string[])
+      //   : [],
+      // filteredValue: selectedFilters.isplatitelj,
+      filterDropdown: filtersMenuIsplatitelj(),
+      // onFilter: (value, record) =>
+      // record.isplatitelj!.includes(value.toString()),
+      //  record.isplatiteljrkp === value,
     },
     {
       title: 'Vrsta Rashoda',
       dataIndex: 'vrstarashoda',
       key: 'vrstarashoda',
       responsive: ['sm'],
-      // ellipsis: {
-      //   showTitle: true,
-      // },
-      // widthth: '7%',
       render: (text, record) => renderLimitedCellHeight('vrstarashoda', record),
     },
     {
@@ -166,7 +280,6 @@ export default function ResultTable(props: TableData) {
       dataIndex: 'primatelj',
       key: 'primatelj',
       responsive: ['sm'],
-      // widthth: '7%',
       render: (text, record) => renderLimitedCellHeight('primatelj', record),
     },
     {
@@ -187,7 +300,6 @@ export default function ResultTable(props: TableData) {
       ellipsis: {
         showTitle: true,
       },
-      // widthth: '7%',
     },
     {
       title: 'Iznos €',
@@ -207,10 +319,18 @@ export default function ResultTable(props: TableData) {
     },
   ];
 
+  // const onChange: OnChange = (pagination, filters, sorter, extra) => {
+  //   // console.log('onChangeFilter', filters);
+  //   // console.log('check for property ', 'isplatitelj' in filters);
+  //   if ('isplatitelj' in filters && filters['isplatitelj']!.length > 0) {
+  //     console.log('isplatitelj filter', filters['isplatitelj']);
+  //     setSelectedFilters(filters);
+  //   }
+  // };
+
   const renderLimitedCellHeight = (key: string, record: DataType) => (
     <StyledCellHeightSpan
       onMouseEnter={(event: any) => checkIfTextOverflowing(record, key)}
-      // onMouseLeave={handleCloseModal}
       id={key}
     >
       <div>{(record as any)[key]}</div>
@@ -220,7 +340,6 @@ export default function ResultTable(props: TableData) {
   const handleCloseModal = (event: any) => {
     const rectBounds = selectedCellElement?.getBoundingClientRect();
     if (rectBounds && checkCursorIsInModalOrSpan(event, rectBounds)) {
-      // console.log('close modal');
       closeModal();
     }
   };
@@ -275,21 +394,13 @@ export default function ResultTable(props: TableData) {
     }
   };
 
-  const handleCheckboxChangeDate = (values: any) => {
-    setSelectedDateFilterValues(values);
-  };
-
-  const handleCheckboxChangeIsplatitelj = (values: any) => {
-    setSelectedIsplatiteljFilterValues(values);
-  };
-
   const filterDataByIsplatiteljs = () => {
     if (
-      selectedIsplatiteljFilterValues &&
-      selectedIsplatiteljFilterValues.length > 0
+      checkedIsplatiteljFilterList &&
+      checkedIsplatiteljFilterList.length > 0
     ) {
-      const filteredDataSource = filteredData.filter((record: DataType) =>
-        selectedIsplatiteljFilterValues.includes(record.isplatitelj as string)
+      const filteredDataSource = props.data.filter((record: DataType) =>
+        checkedIsplatiteljFilterList.includes(record.isplatiteljrkp)
       );
       setFilteredData(filteredDataSource);
     } else {
@@ -299,7 +410,7 @@ export default function ResultTable(props: TableData) {
 
   const filterDataByDate = () => {
     if (selectedDateFilterValues && selectedDateFilterValues.length > 0) {
-      const filteredDataSource = filteredData.filter((record: DataType) =>
+      const filteredDataSource = props.data.filter((record: DataType) =>
         selectedDateFilterValues.includes(record.foramtedDate as string)
       );
       setFilteredData(filteredDataSource);
@@ -308,54 +419,9 @@ export default function ResultTable(props: TableData) {
     }
   };
 
-  const filtersMenuIsplatitelj = () => (
-    <Menu>
-      <StyledFiltersCheckboxGroup
-        style={{ display: 'block' }}
-        value={selectedIsplatiteljFilterValues}
-        onChange={handleCheckboxChangeIsplatitelj}
-      >
-        {props.isplatiteljsFilter.map((filter) => (
-          <Menu.Item key={filter.value as string}>
-            <Checkbox onClick={(e) => e.stopPropagation()} value={filter.value}>
-              {filter.text}
-            </Checkbox>
-          </Menu.Item>
-        ))}
-      </StyledFiltersCheckboxGroup>
-      <Space>
-        <Button onClick={() => setSelectedIsplatiteljFilterValues([])}>
-          Resetiraj
-        </Button>
-      </Space>
-    </Menu>
-  );
-  const filtersMenuDate = () => (
-    <Menu>
-      <StyledFiltersCheckboxGroup
-        style={{ display: 'block' }}
-        value={selectedDateFilterValues}
-        onChange={handleCheckboxChangeDate}
-      >
-        {props.monthFilter.map((filter) => (
-          <Menu.Item key={filter.value as string}>
-            <Checkbox onClick={(e) => e.stopPropagation()} value={filter.value}>
-              {filter.text}
-            </Checkbox>
-          </Menu.Item>
-        ))}
-      </StyledFiltersCheckboxGroup>
-      <Space>
-        <Button onClick={() => setSelectedDateFilterValues([])}>
-          Resetiraj
-        </Button>
-      </Space>
-    </Menu>
-  );
-
   useEffect(() => {
     filterDataByIsplatiteljs();
-  }, [selectedIsplatiteljFilterValues]);
+  }, [checkedIsplatiteljFilterList]);
 
   useEffect(() => {
     filterDataByDate();
@@ -363,9 +429,10 @@ export default function ResultTable(props: TableData) {
 
   useEffect(() => {
     setFilteredData(props.data);
-    // onMouseEnter={(e) => {
-    //   tebleRef.current = e.target as HTMLElement;
-    // }};
+    if (props.defaultFilteredValue) {
+      const defaultFitlerNumber = parseInt(props.defaultFilteredValue);
+      onChangeCheckbox([defaultFitlerNumber] as CheckboxValueType[]);
+    }
   }, [props.data]);
 
   useEffect(() => {
@@ -380,24 +447,19 @@ export default function ResultTable(props: TableData) {
   return (
     <StyledResultsTableDiv>
       {props.isMobileWidth && (
-        <>
-          <StyledMobileFiltersContainerDiv>
-            <Dropdown
-              dropdownRender={filtersMenuDate}
-              placement="bottom"
-              // trigger={['click']}
-            >
-              <Button>Filter mjeseca</Button>
-            </Dropdown>
+        <StyledMobileFiltersContainerDiv>
+          <Dropdown
+            dropdownRender={filtersMenuDate}
+            placement="bottom"
+            // trigger={['click']}
+          >
+            <Button>Filter mjeseca</Button>
+          </Dropdown>
 
-            <Dropdown
-              dropdownRender={filtersMenuIsplatitelj}
-              placement="bottom"
-            >
-              <Button>Filter Isplatitelja</Button>
-            </Dropdown>
-          </StyledMobileFiltersContainerDiv>
-        </>
+          <Dropdown dropdownRender={filtersMenuIsplatitelj} placement="bottom">
+            <Button>Filter Isplatitelja</Button>
+          </Dropdown>
+        </StyledMobileFiltersContainerDiv>
       )}
       <StyledTableDivWrapper>
         <div ref={tableRef}>
@@ -406,7 +468,7 @@ export default function ResultTable(props: TableData) {
             className="table-wrapper"
             columns={columns} //columnType
             dataSource={filteredData}
-            onChange={onChange}
+            // onChange={onChange}
             rowKey="id"
             pagination={{
               defaultPageSize: props.rowAmount,

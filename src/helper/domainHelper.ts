@@ -24,9 +24,9 @@ export const getPlaceName = ()=>{
         }
 
         //Only for local testing purposes
-        // if (placeName === "0"){
-        //     placeName = "stankovci";
-        // }
+        if (placeName === "0"){
+            placeName = "daruvar";
+        }
     }
 return placeName;
 }

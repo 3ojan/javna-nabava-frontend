@@ -21,8 +21,8 @@ export default function TransparentnostSearch(props: any) {
 
   const { availableYears, selectedYear } =
     transparencyState as TransparencyState;
-  const { Option } = Select;
-  const { Search } = Input;
+  // const { Option } = Select;
+  // const { Search } = Input;
   const { onChangeInput, currentYear, onYearChange } = props;
 
   const fillSelectYearOptions = () /* : DefaultOptionType[] */ => {
@@ -38,7 +38,6 @@ export default function TransparentnostSearch(props: any) {
     setLatestYearOption(yearOptions[0].value as string);
 
     setAvailableYearsOptions(yearOptions);
-    console.log('availableYearsOptions', availableYearsOptions);
   };
 
   useEffect(() => {
