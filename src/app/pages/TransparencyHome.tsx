@@ -399,20 +399,6 @@ function TransparencyHome() {
         </Col>
         <ResultsInfo />
       </StyledFullWidthDiv>
-      {/* <StyledFooterContainerDiv>
-        <StyledFooter>
-          <p>Plavi link d.o.o., za usluge informacijskog društva</p>
-          <StyledFooterLogoImg
-            src={`${import.meta.env.VITE_API_IMG_URL}/logoVector.svg`}
-          />
-        </StyledFooter>
-      </StyledFooterContainerDiv>
-      <StyledFooterBgImgContainerDiv>
-        <StyledFooterBgImg
-          src={`${import.meta.env.VITE_API_IMG_URL}/footerSvg.svg`}
-          alt="footer image"
-        />
-      </StyledFooterBgImgContainerDiv> */}
       <TransparencyFooter />
     </StyledMainPageContainerDiv>
   );
