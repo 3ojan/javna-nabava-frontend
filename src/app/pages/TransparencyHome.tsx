@@ -24,6 +24,7 @@ import {
   StyledMainTitleDiv,
   StyledPlaceInfoDiv,
   StyledPlaceInfoH3,
+  StyledSpinContainer,
 } from '../components/general/styled.ts';
 import TransparentnostSearch from '../components/search/TransparentnostSearch';
 import ResultTable, { DataType } from '../components/table/ResultTable';
@@ -331,56 +332,71 @@ function TransparencyHome() {
 
   return (
     <StyledMainPageContainerDiv>
-      <StyledAppHeaderDiv>
-        <StyledAppHeaderBgDiv>
-          <StyledMainTitleDiv>
-            <StyledPlaceInfoDiv>
-              <img src={grbUrl} alt="Grb opcine" />
-              <div>
-                <StyledAppTitleH1>
-                  Isplata proračunskih sredstava
-                </StyledAppTitleH1>
-                <StyledPlaceInfoH3>
-                  {opcinaData.naziv}, {opcinaData.zupanija}
-                </StyledPlaceInfoH3>
-              </div>
-            </StyledPlaceInfoDiv>
-          </StyledMainTitleDiv>
-          <StyledAppDescDiv>
-            {isMobileScreenWidth ? (
-              <Collapse items={items}></Collapse>
-            ) : (
-              <>
-                <AboutAppText />
-              </>
-            )}
-          </StyledAppDescDiv>
-        </StyledAppHeaderBgDiv>
-      </StyledAppHeaderDiv>
+      {!isDataLoaded ? (
+        <StyledSpinContainer>
+          <Spin size="large" indicator={antIcon} style={{}} />
+        </StyledSpinContainer>
+      ) : (
+        <></>
+      )}
+      {isOpcinaDataLoaded ? (
+        <StyledAppHeaderDiv>
+          <StyledAppHeaderBgDiv>
+            <StyledMainTitleDiv>
+              <StyledPlaceInfoDiv>
+                <img src={grbUrl} alt="Grb opcine" />
+                <div>
+                  <StyledAppTitleH1>
+                    Isplata proračunskih sredstava
+                  </StyledAppTitleH1>
+                  <StyledPlaceInfoH3>
+                    {opcinaData.naziv}, {opcinaData.zupanija}
+                  </StyledPlaceInfoH3>
+                </div>
+              </StyledPlaceInfoDiv>
+            </StyledMainTitleDiv>
+            <StyledAppDescDiv>
+              {isMobileScreenWidth ? (
+                <Collapse items={items}></Collapse>
+              ) : (
+                <>
+                  <AboutAppText />
+                </>
+              )}
+            </StyledAppDescDiv>
+          </StyledAppHeaderBgDiv>
+        </StyledAppHeaderDiv>
+      ) : (
+        <></>
+      )}
       <StyledFullWidthDiv $padding $background>
         <Col>
-          <StyledRow>
-            <Col xs={isMobileScreenWidth ? 18 : 8}>
-              <TransparentnostSearch
-                // onSelectYear={onSelectYear}
-                currentYear={currentYear}
-                onChangeInput={onChange}
-                onYearChange={onYearChange}
-                // yearOptions={availableYearsState}
-              />
-            </Col>
-            <Col xs={isMobileScreenWidth ? 6 : 16}>
-              <StyledExportButtonsDiv>
-                <ExportButtons
-                  csvVisible={false}
-                  xmlVisible={false}
-                  placeName={getPlaceName()}
-                  selectedYear={selectedYear}
-                  dataForExport={data}
+          {isOpcinaDataLoaded ? (
+            <StyledRow>
+              <Col xs={isMobileScreenWidth ? 18 : 8}>
+                <TransparentnostSearch
+                  // onSelectYear={onSelectYear}
+                  currentYear={currentYear}
+                  onChangeInput={onChange}
+                  onYearChange={onYearChange}
+                  // yearOptions={availableYearsState}
                 />
-              </StyledExportButtonsDiv>
-            </Col>
-          </StyledRow>
+              </Col>
+              <Col xs={isMobileScreenWidth ? 6 : 16}>
+                <StyledExportButtonsDiv>
+                  <ExportButtons
+                    csvVisible={false}
+                    xmlVisible={false}
+                    placeName={getPlaceName()}
+                    selectedYear={selectedYear}
+                    dataForExport={data}
+                  />
+                </StyledExportButtonsDiv>
+              </Col>
+            </StyledRow>
+          ) : (
+            <></>
+          )}
           {isDataLoaded ? (
             <ResultTable
               defaultFilteredValue={isplatiteljrkp ? isplatiteljrkp : undefined}
@@ -392,14 +408,16 @@ function TransparencyHome() {
               isMobileWidth={isMobileScreenWidth}
             />
           ) : (
-            <StyledFullWidthDiv $center>
-              <Spin size="large" indicator={antIcon} />
-            </StyledFullWidthDiv>
+            <></>
+            // <StyledFullWidthDiv $center>
+            // <StyledSpinContainer>
+            //   <Spin size="large" indicator={antIcon} style={{}} />
+            // </StyledSpinContainer>
           )}
         </Col>
-        <ResultsInfo />
+        {isDataLoaded ? <ResultsInfo /> : <></>}
       </StyledFullWidthDiv>
-      <TransparencyFooter />
+      {isDataLoaded ? <TransparencyFooter /> : <></>}
     </StyledMainPageContainerDiv>
   );
 }

@@ -34,6 +34,18 @@ export const StyledFullWidthDiv = styled.div<{$padding?: boolean, $center?: bool
         min-height: 100vh;
     `};
 `
+export const StyledSpinContainer = styled.div`
+    height: 100vh;
+    // width: calc(100vw - 80px);
+    width: 100vw;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    top: 0;
+`
 
 // export const StyledHeaderDiv = styled.div`
 //     margin: 40px 0 30px 0;

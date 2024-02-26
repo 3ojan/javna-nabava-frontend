@@ -25,10 +25,10 @@ export const getPlaceName = ()=>{
 
         //Only for local testing purposes
 
-        // if (placeName === "0"){
-        //     placeName = "stankovci";
-        //     placeName = "daruvar";
-        // }
+        if (placeName === "0"){
+            placeName = "stankovci";
+            // placeName = "daruvar";
+        }
     }
 return placeName;
 }
