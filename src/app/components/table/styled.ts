@@ -1,4 +1,5 @@
 import { Checkbox } from 'antd';
+import { Menu } from 'antd/lib';
 import { mobileScreenWidth } from 'src/app/global/constants';
 import { styled } from 'styled-components';
 
@@ -63,7 +64,8 @@ export const StyledTableDivWrapper = styled.div`
     table-layout: fixed !important; /* rewrite inline styles */
   }
 
-  //only for mobile
+  //need to be triggered with the antd table responsive['xs'] prop
+  //currently the responsive['xs'] is triggered at 576px
   @media (max-width: 576px) {
     .ant-table-placeholder {
       display: flex;
@@ -142,12 +144,26 @@ export const StyledTableDivWrapper = styled.div`
   }
 `;
 
+export const StyledFiltersMenuItem = styled(Menu.Item)`
+  min-width: fit-content;
+  background-color: transparent;
+  /* background-color: #f0f0f0; */
+`;
+export const StyledFiltersMenu = styled(Menu)`
+  max-width: 300px;
+  @media (max-width: 576px) {
+    width: 300px;
+    overflow: auto;
+    margin-right: 10px;
+  }
+`;
+
 export const StyledFiltersCheckboxGroup = styled(Checkbox.Group)`
-  // margin-bottom: 10px;
   max-height: 200px;
-  min-width: 120px;
   display: block;
-  overflow-y: auto;
+  overflow: auto;
+  /* overflow-x: scroll; */
+
   .ant-dropdown-menu-item {
     background-color: transparent !important;
   }
