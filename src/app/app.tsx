@@ -20,6 +20,11 @@ export default function App() {
           /* fontFamily: 'Abhaya Libre', */
           fontSize: 14, //antd font size, theme font size
         },
+        components: {
+          Menu: {
+            itemActiveBg: 'rgba(0, 0, 0, 0)',
+          },
+        },
       }} //changes the global font
     >
       <ContextProvider>

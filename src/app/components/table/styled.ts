@@ -151,6 +151,7 @@ export const StyledFiltersMenuItem = styled(Menu.Item)`
 `;
 export const StyledFiltersMenu = styled(Menu)`
   max-width: 300px;
+  padding: 4px;
   @media (max-width: 576px) {
     width: 300px;
     overflow: auto;

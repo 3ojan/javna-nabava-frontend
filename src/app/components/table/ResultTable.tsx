@@ -104,15 +104,12 @@ export default function ResultTable(props: TableData) {
   };
 
   const filtersMenuIsplatitelj = () => (
-    <StyledFiltersMenu>
+    <StyledFiltersMenu
+      selectedKeys={checkedIsplatiteljFilterList.map((num) => num.toString())}
+    >
       <StyledFiltersCheckboxGroup
-        value={checkedIsplatiteljFilterList} //checkedIsplatiteljFilterList
+        value={checkedIsplatiteljFilterList}
         onChange={handleCheckboxChangeIsplatiteljFilter}
-        // defaultValue={
-        //   props.defaultFilteredValue
-        //     ? [parseInt(props.defaultFilteredValue)]
-        //     : []
-        // }
       >
         {props.isplatiteljsFilters.map((filter) => (
           <StyledFiltersMenuItem key={filter.value as string}>
