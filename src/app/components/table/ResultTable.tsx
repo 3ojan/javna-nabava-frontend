@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import {
   StyledCellHeightSpan,
   StyledFiltersCheckboxGroup,
+  StyledFiltersMenu,
+  StyledFiltersMenuItem,
   StyledMobileFiltersContainerDiv,
   StyledMobileRow,
   StyledMobileTdDividerLine,
@@ -102,7 +104,7 @@ export default function ResultTable(props: TableData) {
   };
 
   const filtersMenuIsplatitelj = () => (
-    <Menu>
+    <StyledFiltersMenu>
       <StyledFiltersCheckboxGroup
         value={checkedIsplatiteljFilterList} //checkedIsplatiteljFilterList
         onChange={handleCheckboxChangeIsplatiteljFilter}
@@ -113,11 +115,11 @@ export default function ResultTable(props: TableData) {
         // }
       >
         {props.isplatiteljsFilters.map((filter) => (
-          <Menu.Item key={filter.value as string}>
+          <StyledFiltersMenuItem key={filter.value as string}>
             <Checkbox onClick={(e) => e.stopPropagation()} value={filter.value}>
               {filter.text}
             </Checkbox>
-          </Menu.Item>
+          </StyledFiltersMenuItem>
         ))}
       </StyledFiltersCheckboxGroup>
       <Space>
@@ -125,7 +127,7 @@ export default function ResultTable(props: TableData) {
           Resetiraj
         </Button>
       </Space>
-    </Menu>
+    </StyledFiltersMenu>
   );
 
   const filtersMenuDate = () => (
@@ -451,7 +453,11 @@ export default function ResultTable(props: TableData) {
             <Button>Filter mjeseca</Button>
           </Dropdown>
 
-          <Dropdown dropdownRender={filtersMenuIsplatitelj} placement="bottom">
+          <Dropdown
+            dropdownRender={filtersMenuIsplatitelj}
+            placement="bottom"
+            // overlayStyle={{ width: 'max-content' }}
+          >
             <Button>Filter Isplatitelja</Button>
           </Dropdown>
         </StyledMobileFiltersContainerDiv>
