@@ -82,14 +82,15 @@ export default function ResultTable(props: TableData) {
 
   const tableRef = useRef(null);
 
-  const handleCheckboxChangeDate = (values: any) => {
+  const handleCheckboxChangeDateFilter = (values: any) => {
     setSelectedDateFilterValues(values);
   };
 
-  const handleCheckboxChangeIsplatitelj = (values: any) => {
-    // setCheckedIsplatiteljFilterList(values);
-  };
-  const onChangeCheckbox = (list: CheckboxValueType[]) => {
+  // const handleCheckboxChangeIsplatitelj = (values: any) => {
+  //   // setCheckedIsplatiteljFilterList(values);
+  // };
+
+  const handleCheckboxChangeIsplatiteljFilter = (list: CheckboxValueType[]) => {
     setCheckedIsplatiteljFilterList(list);
     // console.log('checked = ', checkedValues.target);
     // if (checkedValues.target.checked) {
@@ -104,7 +105,7 @@ export default function ResultTable(props: TableData) {
     <Menu>
       <StyledFiltersCheckboxGroup
         value={checkedIsplatiteljFilterList} //checkedIsplatiteljFilterList
-        onChange={onChangeCheckbox}
+        onChange={handleCheckboxChangeIsplatiteljFilter}
         // defaultValue={
         //   props.defaultFilteredValue
         //     ? [parseInt(props.defaultFilteredValue)]
@@ -131,7 +132,7 @@ export default function ResultTable(props: TableData) {
     <Menu>
       <StyledFiltersCheckboxGroup
         value={selectedDateFilterValues}
-        onChange={handleCheckboxChangeDate}
+        onChange={handleCheckboxChangeDateFilter}
       >
         {props.monthFilter.map((filter) => (
           <Menu.Item key={filter.value as string}>
@@ -394,44 +395,38 @@ export default function ResultTable(props: TableData) {
     }
   };
 
-  const filterDataByIsplatiteljs = () => {
+  const filterDataTable = () => {
+    let filteredDataSource = props.data;
+
     if (
       checkedIsplatiteljFilterList &&
       checkedIsplatiteljFilterList.length > 0
     ) {
-      const filteredDataSource = props.data.filter((record: DataType) =>
+      filteredDataSource = filteredDataSource.filter((record: DataType) =>
         checkedIsplatiteljFilterList.includes(record.isplatiteljrkp)
       );
-      setFilteredData(filteredDataSource);
-    } else {
-      setFilteredData(props.data);
     }
-  };
 
-  const filterDataByDate = () => {
     if (selectedDateFilterValues && selectedDateFilterValues.length > 0) {
-      const filteredDataSource = props.data.filter((record: DataType) =>
+      filteredDataSource = filteredDataSource.filter((record: DataType) =>
         selectedDateFilterValues.includes(record.foramtedDate as string)
       );
-      setFilteredData(filteredDataSource);
-    } else {
-      setFilteredData(props.data);
     }
+
+    setFilteredData(filteredDataSource);
   };
 
   useEffect(() => {
-    filterDataByIsplatiteljs();
-  }, [checkedIsplatiteljFilterList]);
-
-  useEffect(() => {
-    filterDataByDate();
-  }, [selectedDateFilterValues]);
+    filterDataTable();
+  }, [selectedDateFilterValues, checkedIsplatiteljFilterList]);
 
   useEffect(() => {
     setFilteredData(props.data);
     if (props.defaultFilteredValue) {
       const defaultFitlerNumber = parseInt(props.defaultFilteredValue);
-      onChangeCheckbox([defaultFitlerNumber] as CheckboxValueType[]);
+      handleCheckboxChangeIsplatiteljFilter([
+        defaultFitlerNumber,
+      ] as CheckboxValueType[]);
     }
   }, [props.data]);
 

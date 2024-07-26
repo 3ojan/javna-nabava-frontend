@@ -6,9 +6,8 @@ import { DataType } from 'src/app/components/table/ResultTable.js';
 import { getPlaceName } from 'src/helper/domainHelper.js';
 import axiosClient from '../../axios-client.js';
 
-
 export interface TransparencyState {
-  data: DataType[] ;//| null
+  data: DataType[]; //| null
   loading: boolean;
   errorMessage: string | null;
   searchValue: string;
@@ -21,11 +20,10 @@ export interface TransparencyState {
 }
 
 export interface RootState {
-  trasparency: TransparencyState
+  trasparency: TransparencyState;
   searchValue: string;
   // selectedYear: string;
   errorMessage: string | null;
-
 }
 
 interface LocationInfo {
@@ -56,18 +54,18 @@ interface Transparency {
 const slice = createSlice({
   name: 'transparency',
   initialState: {
-    data: [], 
+    data: [],
     loading: false,
     errorMessage: null,
-    searchValue: "",
+    searchValue: '',
     isDataLoaded: false,
-    selectedYear: "", //new Date().getFullYear().toString(),
+    selectedYear: '', //new Date().getFullYear().toString(),
     availableYears: [],
     isOpcinaDataLoaded: false,
     opcinaData: {} as LocationInfo,
-  } as  TransparencyState,
+  } as TransparencyState,
   reducers: {
-    loadSuccess: (state, action: PayloadAction< DataType[]>) => {
+    loadSuccess: (state, action: PayloadAction<DataType[]>) => {
       return {
         ...state,
         isDataLoaded: true,
@@ -76,7 +74,7 @@ const slice = createSlice({
       };
 
       // state.data = action.payload;
-      //   state.error = null; 
+      //   state.error = null;
       // Reset error on login success
     },
     loadOpcina: (state, action: PayloadAction<LocationInfo>) => {
@@ -84,21 +82,24 @@ const slice = createSlice({
         ...state,
         isOpcinaDataLoaded: true,
         opcinaData: action.payload,
-      }
+      };
     },
     loadYears: (state, action: PayloadAction<any>) => {
       // console.log(action.payload)
-      const availableYears = action.payload.map((year: any) => String(year.godina));
+      const availableYears = action.payload.map((year: any) =>
+        String(year.godina)
+      );
       return {
         ...state,
         selectedYear: availableYears[0],
         availableYears: availableYears,
         // selectedYear: availableYears[0], //data is sorted by year desc b4 returning to frontend
-      }
+      };
     },
-    onChangeSearchBarValue: (state, action: PayloadAction<string>) => { //PayloadAction<Transparency>
+    onChangeSearchBarValue: (state, action: PayloadAction<string>) => {
+      //PayloadAction<Transparency>
       state.searchValue = action.payload;
-    }, 
+    },
     onChangeSelectYear: (state, action: PayloadAction<string>) => {
       state.selectedYear = action.payload;
     },
@@ -107,75 +108,80 @@ const slice = createSlice({
 export default slice.reducer;
 
 // Actions
-const { loadSuccess, loadOpcina, loadYears, onChangeSearchBarValue, onChangeSelectYear} = slice.actions;
+const {
+  loadSuccess,
+  loadOpcina,
+  loadYears,
+  onChangeSearchBarValue,
+  onChangeSelectYear,
+} = slice.actions;
 
-export const getData = (placeName: string, year: string): ThunkAction<Promise<void>, RootState, void, AnyAction> => async dispatch => {
-  try {
-    //this is temporary, needs to work for strings that do not have "opcina-" in front
-    const res = await axiosClient.get(`/${placeName}/transparentnost?year=` + year);
+export const getData =
+  (
+    placeName: string,
+    year: string
+  ): ThunkAction<Promise<void>, RootState, void, AnyAction> =>
+  async (dispatch) => {
+    try {
+      const res = await axiosClient.get(
+        `/${placeName}/transparentnost?year=` + year
+      );
 
-    dispatch(loadSuccess(res.data));
-  } catch (e: any) {
-    console.log(e);
-  }
-};
+      dispatch(loadSuccess(res.data));
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
-export const getSearchData = (placeName: string, year: string, value: string) => async (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  try {
-    const res = await axiosClient.get(`/${placeName}/transparentnost?year=` + year + '&keyword=' + value);
-    dispatch(loadSuccess(res.data));
-  } catch (e: any) {
-    console.log(e);
-  }
-};
+export const getSearchData =
+  (placeName: string, year: string, value: string) =>
+  async (dispatch: ThunkDispatch<TransparencyState, void, AnyAction>) => {
+    try {
+      const res = await axiosClient.get(
+        `/${placeName}/transparentnost?year=` + year + '&keyword=' + value
+      );
+      dispatch(loadSuccess(res.data));
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
-export const getOpcineData = (/* placeName: string */) => async (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  try {
-    const res = await axiosClient.get(`/opcine/${getPlaceName()}`);
+export const getOpcineData =
+  (/* placeName: string */) =>
+  async (dispatch: ThunkDispatch<TransparencyState, void, AnyAction>) => {
+    try {
+      const res = await axiosClient.get(`/opcine/${getPlaceName()}`);
 
-    // console.log("Resource data", res.data)
-    dispatch(loadOpcina(res.data));
-  } catch (e: any) {
-    console.log(e);
-  }
-};
+      // console.log("Resource data", res.data)
+      dispatch(loadOpcina(res.data));
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
-export const getAvailableYearsData = (placeName: string) => async (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  try {
-    const res = await axiosClient.get(`/${placeName}/transparentnost/godinePodataka`);
+export const getAvailableYearsData =
+  (placeName: string) =>
+  async (dispatch: ThunkDispatch<TransparencyState, void, AnyAction>) => {
+    try {
+      const res = await axiosClient.get(
+        `/${placeName}/transparentnost/godinePodataka`
+      );
 
-    // console.log(res.data)
-    dispatch(loadYears(res.data));
-  } catch (e: any) {
-    console.log(e);
-  }
-};
-// export const getData = ({ pagination }: { pagination: any }) => async (
-//   dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-// ) => {
-// try {
-//   const res = await axios.post(`....someUrlTo/Load`, { pagination });
-//   dispatch(loadSuccess(res.data));
-// } catch (e: any) {
-//   // dispatch(loginFailure(e.message)); // Dispatch loginFailure with the error message
-// }
-// }
+      // console.log(res.data)
+      dispatch(loadYears(res.data));
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
+export const changeSearchBarValue =
+  (value: string) =>
+  (dispatch: ThunkDispatch<TransparencyState, void, AnyAction>) => {
+    dispatch(onChangeSearchBarValue(value));
+  };
 
-export const changeSearchBarValue = (value: string) => (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  dispatch(onChangeSearchBarValue(value));
-};
-
-export const changeSelectedYearValue = (value: string) => (
-  dispatch: ThunkDispatch<TransparencyState, void, AnyAction>
-) => {
-  dispatch(onChangeSelectYear(value));
-};
+export const changeSelectedYearValue =
+  (value: string) =>
+  (dispatch: ThunkDispatch<TransparencyState, void, AnyAction>) => {
+    dispatch(onChangeSelectYear(value));
+  };
