@@ -233,6 +233,8 @@ export default function ResultTable(props: TableData) {
           </StyledMobileRow>
         </>
       ),
+      //triggers on about 576px
+      //there is ant-table-placeholder which needs to be triggered with this
       responsive: ['xs'],
     },
     {
@@ -470,6 +472,7 @@ export default function ResultTable(props: TableData) {
               pageSizeOptions: [/* 7, 10, */ 15, 20, 50, 100],
               showSizeChanger: true,
             }}
+            // locale={{ emptyText: <EmptyPlaceHolder /> }}
           />
         </div>
         {isModalVisible && (
