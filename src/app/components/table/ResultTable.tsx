@@ -1,5 +1,5 @@
 import { Button, Checkbox, Dropdown, Menu, Modal, Space } from 'antd';
-import { CheckboxValueType } from 'antd/es/checkbox/Group';
+// import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import Table, { ColumnsType, TableProps } from 'antd/es/table';
 import { ColumnFilterItem, FilterDropdownProps } from 'antd/es/table/interface';
 import { useEffect, useRef, useState } from 'react';
@@ -74,7 +74,7 @@ export default function ResultTable(props: TableData) {
     string[]
   >([]);
   const [checkedIsplatiteljFilterList, setCheckedIsplatiteljFilterList] = //selectedIsplatiteljFilterValues
-    useState<CheckboxValueType[]>([]);
+    useState<number[]>([]);
   const [selectedRow, setSelectedRow] = useState<DataType | null>(null);
   const [selectedCellValue, setSelectedCellValue] = useState<string>();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -90,7 +90,7 @@ export default function ResultTable(props: TableData) {
   //   // setCheckedIsplatiteljFilterList(values);
   // };
 
-  const handleCheckboxChangeIsplatiteljFilter = (list: CheckboxValueType[]) => {
+  const handleCheckboxChangeIsplatiteljFilter = (list: any[]) => {
     setCheckedIsplatiteljFilterList(list);
     // console.log('checked = ', checkedValues.target);
     // if (checkedValues.target.checked) {
@@ -405,7 +405,7 @@ export default function ResultTable(props: TableData) {
       checkedIsplatiteljFilterList.length > 0
     ) {
       filteredDataSource = filteredDataSource.filter((record: DataType) =>
-        checkedIsplatiteljFilterList.includes(record.isplatiteljrkp)
+        checkedIsplatiteljFilterList.includes(parseInt(record.isplatiteljrkp))
       );
     }
 
@@ -426,9 +426,7 @@ export default function ResultTable(props: TableData) {
     setFilteredData(props.data);
     if (props.defaultFilteredValue) {
       const defaultFitlerNumber = parseInt(props.defaultFilteredValue);
-      handleCheckboxChangeIsplatiteljFilter([
-        defaultFitlerNumber,
-      ] as CheckboxValueType[]);
+      handleCheckboxChangeIsplatiteljFilter([defaultFitlerNumber]);
     }
   }, [props.data]);
 
